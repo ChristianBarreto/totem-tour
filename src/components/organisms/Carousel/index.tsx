@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
 import { Link } from "react-router-dom";
 
 const carouselItens = [
@@ -26,7 +26,7 @@ const carouselItens = [
 
 export default function HeroCarousel() {
   const carouselRef = useRef(new Array(carouselItens.length));
-  const initialized = useRef(false)
+  const initialized = useRef(false);
 
   let index = 0;
   const scrollCarousel = () => {
@@ -46,26 +46,37 @@ export default function HeroCarousel() {
     return () => {
       clearInterval(intervalId);
     }
-  }, [])
+  }, []);
 
  return (
-    <>
-      <div className="carousel h-full">
+  <div className="h-full w-full">
+    <Link to="/store">
+      <div className="carousel h-full w-full">
         {carouselItens.map((item, index) => (
           <div key={item.id} id={`slide${item.id}`} ref={el => carouselRef.current[index] = el} className="carousel-item relative w-full">
-            <Link to="/store">
+            
               <img
                 src={require('./slide1.jpg')}
-                className="h-full"
+                className="h-full object-center"
+                style={{ marginRight: 'auto'}}
               />
-              <div className="bg-red" >
-                <p>ASdas</p>
-              </div>
-            </Link>
           </div>
         ))}
-  
       </div>
-    </>
+      <div className="flex flex-col justify-center p-10 items-center opacity-90" style={{marginTop: '-700px'}}>
+        <div className="card bg-success text-primary-content p-10">
+          <div className="card-body">
+            <p className="text-6xl">Os melhores passeios da região</p>
+            <div className="card-actions justify-center">
+              <button className="btn p-12 mt-8 animate-bounce">
+                <p className="text-5xl text-success" style={{marginTop: '-25px'}}>Reserve aqui!</p>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Link>
+  </div>
+
   )
 }
