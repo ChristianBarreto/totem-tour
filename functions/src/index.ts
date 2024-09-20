@@ -1,19 +1,28 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * import {onCall} from "firebase-functions/v2/https";
- * import {onDocumentWritten} from "firebase-functions/v2/firestore";
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+// const {logger} = require("firebase-functions");
+const { onRequest } = require('firebase-functions/v2/https');
+const { initializeApp } = require('firebase-admin/app');
+const { getFirestore } = require('firebase-admin/firestore');
+const express = require('express');
+const app = express();
 
-import {onRequest} from "firebase-functions/v2/https";
-import * as logger from "firebase-functions/logger";
+import { Request, Response } from "express";
 
-// Start writing functions
-// https://firebase.google.com/docs/functions/typescript
 
-// export const helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+initializeApp();
+const db = getFirestore()
+
+
+app.get('/products', async (req: Request, res: Response) => {
+  const snapshot = await db.collection('products').get();
+  const data: any[] = [];
+  snapshot.forEach((doc: any) => {
+    data.push({id: doc.id, ...doc.data()})
+  });
+  console.log(data);
+  res.json(data)
+});
+
+
+exports.totem = onRequest(app);
+
+
