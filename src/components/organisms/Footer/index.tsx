@@ -4,7 +4,7 @@ export function Footer() {
   return (
     <div className="bg-neutral-600 flex justify-between">
       <div className="p-10">
-        <button className="btn btn-lg btn-outline">
+        <button className="btn btn-lg btn-outline" style={{ color: 'white'}}>
           <IconRowBack />
           <p className="text-3xl">Apagar carrinho</p>
         </button>

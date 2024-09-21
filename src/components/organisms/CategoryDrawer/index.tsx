@@ -1,10 +1,17 @@
 import { ReactElement } from "react"
 import CategoryCard from "../../molecules/CategoryCard"
+import { Cities } from "../../../api"
 
 export function CategoryDrawer({
-  children
+  children,
+  cities,
+  selectedCity,
+  setSelectedCity,
 }: {
-  children: ReactElement
+  children: ReactElement,
+  cities: Cities,
+  selectedCity: string,
+  setSelectedCity: (id: string) => void,
 }) {
   return (
     <div className="drawer lg:drawer-open h-full">
@@ -22,8 +29,9 @@ export function CategoryDrawer({
             <p className="text-4xl text-neutral-600">Escolha a cidade</p>
           </div>
           <ul className="p-4">
-            <li><a><CategoryCard /></a></li>
-            <li><a><CategoryCard /></a></li>
+            {cities.map((city) => (
+              <CategoryCard key={city.id} city={city} setSelectedCity={setSelectedCity} selectedCity={selectedCity} />
+            ))}
           </ul>
         </ul>
       </div>

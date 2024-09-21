@@ -1,20 +1,22 @@
 import { Link } from "react-router-dom"
+import { Product } from "../../../api"
 
-export default function ProductCard() {
+export default function ProductCard({
+  product
+}: {
+  product: Product
+}) {
   return (
     <Link to="#">
       <div className="card card-compact bg-base-100 w-80 shadow-xl">
         <figure>
           <img
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+            src={product.imgUrl}
             alt="Shoes" />
         </figure>
         <div className="card-body">
-          <h2 className="card-title">Shoes!</h2>
-          <p>If a dog chews shoes whose shoes does he choose?</p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
-          </div>
+          <h2 className="card-title">{product.name}</h2>
+          <p>{product.description}</p>
         </div>
       </div>
     </Link>
