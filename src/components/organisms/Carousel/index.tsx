@@ -54,7 +54,6 @@ export default function HeroCarousel() {
       <div className="carousel h-full w-full">
         {carouselItens.map((item, index) => (
           <div key={item.id} id={`slide${item.id}`} ref={el => carouselRef.current[index] = el} className="carousel-item relative w-full">
-            
               <img
                 src={require('./slide1.jpg')}
                 className="h-full object-center"
@@ -64,12 +63,12 @@ export default function HeroCarousel() {
         ))}
       </div>
       <div className="flex flex-col justify-center p-10 items-center opacity-90" style={{marginTop: '-700px'}}>
-        <div className="card bg-success text-primary-content p-10">
+        <div className="card bg-primary text-primary-content p-10">
           <div className="card-body">
-            <p className="text-6xl">Os melhores passeios da região</p>
+            <p className="text-6xl text-base-100">Os melhores passeios da região</p>
             <div className="card-actions justify-center">
               <button className="btn p-12 mt-8 animate-bounce">
-                <p className="text-5xl text-success" style={{marginTop: '-25px'}}>Reserve aqui!</p>
+                <p className="text-5xl text-primary" style={{marginTop: '-25px'}}>Reserve aqui!</p>
               </button>
             </div>
           </div>
