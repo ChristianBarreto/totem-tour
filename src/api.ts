@@ -20,10 +20,14 @@ export type Product = {
 
 export type Products = Product[];
 
-const urlPrefix = 'http://127.0.0.1:5001/totem-tour/us-central1/totem';
+const baseUrl = process.env.NODE_ENV === 'production'
+   ? 'https://totem-2id4w5fuzq-uc.a.run.app'
+   : 'http://127.0.0.1:5001/totem-tour/us-central1/totem'
+
+console.log(process.env)
 
 export const getProducts = async (): Promise<Products | void> => {
-  const data = axios.get<Products>(`${urlPrefix}/products`)
+  const data = axios.get<Products>(`${baseUrl}/products`)
     .then((res) => {
       return res.data;
     })
@@ -35,7 +39,7 @@ export const getProducts = async (): Promise<Products | void> => {
 }
 
 export const getCities = async (): Promise<Cities | void> => {
-  const data = axios.get<Products>(`${urlPrefix}/cities`)
+  const data = axios.get<Products>(`${baseUrl}/cities`)
     .then((res) => {
       return res.data;
     })
