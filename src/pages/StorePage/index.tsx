@@ -13,11 +13,11 @@ export default function StorePage() {
   useEffect(() => {
     getProducts().then((productsResp) => {
       getCities().then((citiesResp) => {
-        setCities(citiesResp);
-        setProducts(productsResp);
-        
-      });
-    });
+        console.log("ASDASDAS")
+        setCities(citiesResp as Cities);
+        setProducts(productsResp as Products);
+      })
+    })
   }, []);
 
   useEffect(() => {
@@ -25,6 +25,8 @@ export default function StorePage() {
       setSelectedCity(cities[0].id)
     }
   }, [cities])
+
+  console.log(products)
   
   return (
     <div className={styles.container}>

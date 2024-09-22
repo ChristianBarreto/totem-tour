@@ -22,18 +22,26 @@ export type Products = Product[];
 
 const urlPrefix = 'http://127.0.0.1:5001/totem-tour/us-central1/totem';
 
-export const getProducts = async (): Promise<Products> => {
+export const getProducts = async (): Promise<Products | void> => {
   const data = axios.get<Products>(`${urlPrefix}/products`)
     .then((res) => {
       return res.data;
     })
+    .catch((err) => {
+      console.log("API ERROR", err)
+      return [];
+    })
   return data;
 }
 
-export const getCities = async (): Promise<Cities> => {
+export const getCities = async (): Promise<Cities | void> => {
   const data = axios.get<Products>(`${urlPrefix}/cities`)
     .then((res) => {
       return res.data;
+    })
+    .catch((err) => {
+      console.log("API ERROR", err)
+      return [];
     })
   return data;
 }
