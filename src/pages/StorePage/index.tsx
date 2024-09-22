@@ -13,7 +13,6 @@ export default function StorePage() {
   useEffect(() => {
     getProducts().then((productsResp) => {
       getCities().then((citiesResp) => {
-        console.log("ASDASDAS")
         setCities(citiesResp as Cities);
         setProducts(productsResp as Products);
       })
@@ -25,8 +24,6 @@ export default function StorePage() {
       setSelectedCity(cities[0].id)
     }
   }, [cities])
-
-  console.log(products)
   
   return (
     <div className={styles.container}>

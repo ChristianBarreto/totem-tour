@@ -24,7 +24,7 @@ const baseUrl = process.env.NODE_ENV === 'production'
    ? 'https://totem-2id4w5fuzq-uc.a.run.app'
    : 'http://127.0.0.1:5001/totem-tour/us-central1/totem'
 
-console.log(process.env)
+console.log(process.env.NODE_ENV)
 
 export const getProducts = async (): Promise<Products | void> => {
   const data = axios.get<Products>(`${baseUrl}/products`)
