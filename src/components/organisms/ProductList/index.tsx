@@ -9,7 +9,6 @@ export default function ProductList({
   products: Products,
   selectedCity: string,
 }) {
-  console.log(products)
   return (
     <div className={`bg-white ${styles.container}`}>
       <div className="flex justify-center">
