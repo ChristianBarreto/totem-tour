@@ -23,7 +23,7 @@ export function CategoryDrawer({
         {children}
       </div>
 
-      <div className="">      
+      {/* <div className="">      
         <ul className="menu text-base-content w-80 p-0">
           <div className="bg-neutral-content p-2 flex justify-center">
             <p className="text-4xl text-neutral-600">Escolha a cidade</p>
@@ -34,7 +34,7 @@ export function CategoryDrawer({
             ))}
           </ul>
         </ul>
-      </div>
+      </div> */}
     </div>
   )
 }

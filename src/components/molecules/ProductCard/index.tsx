@@ -8,7 +8,7 @@ export default function ProductCard({
 }) {
   return (
     <Link to="#">
-      <div className="card card-compact bg-base-100 w-80 shadow-xl">
+      <div className="card card-compact bg-base-100  shadow-xl w-full md:w-80">
         <figure>
           <img
             src={product.imgUrl}

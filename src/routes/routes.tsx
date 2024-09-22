@@ -7,7 +7,17 @@ import StorePage from "../pages/StorePage";
 
 export const rawRoutes = [
   {
-    path: "/",
+    path: '/',
+    element: <StoreTemplate />,
+    children: [
+      {
+        index: true,
+        element: <StorePage />
+      }
+    ]
+  },
+  {
+    path: "/totem",
     element: <HeroTemplate />,
     children: [
       {
@@ -17,16 +27,6 @@ export const rawRoutes = [
     ],
     
   },
-  {
-    path: '/store',
-    element: <StoreTemplate />,
-    children: [
-      {
-        index: true,
-        element: <StorePage />
-      }
-    ]
-  }
 ]
 
 export const routes = createBrowserRouter(rawRoutes);
