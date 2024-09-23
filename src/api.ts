@@ -22,7 +22,7 @@ export type Products = Product[];
 
 const axiosParams = {
   headers: {
-    'Access-Control-Allow-Origin': 'https://totem-2id4w5fuzq-uc.a.run.app/'
+    // 'Access-Control-Allow-Origin': 'https://totem-2id4w5fuzq-uc.a.run.app/'
   }
 }
 
