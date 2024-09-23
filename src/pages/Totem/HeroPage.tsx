@@ -1,4 +1,4 @@
-import HeroCarousel from "../components/organisms/Carousel";
+import HeroCarousel from "../../components/organisms/Carousel";
 
 export default function HeroPage() {
   return (

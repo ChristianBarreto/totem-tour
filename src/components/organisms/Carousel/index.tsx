@@ -50,7 +50,7 @@ export default function HeroCarousel() {
 
  return (
   <div className="h-full w-full">
-    <Link to="/store">
+    <Link to="/totem/store">
       <div className="carousel h-full w-full">
         {carouselItens.map((item, index) => (
           <div key={item.id} id={`slide${item.id}`} ref={el => carouselRef.current[index] = el} className="carousel-item relative w-full">

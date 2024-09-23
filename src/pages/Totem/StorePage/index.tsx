@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { CategoryDrawer } from "../../components/organisms/CategoryDrawer";
-import ProductList from "../../components/organisms/ProductList";
+import { CategoryDrawer } from "../../../components/organisms/CategoryDrawer";
+import ProductList from "../../../components/organisms/ProductList";
 import styles from './StorePage.module.css';
-import { Cities, getCities, getProducts, Products } from "../../api";
-import CartModal from "../../components/organisms/CartModal";
+import { Cities, getCities, getProducts, Products } from "../../../api";
+import CartModal from "../../../components/organisms/CartModal";
 
 export default function StorePage() {
   const [products, setProducts] = useState<Products>([]);
