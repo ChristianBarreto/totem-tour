@@ -8,13 +8,7 @@ import StorePage from "../pages/Totem/StorePage";
 export const rawRoutes = [
   {
     path: '/',
-    element: <StoreTemplate />,
-    children: [
-      {
-        index: true,
-        element: <StorePage />
-      }
-    ]
+    element: <StorePage />
   },
   {
     path: "/totem",

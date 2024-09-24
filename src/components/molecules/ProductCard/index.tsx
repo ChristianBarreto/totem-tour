@@ -1,14 +1,22 @@
 import { Link } from "react-router-dom"
 import { Product } from "../../../api"
+import { useState } from "react"
+import ProductModal from "../../organisms/ProductModal";
 
 export default function ProductCard({
-  product
+  product,
+  setCartOpen,
 }: {
-  product: Product
+  product: Product,
+  setCartOpen: (value: boolean) => void,
 }) {
+  const [productModalOpen, setProductModalOpen] = useState(false)
+
   return (
-    <Link to="#">
-      <div className="card card-compact bg-base-100  shadow-xl w-full md:w-80">
+    <>
+      <ProductModal product={product} open={productModalOpen} setOpen={setProductModalOpen} setCartOpen={setCartOpen}/>
+      <span>
+      <div className="card card-compact bg-base-100  shadow-xl w-full md:w-80" onClick={() => setProductModalOpen(true)}>
         <figure>
           <img
             src={product.imgUrl}
@@ -19,7 +27,8 @@ export default function ProductCard({
           <p>{product.description}</p>
         </div>
       </div>
-    </Link>
-    
+    </span>
+    </>
+
   )
 }

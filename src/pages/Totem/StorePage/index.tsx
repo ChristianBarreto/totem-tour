@@ -4,6 +4,8 @@ import ProductList from "../../../components/organisms/ProductList";
 import styles from './StorePage.module.css';
 import { Cities, getCities, getProducts, Products } from "../../../api";
 import CartModal from "../../../components/organisms/CartModal";
+import Header from "../../../components/organisms/Header";
+import Footer from "../../../components/organisms/Footer";
 
 export default function StorePage() {
   const [products, setProducts] = useState<Products>([]);
@@ -24,12 +26,29 @@ export default function StorePage() {
       setSelectedCity(cities[0].id)
     }
   }, [cities])
-  
+  const [cartOpen, setCartOpen] = useState(false)
+
+  console.log(cartOpen)
+
   return (
     <div className={styles.container}>
-      <CategoryDrawer cities={cities} selectedCity={selectedCity} setSelectedCity={setSelectedCity} >
-        <ProductList products={products} selectedCity={selectedCity} />
-      </CategoryDrawer>
+      <Header setCartOpen={setCartOpen} />
+      <CartModal cartOpen={cartOpen} setCartOpen={setCartOpen} />
+      <div >
+        <CategoryDrawer
+          cities={cities}
+          selectedCity={selectedCity}
+          setSelectedCity={setSelectedCity}
+        >
+          <ProductList
+            products={products}
+            selectedCity={selectedCity}
+            setCartOpen={setCartOpen}
+          />
+        </CategoryDrawer>
+        <Footer setCartOpen={setCartOpen} />
+      </div>
     </div>
+   
   )
 }

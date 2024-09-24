@@ -16,6 +16,13 @@ export type Product = {
   description: string,
   cityId: string,
   imgUrl: string,
+  netPrice: number,
+  partnerComm: number,
+  companyComm: number,
+  pricePerPerson: number,
+  minTotalPrice: number,
+  maxPeople: number,
+  minPriceDescription: string,
 }
 
 export type Products = Product[];
