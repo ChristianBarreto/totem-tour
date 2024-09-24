@@ -23,6 +23,9 @@ export type Product = {
   minTotalPrice: number,
   maxPeople: number,
   minPriceDescription: string,
+  details: string,
+  time: string,
+  location: string
 }
 
 export type Products = Product[];

@@ -21,40 +21,12 @@ import { StarIcon } from '@heroicons/react/20/solid'
 import { Product } from '../../../api'
 import { IconCart } from '../../atoms/IconCart'
 import QtySelector from '../../molecules/QtySelector'
+import ProductDetails from '../../atoms/ProductDetails'
+import DateSelector from '../../molecules/DateSelector'
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
-
-const desc = `
-A embarcação Discover oferece o passeio mais animado de Arraial do Cabo. Uma linda embarcação com 2 andares, com toda estrutura e segurança. 
-
-Pontos de Parada pra banho ou vista panorâmica:
-- Prainhas do Pontal do Atalaia
-- Praia da Ilha do Farol
-- Gruta Azul
-- Fenda de Nossa Senhora da Assunção
-- Pedra do Gorila
-- Impacto do Meteorito
-- Enseada da Praia do Forno
-
-Estrutura oferecida na embarcação:
-- Banheiros masculino e feminino
-- Wi-Fi liberado
-- Bar e cozinha a bordo
-- Bote inflável para desembarque nas praias
-- Água mineral inclusa durante todo passeio
-- Flutuadores disponíveis para mergulho
-- Aluguel de snorkel
-- Serviço de fotografia disponível (à parte)
-- Equipamentos de segurança
-- Embarcação vistoriada e licenciada pela Marinha do Brasil
-
-Observações: 
-- Desembarque na Ilha do Farol é limitado à 250 pessoas por vez e está sujeito à autorização da Marinha do Brasil
-- O roteiro está sujeito à alterações ou cancelamento devido à condições climáticas ou impostas pela Marinha do Brasil
-- Taxa de embarque de R$5,00 por pessoa na Marina dos Pescadores não está incluso nessa reserva
-`
 
 export default function ProductModal({
   product,
@@ -109,21 +81,23 @@ export default function ProductModal({
 
                   <section aria-labelledby="information-heading" className="mt-2">
                     <p className='text-xl mb-4'>
-                      <span className='font-bold'>Descrição: </span>
                       {product.description}
                     </p>
 
-                    <p style={{whiteSpace: 'pre-wrap'}}>{desc}</p>
+                    {product.details && <ProductDetails text={product.details} />}
 
-
-                    <p className='text-xl mb-4'>
-                      <span className='font-bold'>Local: </span>
-                      {product.description}
-                    </p>
+                    <div className='mb-4'>
+                      <p className='text-xl'>
+                        <span className='font-bold'>Local: </span>
+                        {product.location}
+                      </p>
+                      <p className='text-neutral-400'>(você receberá a localização exata por Email/WhatsApp)</p>
+                    </div>
+                    
 
                     <p className='text-xl mb-4'>
                       <span className='font-bold'>Horário: </span>
-                      {product.description}
+                      {product.time}
                     </p>
 
                     {product.minTotalPrice && (
@@ -134,7 +108,11 @@ export default function ProductModal({
                       </p>
                     )}
 
-                    <QtySelector qty={qty} setQty={setQty} maxQty={10} disabled={false} />
+                    <div>
+                      <DateSelector />
+                      <QtySelector qty={qty} setQty={setQty} maxQty={10} disabled={false} />
+                    </div>
+
                     
                   </section>
 

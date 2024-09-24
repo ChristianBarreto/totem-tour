@@ -1,0 +1,11 @@
+.container {
+  margin-bottom: 20px;
+}
+.hidden {
+  height: 62px;
+  overflow-y: hidden;
+}
+.paragraph {
+  white-space: pre-wrap;
+}
+
