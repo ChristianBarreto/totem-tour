@@ -13,25 +13,26 @@ export default function ProductDetails({
   return (
     <div className={`${styles.container}`}>
       <div >
-        <p className={styles.paragraph}>
+        <div className={styles.paragraph}>
           <div className={`${hidden && styles.hidden}`}><span className='font-bold'>Detalhes: </span> {text}</div>
-        </p>
+        </div>
       </div>
       <div className='flex justify-center'> 
-        <button
-          className='text-blue-600'
-          onClick={() => setHidden(!hidden)}
-        >
-          {hidden ? (
-            <button className="btn btn-circle btn-sm btn-outline mt-3 text-neutral-500 animate-pulse">
-              <IconChevronDown />
-            </button>
-          ):(
-            <button className="btn btn-circle btn-sm btn-outline text-neutral-500 animate-pulse">
-              <IconChevronUp />
-            </button>
-          )}
-        </button>
+        {hidden ? (
+          <button
+            className="btn btn-circle btn-sm btn-outline mt-3 text-neutral-500 animate-pulse"
+            onClick={() => setHidden(!hidden)}  
+          >
+            <IconChevronDown />
+          </button>
+        ):(
+          <button
+            className="btn btn-circle btn-sm btn-outline text-neutral-500 animate-pulse"
+            onClick={() => setHidden(!hidden)}  
+          >
+            <IconChevronUp />
+          </button>
+        )}
       </div>
 
     </div>

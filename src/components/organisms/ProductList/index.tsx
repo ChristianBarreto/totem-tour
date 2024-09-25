@@ -17,9 +17,12 @@ export default function ProductList({
       <div className="flex justify-center">
         
         <div className="flex flex-wrap justify-start itens-start gap-6 p-6">
-          {products.filter((prod) => prod.cityId === selectedCity).map((product) => (
-            <ProductCard key={product.id} product={product} setCartOpen={setCartOpen}/>
-          ))}
+          {products
+            .filter((prod) => prod.cityId === selectedCity)
+            .sort((a, b) => a.priority - b.priority)
+            .map((product) => (
+              <ProductCard key={product.id} product={product} setCartOpen={setCartOpen}/>
+            ))}
         </div>
       </div>
     </div>

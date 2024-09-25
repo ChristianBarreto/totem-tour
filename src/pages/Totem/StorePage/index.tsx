@@ -28,8 +28,6 @@ export default function StorePage() {
   }, [cities])
   const [cartOpen, setCartOpen] = useState(false)
 
-  console.log(cartOpen)
-
   return (
     <div className={styles.container}>
       <Header setCartOpen={setCartOpen} />

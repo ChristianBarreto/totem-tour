@@ -38,6 +38,24 @@ app.get("/cities", async (req: Request, res: Response) => {
   res.json(data);
 });
 
+app.get("/availabilities/:productId", async (req: Request, res: Response) => {
+  const snapshot = await db.collection("availabilities")
+    .where('productId', '==', req.params.productId)
+    .where('active', '==', true)
+    .where("availability", ">", 0)
+    .where("remaining", ">", 0)
+    .orderBy("date")
+    .get();
+
+  const data: any[] = [];
+
+  snapshot.forEach((doc: any) => {
+    data.push({id: doc.id, ...doc.data()});
+  });
+
+  res.json(data);
+});
+
 
 exports.totem = onRequest(app);
 

@@ -14,19 +14,23 @@
 */
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, Radio, RadioGroup } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { StarIcon } from '@heroicons/react/20/solid'
-import { Product } from '../../../api'
+import { Availabilities, Availabilitiy, getAvailabilitiesByProduct, Product } from '../../../api'
 import { IconCart } from '../../atoms/IconCart'
 import QtySelector from '../../molecules/QtySelector'
 import ProductDetails from '../../atoms/ProductDetails'
 import DateSelector from '../../molecules/DateSelector'
+import PriceDisplay from '../../molecules/PriceDisplay'
+import AlertMaxRound from '../../molecules/AlertMaxRound'
 
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(' ')
-}
+
+const options = [
+  {date: '2024-09-25'},
+  {date: '2024-09-26'},
+  {date: '2024-09-27'},
+]
 
 export default function ProductModal({
   product,
@@ -39,14 +43,38 @@ export default function ProductModal({
   setOpen: (value: boolean) => void,
   setCartOpen: (value: boolean) => void,
 }) {
-  const [qty, setQty] = useState(0)
-  const [date, setDate] = useState('');
+  const [availabilities, setAvailabilities] = useState<Availabilities>([]);
+  const [availability, setAvailability] = useState<Availabilitiy | null>(null);
+  const [qty, setQty] = useState(0);
+  const [maxRound, setMaxRound] = useState(false);
+
+  useEffect(() => {
+    getAvailabilitiesByProduct(product.id)
+    .then((data) =>{
+      setAvailabilities(data as Availabilities)
+    })
+  }, [])
 
   const handleAdd = () => {
     setOpen(false);
     setCartOpen(true);
   }
 
+  const qtySelectorDisable = availability === null;
+  const addCartDisabled = qty === 0;
+
+  let price = 0;
+
+  if (qty < 1) {
+    price = 0;
+  } else {
+    if ((qty * product.pricePerPerson < product.minTotalPrice)) {
+      price = product.minTotalPrice;
+    } else if ((qty * product.pricePerPerson >= product.minTotalPrice)) {
+      price = qty * product.pricePerPerson;
+    }
+  }
+  console.log(maxRound)
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
       <DialogBackdrop
@@ -104,22 +132,36 @@ export default function ProductModal({
                       <p className='text-xl mb-4'>
                         <span className='font-bold'>Valor: </span>
                         R${product.minTotalPrice},00 
-                        ({product.minPriceDescription})
+                        <span className='text-neutral-400 pl-2 text-base'>({product.minPriceDescription})</span>
                       </p>
                     )}
 
-                    <div>
-                      <DateSelector />
-                      <QtySelector qty={qty} setQty={setQty} maxQty={10} disabled={false} />
+                    <div className='flex justify-around mb-4'>
+                      <DateSelector
+                        setAvailability={setAvailability}
+                        availabilities={availabilities}
+                      />
+                      <QtySelector
+                        qty={qty}
+                        setQty={setQty}
+                        maxPerRound={product.maxPerRound}
+                        remaining={availability?.remaining}
+                        disabled={qtySelectorDisable}
+                        setMaxRound={setMaxRound}
+                      />
                     </div>
 
+                    {maxRound && <AlertMaxRound setMaxRound={setMaxRound}/>}
                     
+                    <PriceDisplay price={price} />
+
                   </section>
 
                   <section aria-labelledby="options-heading" className="mt-10">
                    <button
-                      className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-indigo-200"
                       onClick={handleAdd}
+                      disabled={addCartDisabled}
                     >
                       <IconCart size={10}/>
                       <p className='text-3xl pl-3'>Adicionar ao carrinho</p>
