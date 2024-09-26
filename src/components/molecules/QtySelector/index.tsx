@@ -19,7 +19,6 @@ export default function QtySelector({
 
   const handlePlus = () => {
     if(qty === maxPerRound) {
-      console.log("MAXXX")
       setMaxRound(true);
     } 
     if (qty < maxPerRound) {

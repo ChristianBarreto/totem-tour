@@ -74,7 +74,7 @@ export default function ProductModal({
       price = qty * product.pricePerPerson;
     }
   }
-  console.log(maxRound)
+
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
       <DialogBackdrop
@@ -152,7 +152,7 @@ export default function ProductModal({
                     </div>
 
                     {maxRound && <AlertMaxRound setMaxRound={setMaxRound}/>}
-                    
+
                     <PriceDisplay price={price} />
 
                   </section>
