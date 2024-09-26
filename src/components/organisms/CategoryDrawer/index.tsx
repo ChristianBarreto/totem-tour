@@ -2,6 +2,7 @@ import { ReactElement } from "react"
 import CategoryCard from "../../molecules/CategoryCard"
 import { Cities } from "../../../api"
 import styles from './CategoryDrawer.module.css';
+import CardSkeleton from "../../atoms/CardSkeleton";
 
 export function CategoryDrawer({
   children,
@@ -30,6 +31,9 @@ export function CategoryDrawer({
             <p className="text-4xl text-neutral-500">Escolha a cidade</p>
           </div>
           <ul className="p-4">
+            {!cities.length && (
+              <CardSkeleton width={65}/>
+            )}
             {cities.map((city) => (
               <CategoryCard key={city.id} city={city} setSelectedCity={setSelectedCity} selectedCity={selectedCity} />
             ))}

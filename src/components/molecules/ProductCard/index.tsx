@@ -16,7 +16,7 @@ export default function ProductCard({
     <>
       {productModalOpen && <ProductModal product={product} open={productModalOpen} setOpen={setProductModalOpen} setCartOpen={setCartOpen}/>}
       <span>
-      <div className="card card-compact bg-base-100  shadow-xl w-full md:w-80" onClick={() => setProductModalOpen(true)}>
+      <div className="card card-compact bg-base-100 shadow-xl w-full md:w-80" onClick={() => setProductModalOpen(true)}>
         <figure>
           <img
             src={product.imgUrl}
