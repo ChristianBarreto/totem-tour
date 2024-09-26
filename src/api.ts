@@ -39,6 +39,22 @@ export type Availabilitiy = {
   remaining: number,
 }
 
+export type PurchaseItem = {
+  productId: string,
+  qty: number,
+  netPrice: number,
+  partnerComm: number,
+  companyComm: number,
+  pricePerPerson: number,
+  minTotalPrice: number,
+  totalPrice: number,
+}
+
+export type Purchase = {
+  products: PurchaseItem[];
+  
+}
+
 export type Availabilities = Availabilitiy[];
 
 export type Products = Product[];
