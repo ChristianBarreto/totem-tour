@@ -1,6 +1,7 @@
 import { ReactElement } from "react"
 import CategoryCard from "../../molecules/CategoryCard"
 import { Cities } from "../../../api"
+import styles from './CategoryDrawer.module.css';
 
 export function CategoryDrawer({
   children,
@@ -23,10 +24,10 @@ export function CategoryDrawer({
         {children}
       </div>
 
-      {/* <div className="">      
+      <div className={`bg-amber-100 ${styles.container}`}>      
         <ul className="menu text-base-content w-80 p-0">
-          <div className="bg-neutral-content p-2 flex justify-center">
-            <p className="text-4xl text-neutral-600">Escolha a cidade</p>
+          <div className="bg-amber-200 p-2 flex justify-center">
+            <p className="text-4xl text-neutral-500">Escolha a cidade</p>
           </div>
           <ul className="p-4">
             {cities.map((city) => (
@@ -34,7 +35,7 @@ export function CategoryDrawer({
             ))}
           </ul>
         </ul>
-      </div> */}
+      </div>
     </div>
   )
 }

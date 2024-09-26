@@ -1,6 +1,10 @@
-import IconRowBack from "../../atoms/IconRowBack";
+import  IconRowBack from "../../atoms/IconRowBack";
 
-export function Footer() {
+export default function Footer({
+  setCartOpen,
+}: {
+  setCartOpen: (value: boolean) => void
+}) {
   return (
     <div className="bg-neutral-600 flex justify-between">
       <div className="p-10">
@@ -9,7 +13,7 @@ export function Footer() {
           <p className="text-3xl">Apagar carrinho</p>
         </button>
       </div>
-      <div className="bg-orange-600 p-10">
+      <div className="bg-orange-600 p-10" onClick={() => setCartOpen(true)}>
         <p className="btn btn-lg btn-ghost text-5xl text-base-100">Reservar</p>
       </div>
     </div>
