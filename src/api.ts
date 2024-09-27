@@ -48,11 +48,13 @@ export type PurchaseItem = {
   pricePerPerson: number,
   minTotalPrice: number,
   totalPrice: number,
+  date: string,
+  location: string,
 }
 
 export type Purchase = {
   products: PurchaseItem[];
-  
+  cartPrice: number,
 }
 
 export type Availabilities = Availabilitiy[];

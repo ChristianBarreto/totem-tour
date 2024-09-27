@@ -17,13 +17,14 @@
 import { useEffect, useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, Radio, RadioGroup } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { Availabilities, Availabilitiy, getAvailabilitiesByProduct, Product } from '../../../api'
+import { Availabilities, Availabilitiy, getAvailabilitiesByProduct, Product, PurchaseItem } from '../../../api'
 import { IconCart } from '../../atoms/IconCart'
 import QtySelector from '../../molecules/QtySelector'
 import ProductDetails from '../../atoms/ProductDetails'
 import DateSelector from '../../molecules/DateSelector'
 import PriceDisplay from '../../molecules/PriceDisplay'
 import AlertMaxRound from '../../molecules/AlertMaxRound'
+import { useCart } from '../../../context/CartContext'
 
 
 const options = [
@@ -47,6 +48,9 @@ export default function ProductModal({
   const [availability, setAvailability] = useState<Availabilitiy | null>(null);
   const [qty, setQty] = useState(0);
   const [maxRound, setMaxRound] = useState(false);
+  
+  // @ts-expect-error: TODO: fix type of context
+  const [, dispatch] = useCart();
 
   useEffect(() => {
     getAvailabilitiesByProduct(product.id)
@@ -56,8 +60,24 @@ export default function ProductModal({
   }, [])
 
   const handleAdd = () => {
-    setOpen(false);
-    setCartOpen(true);
+    if (availability) {
+      const currentProduct: PurchaseItem = {
+        productId: product.id,
+        qty: qty,
+        netPrice: product.netPrice,
+        partnerComm: product.partnerComm,
+        companyComm: product.companyComm,
+        pricePerPerson: product.pricePerPerson,
+        minTotalPrice: product.minTotalPrice,
+        totalPrice: price,
+        date: availability?.date,
+        location: product.location
+      }
+  
+      dispatch({type: 'addToCart', product: currentProduct})
+      setOpen(false);
+      setCartOpen(true);
+    }
   }
 
   const qtySelectorDisable = availability === null;

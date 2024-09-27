@@ -5,6 +5,8 @@ import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
 
 import { routes } from './routes/routes';
+import { CartProvider } from './context/CartContext';
+import InteractionManagement from './components/atoms/InteractionManagement';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,7 +14,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={routes} />
+    <CartProvider>
+      <RouterProvider router={routes} />
+    </CartProvider>
   </React.StrictMode>
 );
 

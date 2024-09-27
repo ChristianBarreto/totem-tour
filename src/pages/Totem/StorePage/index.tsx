@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CategoryDrawer } from "../../../components/organisms/CategoryDrawer";
 import ProductList from "../../../components/organisms/ProductList";
 import styles from './StorePage.module.css';
@@ -18,7 +18,7 @@ export default function StorePage() {
         setCities(citiesResp as Cities);
         setProducts(productsResp as Products);
       })
-    })
+    })    
   }, []);
 
   useEffect(() => {
@@ -26,12 +26,13 @@ export default function StorePage() {
       setSelectedCity(cities[0].id)
     }
   }, [cities])
+
   const [cartOpen, setCartOpen] = useState(false)
 
   return (
     <div className={styles.container}>
       <Header setCartOpen={setCartOpen} />
-      <CartModal cartOpen={cartOpen} setCartOpen={setCartOpen} />
+      <CartModal cartOpen={cartOpen} setCartOpen={setCartOpen} products={products} />
       <div >
         <CategoryDrawer
           cities={cities}

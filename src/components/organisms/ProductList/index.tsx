@@ -1,4 +1,5 @@
 import { Products } from "../../../api"
+import CardSkeleton from "../../atoms/CardSkeleton"
 import ProductCard from "../../molecules/ProductCard"
 import styles from './ProductList.module.css'
 
@@ -17,6 +18,14 @@ export default function ProductList({
       <div className="flex justify-center">
         
         <div className="flex flex-wrap justify-start itens-start gap-6 p-6">
+          {!products.length && (
+            <>
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+            </>
+          )}
           {products
             .filter((prod) => prod.cityId === selectedCity)
             .sort((a, b) => a.priority - b.priority)
