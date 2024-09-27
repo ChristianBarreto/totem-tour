@@ -5,6 +5,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useCart } from '../../../context/CartContext'
 import { Products } from '../../../api'
 import IconTrash from '../../atoms/IconTrash'
+import { useNavigate } from 'react-router-dom'
 
 export default function CartModal({
   cartOpen,
@@ -17,6 +18,7 @@ export default function CartModal({
 }) {
     // @ts-expect-error: TODO: fix type of context
   const [cart, dispatch] = useCart();
+  const navigate = useNavigate();
 
   return (
     <Dialog open={cartOpen} onClose={setCartOpen} className="relative z-10">
@@ -112,6 +114,7 @@ export default function CartModal({
                     <button
                       className="btn w-full bg-orange-600 px-6 py-3 text-base text-white shadow-sm hover:bg-orange-500 disabled:bg-organge-200"
                       disabled={!cart.products.length}
+                      onClick={() => navigate("/totem/checkout")}
                     >
                       Reservar
                     </button>
