@@ -3,6 +3,7 @@ import HeroTemplate from "../pages/templates/HeroTemplate";
 import HeroPage from "../pages/Totem/HeroPage";
 import StoreTemplate from "../pages/templates/StoreTemplate";
 import StorePage from "../pages/Totem/StorePage";
+import CheckoutPage from "../pages/Totem/CheckoutPage";
 
 
 export const rawRoutes = [
@@ -29,6 +30,11 @@ export const rawRoutes = [
         element: <StorePage />
       }
     ]
+  },
+  {
+    path: "/totem/checkout",
+    element: <CheckoutPage />,
+    
   },
 ]
 
