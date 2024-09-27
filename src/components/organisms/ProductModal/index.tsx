@@ -1,17 +1,3 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -25,13 +11,6 @@ import DateSelector from '../../molecules/DateSelector'
 import PriceDisplay from '../../molecules/PriceDisplay'
 import AlertMaxRound from '../../molecules/AlertMaxRound'
 import { useCart } from '../../../context/CartContext'
-
-
-const options = [
-  {date: '2024-09-25'},
-  {date: '2024-09-26'},
-  {date: '2024-09-27'},
-]
 
 export default function ProductModal({
   product,
