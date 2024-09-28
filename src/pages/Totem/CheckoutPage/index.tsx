@@ -5,6 +5,8 @@ import IconRowBack from "../../../components/atoms/IconRowBack";
 import UserInfoForm from "../../../components/molecules/UserInfoForm";
 import { useNavigate } from "react-router-dom";
 import { checkoutFieldValidation } from "../../../helpers";
+import UserTermsForm from "../../../components/molecules/UserTermsForm";
+import UserPaymentForm from "../../../components/molecules/UserPaymentForm";
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
@@ -45,7 +47,7 @@ export default function CheckoutPage() {
         return false;
       }
     }
-    return true;
+    return false; // TODO: mudar para false para produção
   }
 
   const nextDisabled = handleNextDisabled();
@@ -57,8 +59,8 @@ export default function CheckoutPage() {
         
         <div className="grow pt-28">
           {count === 1 && (<UserInfoForm userData={userData} setUserData={setUserData} />)}
-          {count === 2 && (<p>Info</p>)}
-          {count === 3 &&(<p>Pag</p>)}
+          {count === 2 && (<UserTermsForm />)}
+          {count === 3 && (<UserPaymentForm />)}
         </div>
 
         <div className="flex justify-between">

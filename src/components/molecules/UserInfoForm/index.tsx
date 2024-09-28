@@ -93,7 +93,7 @@ export default function UserInfoForm({
     <div
       className="flex flex-col justify-center gap-8"
     >
-      <p className="text-4xl text-neutral-400 pb-8 text-center">Digite seus dados para enviarmos todas as informações:</p>
+      <p className="text-4xl text-primary pb-8 text-center">Digite seus dados para enviarmos todas as informações:</p>
 
       <div className="flex justify-center">
         <div className="flex flex-col gap-4 w-3/4">
