@@ -9,7 +9,8 @@ export const checkoutFieldValidation = (inputName: string, value: string) => {
     .match(
       /^[a-zA-Z]+( [a-zA-Z]+)+$/
     );
-  } else if (inputName === 'email') {
+  } else 
+  if (inputName === 'email') {
     return String(value)
     .toLowerCase()
     .match(
