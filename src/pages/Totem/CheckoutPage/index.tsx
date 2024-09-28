@@ -58,7 +58,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="flex justify-center">
-      <div className="p-10 flex flex-col justify-between">
+      <div className="p-10 flex flex-col justify-between w-3/4">
         <CheckoutSequence sequence={sequence} />
         
         {count === 1 && (<UserInfoForm userData={userData} setUserData={setUserData} />)}

@@ -1,15 +1,18 @@
-import { FormEvent, SyntheticEvent, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import IconEmail from "../../atoms/IconEmail"
 import IconPhone from "../../atoms/IconPhone"
 import IconUser from "../../atoms/IconUser"
-import { isValidEmail, isValidName, isValidPhone, PhoneMask } from "../../../helpers"
-import IconTrash from "../../atoms/IconTrash"
+import { checkoutFieldValidation, PhoneMask } from "../../../helpers"
+import Keyboard from "react-simple-keyboard";
+import 'react-simple-keyboard/build/css/index.css';
 
 type UserData = {
   name: string,
   email: string,
   phone: string,
 }
+
+type InputNames = 'name' | 'email' | 'phone'
 
 export default function UserInfoForm({
   userData,
@@ -20,51 +23,73 @@ export default function UserInfoForm({
 }) {
 
   const [formErrors, setFormErrors] = useState({
-    name: '',
-    email: '',
-    phone: '', 
+    name: {isValid: false, isError: false, errorMessage: 'Escreva seu nome completo.'},
+    email: {isValid: false, isError: false, errorMessage: 'Favor informar um email válido.'},
+    phone: {isValid: false, isError: false, errorMessage: 'Favor informar um telefone válido.'},
   })
+  const [selectedInput, setSelectedInput] = useState('name');
 
-  const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
-    const { name, value } = e.currentTarget;
-    if (name === 'phone'){
-      setUserData({...userData, [name]: PhoneMask(value)})
-    } else {
-      setUserData({...userData, [name]: value})
+  const [layoutName, setLayoutName] = useState("default");  
+  const nameRef = useRef<HTMLInputElement>(null)
+  const keyboard = useRef();
+
+  const handleShift = () => {
+    const newLayoutName = layoutName === "default" ? "shift" : "default";
+    setLayoutName(newLayoutName);
+  };
+
+  const onChangeAll = (inputs: any) => {
+    if ((userData.name !== undefined) && (userData.name !== inputs.name)) {
+      handleInputChange('name', inputs['name']);
+
+    } else if ((userData.email !== undefined) && (userData.email !== inputs.email)) {
+      handleInputChange('email', inputs['email']);
+
+    } else if ((userData.phone !== undefined) && (userData.phone !== inputs.phone)) {
+      handleInputChange('phone', inputs['phone']);
+
     }
+  };
 
+  const handleInputChange = (inputName: InputNames, value: string) => {
+    if (inputName === 'phone'){
+      setUserData({...userData, [inputName]: PhoneMask(value)})
+    } else {
+      setUserData({...userData, [inputName]: value})
+    }
+    validateField(inputName, value);
+  }
 
-    if (name === 'name' && !isValidName(value)) {
+  const validateField = (inputName: InputNames, value: string) => {
+    if (checkoutFieldValidation(inputName, value)) {
       setFormErrors({
         ...formErrors,
-        name: 'Escreva seu nome completo',
-      });
-    } else if (name === 'email' && !isValidEmail(value)) {
-      setFormErrors({
-        ...formErrors,
-        email: 'Favor informar um email válido.',
-      });
-    } else if (name === 'phone' && !isValidPhone(PhoneMask(value))) {
-      setFormErrors({
-        ...formErrors,
-        phone: 'Favor informar um telefone válido.',
+        [inputName]: {...formErrors[inputName], isValid: true, isError: false},
       });
     } else {
       setFormErrors({
         ...formErrors,
-        [name]: '', // Reset error message
+        [inputName]: {...formErrors[inputName], isValid: false, isError: true},
       });
     }
   }
+ 
+  useEffect(() => {
+    nameRef.current?.focus();
+  }, [])
 
   return (
     <form
       className="flex flex-col gap-2"
     >
-      
-      <div className="join w-full">
-        <div className={`input input-bordered flex items-center gap-2 join-item w-full ${formErrors.name && 'input-error'}`}>
-          <IconUser />
+      <div className="w-full">
+        <div className={`
+          input input-bordered  flex items-center gap-2 w-full
+          ${formErrors.name.isValid && 'input-primary'}
+          ${formErrors.name.isError && 'input-error'}
+          ${(selectedInput === 'name') && 'bg-yellow-100'}
+        `}>
+          <IconUser />  
           <input
             type="text"
             className="grow"
@@ -72,18 +97,21 @@ export default function UserInfoForm({
             required
             name="name"
             value={userData.name}
-            onChange={handleInputChange}
+            onFocus={(e) => setSelectedInput('name')}
+            ref={nameRef}
           />  
         </div>
-        <button className="btn btn-outline join-item text-red-600 hover:bg-red-400 hover:border-red-400" onClick={() => setUserData({...userData, name: ""})}>
-          <IconTrash />
-        </button>
       </div>
-      {formErrors.name && <p className="text-red-500">{formErrors.name}</p>}
+      {formErrors.name.isError ? (<p className="text-red-500">{formErrors.name.errorMessage}</p>) : <br className="pb-4"/>}
 
-      <div className="join w-full">
-        <div className={`input input-bordered flex items-center gap-2 join-item w-full ${formErrors.email && 'input-error'}`}>
-          <IconUser />
+      <div className="w-full">
+        <div className={
+          `input input-bordered flex items-center gap-2 w-full 
+          ${formErrors.email.isValid && 'input-primary'}
+          ${formErrors.email.isError && 'input-error'}
+          ${(selectedInput === 'email') && 'bg-yellow-100'}
+        `}>
+          <IconEmail />
           <input
             type="text"
             className="grow"
@@ -91,18 +119,20 @@ export default function UserInfoForm({
             required
             name="email"
             value={userData.email}
-            onChange={handleInputChange}
+            onFocus={(e) => setSelectedInput('email')}
           />  
         </div>
-        <button className="btn btn-outline join-item text-red-600 hover:bg-red-400 hover:border-red-400" onClick={() => setUserData({...userData, email: ""})}>
-          <IconTrash />
-        </button>
       </div>
-      {formErrors.email && <p className="text-red-500">{formErrors.email}</p>}
+      {formErrors.email.isError ? (<p className="text-red-500">{formErrors.email.errorMessage}</p>) : <br className="pb-4"/>}
 
-      <div className="join w-full">
-        <div className={`input input-bordered flex items-center gap-2 join-item w-full ${formErrors.phone && 'input-error'}`}>
-          <IconUser />
+      <div className="w-full">
+        <div className={`
+          input input-bordered flex items-center gap-2 w-full 
+          ${formErrors.phone.isValid && 'input-primary'}
+          ${formErrors.phone.isError && 'input-error'}
+          ${(selectedInput === 'phone') && 'bg-yellow-100'}  
+        `}>
+          <IconPhone />
           <input
             type="text"
             className="grow"
@@ -110,15 +140,21 @@ export default function UserInfoForm({
             required
             name="phone"
             value={userData.phone}
-            onChange={handleInputChange}
+            onFocus={(e) => setSelectedInput('phone')}
           />  
         </div>
-        <button className="btn btn-outline join-item text-red-600 hover:bg-red-400 hover:border-red-400" onClick={() => setUserData({...userData, phone: ""})}>
-          <IconTrash />
-        </button>
       </div>
-      {formErrors.phone && <p className="text-red-500">{formErrors.phone}</p>}
+      {formErrors.phone.isError ? (<p className="text-red-500">{formErrors.phone.errorMessage}</p>) : <br className="pb-4"/>}
 
+      <Keyboard
+        keyboardRef={r => (keyboard.current = r)}
+        inputName={selectedInput}
+        layoutName={layoutName}
+        onChangeAll={onChangeAll}
+        onKeyPress={(button) => {if (button === "{shift}" || button === "{lock}") handleShift();}}
+      />
+  
+      <br />
     </form>
   )
 }
