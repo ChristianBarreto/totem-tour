@@ -4,6 +4,7 @@ import IconArrowRight from "../../../components/atoms/IconArrawRight";
 import IconRowBack from "../../../components/atoms/IconRowBack";
 import UserInfoForm from "../../../components/molecules/UserInfoForm";
 import { useNavigate } from "react-router-dom";
+import { checkoutFieldValidation } from "../../../helpers";
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function CheckoutPage() {
     name: '',
     email: '',
     phone: '',
-  })
+  });
 
   const [count, setCount] = useState(1);
 
@@ -34,53 +35,54 @@ export default function CheckoutPage() {
     )
   }
 
-  const handleBack = () => {
-    count === 1 && navigate('/totem/store');
-    if (count > 1) {
-      setCount(count-1)
-      setSequence(
-        sequence.map((item) => {
-          if (item.id === count-1) {
-            return {...item, active: false}
-          }
-          return item;
-        })
-      )
+  const handleNextDisabled = () => {
+    if (count === 1) {
+      if (
+        !!checkoutFieldValidation('name', userData.name)
+          && !!checkoutFieldValidation('email', userData.email)
+          && !!checkoutFieldValidation('phone', userData.phone)
+        ){
+        return false;
+      }
     }
+    return true;
   }
+
+  const nextDisabled = handleNextDisabled();
 
   return (
     <div className="flex justify-center">
-      <div className="p-10 flex flex-col justify-between w-3/4">
+      <div className="p-10 flex flex-col w-full">
         <CheckoutSequence sequence={sequence} />
         
-        {count === 1 && (<UserInfoForm userData={userData} setUserData={setUserData} />)}
-        {count === 2 && (<p>Info</p>)}
-        {count === 3 &&(<p>Pag</p>)}
+        <div className="grow pt-28">
+          {count === 1 && (<UserInfoForm userData={userData} setUserData={setUserData} />)}
+          {count === 2 && (<p>Info</p>)}
+          {count === 3 &&(<p>Pag</p>)}
+        </div>
 
-        
         <div className="flex justify-between">
           <button
-            className="btn btn-lg btn-warning"
+            className="btn btn-lg bg-neutral-400"
             style={{ color: 'white'}}
-            onClick={handleBack}
+            onClick={() => navigate('/totem/store')}
           >
             <IconRowBack />
-            {count === 1 && (<p className="text-3xl">Voltar à compra</p>)}
-            {count > 1 && (<p className="text-3xl">Voltar</p>)}
+            <p className="text-3xl">Voltar à compra</p>
           </button>
+
           {(count !== 3) && (
             <button
               className="btn btn-lg btn-primary"
               style={{ color: 'white'}}
               onClick={handleNext}
               type='submit'
+              disabled={nextDisabled}
             >
               <p className="text-3xl">Próximo</p>
               <IconArrowRight />
             </button>
           )}
-
         </div>
       </div>
     </div>
