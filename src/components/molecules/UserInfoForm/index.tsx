@@ -35,9 +35,18 @@ export default function UserInfoForm({
   const nameRef = useRef<HTMLInputElement>(null)
   const keyboard = useRef();
 
-  const handleShift = () => {
-    const newLayoutName = layoutName === "default" ? "shift" : "default";
-    setLayoutName(newLayoutName);
+  const handleShift = (button: string) => {
+    if (button === "{shift}") {
+      setLayoutName(layoutName === "default" ? "shift" : "default");
+      return;
+    } 
+    
+    if (button === "{lock}") {
+      setLayoutName(layoutName === "default" ? "shift" : "default");
+      return;
+    };
+
+    setLayoutName('default')
   };
 
   const onChangeAll = (inputs: any) => {
@@ -84,7 +93,7 @@ export default function UserInfoForm({
     <div
       className="flex flex-col justify-center gap-8"
     >
-      <p className="text-4xl text-neutral-400 pb-8 text-center">Digite seus dados para enviarmos todas as informações:</p>
+      <p className="text-4xl text-primary pb-8 text-center">Digite seus dados para enviarmos todas as informações:</p>
 
       <div className="flex justify-center">
         <div className="flex flex-col gap-4 w-3/4">
@@ -170,7 +179,7 @@ export default function UserInfoForm({
         inputName={selectedInput}
         layoutName={layoutName}
         onChangeAll={onChangeAll}
-        onKeyPress={(button) => {if (button === "{shift}" || button === "{lock}") handleShift();}}
+        onKeyPress={(button) => handleShift(button)}
       />
   
       <br />
