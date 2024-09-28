@@ -4,13 +4,6 @@ import IconArrowRight from "../../../components/atoms/IconArrawRight";
 import IconRowBack from "../../../components/atoms/IconRowBack";
 import UserInfoForm from "../../../components/molecules/UserInfoForm";
 import { useNavigate } from "react-router-dom";
-import { useForm, SubmitHandler } from "react-hook-form"
-
-type UserData = {
-  name: string,
-  email: string,
-  phone: string,
-}
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
