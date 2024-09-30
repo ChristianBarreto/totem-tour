@@ -143,7 +143,7 @@ export default function PaymentPix({
             <PaymentPixSuccess />
           )}
 
-          {paymentStatus.captured ? ( // change to paymentStatus.captured to prod
+          {!paymentStatus.captured ? ( // change to paymentStatus.captured to prod
             <button className="btn" onClick={() => setPayOption(0)}>Voltar aos meios de pagamento</button>
           ): (
             <button className="btn" onClick={redirectToInitial}>Encerrar do totem</button>
