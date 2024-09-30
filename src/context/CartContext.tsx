@@ -1,4 +1,4 @@
-import { createContext, Dispatch, ReactNode, Reducer, useContext, useReducer } from "react";
+import { createContext, ReactNode, Reducer, useContext, useReducer } from "react";
 import { Purchase, PurchaseItem } from "../api";
 
 type ACTIONTYPE =
@@ -9,6 +9,13 @@ type ACTIONTYPE =
 const initialPurchase = {
   cartPrice: 0,
   products: [],
+  customerData: {
+    name: '',
+    email: '',
+    phone: '',
+  },
+  paymentMethod: '',
+  acceptedTerms: false,
 };
 
 const CartContext = createContext({});

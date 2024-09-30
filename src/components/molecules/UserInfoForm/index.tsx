@@ -8,7 +8,7 @@ import 'react-simple-keyboard/build/css/index.css';
 import IconXCircle from "../../atoms/IconXCircle"
 import IconCheckCircle from "../../atoms/IconCheckCircle"
 
-type UserData = {
+type customerData = {
   name: string,
   email: string,
   phone: string,
@@ -17,11 +17,11 @@ type UserData = {
 type InputNames = 'name' | 'email' | 'phone'
 
 export default function UserInfoForm({
-  userData,
-  setUserData,
+  customerData,
+  setCustomerData,
 }: {
-  userData: UserData
-  setUserData: (data: UserData) => void,
+  customerData: customerData
+  setCustomerData: (data: customerData) => void,
 }) {
 
   const [formErrors, setFormErrors] = useState({
@@ -50,13 +50,13 @@ export default function UserInfoForm({
   };
 
   const onChangeAll = (inputs: any) => {
-    if ((userData.name !== undefined) && (userData.name !== inputs.name)) {
+    if ((customerData.name !== undefined) && (customerData.name !== inputs.name)) {
       handleInputChange('name', inputs['name']);
 
-    } else if ((userData.email !== undefined) && (userData.email !== inputs.email)) {
+    } else if ((customerData.email !== undefined) && (customerData.email !== inputs.email)) {
       handleInputChange('email', inputs['email']);
 
-    } else if ((userData.phone !== undefined) && (userData.phone !== inputs.phone)) {
+    } else if ((customerData.phone !== undefined) && (customerData.phone !== inputs.phone)) {
       handleInputChange('phone', inputs['phone']);
 
     }
@@ -64,9 +64,9 @@ export default function UserInfoForm({
 
   const handleInputChange = (inputName: InputNames, value: string) => {
     if (inputName === 'phone'){
-      setUserData({...userData, [inputName]: PhoneMask(value)})
+      setCustomerData({...customerData, [inputName]: PhoneMask(value)})
     } else {
-      setUserData({...userData, [inputName]: value})
+      setCustomerData({...customerData, [inputName]: value})
     }
     validateField(inputName, value);
   }
@@ -114,12 +114,12 @@ export default function UserInfoForm({
                 placeholder="Nome completo"
                 required
                 name="name"
-                value={userData.name}
+                value={customerData.name}
                 onFocus={(e) => setSelectedInput('name')}
                 ref={nameRef}
               />
-              {formErrors.name.isError && <IconXCircle color="text-red-600" />}  
-              {formErrors.name.isValid && <IconCheckCircle color="text-green-600" />}  
+              {formErrors.name.isError && <IconXCircle classes="text-red-600 size-6" />}  
+              {formErrors.name.isValid && <IconCheckCircle classes="text-green-600 size-6" />}  
             </div>
           </div>
           {formErrors.name.isError ? (<p className="text-red-500 text-xl">{formErrors.name.errorMessage}</p>) : <br className="pb-4"/>}
@@ -138,11 +138,11 @@ export default function UserInfoForm({
                 placeholder="E-mail"
                 required
                 name="email"
-                value={userData.email}
+                value={customerData.email}
                 onFocus={(e) => setSelectedInput('email')}
               />  
-              {formErrors.email.isError && <IconXCircle color="text-red-600" />}  
-              {formErrors.email.isValid && <IconCheckCircle color="text-green-600" />}  
+              {formErrors.email.isError && <IconXCircle classes="text-red-600 size-6" />}  
+              {formErrors.email.isValid && <IconCheckCircle classes="text-green-600 size-6" />}  
             </div>
           </div>
           {formErrors.email.isError ? (<p className="text-red-500 text-xl">{formErrors.email.errorMessage}</p>) : <br className="pb-4"/>}
@@ -161,11 +161,11 @@ export default function UserInfoForm({
                 placeholder="Telefone com DDD"
                 required
                 name="phone"
-                value={userData.phone}
+                value={customerData.phone}
                 onFocus={(e) => setSelectedInput('phone')}
               />
-              {formErrors.phone.isError && <IconXCircle color="text-red-600" />}  
-              {formErrors.phone.isValid && <IconCheckCircle color="text-green-600" />}  
+              {formErrors.phone.isError && <IconXCircle classes="text-red-600 size-6" />}  
+              {formErrors.phone.isValid && <IconCheckCircle classes="text-green-600 size-6" />}  
             </div>
           </div>
           {formErrors.phone.isError ? (<p className="text-red-500 text-xl">{formErrors.phone.errorMessage}</p>) : <br className="pb-4"/>}

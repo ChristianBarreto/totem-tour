@@ -13,11 +13,9 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <CartProvider>
-      <RouterProvider router={routes} />
-    </CartProvider>
-  </React.StrictMode>
+  <CartProvider>
+    <RouterProvider router={routes} />
+  </CartProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
