@@ -16,13 +16,19 @@ dayjs.extend(timezone);
 
 const app = express();
 
+export const mpApiKey = process.env.FUNCTIONS_EMULATOR === "false"
+  ? process.env.MPKEYONLINE_PROD // !!! NEVER CHANGE IT !!!
+  : process.env.MPKEYONLINE_TEST // change to test/prod to test in development environment
+
+console.log(process.env.FUNCTIONS_EMULATOR, mpApiKey)
+
 app.use(function(req: Request, res: Response, next: any) {
   res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
   next();
 });
 
 const OnlineClient = new MercadoPagoConfig({
-  accessToken: process.env.MPKEYONLINE as string,
+  accessToken: mpApiKey as string,
 });
 
 const onlinePayment = new Payment(OnlineClient);
@@ -66,7 +72,8 @@ app.get("/availabilities/:productId", async (req: Request, res: Response) => {
   res.json(data);
 });
 
-const MPExpirationDate = () => dayjs().tz("America/Sao_Paulo").add(3, 'minutes').format("YYYY-MM-DDTHH:mm:ss.SSSZ")
+const MPExpirationDate = () => dayjs().tz("America/Sao_Paulo").add(5, 'minutes').add(10, 'seconds').format("YYYY-MM-DDTHH:mm:ss.SSSZ")
+
 const firstName = (fullName: string) => fullName.split(' ').slice(0, -1).join(' ')
 const lastName = (fullName: string) => fullName.split(' ').slice(-1).join(' ');
 const areaCode = (phone: string ) => phone.replace('(', '').replace(')', '').split(' ').slice(0, -1).join(' ')
@@ -96,11 +103,23 @@ app.post("/pix-payment", async (req: Request, res: Response) => {
     res.json(response);
   })
   .catch((error) => {
-    console.log(error)
+    console.log("Error generating pix", error)
     res.status(401)
     res.json(error)
   })
+});
 
+app.post("/verify-payment", async (req: Request, res: Response) => {
+  onlinePayment.capture({
+    id: req.body.id,
+    transaction_amount: req.body.transaction_amount,
+  }).then((resp) => {
+    res.send(resp)
+  }).catch((err) => {
+    console.log("Error consulta ", req.body.id, ":", err)
+    res.send(err)
+  });
+  
 });
 
 exports.totem = onRequest(app);

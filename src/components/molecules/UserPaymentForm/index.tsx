@@ -31,7 +31,7 @@ export default function UserPaymentForm({
       ): (
         <>
           {payOption === 1 && (
-            <PaymentPix cart={cart} customerData={customerData} />
+            <PaymentPix cart={cart} customerData={customerData} setPayOption={setPayOption} />
           )}
 
           {payOption === 2 && (
@@ -41,7 +41,6 @@ export default function UserPaymentForm({
           {payOption === 3 && (
             <p>Tela credit</p>
           )}
-          <button className="btn" onClick={() => setPayOption(0)}>Voltar aos meios de pagamento</button>
         </>
       )}
   
