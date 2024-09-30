@@ -52,14 +52,28 @@ export type PurchaseItem = {
   location: string,
 }
 
+export type CustomerData = {
+  name: string,
+  email: string,
+  phone: string,
+}
+
 export type Purchase = {
   products: PurchaseItem[];
   cartPrice: number,
+  customerData: CustomerData;
+  paymentMethod: string,
+  acceptedTerms: boolean,
 }
 
 export type Availabilities = Availabilitiy[];
 
 export type Products = Product[];
+
+type PaymentStatus = {
+  paymentStatusCode: number,
+  paymentStatus: string,
+}
 
 const axiosParams = {
   headers: {
@@ -107,4 +121,10 @@ export const getAvailabilitiesByProduct = async (productId: string): Promise<Ava
       return [];
     })
   return data;
+}
+
+export const pixPayment = async (body: Purchase) => {
+  const { data } = await axios.post(`${baseUrl}/pix-payment/`, body, axiosParams);
+  return data;
+
 }

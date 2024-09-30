@@ -1,4 +1,5 @@
 import { useState } from "react"
+import IconChevronDown from "../../atoms/IconChevronDown";
 
 export default function UserTermsForm({
  
@@ -21,6 +22,9 @@ export default function UserTermsForm({
 
       <div className="flex justify-center">
         <div className="flex flex-col gap-4 w-3/4">
+        <button className="btn btn-sm btn-circle btn-outline animate-bounce ml-auto bg-primary text-white mr-1">
+          <IconChevronDown />
+        </button>
           <div className="form-control">
             <label className="label cursor-pointer">
               <span className="label-text text-2xl pr-4">
@@ -46,7 +50,7 @@ export default function UserTermsForm({
             </label>
             <label className="label cursor-pointer">
               <span className="label-text text-2xl pr-4">
-              <span className="font-bold text-primary">3.</span> O passeio de barco e o mergulho estão sujeitos à cancelamento pela Marinha do Brasil devido ao mal tempo.
+              <span className="font-bold text-primary">3.</span> O passeio de barco e o mergulho estão sujeitos à cancelamento pela Marinha do Brasil devido ao mau tempo.
                 <span className="font-bold text-blue-400"> Não se preocupe</span>, caso aconteça, o valor pago dos passeios cancelados será devolvido.
               </span>
               <input

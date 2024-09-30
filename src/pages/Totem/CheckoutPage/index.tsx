@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { checkoutFieldValidation } from "../../../helpers";
 import UserTermsForm from "../../../components/molecules/UserTermsForm";
 import UserPaymentForm from "../../../components/molecules/UserPaymentForm";
+import { CustomerData } from "../../../api";
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export default function CheckoutPage() {
     {id: 3, name: "Pagamento", active: false},
   ])
 
-  const [userData, setUserData] = useState({
+  const [customerData, setCustomerData] = useState<CustomerData>({
     name: '',
     email: '',
     phone: '',
@@ -40,9 +41,9 @@ export default function CheckoutPage() {
   const handleNextDisabled = () => {
     if (count === 1) {
       if (
-        !!checkoutFieldValidation('name', userData.name)
-          && !!checkoutFieldValidation('email', userData.email)
-          && !!checkoutFieldValidation('phone', userData.phone)
+        !!checkoutFieldValidation('name', customerData.name)
+          && !!checkoutFieldValidation('email', customerData.email)
+          && !!checkoutFieldValidation('phone', customerData.phone)
         ){
         return false;
       }
@@ -58,9 +59,9 @@ export default function CheckoutPage() {
         <CheckoutSequence sequence={sequence} />
         
         <div className="grow pt-28">
-          {count === 1 && (<UserInfoForm userData={userData} setUserData={setUserData} />)}
+          {count === 1 && (<UserInfoForm customerData={customerData} setCustomerData={setCustomerData} />)}
           {count === 2 && (<UserTermsForm />)}
-          {count === 3 && (<UserPaymentForm />)}
+          {count === 3 && (<UserPaymentForm customerData={customerData}/>)}
         </div>
 
         <div className="flex justify-between">

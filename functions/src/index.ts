@@ -4,7 +4,15 @@ const {onRequest} = require("firebase-functions/v2/https");
 const {initializeApp} = require("firebase-admin/app");
 const {getFirestore} = require("firebase-admin/firestore");
 const express = require("express");
+const dayjs = require('dayjs');
+var utc = require("dayjs/plugin/utc");
+const timezone = require("dayjs/plugin/timezone");
 import {Request, Response } from "express";
+import 'dotenv/config';
+import { MercadoPagoConfig, Payment } from 'mercadopago';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const app = express();
 
@@ -13,7 +21,11 @@ app.use(function(req: Request, res: Response, next: any) {
   next();
 });
 
+const OnlineClient = new MercadoPagoConfig({
+  accessToken: process.env.MPKEYONLINE as string,
+});
 
+const onlinePayment = new Payment(OnlineClient);
 
 initializeApp();
 const db = getFirestore();
@@ -51,10 +63,45 @@ app.get("/availabilities/:productId", async (req: Request, res: Response) => {
   snapshot.forEach((doc: any) => {
     data.push({id: doc.id, ...doc.data()});
   });
-
   res.json(data);
 });
 
+const MPExpirationDate = () => dayjs().tz("America/Sao_Paulo").add(3, 'minutes').format("YYYY-MM-DDTHH:mm:ss.SSSZ")
+const firstName = (fullName: string) => fullName.split(' ').slice(0, -1).join(' ')
+const lastName = (fullName: string) => fullName.split(' ').slice(-1).join(' ');
+const areaCode = (phone: string ) => phone.replace('(', '').replace(')', '').split(' ').slice(0, -1).join(' ')
+const phoneNumber = (phone: string ) => phone.replace('(', '').replace(')', '').replace('-', '').split(' ').slice(-1).join(' ');
+
+app.post("/pix-payment", async (req: Request, res: Response) => {
+  const { cartPrice, customerData } = req.body; // TODO: talvez remover todos os dados de Purchase e só deixar cartPrice e customer data.
+
+  await onlinePayment.create({
+    body: {
+      transaction_amount: cartPrice,
+      description: 'Passeios Totem Tour',
+      payment_method_id: 'pix',
+      date_of_expiration: MPExpirationDate(),
+      payer: {
+        first_name: firstName(customerData.name),
+        last_name: lastName(customerData.name),
+        email: customerData.email,
+        phone:{
+          area_code: areaCode(customerData.phone),
+          number: phoneNumber(customerData.phone),
+        }
+      }
+    }
+  })
+  .then((response) => {
+    res.json(response);
+  })
+  .catch((error) => {
+    console.log(error)
+    res.status(401)
+    res.json(error)
+  })
+
+});
 
 exports.totem = onRequest(app);
 
