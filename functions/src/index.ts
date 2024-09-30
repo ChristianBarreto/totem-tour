@@ -16,13 +16,19 @@ dayjs.extend(timezone);
 
 const app = express();
 
+export const mpApiKey = process.env.FUNCTIONS_EMULATOR === "false"
+  ? process.env.MPKEYONLINE_PROD // !!! NEVER CHANGE IT !!!
+  : process.env.MPKEYONLINE_TEST // change to test/prod to test in development environment
+
+console.log(process.env.FUNCTIONS_EMULATOR, mpApiKey)
+
 app.use(function(req: Request, res: Response, next: any) {
   res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
   next();
 });
 
 const OnlineClient = new MercadoPagoConfig({
-  accessToken: process.env.MPKEYONLINE_PROD as string,
+  accessToken: mpApiKey as string,
 });
 
 const onlinePayment = new Payment(OnlineClient);
