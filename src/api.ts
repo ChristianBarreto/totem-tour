@@ -70,9 +70,9 @@ export type Availabilities = Availabilitiy[];
 
 export type Products = Product[];
 
-type PaymentStatus = {
-  paymentStatusCode: number,
-  paymentStatus: string,
+type VerifyPayment = {
+  id: string,
+  transaction_amount: number
 }
 
 const axiosParams = {
@@ -82,8 +82,12 @@ const axiosParams = {
 }
 
 const baseUrl = process.env.NODE_ENV === 'production'
-   ? 'https://totem-2id4w5fuzq-uc.a.run.app'
-   : 'http://127.0.0.1:5001/totem-tour/us-central1/totem'
+  ? 'https://totem-2id4w5fuzq-uc.a.run.app'
+  : 'http://127.0.0.1:5001/totem-tour/us-central1/totem'
+
+export const websiteUrl = process.env.NODE_ENV === 'production'
+  ? 'https://totem-tour.web.app'
+  : 'http://localhost:3000'
 
 console.log(process.env.NODE_ENV, baseUrl)
 
@@ -123,8 +127,12 @@ export const getAvailabilitiesByProduct = async (productId: string): Promise<Ava
   return data;
 }
 
-export const pixPayment = async (body: Purchase) => {
+export const generatePixPayment = async (body: Purchase) => {
   const { data } = await axios.post(`${baseUrl}/pix-payment/`, body, axiosParams);
   return data;
+}
 
+export const verifyPayment = async (body: VerifyPayment) => {
+  const { data } = await axios.post(`${baseUrl}/verify-payment/`, body, axiosParams)
+  return data;
 }

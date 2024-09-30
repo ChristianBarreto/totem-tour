@@ -118,8 +118,8 @@ export default function UserInfoForm({
                 onFocus={(e) => setSelectedInput('name')}
                 ref={nameRef}
               />
-              {formErrors.name.isError && <IconXCircle color="text-red-600" />}  
-              {formErrors.name.isValid && <IconCheckCircle color="text-green-600" />}  
+              {formErrors.name.isError && <IconXCircle classes="text-red-600 size-6" />}  
+              {formErrors.name.isValid && <IconCheckCircle classes="text-green-600 size-6" />}  
             </div>
           </div>
           {formErrors.name.isError ? (<p className="text-red-500 text-xl">{formErrors.name.errorMessage}</p>) : <br className="pb-4"/>}
@@ -141,8 +141,8 @@ export default function UserInfoForm({
                 value={customerData.email}
                 onFocus={(e) => setSelectedInput('email')}
               />  
-              {formErrors.email.isError && <IconXCircle color="text-red-600" />}  
-              {formErrors.email.isValid && <IconCheckCircle color="text-green-600" />}  
+              {formErrors.email.isError && <IconXCircle classes="text-red-600 size-6" />}  
+              {formErrors.email.isValid && <IconCheckCircle classes="text-green-600 size-6" />}  
             </div>
           </div>
           {formErrors.email.isError ? (<p className="text-red-500 text-xl">{formErrors.email.errorMessage}</p>) : <br className="pb-4"/>}
@@ -164,8 +164,8 @@ export default function UserInfoForm({
                 value={customerData.phone}
                 onFocus={(e) => setSelectedInput('phone')}
               />
-              {formErrors.phone.isError && <IconXCircle color="text-red-600" />}  
-              {formErrors.phone.isValid && <IconCheckCircle color="text-green-600" />}  
+              {formErrors.phone.isError && <IconXCircle classes="text-red-600 size-6" />}  
+              {formErrors.phone.isValid && <IconCheckCircle classes="text-green-600 size-6" />}  
             </div>
           </div>
           {formErrors.phone.isError ? (<p className="text-red-500 text-xl">{formErrors.phone.errorMessage}</p>) : <br className="pb-4"/>}
