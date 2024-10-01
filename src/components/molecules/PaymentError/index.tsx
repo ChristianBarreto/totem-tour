@@ -29,8 +29,8 @@ export default function PaymentError({
           </div>
           <div>
             {errorData === undefined && (<p>Motivo: Erro de conexão com o servidor.</p>)}
-            {errorData?.cause?.map((cause: any) => (
-              <div>
+            {errorData?.cause?.map((cause: any, index: string) => (
+              <div key={index}>
                 {CauseDescription(cause.code)}
               </div>
             ))}

@@ -80,28 +80,30 @@ export default function PaymentPix({
     }
     
     const consultTimer = setInterval(() => {
-      
-      verifyPayment(payment).then((res) => {
-        if (!ignore) {
-          console.log("THEN", res)
 
-          if(res.captured){ // set this to true to simulate payment success or to res.captured to run in prod
-            clearInterval(consultTimer);
-            const status = {
-              status: res.status,
-              statusDetail: res.status_detail,
-              captured: res.captured, // set this to true to simulate payment success or to res.captured to run in prod
+      if (!isPayError && !isPayExpired) {
+        verifyPayment(payment).then((res) => {
+          if (!ignore) {
+            console.log("THEN", res)
+  
+            if(true){ // set this to true to simulate payment success or to res.captured to run in prod
+              clearInterval(consultTimer);
+              const status = {
+                status: res.status,
+                statusDetail: res.status_detail,
+                captured: true, // set this to true to simulate payment success or to res.captured to run in prod
+              }
+              setPaymentStatus(status)
             }
-            setPaymentStatus(status)
           }
-        }
-
-      }).catch((err) => {
-        if (!ignore) {
-          clearInterval(consultTimer);
-          console.log("CATCH", err)
-        }
-      });
+  
+        }).catch((err) => {
+          if (!ignore) {
+            clearInterval(consultTimer);
+            console.log("CATCH", err)
+          }
+        });
+      }
 
     }, 5000);
 
@@ -114,16 +116,15 @@ export default function PaymentPix({
       clearInterval(consultTimer);
       clearInterval(secondsTimer);
     };
-  }, [pix]);
+  }, [pix, isPayError, isPayExpired]);
 
 
-  if (paymentStatus.captured) {
+  if (paymentStatus.captured || isPayError || isPayExpired) {
     setTimeout(() => {
       redirectToInitial()
     }, 30000);
   }
   
-
   return (
 
     <>
@@ -143,9 +144,7 @@ export default function PaymentPix({
             <PaymentPixSuccess />
           )}
 
-          {!paymentStatus.captured ? ( // change to paymentStatus.captured to prod
-            <button className="btn" onClick={() => setPayOption(0)}>Voltar aos meios de pagamento</button>
-          ): (
+          {paymentStatus.captured && ( // change to paymentStatus.captured to prod
             <button className="btn" onClick={redirectToInitial}>Encerrar o uso do totem</button>
           )}
 
