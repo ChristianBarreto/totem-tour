@@ -16,14 +16,18 @@ dayjs.extend(timezone);
 
 const app = express();
 
-export const mpApiKey = process.env.FUNCTIONS_EMULATOR === "false"
+export const mpApiKey = process.env.FUNCTIONS_EMULATOR !== 'undefined'
   ? process.env.MPKEYONLINE_PROD // !!! NEVER CHANGE IT !!!
   : process.env.MPKEYONLINE_TEST // change to test/prod to test in development environment
 
 console.log(process.env.FUNCTIONS_EMULATOR, mpApiKey)
 
-app.use(function(req: Request, res: Response, next: any) {
-  res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
+app.use(function(request: Request, response: Response, next: any) {
+  response.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  response.setHeader("Access-Control-Allow-Credentials", "true");
+  response.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  response.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
   next();
 });
 
