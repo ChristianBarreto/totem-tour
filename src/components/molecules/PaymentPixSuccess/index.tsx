@@ -1,4 +1,5 @@
 import IconCheckCircle from "../../atoms/IconCheckCircle";
+import IconClock from "../../atoms/IconClock";
 import IconLoading from "../../atoms/IconLoading";
 
 export default function PaymentPixSuccess() {
@@ -13,7 +14,14 @@ export default function PaymentPixSuccess() {
               <IconCheckCircle  classes="text-primary size-36"/>
             </div>
             <p className="text-xl text-center">Você receberá as informações dos seus passeios por WhatsApp/E-mail.</p>
-            <p className="text-xl text-center">(sua sessão será encerrada em 20 segundos)</p>
+            
+            <div className="flex justify-center">
+              <div className="flex mb-4">
+                <IconClock classes="size-6 animate-bounce"/>
+                <p className="text-xl"> Sua sessão será encerrada em 30 segundos.</p>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

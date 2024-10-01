@@ -1,3 +1,4 @@
+import IconClock from "../../atoms/IconClock";
 import IconXCircle from "../../atoms/IconXCircle";
 
 export default function PaymentExpired() {
@@ -10,7 +11,14 @@ export default function PaymentExpired() {
           <div className="flex justify-center">
             <IconXCircle classes={"text-red-500 size-36"} />
           </div>
-          <p className="text-xl mb-4 text-center">Volte aos meios de pagamento e faça uma nova solicitação.</p>
+
+            <div className="flex justify-center">
+              <div className="flex mb-4">
+                <IconClock classes="size-6 animate-bounce"/>
+                <p className="text-xl"> Sua sessão será encerrada em 30 segundos.</p>
+              </div>
+            </div>
+
         </div>
       </div>
     </div>

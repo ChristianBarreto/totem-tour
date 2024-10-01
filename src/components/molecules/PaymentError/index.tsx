@@ -1,16 +1,17 @@
+import IconClock from "../../atoms/IconClock"
 import IconXCircle from "../../atoms/IconXCircle"
 
 const CauseDescription = (code: number) =>{
     if (code === 8) {
-      return <p>Motivo: Informações do usuário inválidas.</p>
+      return <p className=" text-center"><span className="font-bold">Motivo: </span>Informações do usuário inválidas.</p>
     } else if (code === 23) {
-      return <p>Motivo: Erro no servidor Totem Tour.</p>
+      return <p className=" text-center"><span className="font-bold">Motivo: </span>Erro no servidor Totem Tour.</p>
     } else if (code === 4050) {
-      return <p>Motivo: Email do usuário inválido.</p>
+      return <p className=" text-center"><span className="font-bold">Motivo: </span>Email do usuário inválido.</p>
     } else if (code === 4049) {
-      return <p>Motivo: O valor da compra não é válido.</p>
+      return <p className=" text-center"><span className="font-bold">Motivo: </span>O valor da compra não é válido.</p>
     }
-    return <p>Motivo: Erro no servidor Totem Tour.</p>
+    return <p className=" text-center"><span className="font-bold">Motivo: </span>Erro no servidor Totem Tour.</p>
 }
 
 export default function PaymentError({
@@ -35,7 +36,11 @@ export default function PaymentError({
               </div>
             ))}
           </div>
-          <p className="text-xl mb-4 text-center">Volte aos meios de pagamento e faça uma nova solicitação.</p>
+          <p className="text-xl mb-4 text-center">Reinicie a compra e tente novamente.</p>
+          <div className="flex">
+            <IconClock classes="size-6 animate-bounce"/>
+            <p className="text-xl mb-4 text-center"> Sua sessão será encerrada em 30 segundos.</p>
+          </div>
         </div>
       </div>
     </div>

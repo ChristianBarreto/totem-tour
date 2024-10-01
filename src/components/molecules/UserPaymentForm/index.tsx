@@ -31,7 +31,7 @@ export default function UserPaymentForm({
       ): (
         <>
           {payOption === 1 && (
-            <PaymentPix cart={cart} customerData={customerData} setPayOption={setPayOption} />
+            <PaymentPix cart={cart} customerData={customerData} />
           )}
 
           {payOption === 2 && (

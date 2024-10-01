@@ -9,11 +9,9 @@ import PaymentPixSuccess from "../PaymentPixSuccess";
 export default function PaymentPix({
   cart,
   customerData,
-  setPayOption,
 }: {
   cart: Purchase,
   customerData: CustomerData,
-  setPayOption: (value: number) => void,
 }) {
   const [paymentLoading, setPaymentLoading] = useState(true);
   const [isPayError, setIsPayError] = useState(false);
@@ -33,6 +31,9 @@ export default function PaymentPix({
     statusDetail: '',
     captured: false,
   });
+  const expirationTime = 300000; // 300000 for 5 minutes
+  const consultTime = 5000; // 5000 for 5 seconds
+  const redirectToInitialTime = 30000 // 30000 for 30 seconds;
   
   const redirectToInitial = () => window.location.replace(`${websiteUrl}/totem`);
 
@@ -105,26 +106,26 @@ export default function PaymentPix({
         });
       }
 
-    }, 5000);
+    }, consultTime);
 
-    const secondsTimer = setInterval(() => {
+    const expireTimer = setInterval(() => {
       setIsPayExpired(true);
-    }, 300000);
+    }, expirationTime);
 
     return () => {
       ignore = true;
       clearInterval(consultTimer);
-      clearInterval(secondsTimer);
+      clearInterval(expireTimer);
     };
   }, [pix, isPayError, isPayExpired]);
 
 
   if (paymentStatus.captured || isPayError || isPayExpired) {
-    setTimeout(() => {
+    setInterval(() => {
       redirectToInitial()
-    }, 30000);
+    }, redirectToInitialTime);
   }
-  
+
   return (
 
     <>
