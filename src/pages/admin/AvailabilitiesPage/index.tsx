@@ -1,7 +1,7 @@
 import Table from "../../../components/organisms/Table";
 import { getAdminPurchaseItens } from "../../../api";
 
-export default function DashboardPage() {
+export default function AvailabilitiesPage() {
 
   const tableHeader = [
     {name: "Data", value: "date"},

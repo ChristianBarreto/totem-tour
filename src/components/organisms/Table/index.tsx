@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react"
+import { ReactNode, useEffect, useState } from "react"
 
 type TableHeaderItem = {
   name: string,
+  value: string,
+  component?: ReactNode
 }
 
-type TableBodyItem = {}
-
 export default function Table({
+  tableName,
   tableHeader,
   tableFetch,
 }: {
+  tableName: string,
   tableHeader: TableHeaderItem[],
   tableFetch: (body?: any) => Promise<any>,
 }) {
@@ -23,30 +25,35 @@ export default function Table({
     });
   }, [])
 
+  console.log(tableHeader)
   return (
-    <div className="overflow-x-auto">
-      <table className="table table-xs table-pin-rows table-pin-cols">
-        <thead>
-          <tr>
-            {tableHeader.map((header) => (
-              <th>{header.name}</th>
+    <div>
+      <p className="text-md">{tableName}</p>
+
+      <div className="overflow-x-auto">
+        <table className="table table-xs table-pin-rows table-pin-cols">
+          <thead>
+            <tr>
+              {tableHeader.map((header) => (
+                <th key={header.name}>{header.name}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((item, indexA) => (
+              <tr key={`row-${item.name}`}>
+                {tableHeader.map((header, indexB) => (
+                  <td key={`${header.value}-${indexA}`}>
+                    <span>{!header.component && item[header.value]}</span>
+                    <span key={`comp-${indexA}`}><span id={item[header.value]}>{header.component && header.component}</span></span>
+                  </td>
+                ))}
+              </tr>
             ))}
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item) => (
-          <tr>
-            <th>{item.foo}</th>
-            <td>Produto</td>
-            <td>Qtd</td>
-            <td>Cidade</td>
-            <td>Pagamento</td>
-            <td>Ok</td>
-            <td>Ok</td>
-          </tr>
-          ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   )
 }

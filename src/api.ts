@@ -145,7 +145,7 @@ export const setNewPurchase = async (body: Purchase) => {
   return data;
 }
 
-export const getPurchaseItens = async () => {
-  const { data } = await axios.get(`${baseUrl}/get-purchase-items/`, axiosParams);
+export const getAdminPurchaseItens = async () => {
+  const { data } = await axios.get(`${baseUrl}/sales/`, axiosParams);
   return data;
 }

@@ -6,6 +6,9 @@ import StorePage from "../pages/Totem/StorePage";
 import CheckoutPage from "../pages/Totem/CheckoutPage";
 import AdminTemplate from "../pages/templates/AdminTemplate";
 import DashboardPage from "../pages/admin/DashboardPage";
+import ProductsPage from "../pages/admin/ProductsPage";
+import PurchasesPage from "../pages/admin/PurchasesPage";
+import CitiesPage from "../pages/admin/CitiesPage";
 
 
 export const rawRoutes = [
@@ -45,6 +48,18 @@ export const rawRoutes = [
       {
         index: true,
         element: <DashboardPage />,
+      },
+      {
+        path: '/admin/products',
+        element: <ProductsPage />,
+      },
+      {
+        path: '/admin/purchases',
+        element: <PurchasesPage />,
+      },
+      {
+        path: '/admin/cities',
+        element: <CitiesPage />,
       },
     ],
   },

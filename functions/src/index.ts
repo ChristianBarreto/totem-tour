@@ -168,13 +168,55 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
   res.send({ status: 'ok', purchaseId: purchaseDb.id })
 });
 
-app.get("/get-purchase-items", async (req: Request, res: Response) => {
-  const snapshot = await db.collection("purchaseItems").get();
-  const data: any[] = [];
-  snapshot.forEach((doc: any) => {
-    data.push({id: doc.id, ...doc.data()});
-  });
-  res.json(data);
+// async function getCustomerById(customerId: string) {
+//   const customer = await db.collection("customers").doc(customerId).get();
+//   return (customer.data())
+// }
+
+async function getDbItems(dbName: string) {
+  const purchaseItensRef = await db.collection(dbName).get();
+
+  const promise = new Promise((resolve, reject) => {
+    const data: any[] = [];
+    purchaseItensRef.forEach((doc: any, index: number, array: any) => {
+      data.push({id: doc.id, ...doc.data()})
+      resolve(data);
+    });
+  })
+
+  return promise.then((res) => {
+    return res;
+  })
+}
+
+app.get("/sales", async (req: Request, res: Response) => {
+  const purchaseItems = await getDbItems("purchaseItems")
+
+  const promise = new Promise((resolve, reject) => {
+    
+   const data = (purchaseItems as never[]).map((item: any) => {
+      return ({
+        id: item.id,
+        date: item,
+        qty: item.qty,
+        location: item.location,
+        productId: item.productId,
+        customerId: item.customerId,
+        purchaseId: item.purchaseId,
+        customerName: 'customerName',
+        productName: 'productName',
+        paymentCaptured: 'paymentCaptured',
+        customerComm: "customerComm",
+        agencyComm: "agencyComm"
+      });
+    })
+    resolve(data)
+  })
+
+  promise.then((resp) => {
+    res.json(resp)
+  })
+
 });
 
 exports.totem = onRequest(app);

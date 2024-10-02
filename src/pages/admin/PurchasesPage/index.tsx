@@ -1,7 +1,7 @@
 import Table from "../../../components/organisms/Table";
 import { getAdminPurchaseItens } from "../../../api";
 
-export default function DashboardPage() {
+export default function PurchasesPage() {
 
   const tableHeader = [
     {name: "Data", value: "date"},
@@ -17,7 +17,7 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <p>Dashboard</p>
+      <p>Compras</p>
       <Table
         tableName="Vendas"
         tableHeader={tableHeader}
