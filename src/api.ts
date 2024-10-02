@@ -59,9 +59,12 @@ export type CustomerData = {
 }
 
 export type Purchase = {
-  products: PurchaseItem[];
   cartPrice: number,
-  customerData: CustomerData;
+  products: PurchaseItem[],
+  customerData: CustomerData,
+  paymentId: string,
+  payementCaptured: boolean,
+  paymentValue: number,
   paymentMethod: string,
   acceptedTerms: boolean,
 }
@@ -134,5 +137,15 @@ export const generatePixPayment = async (body: Purchase) => {
 
 export const verifyPayment = async (body: VerifyPayment) => {
   const { data } = await axios.post(`${baseUrl}/verify-payment/`, body, axiosParams)
+  return data;
+}
+
+export const setNewPurchase = async (body: Purchase) => {
+  const { data } = await axios.post(`${baseUrl}/set-purchase/`, body, axiosParams);
+  return data;
+}
+
+export const getPurchaseItens = async () => {
+  const { data } = await axios.get(`${baseUrl}/get-purchase-items/`, axiosParams);
   return data;
 }

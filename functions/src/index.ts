@@ -126,6 +126,57 @@ app.post("/verify-payment", async (req: Request, res: Response) => {
   
 });
 
+app.post("/set-purchase", async (req: Request, res: Response) => {
+  const {
+    acceptedTerms,
+    cartPrice,
+    customerData,
+    payementCaptured,
+    paymentId,
+    paymentMethod,
+    paymentValue,
+    products,
+  } = req.body;
+
+  const customerDb = await db
+    .collection("customers")
+    .add(customerData);
+
+  const purchaseDb = await db
+    .collection("purchases")
+    .add({
+      customerId: customerDb.id,
+      acceptedTerms,
+      cartPrice,
+      payementCaptured,
+      paymentId,
+      paymentMethod,
+      paymentValue,
+    });
+
+  const purchaseItensDb = await db
+    .collection("purchaseItems")
+  
+  products.forEach((item: any) => { // TODO: replace all 'any's
+    purchaseItensDb.add({
+      ...item,
+      purchaseId: purchaseDb.id,
+      customerId: customerDb.id
+    })
+  })
+
+  res.send({ status: 'ok', purchaseId: purchaseDb.id })
+});
+
+app.get("/get-purchase-items", async (req: Request, res: Response) => {
+  const snapshot = await db.collection("purchaseItems").get();
+  const data: any[] = [];
+  snapshot.forEach((doc: any) => {
+    data.push({id: doc.id, ...doc.data()});
+  });
+  res.json(data);
+});
+
 exports.totem = onRequest(app);
 
 

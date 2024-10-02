@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import PaymentError from "../PaymentError";
-import { CustomerData, generatePixPayment, Purchase, verifyPayment, websiteUrl } from "../../../api";
+import { CustomerData, generatePixPayment, Purchase, setNewPurchase, verifyPayment, websiteUrl } from "../../../api";
 import PaymentLoading from "../PaymentLoading";
 import PaymentExpired from "../PaymentExpired";
 import PaymentPixQR from "../PaymentPixQR";
@@ -31,10 +31,24 @@ export default function PaymentPix({
     statusDetail: '',
     captured: false,
   });
+  const [purchase, setPurchase] = useState<Purchase>({
+    cartPrice: 0,
+    products: [],
+    customerData: {
+      name: '',
+      email: '',
+      phone: '',
+    },
+    paymentId: '',
+    payementCaptured: false,
+    paymentValue: 0,
+    paymentMethod: '',
+    acceptedTerms: false,
+  })
   const expirationTime = 300000; // 300000 for 5 minutes
   const consultTime = 5000; // 5000 for 5 seconds
   const redirectToInitialTime = 30000 // 30000 for 30 seconds;
-  
+
   const redirectToInitial = () => window.location.replace(`${websiteUrl}/totem`);
 
   useEffect(() => {
@@ -95,6 +109,18 @@ export default function PaymentPix({
                 captured: true, // set this to true to simulate payment success or to res.captured to run in prod
               }
               setPaymentStatus(status)
+              setPurchase({
+                cartPrice: cart.cartPrice,
+                products: cart.products,
+                customerData: customerData,
+                paymentId: pix.paymentId,
+                payementCaptured: status.captured,
+                paymentValue: pix.transaction_details.total_paid_amount,
+                paymentMethod: 'pix',
+                acceptedTerms: false, //TODO: mudar quando utilizar os termos
+              })
+              console.log("PURCHASE", cart)
+              // setPurchase()
             }
           }
   
@@ -120,11 +146,23 @@ export default function PaymentPix({
   }, [pix, isPayError, isPayExpired]);
 
 
-  if (paymentStatus.captured || isPayError || isPayExpired) {
-    setInterval(() => {
-      redirectToInitial()
-    }, redirectToInitialTime);
-  }
+  // if (paymentStatus.captured || isPayError || isPayExpired) {
+  //   setInterval(() => {
+  //     redirectToInitial()
+  //   }, redirectToInitialTime);
+  // }
+
+  useEffect(() => {
+    console.log(purchase)
+    if (purchase.payementCaptured) {
+      console.log("SEND")
+      setNewPurchase(purchase).then((res) => {
+        console.log("SUCCESS", res)
+      }).catch((err) => {
+        console.log("Purchase ERROR", err)
+      });
+    }
+  }, [purchase])
 
   return (
 
