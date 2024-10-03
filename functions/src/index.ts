@@ -41,16 +41,21 @@ initializeApp();
 const db = getFirestore();
 
 async function getDbItem(dbName: string, id: string) {
-  const snapshot = await db.collection(dbName).doc(id).get();
+  const snapshot = await db.collection(dbName).doc(id).get();  
   return {id: snapshot.id, ...snapshot.data()};
 }
 
+async function editDbItem(dbName: string, id: string, data: any) {
+  delete data['id']
+  const snapshot = await db.collection(dbName).doc(id).set(data);
+  return {id: snapshot.id}
+}
 
 app.get("/products", async (req: Request, res: Response) => {
   const snapshot = await db.collection("products").get();
   const data: any[] = [];
   snapshot.forEach((doc: any) => {
-    if (doc.data().isAvailable) {
+    if (doc.data().showDisplay) {
       data.push({id: doc.id, ...doc.data()});
     }});
   res.json(data);
@@ -59,6 +64,11 @@ app.get("/products", async (req: Request, res: Response) => {
 app.get("/products/:id", async (req: Request, res: Response) => {
   const product = await getDbItem("products", req.params.id);
   res.json(product);
+});
+
+app.put("/products/:id", async (req: Request, res: Response) => {
+  const resp = await editDbItem("products", req.params.id, req.body);
+  res.json(resp);
 });
 
 app.get("/cities", async (req: Request, res: Response) => {

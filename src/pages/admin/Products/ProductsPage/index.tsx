@@ -34,6 +34,7 @@ export default function ProductsPage() {
   const tableHeader = [
     {name: "Nome", value: "name"},
     {name: "Cidade", value: "location"},
+    {name: "Mostrar Display", value: "showDisplay"},
     {name: "Disponível", value: "isAvailable"},
     {name: "Opções", value: 'id', component: (<TableEditButton onClickEvent={(id) => handleClick(id)} />)}
   ]

@@ -15,10 +15,10 @@ export type Product = {
   name: string,
   description: string,
   cityId: string,
+  address: string,
   imgUrl: string,
   details: string,
   time: string,
-  location: string
   priority: number,
   netPrice: number,
   partnerComm: number,
@@ -28,6 +28,8 @@ export type Product = {
   minPriceDescription: string,
   maxPaxDay: number,
   maxPerRound: number,
+  showDisplay: boolean,
+  isAvailable: boolean,
 }
 
 export type Availabilitiy = {
@@ -49,7 +51,7 @@ export type PurchaseItem = {
   minTotalPrice: number,
   totalPrice: number,
   date: string,
-  location: string,
+  cityId: string,
 }
 
 export type CustomerData = {
@@ -111,6 +113,20 @@ export const getProductById = async (productId: string | undefined): Promise<Pro
     console.log("productId is undefined")
   }
   const data = axios.get<Product>(`${baseUrl}/products/${productId}`, axiosParams)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("API ERROR", err)
+    })
+  return data;
+}
+
+export const editProductById = async (productId: string | undefined, body: Product): Promise<Product | void> => {
+  if (productId === undefined) {
+    console.log("productId is undefined")
+  }
+  const data = axios.put<Product>(`${baseUrl}/products/${productId}`, body, axiosParams)
     .then((res) => {
       return res.data;
     })
