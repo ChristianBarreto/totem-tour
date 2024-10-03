@@ -40,6 +40,12 @@ const onlinePayment = new Payment(OnlineClient);
 initializeApp();
 const db = getFirestore();
 
+async function getDbItem(dbName: string, id: string) {
+  const snapshot = await db.collection(dbName).doc(id).get();
+  return {id: snapshot.id, ...snapshot.data()};
+}
+
+
 app.get("/products", async (req: Request, res: Response) => {
   const snapshot = await db.collection("products").get();
   const data: any[] = [];
@@ -48,6 +54,11 @@ app.get("/products", async (req: Request, res: Response) => {
       data.push({id: doc.id, ...doc.data()});
     }});
   res.json(data);
+});
+
+app.get("/products/:id", async (req: Request, res: Response) => {
+  const product = await getDbItem("products", req.params.id);
+  res.json(product);
 });
 
 app.get("/cities", async (req: Request, res: Response) => {
@@ -197,7 +208,7 @@ app.get("/sales", async (req: Request, res: Response) => {
    const data = (purchaseItems as never[]).map((item: any) => {
       return ({
         id: item.id,
-        date: item,
+        date: item.date,
         qty: item.qty,
         location: item.location,
         productId: item.productId,

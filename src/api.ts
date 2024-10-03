@@ -106,6 +106,20 @@ export const getProducts = async (): Promise<Products | void> => {
   return data;
 }
 
+export const getProductById = async (productId: string | undefined): Promise<Product | void> => {
+  if (productId === undefined) {
+    console.log("productId is undefined")
+  }
+  const data = axios.get<Product>(`${baseUrl}/products/${productId}`, axiosParams)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("API ERROR", err)
+    })
+  return data;
+}
+
 export const getCities = async (): Promise<Cities | void> => {
   const data = axios.get<Cities>(`${baseUrl}/cities`, axiosParams)
     .then((res) => {

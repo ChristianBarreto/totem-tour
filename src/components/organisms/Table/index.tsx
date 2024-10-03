@@ -25,12 +25,12 @@ export default function Table({
     });
   }, [])
 
-  console.log(tableHeader)
+  console.log(items)
   return (
-    <div>
-      <p className="text-md">{tableName}</p>
+    <div className="border p-2">
+      <p className="text-md pb-2">{tableName}</p>
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto border">
         <table className="table table-xs table-pin-rows table-pin-cols">
           <thead>
             <tr>

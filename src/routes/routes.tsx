@@ -6,9 +6,10 @@ import StorePage from "../pages/Totem/StorePage";
 import CheckoutPage from "../pages/Totem/CheckoutPage";
 import AdminTemplate from "../pages/templates/AdminTemplate";
 import DashboardPage from "../pages/admin/DashboardPage";
-import ProductsPage from "../pages/admin/ProductsPage";
+import ProductsPage from "../pages/admin/Products/ProductsPage";
 import PurchasesPage from "../pages/admin/PurchasesPage";
 import CitiesPage from "../pages/admin/CitiesPage";
+import EditProductPage from "../pages/admin/Products/EditProductPage";
 
 
 export const rawRoutes = [
@@ -52,6 +53,10 @@ export const rawRoutes = [
       {
         path: '/admin/products',
         element: <ProductsPage />,
+      },
+      {
+        path: '/admin/products/:id',
+        element: <EditProductPage />,
       },
       {
         path: '/admin/purchases',

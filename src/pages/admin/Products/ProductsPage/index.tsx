@@ -1,5 +1,5 @@
-import Table from "../../../components/organisms/Table";
-import { getProducts } from "../../../api";
+import Table from "../../../../components/organisms/Table";
+import { getProducts } from "../../../../api";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 
