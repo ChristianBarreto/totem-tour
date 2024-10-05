@@ -341,14 +341,23 @@ app.post("/cancel-last-payment-intent", async (req: Request, res: Response) => {
   })
 });
 
+function getPaymentIntentStatus({payment_intent_id, config}: {payment_intent_id: string, config: {accessToken: string}}) {
+  return fetch(`/point/integration-api/payment-intents/${payment_intent_id}/events`, Object.assign({ method: 'GET', headers: {
+      Authorization: `Bearer ${config.accessToken}`,
+  }}));
+}
+
 app.post("/get-payment-intent-status", async (req: Request, res: Response) => {
-  point.getPaymentIntentStatus({
-    payment_intent_id: req.body.payment_intent_id,
-  }).then((resp) => {
-    res.json(resp)
-  }).catch((err) => {
-    res.json(err)
-  })
+  if (mpApiKey) {
+    getPaymentIntentStatus({
+      payment_intent_id: req.body.payment_intent_id,
+      config: {accessToken: mpApiKey}
+    }).then((resp) => {
+      res.json(resp)
+    }).catch((err) => {
+      res.json(err)
+    })
+  }
 });
 
 
