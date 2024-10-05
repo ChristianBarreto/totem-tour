@@ -37,21 +37,10 @@ export default function PaymentCard({
   customerData: CustomerData,
 }) {
   const [purchase, setPurchase] = useState<Purchase>(initPurchase);
-  const [pay, setPay] = useState(false);
-  const [paymentLoading, setPaymentLoading] = useState(false);
-  const [isPayError, setIsPayError] = useState(false);
   const [paymentError, setPaymentError] = useState({});
-  const [isPayExpired, setIsPayExpired] = useState(false);
   const [payIntent, setPayIntent] = useState<any>({});
 
   const [cardProcessStatus, setCardProcessStatus] = useState<CardProcessStatus>('select_method')
-
-  const [paymentStatus, setPaymentStatus] = useState({
-    status: '',
-    statusDetail: '',
-    captured: false,
-  });
-
 
   const expirationTime = 300000; // 300000 for 5 minutes
   const consultTime = 5000; // 5000 for 5 seconds
@@ -60,8 +49,6 @@ export default function PaymentCard({
   const redirectToInitial = () => window.location.replace(`${websiteUrl}/totem`);
 
   const handlePay = () => {
-    setPay(true);
-    setPaymentLoading(true);
     setCardProcessStatus('creating_intent')
 
     const payIntent: PaymentIntent = {
@@ -77,13 +64,10 @@ export default function PaymentCard({
     };
 
     paymentIntent(payIntent).then((res) => {
-      setPaymentLoading(false);
       setCardProcessStatus('awaiting_payment');
       setPayIntent(res);
     }).catch((err) => {
       setCardProcessStatus('intent_error');
-      setPaymentLoading(false);
-      setIsPayError(true);
       console.log(err);
     });
   }
@@ -113,8 +97,7 @@ export default function PaymentCard({
       if(payIntent.id) {
         const consultTimer = setInterval(() => {
           getPaymentIntentStatus({payment_intent_id:  payIntent.id}).then((res) => {
-            console.log("PAYMENT", res)
-            console.log(purchase)
+            console.log("INTENT STATUS", res)
             if (res.state === "FINISHED") {
                 clearInterval(consultTimer)              
               verifyPayment({
@@ -164,10 +147,9 @@ export default function PaymentCard({
               setCardProcessStatus('payment_rejected')
   
               clearInterval(consultTimer)
-              setIsPayExpired(true)
             }
           }).catch((err) => {
-            console.log("err", err)
+            console.log("Payment Status error", err)
             clearInterval(consultTimer)
           })
         }, consultTime)
@@ -176,10 +158,8 @@ export default function PaymentCard({
           cancelLastPaymentIntent({
             device_id: 'GERTEC_MP35P__8701372447462731',
           }).then((res) => {
-            setIsPayExpired(true);
             clearTimeout(expireTimer);
           }).catch((err) => {
-            setIsPayExpired(true);
             clearTimeout(expireTimer);
             console.log(err)
           })
@@ -208,9 +188,7 @@ export default function PaymentCard({
 
   }, [cardProcessStatus])
 
-  
-  console.log(">>>", cardProcessStatus)
-  return (
+    return (
 
     <div className="flex justify-center">
 
