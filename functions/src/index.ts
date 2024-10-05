@@ -341,20 +341,21 @@ app.post("/cancel-last-payment-intent", async (req: Request, res: Response) => {
   })
 });
 
-function getPaymentIntentStatus({payment_intent_id, config}: {payment_intent_id: string, config: {accessToken: string}}) {
-  return fetch(`/point/integration-api/payment-intents/${payment_intent_id}/events`, Object.assign({ method: 'GET', headers: {
-      Authorization: `Bearer ${config.accessToken}`,
-  }}));
-}
+// function getPaymentIntentStatus({payment_intent_id, config}: {payment_intent_id: string, config: {accessToken: string}}) {
+//   return fetch(`https://api.mercadopago.com/point/integration-api/payment-intents/${payment_intent_id}`, Object.assign({ method: 'GET', headers: {
+//       Authorization: `Bearer ${config.accessToken}`,
+//   }}));
+// }
 
 app.post("/get-payment-intent-status", async (req: Request, res: Response) => {
   if (mpApiKey) {
-    getPaymentIntentStatus({
+    point.getPaymentIntentStatus({
       payment_intent_id: req.body.payment_intent_id,
-      config: {accessToken: mpApiKey}
     }).then((resp) => {
+      console.log(resp)
       res.json(resp)
     }).catch((err) => {
+      console.log(err)
       res.json(err)
     })
   }
