@@ -9,18 +9,22 @@ var utc = require("dayjs/plugin/utc");
 const timezone = require("dayjs/plugin/timezone");
 import {Request, Response } from "express";
 import 'dotenv/config';
-import { MercadoPagoConfig, Payment } from 'mercadopago';
+import { MercadoPagoConfig, Payment, Point } from 'mercadopago';
+import { PointGetDevicesData } from "mercadopago/dist/clients/point/getDevices/types";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
 const app = express();
 
-export const mpApiKey = process.env.FUNCTIONS_EMULATOR !== 'undefined'
-  ? process.env.MPKEYONLINE_PROD // !!! NEVER CHANGE IT !!!
-  : process.env.MPKEYONLINE_TEST // change to test/prod to test in development environment
+const envProduction = process.env.FUNCTIONS_EMULATOR !== 'true'
 
-console.log(process.env.FUNCTIONS_EMULATOR, mpApiKey)
+export const mpApiKey = envProduction
+  ? process.env.MPKEYONLINE_PROD // !!! NEVER CHANGE IT !!!
+  : process.env.MPKEYONLINE_PROD // change to test/prod to test in development environment
+
+console.log("PRODUCTION", envProduction);
+console.log("MP-KEY", mpApiKey)
 
 app.use(function(request: Request, response: Response, next: any) {
   response.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
@@ -36,6 +40,7 @@ const OnlineClient = new MercadoPagoConfig({
 });
 
 const onlinePayment = new Payment(OnlineClient);
+const point = new Point(OnlineClient);
 
 initializeApp();
 const db = getFirestore();
@@ -236,6 +241,58 @@ app.get("/sales", async (req: Request, res: Response) => {
 
   promise.then((resp) => {
     res.json(resp)
+  })
+
+});
+
+app.get("/pos", async (req: Request, res: Response) => {
+  const request = {
+    options: {},
+  };
+
+  point
+    .getDevices(request as unknown as PointGetDevicesData)
+    .then((resp) => {
+      res.json(resp)
+    })
+    .catch((err) => {
+      res.json(err)
+    });
+});
+
+app.post("/pos/:id/change-mode", async (req: Request, res: Response) => {
+  console.log("device_id", req.params.id, req.body)
+  point.changeDeviceOperatingMode({
+		device_id: req.params.id,
+		request: {
+			operating_mode: req.body.mode,
+		},
+	}).then((resp) => {
+    console.log(resp)
+    res.json(resp)
+  }).catch((err) => {
+    console.log(err)
+
+    res.json(err)
+  })
+});
+
+app.post("/payment-intent", async (req: Request, res: Response) => {
+  point.createPaymentIntent({
+		device_id: req.body.device_id,
+		request: {
+			amount: req.body.amount,
+      description: req.body.description,
+      payment: {
+        type: req.body.type,
+        installments: req.body.installments,
+        installments_cost: req.body.installments_cost,
+      }
+		},
+	}).then((resp) => {
+    res.json(resp)
+  }).catch((err) => {
+    res.json(err)
   })
 
 });

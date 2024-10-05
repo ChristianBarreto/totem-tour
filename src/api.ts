@@ -69,6 +69,7 @@ export type Purchase = {
   paymentValue: number,
   paymentMethod: string,
   acceptedTerms: boolean,
+  installments?: number,
 }
 
 export type Availabilities = Availabilitiy[];
@@ -78,6 +79,20 @@ export type Products = Product[];
 type VerifyPayment = {
   id: string,
   transaction_amount: number
+}
+
+export type PosMode = {
+  mode: string
+}
+
+export type PaymentIntent = {
+  device_id: string,
+  amount: number,
+  description: string,
+  installments?: number,
+  installments_cost?: string
+  type: string,
+  print: boolean,
 }
 
 const axiosParams = {
@@ -177,5 +192,20 @@ export const setNewPurchase = async (body: Purchase) => {
 
 export const getAdminPurchaseItens = async () => {
   const { data } = await axios.get(`${baseUrl}/sales/`, axiosParams);
+  return data;
+}
+
+export const getPoss = async () => {
+  const { data } = await axios.get(`${baseUrl}/pos/`, axiosParams);
+  return data;
+}
+
+export const switchPosMode = async (id: string, body: PosMode) => {
+  const { data } = await axios.post(`${baseUrl}/pos/${id}/change-mode/`, body, axiosParams);
+  return data;
+}
+
+export const paymentIntent = async (body: PaymentIntent) => {
+  const { data } = await axios.post(`${baseUrl}/payment-intent/`, body, axiosParams);
   return data;
 }

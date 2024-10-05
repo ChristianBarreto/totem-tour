@@ -101,12 +101,12 @@ export default function PaymentPix({
           if (!ignore) {
             console.log("THEN", res)
   
-            if(true){ // set this to true to simulate payment success or to res.captured to run in prod
+            if(res.captured){ // set this to true to simulate payment success or to res.captured to run in prod
               clearInterval(consultTimer);
               const status = {
                 status: res.status,
                 statusDetail: res.status_detail,
-                captured: true, // set this to true to simulate payment success or to res.captured to run in prod
+                captured: res.captured, // set this to true to simulate payment success or to res.captured to run in prod
               }
               setPaymentStatus(status)
               setPurchase({
@@ -119,8 +119,6 @@ export default function PaymentPix({
                 paymentMethod: 'pix',
                 acceptedTerms: false, //TODO: mudar quando utilizar os termos
               })
-              console.log("PURCHASE", cart)
-              // setPurchase()
             }
           }
   
@@ -146,11 +144,11 @@ export default function PaymentPix({
   }, [pix, isPayError, isPayExpired]);
 
 
-  // if (paymentStatus.captured || isPayError || isPayExpired) {
-  //   setInterval(() => {
-  //     redirectToInitial()
-  //   }, redirectToInitialTime);
-  // }
+  if (paymentStatus.captured || isPayError || isPayExpired) {
+    setInterval(() => {
+      redirectToInitial()
+    }, redirectToInitialTime);
+  }
 
   useEffect(() => {
     console.log(purchase)

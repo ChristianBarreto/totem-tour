@@ -10,6 +10,7 @@ import ProductsPage from "../pages/admin/Products/ProductsPage";
 import PurchasesPage from "../pages/admin/PurchasesPage";
 import CitiesPage from "../pages/admin/CitiesPage";
 import EditProductPage from "../pages/admin/Products/EditProductPage";
+import PosPage from "../pages/admin/PosPage";
 
 
 export const rawRoutes = [
@@ -65,6 +66,10 @@ export const rawRoutes = [
       {
         path: '/admin/cities',
         element: <CitiesPage />,
+      },
+      {
+        path: '/admin/pos',
+        element: <PosPage />,
       },
     ],
   },
