@@ -28,7 +28,6 @@ export default function ProductModal({
   const [qty, setQty] = useState(0);
   const [maxRound, setMaxRound] = useState(false);
   const [cities, setCities] = useState<Cities>([])
-  
   // @ts-expect-error: TODO: fix type of context
   const [, dispatch] = useCart();
 

@@ -95,6 +95,14 @@ export type PaymentIntent = {
   print: boolean,
 }
 
+export type CancelPaymentIntent = {
+  device_id: string,
+}
+
+export type PaymentInterStatus = {
+  payment_intent_id: string,
+}
+
 const axiosParams = {
   headers: {
     // 'Access-Control-Allow-Origin': 'https://totem-2id4w5fuzq-uc.a.run.app/'
@@ -207,5 +215,15 @@ export const switchPosMode = async (id: string, body: PosMode) => {
 
 export const paymentIntent = async (body: PaymentIntent) => {
   const { data } = await axios.post(`${baseUrl}/payment-intent/`, body, axiosParams);
+  return data;
+}
+
+export const cancelLastPaymentIntent = async (body: CancelPaymentIntent) => {
+  const { data } = await axios.post(`${baseUrl}/cancel-last-payment-intent/`, body, axiosParams);
+  return data;
+}
+
+export const getPaymentIntentStatus = async (body: PaymentInterStatus) => {
+  const { data } = await axios.post(`${baseUrl}/get-payment-intent-status/`, body, axiosParams);
   return data;
 }

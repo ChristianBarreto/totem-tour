@@ -223,7 +223,7 @@ export default function EditProductPage() {
             type="number"
             placeholder="Type here"
             className="input input-bordered w-full"
-            value={product.maxPaxDay}
+            value={product.maxPerRound}
             onChange={(e) => setProduct({...product, maxPerRound: Number(e.target.value) })}
           />
         </label>

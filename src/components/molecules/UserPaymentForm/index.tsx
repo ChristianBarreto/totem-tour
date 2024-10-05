@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { CustomerData } from "../../../api"
+import { useEffect, useState } from "react"
+import { cancelLastPaymentIntent, CustomerData } from "../../../api"
 import PaymentPix from "../PaymentPix"
 import { useCart } from "../../../context/CartContext";
 import PaymentCard from "../PaymentCard";
@@ -12,6 +12,16 @@ export default function UserPaymentForm({
   // @ts-expect-error: TODO: fix type of context
   const [cart, ] = useCart();
   const [payOption, setPayOption] = useState(0);
+
+  useEffect(() => {
+    cancelLastPaymentIntent({
+      device_id: 'GERTEC_MP35P__8701372447462731',
+    }).then((res) => {
+      console.log(res)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }, []);
 
   return (
     <div

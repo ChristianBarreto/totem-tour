@@ -11,6 +11,7 @@ import {Request, Response } from "express";
 import 'dotenv/config';
 import { MercadoPagoConfig, Payment, Point } from 'mercadopago';
 import { PointGetDevicesData } from "mercadopago/dist/clients/point/getDevices/types";
+import { GetPaymentIntentListResponse } from "mercadopago/dist/clients/point/commonTypes";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -292,10 +293,64 @@ app.post("/payment-intent", async (req: Request, res: Response) => {
 	}).then((resp) => {
     res.json(resp)
   }).catch((err) => {
+    res.status(400)
     res.json(err)
   })
 
 });
+
+const getOpenPaymentIntentId = (intents: any) => {
+  let openIntentId = undefined;
+  if (intents.length) {
+    intents.forEach((intent: any) => {
+      if ((intent.status === "OPEN") || (intent.status === "ON_TERMINAL")) {
+        openIntentId =  intent.payment_intent_id
+      }
+    })
+  }
+  return openIntentId
+}
+
+app.post("/cancel-last-payment-intent", async (req: Request, res: Response) => {
+  const data = {
+    body: {
+      options: {
+        startDate: dayjs().tz("America/Sao_Paulo").add(-2, 'days').format("YYYY-MM-DD"),
+        endDate: dayjs().tz("America/Sao_Paulo").format("YYYY-MM-DD"),
+      },
+    }
+  }
+  
+  point.getPaymentIntentList(data).then((resp: GetPaymentIntentListResponse) => {
+    const openIntentId = getOpenPaymentIntentId(resp.events);
+
+    if (openIntentId) {
+      point.cancelPaymentIntent({
+        device_id: req.body.device_id,
+        payment_intent_id: openIntentId,
+      }).then((resp) => {
+        res.json({cancelationStatus: resp})
+      }).catch((err) => {
+        res.json(err)
+      })
+    } else {
+      res.json({cancelationStatus: 'no intent to be cancelled'})
+    }
+  }).catch((err) => {
+    res.json(err)
+  })
+});
+
+app.post("/get-payment-intent-status", async (req: Request, res: Response) => {
+  point.getPaymentIntentStatus({
+    payment_intent_id: req.body.payment_intent_id,
+  }).then((resp) => {
+    res.json(resp)
+  }).catch((err) => {
+    res.json(err)
+  })
+});
+
 
 exports.totem = onRequest(app);
 

@@ -6,9 +6,11 @@ import InstalmentsSelector from "../InstalmentsSelector";
 export default function MethodSelector({
   purchase,
   setPurchase,
+  handlePay,
 }: {
   purchase: Purchase,
   setPurchase:(value: any) => void,
+  handlePay:(value: any) => void,
 }) {
 
   const handleDebit = () => {
@@ -49,7 +51,15 @@ export default function MethodSelector({
           setPurchase={setPurchase}
           disabled={purchase.paymentMethod !== 'credit_card'}
         />
+        {((purchase.installments) && (purchase.installments > 1)) && <p className="pt-2 text-red-500">* Com juros, ver total na maquininha</p>}
       </div>
+      
+      <button
+          className="btn btn-lg btn-primary mt-8 w-full"
+          onClick={handlePay}
+        >
+        Pagar
+      </button>
     </div>
 
   )
