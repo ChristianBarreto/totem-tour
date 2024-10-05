@@ -20,14 +20,14 @@ export default function ProductDetails({
       <div className='flex justify-center'> 
         {hidden ? (
           <button
-            className="btn btn-circle btn-sm btn-outline mt-3 text-neutral-500 animate-pulse"
+            className="btn btn-circle btn-sm btn-outline mt-3 text-neutral-500 animate-bounce"
             onClick={() => setHidden(!hidden)}  
           >
             <IconChevronDown />
           </button>
         ):(
           <button
-            className="btn btn-circle btn-sm btn-outline text-neutral-500 animate-pulse"
+            className="btn btn-circle btn-sm btn-outline text-neutral-500 animate-bounce"
             onClick={() => setHidden(!hidden)}  
           >
             <IconChevronUp />

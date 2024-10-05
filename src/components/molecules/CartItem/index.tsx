@@ -1,4 +1,5 @@
-import { Product, PurchaseItem } from "../../../api"
+import { useEffect, useState } from "react";
+import { Cities, getCities, Product, PurchaseItem } from "../../../api"
 import { useCart } from "../../../context/CartContext";
 import IconTrash from "../../atoms/IconTrash"
 
@@ -13,6 +14,15 @@ export default function CartItem({
 }) {
   // @ts-expect-error: TODO: fix type of context
   const [, dispatch] = useCart();
+  const [cities, setCities] = useState<Cities>([])
+
+  useEffect(() => {
+    getCities().then((res) => {
+      if (res) {
+        setCities(res)
+      }
+    })
+  }, [])
 
   return (
     <li className="flex py-6">
@@ -32,7 +42,10 @@ export default function CartItem({
             </h3>
             <p className="ml-4">R${product.totalPrice},00</p>
           </div>
-          <p className="mt-1 text-sm text-gray-500"><span className='font-bold'>Cidade:</span> {product.location}</p>
+          <p className="mt-1 text-sm text-gray-500">
+            <span className='font-bold'>Cidade:</span>
+            {cities.find((city) => city.id === product.cityId)?.name}
+          </p>
         </div>
         <div className="flex flex-1 items-end justify-between text-sm">
           <p className="text-gray-500"><span className='font-bold'>Quant. pessoas:</span> {product.qty}</p>
