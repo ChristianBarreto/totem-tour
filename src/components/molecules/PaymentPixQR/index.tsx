@@ -1,3 +1,5 @@
+import IconClock from "../../atoms/IconClock";
+
 export default function PaymentPixQR({
   total,
   qrCode,
@@ -14,7 +16,14 @@ export default function PaymentPixQR({
           <p className="text-xl pb-4">Aguardando pagamento...</p>
           <p className="text-xl pb-4"><span className="font-bold">Valor:</span> R$ {total?.toFixed(2)}</p>
           <p className="text-xl pb-4">Assim que for pago, sua reserva será efetivada.</p>
-          <p className="text-xl pb-4">Este QR Code PIX expira em 5 minutos.</p>
+          
+          <div className="flex justify-center">
+            <div className="flex mb-4">
+              <IconClock classes="size-6 animate-bounce"/>
+              <p className="text-xl">Este QR Code PIX expira em 5 minutos.</p>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

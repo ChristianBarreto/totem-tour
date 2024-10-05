@@ -1,7 +1,8 @@
-import { useState } from "react"
-import { CustomerData } from "../../../api"
+import { useEffect, useState } from "react"
+import { cancelLastPaymentIntent, CustomerData } from "../../../api"
 import PaymentPix from "../PaymentPix"
 import { useCart } from "../../../context/CartContext";
+import PaymentCard from "../PaymentCard";
 
 export default function UserPaymentForm({
   customerData,
@@ -11,6 +12,16 @@ export default function UserPaymentForm({
   // @ts-expect-error: TODO: fix type of context
   const [cart, ] = useCart();
   const [payOption, setPayOption] = useState(0);
+
+  useEffect(() => {
+    cancelLastPaymentIntent({
+      device_id: 'GERTEC_MP35P__8701372447462731',
+    }).then((res) => {
+      console.log(res)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }, []);
 
   return (
     <div
@@ -22,24 +33,19 @@ export default function UserPaymentForm({
       {(payOption === 0) ? (
         <div className="flex justify-center">
           <div className="flex flex-col gap-4 w-3/4">
-            <button className="btn" onClick={() => setPayOption(1)}>Pagar com pix</button>
-            <button className="btn" onClick={() => setPayOption(2)}>Pagar com cartão de débito</button>
-            <button className="btn" onClick={() => setPayOption(3)}>Pagar com cartão de crédito</button>
+            <button className="btn btn-lg" onClick={() => setPayOption(1)}>Pagar com PIX</button>
+            <button className="btn btn-lg" onClick={() => setPayOption(2)}>Pagar com cartão (débito ou crédito)</button>
           </div>
           
         </div>
       ): (
         <>
           {payOption === 1 && (
-            <PaymentPix cart={cart} customerData={customerData} setPayOption={setPayOption} />
+            <PaymentPix cart={cart} customerData={customerData} />
           )}
 
           {payOption === 2 && (
-            <p>Tela debito</p>
-          )}
-
-          {payOption === 3 && (
-            <p>Tela credit</p>
+            <PaymentCard cart={cart} customerData={customerData} />
           )}
         </>
       )}

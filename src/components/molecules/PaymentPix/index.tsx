@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import PaymentError from "../PaymentError";
-import { CustomerData, generatePixPayment, Purchase, verifyPayment, websiteUrl } from "../../../api";
+import { CustomerData, generatePixPayment, Purchase, setNewPurchase, verifyPayment, websiteUrl } from "../../../api";
 import PaymentLoading from "../PaymentLoading";
 import PaymentExpired from "../PaymentExpired";
 import PaymentPixQR from "../PaymentPixQR";
@@ -9,11 +9,9 @@ import PaymentPixSuccess from "../PaymentPixSuccess";
 export default function PaymentPix({
   cart,
   customerData,
-  setPayOption,
 }: {
   cart: Purchase,
   customerData: CustomerData,
-  setPayOption: (value: number) => void,
 }) {
   const [paymentLoading, setPaymentLoading] = useState(true);
   const [isPayError, setIsPayError] = useState(false);
@@ -33,7 +31,24 @@ export default function PaymentPix({
     statusDetail: '',
     captured: false,
   });
-  
+  const [purchase, setPurchase] = useState<Purchase>({
+    cartPrice: 0,
+    products: [],
+    customerData: {
+      name: '',
+      email: '',
+      phone: '',
+    },
+    paymentId: '',
+    payementCaptured: false,
+    paymentValue: 0,
+    paymentMethod: '',
+    acceptedTerms: false,
+  })
+  const expirationTime = 300000; // 300000 for 5 minutes
+  const consultTime = 5000; // 5000 for 5 seconds
+  const redirectToInitialTime = 30000 // 30000 for 30 seconds;
+
   const redirectToInitial = () => window.location.replace(`${websiteUrl}/totem`);
 
   useEffect(() => {
@@ -80,49 +95,72 @@ export default function PaymentPix({
     }
     
     const consultTimer = setInterval(() => {
-      
-      verifyPayment(payment).then((res) => {
-        if (!ignore) {
-          console.log("THEN", res)
 
-          if(res.captured){ // set this to true to simulate payment success or to res.captured to run in prod
-            clearInterval(consultTimer);
-            const status = {
-              status: res.status,
-              statusDetail: res.status_detail,
-              captured: res.captured, // set this to true to simulate payment success or to res.captured to run in prod
+      if (!isPayError && !isPayExpired) {
+        verifyPayment(payment).then((res) => {
+          if (!ignore) {
+            console.log("THEN", res)
+  
+            if(res.captured){ // set this to true to simulate payment success or to res.captured to run in prod
+              clearInterval(consultTimer);
+              const status = {
+                status: res.status,
+                statusDetail: res.status_detail,
+                captured: res.captured, // set this to true to simulate payment success or to res.captured to run in prod
+              }
+              setPaymentStatus(status)
+              setPurchase({
+                cartPrice: cart.cartPrice,
+                products: cart.products,
+                customerData: customerData,
+                paymentId: pix.paymentId,
+                payementCaptured: status.captured,
+                paymentValue: pix.transaction_details.total_paid_amount,
+                paymentMethod: 'pix',
+                acceptedTerms: false, //TODO: mudar quando utilizar os termos
+              })
             }
-            setPaymentStatus(status)
           }
-        }
+  
+        }).catch((err) => {
+          if (!ignore) {
+            clearInterval(consultTimer);
+            console.log("CATCH", err)
+          }
+        });
+      }
 
-      }).catch((err) => {
-        if (!ignore) {
-          clearInterval(consultTimer);
-          console.log("CATCH", err)
-        }
-      });
+    }, consultTime);
 
-    }, 5000);
-
-    const secondsTimer = setInterval(() => {
+    const expireTimer = setInterval(() => {
       setIsPayExpired(true);
-    }, 300000);
+    }, expirationTime);
 
     return () => {
       ignore = true;
       clearInterval(consultTimer);
-      clearInterval(secondsTimer);
+      clearInterval(expireTimer);
     };
-  }, [pix]);
+  }, [pix, isPayError, isPayExpired]);
 
 
-  if (paymentStatus.captured) {
-    setTimeout(() => {
+  if (paymentStatus.captured || isPayError || isPayExpired) {
+    setInterval(() => {
       redirectToInitial()
-    }, 30000);
+    }, redirectToInitialTime);
   }
-  
+
+  useEffect(() => {
+    console.log(purchase)
+    if (purchase.payementCaptured) {
+      console.log("SEND")
+      setNewPurchase(purchase).then((res) => {
+        console.log("SUCCESS", res)
+      }).catch((err) => {
+        console.log("Purchase ERROR", err)
+      });
+    }
+  }, [purchase])
 
   return (
 
@@ -143,10 +181,8 @@ export default function PaymentPix({
             <PaymentPixSuccess />
           )}
 
-          {!paymentStatus.captured ? ( // change to paymentStatus.captured to prod
-            <button className="btn" onClick={() => setPayOption(0)}>Voltar aos meios de pagamento</button>
-          ): (
-            <button className="btn" onClick={redirectToInitial}>Encerrar do totem</button>
+          {paymentStatus.captured && ( // change to paymentStatus.captured to prod
+            <button className="btn" onClick={redirectToInitial}>Encerrar o uso do totem</button>
           )}
 
        </>

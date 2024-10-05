@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom"
 import { Product } from "../../../api"
 import { useState } from "react"
 import ProductModal from "../../organisms/ProductModal";

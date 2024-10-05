@@ -9,11 +9,10 @@ type ACTIONTYPE =
 const initialPurchase = {
   cartPrice: 0,
   products: [],
-  customerData: {
-    name: '',
-    email: '',
-    phone: '',
-  },
+  customerData: {name: '', email: '', phone: ''},
+  paymentId: '',
+  payementCaptured: false,
+  paymentValue: 0,
   paymentMethod: '',
   acceptedTerms: false,
 };

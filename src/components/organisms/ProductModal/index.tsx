@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, Radio, RadioGroup } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { Availabilities, Availabilitiy, getAvailabilitiesByProduct, Product, PurchaseItem } from '../../../api'
+import { Availabilities, Availabilitiy, Cities, getAvailabilitiesByProduct, getCities, Product, PurchaseItem } from '../../../api'
 import { IconCart } from '../../atoms/IconCart'
 import QtySelector from '../../molecules/QtySelector'
 import ProductDetails from '../../atoms/ProductDetails'
@@ -27,7 +27,7 @@ export default function ProductModal({
   const [availability, setAvailability] = useState<Availabilitiy | null>(null);
   const [qty, setQty] = useState(0);
   const [maxRound, setMaxRound] = useState(false);
-  
+  const [cities, setCities] = useState<Cities>([])
   // @ts-expect-error: TODO: fix type of context
   const [, dispatch] = useCart();
 
@@ -35,6 +35,12 @@ export default function ProductModal({
     getAvailabilitiesByProduct(product.id)
     .then((data) =>{
       setAvailabilities(data as Availabilities)
+    })
+
+    getCities().then((res) => {
+      if (res) {
+        setCities(res)
+      }
     })
   }, [])
 
@@ -50,7 +56,7 @@ export default function ProductModal({
         minTotalPrice: product.minTotalPrice,
         totalPrice: price,
         date: availability?.date,
-        location: product.location
+        cityId: product.cityId,
       }
   
       dispatch({type: 'addToCart', product: currentProduct})
@@ -116,7 +122,7 @@ export default function ProductModal({
                     <div className='mb-4'>
                       <p className='text-xl'>
                         <span className='font-bold'>Local: </span>
-                        {product.location}
+                        {cities.find((city) => city.id === product.cityId)?.name}
                       </p>
                       <p className='text-neutral-400'>(você receberá a localização exata por Email/WhatsApp)</p>
                     </div>

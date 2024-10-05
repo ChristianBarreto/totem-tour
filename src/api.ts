@@ -15,10 +15,10 @@ export type Product = {
   name: string,
   description: string,
   cityId: string,
+  address: string,
   imgUrl: string,
   details: string,
   time: string,
-  location: string
   priority: number,
   netPrice: number,
   partnerComm: number,
@@ -28,6 +28,8 @@ export type Product = {
   minPriceDescription: string,
   maxPaxDay: number,
   maxPerRound: number,
+  showDisplay: boolean,
+  isAvailable: boolean,
 }
 
 export type Availabilitiy = {
@@ -49,7 +51,7 @@ export type PurchaseItem = {
   minTotalPrice: number,
   totalPrice: number,
   date: string,
-  location: string,
+  cityId: string,
 }
 
 export type CustomerData = {
@@ -59,11 +61,15 @@ export type CustomerData = {
 }
 
 export type Purchase = {
-  products: PurchaseItem[];
   cartPrice: number,
-  customerData: CustomerData;
+  products: PurchaseItem[],
+  customerData: CustomerData,
+  paymentId: string,
+  payementCaptured: boolean,
+  paymentValue: number,
   paymentMethod: string,
   acceptedTerms: boolean,
+  installments?: number,
 }
 
 export type Availabilities = Availabilitiy[];
@@ -73,6 +79,28 @@ export type Products = Product[];
 type VerifyPayment = {
   id: string,
   transaction_amount: number
+}
+
+export type PosMode = {
+  mode: string
+}
+
+export type PaymentIntent = {
+  device_id: string,
+  amount: number,
+  description: string,
+  installments?: number,
+  installments_cost?: string
+  type: string,
+  print: boolean,
+}
+
+export type CancelPaymentIntent = {
+  device_id: string,
+}
+
+export type PaymentInterStatus = {
+  payment_intent_id: string,
 }
 
 const axiosParams = {
@@ -99,6 +127,34 @@ export const getProducts = async (): Promise<Products | void> => {
     .catch((err) => {
       console.log("API ERROR", err)
       return [];
+    })
+  return data;
+}
+
+export const getProductById = async (productId: string | undefined): Promise<Product | void> => {
+  if (productId === undefined) {
+    console.log("productId is undefined")
+  }
+  const data = axios.get<Product>(`${baseUrl}/products/${productId}`, axiosParams)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("API ERROR", err)
+    })
+  return data;
+}
+
+export const editProductById = async (productId: string | undefined, body: Product): Promise<Product | void> => {
+  if (productId === undefined) {
+    console.log("productId is undefined")
+  }
+  const data = axios.put<Product>(`${baseUrl}/products/${productId}`, body, axiosParams)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("API ERROR", err)
     })
   return data;
 }
@@ -134,5 +190,40 @@ export const generatePixPayment = async (body: Purchase) => {
 
 export const verifyPayment = async (body: VerifyPayment) => {
   const { data } = await axios.post(`${baseUrl}/verify-payment/`, body, axiosParams)
+  return data;
+}
+
+export const setNewPurchase = async (body: Purchase) => {
+  const { data } = await axios.post(`${baseUrl}/set-purchase/`, body, axiosParams);
+  return data;
+}
+
+export const getAdminPurchaseItens = async () => {
+  const { data } = await axios.get(`${baseUrl}/sales/`, axiosParams);
+  return data;
+}
+
+export const getPoss = async () => {
+  const { data } = await axios.get(`${baseUrl}/pos/`, axiosParams);
+  return data;
+}
+
+export const switchPosMode = async (id: string, body: PosMode) => {
+  const { data } = await axios.post(`${baseUrl}/pos/${id}/change-mode/`, body, axiosParams);
+  return data;
+}
+
+export const paymentIntent = async (body: PaymentIntent) => {
+  const { data } = await axios.post(`${baseUrl}/payment-intent/`, body, axiosParams);
+  return data;
+}
+
+export const cancelLastPaymentIntent = async (body: CancelPaymentIntent) => {
+  const { data } = await axios.post(`${baseUrl}/cancel-last-payment-intent/`, body, axiosParams);
+  return data;
+}
+
+export const getPaymentIntentStatus = async (body: PaymentInterStatus) => {
+  const { data } = await axios.post(`${baseUrl}/get-payment-intent-status/`, body, axiosParams);
   return data;
 }

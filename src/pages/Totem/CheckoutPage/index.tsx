@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { checkoutFieldValidation } from "../../../helpers";
 import UserTermsForm from "../../../components/molecules/UserTermsForm";
 import UserPaymentForm from "../../../components/molecules/UserPaymentForm";
-import { CustomerData } from "../../../api";
+import { CustomerData, websiteUrl } from "../../../api";
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
@@ -52,6 +52,8 @@ export default function CheckoutPage() {
   }
 
   const nextDisabled = handleNextDisabled();
+  
+  const redirectToInitial = () => window.location.replace(`${websiteUrl}/totem`);
 
   return (
     <div className="flex justify-center">
@@ -65,28 +67,41 @@ export default function CheckoutPage() {
         </div>
 
         <div className="flex justify-between">
-          <button
+
+          {(count !== 3) ? (
+            <>
+              <button
+                className="btn btn-lg bg-neutral-400"
+                style={{ color: 'white'}}
+                onClick={() => navigate('/totem/store')}
+              >
+                <IconRowBack />
+                <p className="text-3xl">Voltar à compra</p>
+              </button>
+
+              <button
+                className="btn btn-lg btn-primary"
+                style={{ color: 'white'}}
+                onClick={handleNext}
+                type='submit'
+                disabled={nextDisabled}
+              >
+                <p className="text-3xl">Próximo</p>
+                <IconArrowRight />
+              </button>
+            </>
+          ): (
+            <button
             className="btn btn-lg bg-neutral-400"
             style={{ color: 'white'}}
-            onClick={() => navigate('/totem/store')}
-          >
-            <IconRowBack />
-            <p className="text-3xl">Voltar à compra</p>
-          </button>
-
-          {(count !== 3) && (
-            <button
-              className="btn btn-lg btn-primary"
-              style={{ color: 'white'}}
-              onClick={handleNext}
-              type='submit'
-              disabled={nextDisabled}
+            onClick={() => redirectToInitial()}
             >
-              <p className="text-3xl">Próximo</p>
-              <IconArrowRight />
+              <IconRowBack />
+              <p className="text-3xl">Reiniciar compra</p>
             </button>
           )}
         </div>
+
       </div>
     </div>
 

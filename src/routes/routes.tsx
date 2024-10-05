@@ -4,6 +4,13 @@ import HeroPage from "../pages/Totem/HeroPage";
 import StoreTemplate from "../pages/templates/StoreTemplate";
 import StorePage from "../pages/Totem/StorePage";
 import CheckoutPage from "../pages/Totem/CheckoutPage";
+import AdminTemplate from "../pages/templates/AdminTemplate";
+import DashboardPage from "../pages/admin/DashboardPage";
+import ProductsPage from "../pages/admin/Products/ProductsPage";
+import PurchasesPage from "../pages/admin/PurchasesPage";
+import CitiesPage from "../pages/admin/CitiesPage";
+import EditProductPage from "../pages/admin/Products/EditProductPage";
+import PosPage from "../pages/admin/PosPage";
 
 
 export const rawRoutes = [
@@ -35,6 +42,36 @@ export const rawRoutes = [
     path: "/totem/checkout",
     element: <CheckoutPage />,
     
+  },
+  {
+    path: "/admin",
+    element: <AdminTemplate />,
+    children: [
+      {
+        index: true,
+        element: <DashboardPage />,
+      },
+      {
+        path: '/admin/products',
+        element: <ProductsPage />,
+      },
+      {
+        path: '/admin/products/:id',
+        element: <EditProductPage />,
+      },
+      {
+        path: '/admin/purchases',
+        element: <PurchasesPage />,
+      },
+      {
+        path: '/admin/cities',
+        element: <CitiesPage />,
+      },
+      {
+        path: '/admin/pos',
+        element: <PosPage />,
+      },
+    ],
   },
 ]
 
