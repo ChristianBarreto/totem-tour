@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { Cities, editProductById, getCities, getProductById, Product } from "../../../../api";
 import { useNavigate, useParams } from "react-router-dom";
+import dayjs from "dayjs";
 
 const initProduct = {
   cityId: '',
@@ -291,6 +292,9 @@ export default function EditProductPage() {
             onChange={(e) => setProduct({...product, companyComm: Number(e.target.value) })}
           />
         </label>
+
+        {/* <p>Created on: {dayjs(product.timestamp).format('DD/MM/YYYY - HH:mm:ss')}</p> */}
+        <p>Last updated: {dayjs(product.lastUpdated).format('DD/MM/YYYY - HH:mm:ss')}</p>
       </div>
 
       <div className="flex justify-end">

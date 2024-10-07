@@ -30,6 +30,8 @@ export type Product = {
   maxPerRound: number,
   showDisplay: boolean,
   isAvailable: boolean,
+  timestamp?: number,
+  lastUpdated?: number,
 }
 
 export type Availabilitiy = {

@@ -12,7 +12,6 @@ import 'dotenv/config';
 import { MercadoPagoConfig, Payment, Point } from 'mercadopago';
 import { PointGetDevicesData } from "mercadopago/dist/clients/point/getDevices/types";
 import { GetPaymentIntentListResponse } from "mercadopago/dist/clients/point/commonTypes";
-
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -53,7 +52,10 @@ async function getDbItem(dbName: string, id: string) {
 
 async function editDbItem(dbName: string, id: string, data: any) {
   delete data['id']
-  const snapshot = await db.collection(dbName).doc(id).set(data);
+  const snapshot = await db.collection(dbName).doc(id).set({
+    ...data,
+    lastUpdated: Date.now(),
+  });
   return {id: snapshot.id}
 }
 
@@ -167,7 +169,10 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
 
   const customerDb = await db
     .collection("customers")
-    .add(customerData);
+    .add({
+      ...customerData,
+      timestamp: Date.now(),
+    });
 
   const purchaseDb = await db
     .collection("purchases")
@@ -179,6 +184,7 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
       paymentId,
       paymentMethod,
       paymentValue,
+      timestamp: Date.now(),
     });
 
   const purchaseItensDb = await db
@@ -188,7 +194,8 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
     purchaseItensDb.add({
       ...item,
       purchaseId: purchaseDb.id,
-      customerId: customerDb.id
+      customerId: customerDb.id,
+      timestamp: Date.now(),
     })
   })
 
@@ -341,21 +348,14 @@ app.post("/cancel-last-payment-intent", async (req: Request, res: Response) => {
   })
 });
 
-// function getPaymentIntentStatus({payment_intent_id, config}: {payment_intent_id: string, config: {accessToken: string}}) {
-//   return fetch(`https://api.mercadopago.com/point/integration-api/payment-intents/${payment_intent_id}`, Object.assign({ method: 'GET', headers: {
-//       Authorization: `Bearer ${config.accessToken}`,
-//   }}));
-// }
-
 app.post("/get-payment-intent-status", async (req: Request, res: Response) => {
   if (mpApiKey) {
     point.getPaymentIntentStatus({
       payment_intent_id: req.body.payment_intent_id,
     }).then((resp) => {
-      console.log(resp)
       res.json(resp)
     }).catch((err) => {
-      console.log(err)
+      console.log("ERR", err)
       res.json(err)
     })
   }
