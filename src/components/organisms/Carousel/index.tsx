@@ -1,32 +1,29 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom";
+import { getSlides } from "../../../api";
 
-const carouselItens = [
+const someItems = [
   {
-    id: 1,
-    img: './slide1.jpg',
+    id: '1',
+    img: 'https://firebasestorage.googleapis.com/v0/b/totem-tour.appspot.com/o/slide1.jpg?alt=media&token=f87ebc89-439c-47f8-a19c-345f48f4c6cc',
     description: "Service 1"
-  },
-  {
-    id: 2,
-    img: 'https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp',
-    description: "Service 2"
-  },
-  {
-    id: 3,
-    img: 'https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp',
-    description: "Service 3"
-  },
-  {
-    id: 4,
-    img: 'https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp',
-    description: "Service 4"
   },
 ]
 
 export default function HeroCarousel() {
+  const [carouselItens, setCarouselItems] = useState(someItems);
+
   const carouselRef = useRef(new Array(carouselItens.length));
   const initialized = useRef(false);
+
+  useEffect(() => {
+    getSlides().then((res) => {
+      setCarouselItems(res)
+      carouselRef.current = carouselItens;
+    }).catch(() => {
+      setCarouselItems(someItems)
+    })
+  }, [])
 
   let index = 0;
   const scrollCarousel = () => {
@@ -35,7 +32,10 @@ export default function HeroCarousel() {
     if (index > carouselItens.length-1) {
       index = 0;
     }
-    carouselRef.current[index].scrollIntoView()
+    if (carouselRef.current[index]) {
+      carouselRef.current[index].scrollIntoView()
+    }
+    
   };
 
   useEffect(() => {
@@ -55,9 +55,10 @@ export default function HeroCarousel() {
         {carouselItens.map((item, index) => (
           <div key={item.id} id={`slide${item.id}`} ref={el => carouselRef.current[index] = el} className="carousel-item relative w-full">
               <img
-                src={require('./slide1.jpg')}
+                src={item.img}
                 className="h-full object-center"
                 style={{ marginRight: 'auto'}}
+                alt="slide"
               />
           </div>
         ))}

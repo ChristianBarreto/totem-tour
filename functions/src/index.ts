@@ -209,17 +209,23 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
 
 async function getDbItems(dbName: string) {
   const purchaseItensRef = await db.collection(dbName).get();
-
   const promise = new Promise((resolve, reject) => {
     const data: any[] = [];
-    purchaseItensRef.forEach((doc: any, index: number, array: any) => {
-      data.push({id: doc.id, ...doc.data()})
-      resolve(data);
-    });
+    if (purchaseItensRef.size) {
+      purchaseItensRef?.forEach((doc: any, index: number, array: any) => {
+        data.push({id: doc.id, ...doc.data()})
+        resolve(data);
+      });
+    } else {
+      reject([])
+    }
+
   })
 
   return promise.then((res) => {
     return res;
+  }).catch((err) => {
+    return err
   })
 }
 
@@ -361,6 +367,10 @@ app.post("/get-payment-intent-status", async (req: Request, res: Response) => {
   }
 });
 
+app.get("/get-slides", async (req: Request, res: Response) => {
+  const slides = await getDbItems("slides")
+  res.json(slides)
+});
 
 exports.totem = onRequest(app);
 

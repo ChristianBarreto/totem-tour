@@ -105,6 +105,12 @@ export type PaymentInterStatus = {
   payment_intent_id: string,
 }
 
+export type CarouselItems = Array<{
+  img: string,
+  id: string,
+  description: string,
+}>
+
 const axiosParams = {
   headers: {
     // 'Access-Control-Allow-Origin': 'https://totem-2id4w5fuzq-uc.a.run.app/'
@@ -227,5 +233,10 @@ export const cancelLastPaymentIntent = async (body: CancelPaymentIntent) => {
 
 export const getPaymentIntentStatus = async (body: PaymentInterStatus) => {
   const { data } = await axios.post(`${baseUrl}/get-payment-intent-status/`, body, axiosParams);
+  return data;
+}
+
+export const getSlides = async () => {
+  const { data } = await axios.get(`${baseUrl}/get-slides/`, axiosParams);
   return data;
 }
