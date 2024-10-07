@@ -6,6 +6,7 @@ import PaymentError from "../PaymentError";
 import PaymentCardInvoice from "../PaymentCardInvoice";
 import PaymentExpired from "../PaymentExpired";
 import PaymentPixSuccess from "../PaymentPixSuccess";
+import PaymentCanceled from "../PaymentCanceled";
 
 const initPurchase = {
   cartPrice: 0,
@@ -202,7 +203,7 @@ export default function PaymentCard({
 
         {cardProcessStatus === 'awaiting_payment' && <p><PaymentCardInvoice /></p>}
 
-        {cardProcessStatus === 'payment_rejected' && <PaymentError errorData={paymentError}/>}
+        {cardProcessStatus === 'payment_rejected' && <PaymentCanceled />}
 
         {cardProcessStatus === 'payment_expired' && <PaymentExpired />}
 
