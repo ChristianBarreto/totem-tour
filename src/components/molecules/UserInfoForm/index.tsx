@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { MutableRefObject, useEffect, useRef, useState } from "react"
 import IconEmail from "../../atoms/IconEmail"
 import IconPhone from "../../atoms/IconPhone"
 import IconUser from "../../atoms/IconUser"
@@ -65,6 +65,7 @@ export default function UserInfoForm({
   const handleInputChange = (inputName: InputNames, value: string) => {
     if (inputName === 'phone'){
       setCustomerData({...customerData, [inputName]: PhoneMask(value)})
+
     } else {
       setCustomerData({...customerData, [inputName]: value})
     }

@@ -51,7 +51,7 @@ export const PhoneMask = (value: string) => {
     .replace(')', '')
     .replace(" ", "")
     .replace("-", "")
-
+  
   if ((santizedValue.length >= 2) && (santizedValue.length < 6)) {
     return `(${santizedValue.slice(0,2)}) ${santizedValue.slice(2,11)}`
 
