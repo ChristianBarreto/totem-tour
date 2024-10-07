@@ -4,7 +4,7 @@ import { getAdminPurchaseItens } from "../../../api";
 export default function PurchasesPage() {
 
   const tableHeader = [
-    {name: "Data", value: "date"},
+    {name: "Data da compra", value: "timestamp"},
     {name: "Produto", value: "productName"},
     {name: "Qtd", value: "qty"},
     {name: "Cidade", value: "location"},
