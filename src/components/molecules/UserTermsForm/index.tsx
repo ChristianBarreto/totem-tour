@@ -2,9 +2,11 @@ import { useState } from "react"
 import IconChevronDown from "../../atoms/IconChevronDown";
 
 export default function UserTermsForm({
- 
+ terms,
+ setTerms,
 }: {
-  
+  terms: boolean,
+  setTerms: (value: boolean) => void,
 }) {
   const [status, setStatus] = useState({
     info: false,
@@ -13,6 +15,18 @@ export default function UserTermsForm({
     taxes: false,
     terms: false,
   });
+
+  if (
+    status.info
+    && status.local
+    && status.cancel
+    && status.taxes
+    && status.terms
+  ) {
+    setTerms(true);
+  } else {
+    setTerms(false)
+  }
 
   return (
     <div
@@ -79,7 +93,7 @@ export default function UserTermsForm({
                 type="checkbox"
                 className="checkbox checkbox-primary checkbox-lg"
                 checked={status.terms}
-                onChange={() => setStatus({...status, terms: true})}
+                onChange={() => setStatus({...status, terms: !status.terms})}
               />
             </label>
           </div>

@@ -26,6 +26,8 @@ export default function CheckoutPage() {
 
   const [count, setCount] = useState(1);
 
+  const [terms, setTerms] = useState(false);
+
   const handleNext = () => {
     setCount(count+1);
     setSequence(
@@ -44,11 +46,15 @@ export default function CheckoutPage() {
         !!checkoutFieldValidation('name', customerData.name)
           && !!checkoutFieldValidation('email', customerData.email)
           && !!checkoutFieldValidation('phone', customerData.phone)
-        ){
+      ){
+        return false;
+      }
+    }else if (count === 2) {
+      if (terms){
         return false;
       }
     }
-    return false; // TODO: mudar para false para produção
+    return true; // TODO: mudar para false para produção
   }
 
   const nextDisabled = handleNextDisabled();
@@ -62,8 +68,8 @@ export default function CheckoutPage() {
         
         <div className="grow pt-28">
           {count === 1 && (<UserInfoForm customerData={customerData} setCustomerData={setCustomerData} />)}
-          {count === 2 && (<UserTermsForm />)}
-          {count === 3 && (<UserPaymentForm customerData={customerData}/>)}
+          {count === 2 && (<UserTermsForm terms={terms} setTerms={setTerms} />)}
+          {count === 3 && (<UserPaymentForm customerData={customerData} />)}
         </div>
 
         <div className="flex justify-between">
@@ -92,9 +98,9 @@ export default function CheckoutPage() {
             </>
           ): (
             <button
-            className="btn btn-lg bg-neutral-400"
-            style={{ color: 'white'}}
-            onClick={() => redirectToInitial()}
+              className="btn btn-lg bg-neutral-400"
+              style={{ color: 'white'}}
+              onClick={() => redirectToInitial()}
             >
               <IconRowBack />
               <p className="text-3xl">Reiniciar compra</p>
