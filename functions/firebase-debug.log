@@ -1,0 +1,565 @@
+[debug] [2024-10-08T20:55:38.143Z] ----------------------------------------------------------------------
+[debug] [2024-10-08T20:55:38.146Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\chris\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --only functions
+[debug] [2024-10-08T20:55:38.147Z] CLI Version:   13.18.0
+[debug] [2024-10-08T20:55:38.147Z] Platform:      win32
+[debug] [2024-10-08T20:55:38.147Z] Node Version:  v20.10.0
+[debug] [2024-10-08T20:55:38.147Z] Time:          Tue Oct 08 2024 17:55:38 GMT-0300 (Horário Padrão de Brasília)
+[debug] [2024-10-08T20:55:38.147Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-10-08T20:55:38.287Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-08T20:55:38.287Z] > authorizing via signed-in user (christiannabasbarreto@gmail.com)
+[info] i  emulators: Starting emulators: functions {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions"}}
+[debug] [2024-10-08T20:55:38.297Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[warn] !  ui: Emulator UI unable to start on port 4000, starting on 4001 instead. {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI unable to start on port 4000, starting on 4001 instead."}}
+[debug] [2024-10-08T20:55:38.300Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4001},{"address":"::1","family":"IPv6","port":4001}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2024-10-08T20:55:38.308Z] [hub] writing locator at C:\Users\chris\AppData\Local\Temp\hub-totem-tour.json
+[debug] [2024-10-08T20:55:38.334Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-10-08T20:55:38.334Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-10-08T20:55:38.334Z] [tasks] Cloud Tasks Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-10-08T20:55:38.334Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4001},{"address":"::1","family":"IPv6","port":4001}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}],"tasks":[{"address":"127.0.0.1","family":"IPv4","port":9499}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: auth, firestore, database, hosting, pubsub, storage, dataconnect {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mauth, firestore, database, hosting, pubsub, storage, dataconnect\u001b[22m"}}
+[debug] [2024-10-08T20:55:38.339Z] defaultcredentials: writing to file C:\Users\chris\AppData\Roaming\firebase\christiannabasbarreto_gmail_com_application_default_credentials.json
+[debug] [2024-10-08T20:55:38.342Z] Setting GAC to C:\Users\chris\AppData\Roaming\firebase\christiannabasbarreto_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\chris\\AppData\\Roaming\\firebase\\christiannabasbarreto_gmail_com_application_default_credentials.json"}}
+[debug] [2024-10-08T20:55:38.344Z] > refreshing access token with scopes: []
+[debug] [2024-10-08T20:55:38.346Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-10-08T20:55:38.347Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-10-08T20:55:38.531Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-10-08T20:55:38.531Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-10-08T20:55:38.544Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/totem-tour/adminSdkConfig [none]
+[debug] [2024-10-08T20:55:39.360Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/totem-tour/adminSdkConfig 200
+[debug] [2024-10-08T20:55:39.361Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/totem-tour/adminSdkConfig {"projectId":"totem-tour","storageBucket":"totem-tour.appspot.com","locationId":"southamerica-east1"}
+[debug] [2024-10-08T20:55:39.392Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-10-08T20:55:39.392Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2024-10-08T20:55:39.393Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\chris\\.cache\\firebase\\emulators\\ui-v1.13.0\\server\\server.mjs"],"optionalArgs":[],"joinArgs":false,"shell":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\chris\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.13.0\\\\server\\\\server.mjs\"],\"optionalArgs\":[],\"joinArgs\":false,\"shell\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2024-10-08T20:55:39.553Z] Web / API server started at 127.0.0.1:4001
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4001\n"}}
+[debug] [2024-10-08T20:55:39.556Z] Web / API server started at ::1:4001
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4001\n"}}
+[info] i  functions: Watching "C:\Users\chris\projects\resourses\totem-tour\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"C:\\Users\\chris\\projects\\resourses\\totem-tour\\functions\" for Cloud Functions..."}}
+[debug] [2024-10-08T20:55:39.631Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[warn] !  functions: Please note that there will be breaking changes when you upgrade. 
+[debug] [2024-10-08T20:55:40.792Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@types/mercadopago": "^1.5.11",
+    "axios": "^1.7.7",
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.4.5",
+    "firebase": "^10.14.0",
+    "firebase-admin": "^12.1.0",
+    "firebase-functions": "^5.0.0",
+    "mercadopago": "https://github.com/ChristianBarreto/sdk-nodejs/tarball/dist"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2024-10-08T20:55:40.792Z] Building nodejs source
+[debug] [2024-10-08T20:55:40.793Z] Failed to find version of module node: reached end of search path C:\Users\chris\projects\resourses\totem-tour\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[info] i  functions: Loaded environment variables from .env. 
+[debug] [2024-10-08T20:55:40.797Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-08T20:55:40.808Z] Found firebase-functions binary at 'C:\Users\chris\projects\resourses\totem-tour\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8437
+
+[info] PRODUCTION false
+
+[info] MP-KEY APP_USR-7929673059949664-092912-8cc8117fbbada4c5c321e1d7378d1098-91680625
+
+[debug] [2024-10-08T20:55:41.437Z] Got response from /__/functions.yaml {"endpoints":{"totem":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"totem"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[info] +  functions: Loaded functions definitions from source: totem. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: totem."}}
+[info] +  functions[us-central1-totem]: http function initialized (http://127.0.0.1:5001/totem-tour/us-central1/totem). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/totem-tour/us-central1/totem)."}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4001/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌───────────┬────────────────┬─────────────────────────────────┐
+│ Emulator  │ Host:Port      │ View in Emulator UI             │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Functions │ 127.0.0.1:5001 │ http://127.0.0.1:4001/functions │
+└───────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2024-10-08T20:56:10.661Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T20:56:10.661Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:56:10.662Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T20:56:10.661Z"],"workRunningCount":1}
+[debug] [2024-10-08T20:56:10.662Z] Accepted request GET /totem-tour/us-central1/totem/get-slides/ --> us-central1-totem
+[debug] [2024-10-08T20:56:10.666Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T20:56:10.666Z] [functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/"}}
+[info] i  functions: Loaded environment variables from .env. 
+[debug] [2024-10-08T20:56:10.690Z] [worker-pool] addWorker(us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(us-central1-totem)"}}
+[debug] [2024-10-08T20:56:10.692Z] [worker-pool] Adding worker with key us-central1-totem, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key us-central1-totem, total=1"}}
+[debug] [2024-10-08T20:56:12.188Z] [runtime-status] [60612] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.5.0","resolution":"C:\\Users\\chris\\projects\\resourses\\totem-tour\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[runtime-status] [60612] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"12.5.0\",\"resolution\":\"C:\\\\Users\\\\chris\\\\projects\\\\resourses\\\\totem-tour\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2024-10-08T20:56:12.189Z] [runtime-status] [60612] Resolved module firebase-functions {"declared":true,"installed":true,"version":"5.1.1","resolution":"C:\\Users\\chris\\projects\\resourses\\totem-tour\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[runtime-status] [60612] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"5.1.1\",\"resolution\":\"C:\\\\Users\\\\chris\\\\projects\\\\resourses\\\\totem-tour\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-10-08T20:56:12.190Z] [runtime-status] [60612] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[runtime-status] [60612] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2024-10-08T20:56:12.191Z] [runtime-status] [60612] Resolved module firebase-functions {"declared":true,"installed":true,"version":"5.1.1","resolution":"C:\\Users\\chris\\projects\\resourses\\totem-tour\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[runtime-status] [60612] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"5.1.1\",\"resolution\":\"C:\\\\Users\\\\chris\\\\projects\\\\resourses\\\\totem-tour\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-10-08T20:56:12.464Z] [runtime-status] [60612] Checked functions.config() {"config":{}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[runtime-status] [60612] Checked functions.config() {\"config\":{}}"}}
+[debug] [2024-10-08T20:56:12.465Z] [runtime-status] [60612] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"5.1.1","resolution":"C:\\Users\\chris\\projects\\resourses\\totem-tour\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[runtime-status] [60612] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"5.1.1\",\"resolution\":\"C:\\\\Users\\\\chris\\\\projects\\\\resourses\\\\totem-tour\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}}"}}
+[debug] [2024-10-08T20:56:12.465Z] [runtime-status] [60612] Resolved module firebase-functions {"declared":true,"installed":true,"version":"5.1.1","resolution":"C:\\Users\\chris\\projects\\resourses\\totem-tour\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[runtime-status] [60612] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"5.1.1\",\"resolution\":\"C:\\\\Users\\\\chris\\\\projects\\\\resourses\\\\totem-tour\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-10-08T20:56:12.466Z] [runtime-status] [60612] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.5.0","resolution":"C:\\Users\\chris\\projects\\resourses\\totem-tour\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[runtime-status] [60612] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"12.5.0\",\"resolution\":\"C:\\\\Users\\\\chris\\\\projects\\\\resourses\\\\totem-tour\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2024-10-08T20:56:12.468Z] [runtime-status] [60612] Resolved module firebase-functions {"declared":true,"installed":true,"version":"5.1.1","resolution":"C:\\Users\\chris\\projects\\resourses\\totem-tour\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[runtime-status] [60612] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"5.1.1\",\"resolution\":\"C:\\\\Users\\\\chris\\\\projects\\\\resourses\\\\totem-tour\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-10-08T20:56:12.469Z] [runtime-status] [60612] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"12.5.0","resolution":"C:\\Users\\chris\\projects\\resourses\\totem-tour\\functions\\node_modules\\firebase-admin\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[runtime-status] [60612] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"12.5.0\",\"resolution\":\"C:\\\\Users\\\\chris\\\\projects\\\\resourses\\\\totem-tour\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}}"}}
+[info] >  PRODUCTION false {"user":"PRODUCTION false","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"\u001b[90m> \u001b[39m PRODUCTION false"}}
+[info] >  MP-KEY APP_USR-7929673059949664-092912-8cc8117fbbada4c5c321e1d7378d1098-91680625 {"user":"MP-KEY APP_USR-7929673059949664-092912-8cc8117fbbada4c5c321e1d7378d1098-91680625","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"\u001b[90m> \u001b[39m MP-KEY APP_USR-7929673059949664-092912-8cc8117fbbada4c5c321e1d7378d1098-91680625"}}
+[debug] [2024-10-08T20:56:12.670Z] [runtime-status] [60612] Functions runtime initialized. {"cwd":"C:\\Users\\chris\\projects\\resourses\\totem-tour\\functions","node_version":"20.10.0"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[runtime-status] [60612] Functions runtime initialized. {\"cwd\":\"C:\\\\Users\\\\chris\\\\projects\\\\resourses\\\\totem-tour\\\\functions\",\"node_version\":\"20.10.0\"}"}}
+[debug] [2024-10-08T20:56:12.670Z] [runtime-status] [60612] Listening to port: \\?\pipe\fire_emu_fb939eb5e5174f99 {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[runtime-status] [60612] Listening to port: \\\\?\\pipe\\fire_emu_fb939eb5e5174f99"}}
+[debug] [2024-10-08T20:56:12.772Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:56:12.772Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T20:56:12.774Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[warn] !  Google API requested!
+   - URL: "https://oauth2.googleapis.com/token"
+   - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Google API requested!\n   - URL: \"https://oauth2.googleapis.com/token\"\n   - Be careful, this may be a production service."}}
+[debug] [2024-10-08T20:56:13.635Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 861.2348ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 861.2348ms"}}
+[debug] [2024-10-08T20:56:13.636Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:56:13.636Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T20:56:13.636Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T20:56:13.636Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:56:20.791Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/products-2024-10-08T20:56:20.791Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:56:20.791Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/products-2024-10-08T20:56:20.791Z"],"workRunningCount":1}
+[debug] [2024-10-08T20:56:20.791Z] Accepted request GET /totem-tour/us-central1/totem/products --> us-central1-totem
+[debug] [2024-10-08T20:56:20.794Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T20:56:20.794Z] [functions] Got req.url=/totem-tour/us-central1/totem/products, mapping to path=/products {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/products, mapping to path=/products"}}
+[debug] [2024-10-08T20:56:20.794Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T20:56:20.795Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T20:56:20.859Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 64.779ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 64.779ms"}}
+[debug] [2024-10-08T20:56:20.860Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:56:20.860Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T20:56:20.861Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T20:56:20.861Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:56:20.865Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/cities-2024-10-08T20:56:20.865Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:56:20.866Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/cities-2024-10-08T20:56:20.865Z"],"workRunningCount":1}
+[debug] [2024-10-08T20:56:20.866Z] Accepted request GET /totem-tour/us-central1/totem/cities --> us-central1-totem
+[debug] [2024-10-08T20:56:20.869Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T20:56:20.869Z] [functions] Got req.url=/totem-tour/us-central1/totem/cities, mapping to path=/cities {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/cities, mapping to path=/cities"}}
+[debug] [2024-10-08T20:56:20.869Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T20:56:20.871Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T20:56:20.920Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 50.0131ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 50.0131ms"}}
+[debug] [2024-10-08T20:56:20.921Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:56:20.922Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T20:56:20.922Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T20:56:20.922Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:56:58.874Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T20:56:58.874Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:56:58.874Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T20:56:58.874Z"],"workRunningCount":1}
+[debug] [2024-10-08T20:56:58.874Z] Accepted request GET /totem-tour/us-central1/totem/get-slides/ --> us-central1-totem
+[debug] [2024-10-08T20:56:58.878Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T20:56:58.878Z] [functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/"}}
+[debug] [2024-10-08T20:56:58.879Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T20:56:58.879Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T20:56:58.949Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 70.3578ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 70.3578ms"}}
+[debug] [2024-10-08T20:56:58.950Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:56:58.950Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T20:56:58.951Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T20:56:58.951Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:57:00.049Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/products-2024-10-08T20:57:00.049Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:57:00.049Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/products-2024-10-08T20:57:00.049Z"],"workRunningCount":1}
+[debug] [2024-10-08T20:57:00.049Z] Accepted request GET /totem-tour/us-central1/totem/products --> us-central1-totem
+[debug] [2024-10-08T20:57:00.050Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T20:57:00.050Z] [functions] Got req.url=/totem-tour/us-central1/totem/products, mapping to path=/products {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/products, mapping to path=/products"}}
+[debug] [2024-10-08T20:57:00.051Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T20:57:00.051Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T20:57:00.110Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 59.2551ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 59.2551ms"}}
+[debug] [2024-10-08T20:57:00.112Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:57:00.112Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T20:57:00.113Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T20:57:00.113Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:57:00.116Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/cities-2024-10-08T20:57:00.116Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:57:00.116Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/cities-2024-10-08T20:57:00.116Z"],"workRunningCount":1}
+[debug] [2024-10-08T20:57:00.116Z] Accepted request GET /totem-tour/us-central1/totem/cities --> us-central1-totem
+[debug] [2024-10-08T20:57:00.119Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T20:57:00.119Z] [functions] Got req.url=/totem-tour/us-central1/totem/cities, mapping to path=/cities {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/cities, mapping to path=/cities"}}
+[debug] [2024-10-08T20:57:00.119Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T20:57:00.119Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T20:57:00.179Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 60.5417ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 60.5417ms"}}
+[debug] [2024-10-08T20:57:00.181Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:57:00.181Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T20:57:00.181Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T20:57:00.181Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:57:50.457Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T20:57:50.457Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:57:50.457Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T20:57:50.457Z"],"workRunningCount":1}
+[debug] [2024-10-08T20:57:50.457Z] Accepted request GET /totem-tour/us-central1/totem/get-slides/ --> us-central1-totem
+[debug] [2024-10-08T20:57:50.461Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T20:57:50.461Z] [functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/"}}
+[debug] [2024-10-08T20:57:50.462Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T20:57:50.463Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T20:57:50.580Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 117.0067ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 117.0067ms"}}
+[debug] [2024-10-08T20:57:50.581Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:57:50.581Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T20:57:50.581Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T20:57:50.581Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:57:53.782Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/products-2024-10-08T20:57:53.782Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:57:53.782Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/products-2024-10-08T20:57:53.782Z"],"workRunningCount":1}
+[debug] [2024-10-08T20:57:53.782Z] Accepted request GET /totem-tour/us-central1/totem/products --> us-central1-totem
+[debug] [2024-10-08T20:57:53.783Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T20:57:53.783Z] [functions] Got req.url=/totem-tour/us-central1/totem/products, mapping to path=/products {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/products, mapping to path=/products"}}
+[debug] [2024-10-08T20:57:53.783Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T20:57:53.784Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T20:57:53.843Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 59.7445ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 59.7445ms"}}
+[debug] [2024-10-08T20:57:53.844Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:57:53.844Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T20:57:53.844Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T20:57:53.845Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:57:53.849Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/cities-2024-10-08T20:57:53.849Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:57:53.850Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/cities-2024-10-08T20:57:53.849Z"],"workRunningCount":1}
+[debug] [2024-10-08T20:57:53.850Z] Accepted request GET /totem-tour/us-central1/totem/cities --> us-central1-totem
+[debug] [2024-10-08T20:57:53.853Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T20:57:53.853Z] [functions] Got req.url=/totem-tour/us-central1/totem/cities, mapping to path=/cities {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/cities, mapping to path=/cities"}}
+[debug] [2024-10-08T20:57:53.853Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T20:57:53.854Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T20:57:53.892Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 38.433ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 38.433ms"}}
+[debug] [2024-10-08T20:57:53.893Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:57:53.893Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T20:57:53.893Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T20:57:53.893Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:01.170Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T20:59:01.170Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:01.170Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T20:59:01.170Z"],"workRunningCount":1}
+[debug] [2024-10-08T20:59:01.170Z] Accepted request GET /totem-tour/us-central1/totem/get-slides/ --> us-central1-totem
+[debug] [2024-10-08T20:59:01.174Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T20:59:01.174Z] [functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/"}}
+[debug] [2024-10-08T20:59:01.174Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T20:59:01.176Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T20:59:01.279Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 103.659ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 103.659ms"}}
+[debug] [2024-10-08T20:59:01.280Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:59:01.280Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T20:59:01.280Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T20:59:01.281Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:05.987Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/products-2024-10-08T20:59:05.987Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:05.987Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/products-2024-10-08T20:59:05.987Z"],"workRunningCount":1}
+[debug] [2024-10-08T20:59:05.987Z] Accepted request GET /totem-tour/us-central1/totem/products --> us-central1-totem
+[debug] [2024-10-08T20:59:05.988Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T20:59:05.989Z] [functions] Got req.url=/totem-tour/us-central1/totem/products, mapping to path=/products {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/products, mapping to path=/products"}}
+[debug] [2024-10-08T20:59:05.989Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T20:59:05.989Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T20:59:06.045Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 55.5609ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 55.5609ms"}}
+[debug] [2024-10-08T20:59:06.045Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:59:06.045Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T20:59:06.046Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T20:59:06.046Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:06.049Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/cities-2024-10-08T20:59:06.049Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:06.049Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/cities-2024-10-08T20:59:06.049Z"],"workRunningCount":1}
+[debug] [2024-10-08T20:59:06.050Z] Accepted request GET /totem-tour/us-central1/totem/cities --> us-central1-totem
+[debug] [2024-10-08T20:59:06.051Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T20:59:06.051Z] [functions] Got req.url=/totem-tour/us-central1/totem/cities, mapping to path=/cities {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/cities, mapping to path=/cities"}}
+[debug] [2024-10-08T20:59:06.052Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T20:59:06.052Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T20:59:06.116Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 64.2907ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 64.2907ms"}}
+[debug] [2024-10-08T20:59:06.117Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:59:06.117Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T20:59:06.118Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T20:59:06.118Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:26.524Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T20:59:26.524Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:26.524Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T20:59:26.524Z"],"workRunningCount":1}
+[debug] [2024-10-08T20:59:26.524Z] Accepted request GET /totem-tour/us-central1/totem/get-slides/ --> us-central1-totem
+[debug] [2024-10-08T20:59:26.528Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T20:59:26.528Z] [functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/"}}
+[debug] [2024-10-08T20:59:26.528Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T20:59:26.531Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T20:59:26.577Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 46.4936ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 46.4936ms"}}
+[debug] [2024-10-08T20:59:26.578Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:59:26.578Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T20:59:26.578Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T20:59:26.578Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:28.000Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/products-2024-10-08T20:59:28.000Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:28.001Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/products-2024-10-08T20:59:28.000Z"],"workRunningCount":1}
+[debug] [2024-10-08T20:59:28.001Z] Accepted request GET /totem-tour/us-central1/totem/products --> us-central1-totem
+[debug] [2024-10-08T20:59:28.001Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T20:59:28.002Z] [functions] Got req.url=/totem-tour/us-central1/totem/products, mapping to path=/products {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/products, mapping to path=/products"}}
+[debug] [2024-10-08T20:59:28.002Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T20:59:28.002Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T20:59:28.049Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 47.2831ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 47.2831ms"}}
+[debug] [2024-10-08T20:59:28.050Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:59:28.051Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T20:59:28.051Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T20:59:28.051Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:28.053Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/cities-2024-10-08T20:59:28.053Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:28.054Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/cities-2024-10-08T20:59:28.053Z"],"workRunningCount":1}
+[debug] [2024-10-08T20:59:28.054Z] Accepted request GET /totem-tour/us-central1/totem/cities --> us-central1-totem
+[debug] [2024-10-08T20:59:28.056Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T20:59:28.056Z] [functions] Got req.url=/totem-tour/us-central1/totem/cities, mapping to path=/cities {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/cities, mapping to path=/cities"}}
+[debug] [2024-10-08T20:59:28.056Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T20:59:28.057Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T20:59:28.107Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 50.8443ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 50.8443ms"}}
+[debug] [2024-10-08T20:59:28.109Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:59:28.110Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T20:59:28.110Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T20:59:28.111Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:29.923Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T20:59:29.923Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:29.924Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T20:59:29.923Z"],"workRunningCount":1}
+[debug] [2024-10-08T20:59:29.924Z] Accepted request GET /totem-tour/us-central1/totem/get-slides/ --> us-central1-totem
+[debug] [2024-10-08T20:59:29.925Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T20:59:29.926Z] [functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/"}}
+[debug] [2024-10-08T20:59:29.926Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T20:59:29.928Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T20:59:29.977Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 49.279ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 49.279ms"}}
+[debug] [2024-10-08T20:59:29.979Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:59:29.980Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T20:59:29.980Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T20:59:29.980Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:33.157Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/products-2024-10-08T20:59:33.157Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:33.157Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/products-2024-10-08T20:59:33.157Z"],"workRunningCount":1}
+[debug] [2024-10-08T20:59:33.157Z] Accepted request GET /totem-tour/us-central1/totem/products --> us-central1-totem
+[debug] [2024-10-08T20:59:33.158Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T20:59:33.159Z] [functions] Got req.url=/totem-tour/us-central1/totem/products, mapping to path=/products {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/products, mapping to path=/products"}}
+[debug] [2024-10-08T20:59:33.159Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T20:59:33.160Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T20:59:33.215Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 55.8515ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 55.8515ms"}}
+[debug] [2024-10-08T20:59:33.217Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:59:33.217Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T20:59:33.217Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T20:59:33.217Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:33.220Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/cities-2024-10-08T20:59:33.220Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:33.220Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/cities-2024-10-08T20:59:33.220Z"],"workRunningCount":1}
+[debug] [2024-10-08T20:59:33.220Z] Accepted request GET /totem-tour/us-central1/totem/cities --> us-central1-totem
+[debug] [2024-10-08T20:59:33.222Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T20:59:33.222Z] [functions] Got req.url=/totem-tour/us-central1/totem/cities, mapping to path=/cities {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/cities, mapping to path=/cities"}}
+[debug] [2024-10-08T20:59:33.223Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T20:59:33.223Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T20:59:33.270Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 46.7664ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 46.7664ms"}}
+[debug] [2024-10-08T20:59:33.270Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:59:33.271Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T20:59:33.271Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T20:59:33.271Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:34.283Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T20:59:34.283Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T20:59:34.284Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T20:59:34.283Z"],"workRunningCount":1}
+[debug] [2024-10-08T20:59:34.284Z] Accepted request GET /totem-tour/us-central1/totem/get-slides/ --> us-central1-totem
+[debug] [2024-10-08T20:59:34.285Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T20:59:34.285Z] [functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/"}}
+[debug] [2024-10-08T20:59:34.285Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T20:59:34.286Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T20:59:34.329Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 42.9061ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 42.9061ms"}}
+[debug] [2024-10-08T20:59:34.330Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T20:59:34.330Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T20:59:34.330Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T20:59:34.330Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:00:00.976Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T21:00:00.976Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:00:00.977Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T21:00:00.976Z"],"workRunningCount":1}
+[debug] [2024-10-08T21:00:00.977Z] Accepted request GET /totem-tour/us-central1/totem/get-slides/ --> us-central1-totem
+[debug] [2024-10-08T21:00:00.985Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T21:00:00.986Z] [functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/"}}
+[debug] [2024-10-08T21:00:00.987Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T21:00:00.989Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T21:00:01.048Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 59.7422ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 59.7422ms"}}
+[debug] [2024-10-08T21:00:01.050Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T21:00:01.050Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T21:00:01.051Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T21:00:01.051Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:00:05.591Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T21:00:05.591Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:00:05.592Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T21:00:05.591Z"],"workRunningCount":1}
+[debug] [2024-10-08T21:00:05.592Z] Accepted request GET /totem-tour/us-central1/totem/get-slides/ --> us-central1-totem
+[debug] [2024-10-08T21:00:05.594Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T21:00:05.595Z] [functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/"}}
+[debug] [2024-10-08T21:00:05.596Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T21:00:05.599Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T21:00:05.667Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 68.3958ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 68.3958ms"}}
+[debug] [2024-10-08T21:00:05.669Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T21:00:05.670Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T21:00:05.670Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T21:00:05.670Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:00:07.836Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T21:00:07.836Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:00:07.836Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T21:00:07.836Z"],"workRunningCount":1}
+[debug] [2024-10-08T21:00:07.836Z] Accepted request GET /totem-tour/us-central1/totem/get-slides/ --> us-central1-totem
+[debug] [2024-10-08T21:00:07.837Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T21:00:07.837Z] [functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/"}}
+[debug] [2024-10-08T21:00:07.837Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T21:00:07.838Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T21:00:07.887Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 49.0415ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 49.0415ms"}}
+[debug] [2024-10-08T21:00:07.888Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T21:00:07.888Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T21:00:07.888Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T21:00:07.889Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:00:09.164Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/products-2024-10-08T21:00:09.164Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:00:09.164Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/products-2024-10-08T21:00:09.164Z"],"workRunningCount":1}
+[debug] [2024-10-08T21:00:09.164Z] Accepted request GET /totem-tour/us-central1/totem/products --> us-central1-totem
+[debug] [2024-10-08T21:00:09.164Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T21:00:09.165Z] [functions] Got req.url=/totem-tour/us-central1/totem/products, mapping to path=/products {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/products, mapping to path=/products"}}
+[debug] [2024-10-08T21:00:09.165Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T21:00:09.166Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T21:00:09.223Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 57.3324ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 57.3324ms"}}
+[debug] [2024-10-08T21:00:09.224Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T21:00:09.224Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T21:00:09.224Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T21:00:09.224Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:00:09.227Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/cities-2024-10-08T21:00:09.227Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:00:09.227Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/cities-2024-10-08T21:00:09.227Z"],"workRunningCount":1}
+[debug] [2024-10-08T21:00:09.228Z] Accepted request GET /totem-tour/us-central1/totem/cities --> us-central1-totem
+[debug] [2024-10-08T21:00:09.230Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T21:00:09.230Z] [functions] Got req.url=/totem-tour/us-central1/totem/cities, mapping to path=/cities {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/cities, mapping to path=/cities"}}
+[debug] [2024-10-08T21:00:09.230Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T21:00:09.231Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T21:00:09.281Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 50.6961ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 50.6961ms"}}
+[debug] [2024-10-08T21:00:09.284Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T21:00:09.285Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T21:00:09.285Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T21:00:09.285Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:00:10.773Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T21:00:10.773Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:00:10.773Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T21:00:10.773Z"],"workRunningCount":1}
+[debug] [2024-10-08T21:00:10.773Z] Accepted request GET /totem-tour/us-central1/totem/get-slides/ --> us-central1-totem
+[debug] [2024-10-08T21:00:10.774Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T21:00:10.775Z] [functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/"}}
+[debug] [2024-10-08T21:00:10.775Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T21:00:10.779Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T21:00:10.820Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 41.9979ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 41.9979ms"}}
+[debug] [2024-10-08T21:00:10.821Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T21:00:10.822Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T21:00:10.822Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T21:00:10.822Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:00:17.662Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/products-2024-10-08T21:00:17.662Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:00:17.662Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/products-2024-10-08T21:00:17.662Z"],"workRunningCount":1}
+[debug] [2024-10-08T21:00:17.663Z] Accepted request GET /totem-tour/us-central1/totem/products --> us-central1-totem
+[debug] [2024-10-08T21:00:17.666Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T21:00:17.666Z] [functions] Got req.url=/totem-tour/us-central1/totem/products, mapping to path=/products {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/products, mapping to path=/products"}}
+[debug] [2024-10-08T21:00:17.666Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T21:00:17.667Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T21:00:17.706Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 39.1678ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 39.1678ms"}}
+[debug] [2024-10-08T21:00:17.707Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T21:00:17.708Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T21:00:17.708Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T21:00:17.708Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:00:17.712Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/cities-2024-10-08T21:00:17.712Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:00:17.713Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/cities-2024-10-08T21:00:17.712Z"],"workRunningCount":1}
+[debug] [2024-10-08T21:00:17.713Z] Accepted request GET /totem-tour/us-central1/totem/cities --> us-central1-totem
+[debug] [2024-10-08T21:00:17.715Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T21:00:17.715Z] [functions] Got req.url=/totem-tour/us-central1/totem/cities, mapping to path=/cities {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/cities, mapping to path=/cities"}}
+[debug] [2024-10-08T21:00:17.715Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T21:00:17.716Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T21:00:17.753Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 37.1445ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 37.1445ms"}}
+[debug] [2024-10-08T21:00:17.754Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T21:00:17.754Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T21:00:17.754Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T21:00:17.754Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:00:19.073Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T21:00:19.073Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:00:19.073Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T21:00:19.073Z"],"workRunningCount":1}
+[debug] [2024-10-08T21:00:19.073Z] Accepted request GET /totem-tour/us-central1/totem/get-slides/ --> us-central1-totem
+[debug] [2024-10-08T21:00:19.074Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T21:00:19.075Z] [functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/"}}
+[debug] [2024-10-08T21:00:19.075Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T21:00:19.077Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T21:00:19.117Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 40.6632ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 40.6632ms"}}
+[debug] [2024-10-08T21:00:19.118Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T21:00:19.118Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T21:00:19.119Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T21:00:19.119Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:01:01.172Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/products-2024-10-08T21:01:01.172Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:01:01.172Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/products-2024-10-08T21:01:01.172Z"],"workRunningCount":1}
+[debug] [2024-10-08T21:01:01.172Z] Accepted request GET /totem-tour/us-central1/totem/products --> us-central1-totem
+[debug] [2024-10-08T21:01:01.176Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T21:01:01.177Z] [functions] Got req.url=/totem-tour/us-central1/totem/products, mapping to path=/products {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/products, mapping to path=/products"}}
+[debug] [2024-10-08T21:01:01.177Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T21:01:01.178Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T21:01:01.273Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 96.0673ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 96.0673ms"}}
+[debug] [2024-10-08T21:01:01.274Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T21:01:01.274Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T21:01:01.274Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T21:01:01.275Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:01:01.278Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/cities-2024-10-08T21:01:01.278Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:01:01.278Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/cities-2024-10-08T21:01:01.278Z"],"workRunningCount":1}
+[debug] [2024-10-08T21:01:01.279Z] Accepted request GET /totem-tour/us-central1/totem/cities --> us-central1-totem
+[debug] [2024-10-08T21:01:01.280Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T21:01:01.281Z] [functions] Got req.url=/totem-tour/us-central1/totem/cities, mapping to path=/cities {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/cities, mapping to path=/cities"}}
+[debug] [2024-10-08T21:01:01.281Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T21:01:01.281Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T21:01:01.329Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 47.9582ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 47.9582ms"}}
+[debug] [2024-10-08T21:01:01.330Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T21:01:01.330Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T21:01:01.330Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T21:01:01.330Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:01:02.997Z] [work-queue] {"queuedWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T21:01:02.997Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-08T21:01:02.998Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/totem-tour/us-central1/totem/get-slides/-2024-10-08T21:01:02.997Z"],"workRunningCount":1}
+[debug] [2024-10-08T21:01:02.998Z] Accepted request GET /totem-tour/us-central1/totem/get-slides/ --> us-central1-totem
+[debug] [2024-10-08T21:01:02.999Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-08T21:01:02.999Z] [functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/totem-tour/us-central1/totem/get-slides/, mapping to path=/get-slides/"}}
+[debug] [2024-10-08T21:01:02.999Z] [worker-pool] submitRequest(triggerId=us-central1-totem) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-totem)"}}
+[info] i  functions: Beginning execution of "us-central1-totem" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Beginning execution of \"us-central1-totem\""}}
+[debug] [2024-10-08T21:01:03.001Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: BUSY"}}
+[debug] [2024-10-08T21:01:03.042Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-totem" in 41.2957ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finished \"us-central1-totem\" in 41.2957ms"}}
+[debug] [2024-10-08T21:01:03.043Z] [worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"[worker-us-central1-totem-6e6c89ee-6e51-4212-90aa-2de0a9bd616a]: IDLE"}}
+[debug] [2024-10-08T21:01:03.043Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-08T21:01:03.043Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-totem"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-08T21:01:03.043Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
