@@ -2,10 +2,13 @@
   margin-bottom: 20px;
 }
 .hidden {
-  height: 62px;
+  height: 87px;
   overflow-y: hidden;
 }
 .paragraph {
   white-space: pre-wrap;
+  padding: 5px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
 }
 

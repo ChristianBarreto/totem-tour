@@ -11,6 +11,7 @@ import DateSelector from '../../molecules/DateSelector'
 import PriceDisplay from '../../molecules/PriceDisplay'
 import AlertMaxRound from '../../molecules/AlertMaxRound'
 import { useCart } from '../../../context/CartContext'
+import ProductForm from '../../molecules/ProductForm'
 
 export default function ProductModal({
   product,
@@ -141,24 +142,17 @@ export default function ProductModal({
                       </p>
                     )}
 
-                    <div className='flex justify-around mb-4'>
-                      <DateSelector
-                        setAvailability={setAvailability}
-                        availabilities={availabilities}
-                      />
-                      <QtySelector
-                        qty={qty}
-                        setQty={setQty}
-                        maxPerRound={product.maxPerRound}
-                        remaining={availability?.remaining}
-                        disabled={qtySelectorDisable}
-                        setMaxRound={setMaxRound}
-                      />
-                    </div>
-
-                    {maxRound && <AlertMaxRound setMaxRound={setMaxRound}/>}
-
-                    <PriceDisplay price={price} />
+                    <ProductForm 
+                      setAvailability={setAvailability}
+                      availabilities={availabilities}
+                      qty={qty}
+                      setQty={setQty}
+                      product={product}
+                      availability={availability}
+                      setMaxRound={setMaxRound}
+                      qtySelectorDisable={qtySelectorDisable}
+                      price={price}
+                    />
 
                   </section>
 
