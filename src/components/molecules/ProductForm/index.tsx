@@ -25,8 +25,6 @@ export default function ProductForm({
   price: number
 }) {
 
-  console.log(availability, qty)
-
   return (
     <div>
       <ul className="steps steps-vertical">
