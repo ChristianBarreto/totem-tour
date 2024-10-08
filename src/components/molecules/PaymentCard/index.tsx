@@ -75,8 +75,6 @@ export default function PaymentCard({
 
   useEffect(() => {
     if (cardProcessStatus === 'select_method') {
-      console.log('select_method')
-
       setPurchase({
         ...cart,
         paymentMethod: 'debit_card',

@@ -301,6 +301,9 @@ app.post("/payment-intent", async (req: Request, res: Response) => {
         type: req.body.type,
         installments: req.body.installments,
         installments_cost: req.body.installments_cost,
+      },
+      additional_info: {
+        print_on_terminal: req.body.print
       }
 		},
 	}).then((resp) => {
