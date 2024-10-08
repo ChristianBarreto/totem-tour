@@ -372,6 +372,17 @@ app.get("/get-slides", async (req: Request, res: Response) => {
   res.json(slides)
 });
 
+app.get("/get-totem-tour", async (req: Request, res: Response) => {
+  const totemTour = await getDbItem("totemTour", "s4r21ilBohl2w3PiFdZQ")
+  res.json(totemTour)
+});
+
+app.put("/set-totem-tour", async (req: Request, res: Response) => {
+  const resp = await editDbItem("totemTour", "s4r21ilBohl2w3PiFdZQ", req.body);
+  res.json(resp);
+});
+
+
 exports.totem = onRequest(app);
 
 

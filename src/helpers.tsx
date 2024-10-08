@@ -63,3 +63,12 @@ export const PhoneMask = (value: string) => {
   }
   return santizedValue;
 }
+
+export const objectChanged = (prod1: any, prod2: any) => {
+  for (let i in prod1) {
+    if (prod1[i as keyof any] !== prod2[i as keyof any]) {
+      return true
+    }
+  }
+  return false
+}

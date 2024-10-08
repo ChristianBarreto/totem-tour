@@ -11,6 +11,7 @@ import PurchasesPage from "../pages/admin/PurchasesPage";
 import CitiesPage from "../pages/admin/CitiesPage";
 import EditProductPage from "../pages/admin/Products/EditProductPage";
 import PosPage from "../pages/admin/PosPage";
+import EditCompanyPage from "../pages/admin/EditCompanyPage";
 
 
 export const rawRoutes = [
@@ -70,6 +71,10 @@ export const rawRoutes = [
       {
         path: '/admin/pos',
         element: <PosPage />,
+      },
+      {
+        path: '/admin/totem-tour',
+        element: <EditCompanyPage />,
       },
     ],
   },
