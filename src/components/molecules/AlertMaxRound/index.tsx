@@ -16,7 +16,7 @@ export default function AlertMaxRound({
       role="alert"
       className="alert alert-info"
       onClick={() => setMaxRound(false)}
-      style={{position: 'absolute', width: '450px', marginTop: '-150px', marginLeft: '10px'}}
+      style={{position: 'absolute', width: '420px', marginTop: '-170px', marginLeft: '40px'}}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

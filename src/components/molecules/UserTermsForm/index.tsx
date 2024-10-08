@@ -1,10 +1,14 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import IconChevronDown from "../../atoms/IconChevronDown";
+import TermsModal from "../TermsModal";
+import { getTotemTour } from "../../../api";
 
 export default function UserTermsForm({
- 
+ terms,
+ setTerms,
 }: {
-  
+  terms: boolean,
+  setTerms: (value: boolean) => void,
 }) {
   const [status, setStatus] = useState({
     info: false,
@@ -13,6 +17,29 @@ export default function UserTermsForm({
     taxes: false,
     terms: false,
   });
+  
+  const [openTermsModal, setOpenTermsModal] = useState(false);
+  const [company, setCompany] = useState(null);
+
+  useEffect(() => {
+    getTotemTour().then((res) => {
+      setCompany(res)
+    }).catch((err) => {
+      console.log("Err", err)
+    })
+  }, [])
+
+  if (
+    status.info
+    && status.local
+    && status.cancel
+    && status.taxes
+    && status.terms
+  ) {
+    setTerms(true);
+  } else {
+    setTerms(false)
+  }
 
   return (
     <div
@@ -73,19 +100,20 @@ export default function UserTermsForm({
             </label>
             <label className="label cursor-pointer">
               <span className="label-text text-2xl pr-4">
-              <span className="font-bold text-primary">5.</span> Ao realizar a compra, você concorda com nossos <span className="font-bold underline">termos de uso</span>.
+              <span className="font-bold text-primary">5.</span> Ao realizar a compra, você concorda com nossos 
+              <span className="font-bold underline text-blue-700" onClick={() => setOpenTermsModal(true)}> termos de uso</span>.
               </span>
               <input
                 type="checkbox"
                 className="checkbox checkbox-primary checkbox-lg"
                 checked={status.terms}
-                onChange={() => setStatus({...status, terms: true})}
+                onChange={() => setStatus({...status, terms: !status.terms})}
               />
             </label>
           </div>
         </div>
       </div>
-  
+      <TermsModal open={openTermsModal} setOpen={setOpenTermsModal} company={company}/>
       <br />
     </div>
   )

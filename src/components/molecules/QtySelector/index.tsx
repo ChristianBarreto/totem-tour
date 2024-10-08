@@ -39,7 +39,7 @@ export default function QtySelector({
     <div className='flex flex-col'>
       <div className="join">
         <button
-          className="join-item btn bg-indigo-600 hover:bg-indigo-400 text-base-100 disabled:bg-indigo-200"
+          className="join-item btn btn-lg bg-indigo-600 hover:bg-indigo-400 text-base-100 disabled:bg-indigo-200"
           onClick={handleMinus}
           disabled={disabled}
         >
@@ -53,7 +53,7 @@ export default function QtySelector({
           readOnly
         />
         <button
-          className="btn bg-indigo-600 hover:bg-indigo-400 join-item text-base-100 disabled:bg-indigo-200"
+          className="btn btn-lg bg-indigo-600 hover:bg-indigo-400 join-item text-base-100 disabled:bg-indigo-200"
           onClick={handlePlus}
           disabled={disabled}
         >

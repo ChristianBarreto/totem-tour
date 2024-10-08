@@ -117,7 +117,7 @@ export default function PaymentPix({
                 payementCaptured: status.captured,
                 paymentValue: pix.transaction_details.total_paid_amount,
                 paymentMethod: 'pix',
-                acceptedTerms: false, //TODO: mudar quando utilizar os termos
+                acceptedTerms: true,
               })
             }
           }

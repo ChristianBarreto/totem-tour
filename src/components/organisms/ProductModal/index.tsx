@@ -11,6 +11,7 @@ import DateSelector from '../../molecules/DateSelector'
 import PriceDisplay from '../../molecules/PriceDisplay'
 import AlertMaxRound from '../../molecules/AlertMaxRound'
 import { useCart } from '../../../context/CartContext'
+import ProductForm from '../../molecules/ProductForm'
 
 export default function ProductModal({
   product,
@@ -132,33 +133,33 @@ export default function ProductModal({
                       <span className='font-bold'>Horário: </span>
                       {product.time}
                     </p>
-
-                    {product.minTotalPrice && (
+                    
+                    {true && (
                       <p className='text-xl mb-4'>
-                        <span className='font-bold'>Valor: </span>
-                        R${product.minTotalPrice},00 
-                        <span className='text-neutral-400 pl-2 text-base'>({product.minPriceDescription})</span>
+                        <span className='font-bold'>Valor por pessoa: </span>
+                        R${product.pricePerPerson},00 
                       </p>
                     )}
 
-                    <div className='flex justify-around mb-4'>
-                      <DateSelector
-                        setAvailability={setAvailability}
-                        availabilities={availabilities}
-                      />
-                      <QtySelector
-                        qty={qty}
-                        setQty={setQty}
-                        maxPerRound={product.maxPerRound}
-                        remaining={availability?.remaining}
-                        disabled={qtySelectorDisable}
-                        setMaxRound={setMaxRound}
-                      />
-                    </div>
-
+                    {product.minTotalPrice > 0 && (
+                        <p className='text-xl mb-4'>
+                          <span className='font-bold'>Valor mínimo: </span>
+                          R${product.minTotalPrice},00 
+                          <span className='text-neutral-400 pl-2 text-base'>({product.minPriceDescription})</span>
+                        </p>
+                      )}
+                    <ProductForm 
+                      setAvailability={setAvailability}
+                      availabilities={availabilities}
+                      qty={qty}
+                      setQty={setQty}
+                      product={product}
+                      availability={availability}
+                      setMaxRound={setMaxRound}
+                      qtySelectorDisable={qtySelectorDisable}
+                      price={price}
+                    />
                     {maxRound && <AlertMaxRound setMaxRound={setMaxRound}/>}
-
-                    <PriceDisplay price={price} />
 
                   </section>
 

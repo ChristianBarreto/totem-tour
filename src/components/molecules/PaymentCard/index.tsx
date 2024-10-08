@@ -75,8 +75,6 @@ export default function PaymentCard({
 
   useEffect(() => {
     if (cardProcessStatus === 'select_method') {
-      console.log('select_method')
-
       setPurchase({
         ...cart,
         paymentMethod: 'debit_card',
@@ -114,7 +112,7 @@ export default function PaymentCard({
                     customerData: customerData,
                     paymentId: res.id,
                     payementCaptured: res.captured,
-                    acceptedTerms: false, //TODO: mudar quando utilizar os termos
+                    acceptedTerms: true,
                   })
 
                   setNewPurchase({
@@ -124,7 +122,7 @@ export default function PaymentCard({
                     customerData: customerData,
                     paymentId: res.id,
                     payementCaptured: res.captured,
-                    acceptedTerms: false, //TODO: mudar quando utilizar os termos
+                    acceptedTerms: true,
                   }).then((res) => {
                     setCardProcessStatus('purchase_stored') // se store purchase success
                     console.log("SUCCESS", res)

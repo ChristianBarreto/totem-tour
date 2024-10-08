@@ -111,6 +111,18 @@ export type CarouselItems = Array<{
   description: string,
 }>
 
+export type Company = {
+  privacyTerms: string,
+  serviceAndCancelationTerms: string,
+  cnpj: string,
+  companyName: string,
+  phone: string,
+  email: string,
+  address: string,
+  lastUpdated: string,
+  timestamp: string,
+}
+
 const axiosParams = {
   headers: {
     // 'Access-Control-Allow-Origin': 'https://totem-2id4w5fuzq-uc.a.run.app/'
@@ -238,5 +250,21 @@ export const getPaymentIntentStatus = async (body: PaymentInterStatus) => {
 
 export const getSlides = async () => {
   const { data } = await axios.get(`${baseUrl}/get-slides/`, axiosParams);
+  return data;
+}
+
+export const getTotemTour = async () => {
+  const { data } = await axios.get(`${baseUrl}/get-totem-tour`, axiosParams);
+  return data;
+}
+
+export const setTotemTour = async (body: Company): Promise<Company | void> => {
+  const data = axios.put<Company>(`${baseUrl}/set-totem-tour`, body, axiosParams)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("API ERROR", err)
+    })
   return data;
 }

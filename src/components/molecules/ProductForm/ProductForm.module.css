@@ -1,0 +1,4 @@
+.stepStyle::after::before {
+  color: white !important;
+  padding: 8px;
+}

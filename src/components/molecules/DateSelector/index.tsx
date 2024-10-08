@@ -34,10 +34,9 @@ export default function DateSelector({
   }
 
   return (
-
-    <div className="join">
+    <div className="ml-5">
       <select
-        className={`join-item border w-52 text-start pl-4 disabled:bg-indigo-200`}
+        className="select select-bordered border-indigo-200 select-lg bg-white ml-auto"
         ref={selectRef}
         disabled={isDisabled}
         onChange={(e) => handleSelect(e)}
@@ -54,13 +53,6 @@ export default function DateSelector({
           }</option>
         ))}
       </select>
-      <button
-        className="btn bg-indigo-600 hover:bg-indigo-400 join-item text-base-100 disabled:bg-indigo-200"
-        onClick={openSelect}
-        disabled={isDisabled}
-      >
-        <IconCalendar/>
-      </button>
     </div>
 
 
