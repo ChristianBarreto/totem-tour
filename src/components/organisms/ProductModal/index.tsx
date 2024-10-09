@@ -170,7 +170,7 @@ export default function ProductModal({
                         </button>
                       </div>
                     ): (
-                      <div role="alert" className="alert alert-warning">
+                      <div role="alert" className="alert bg-accent">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -185,10 +185,6 @@ export default function ProductModal({
                         <span>{product.notAvailableMessage || 'Vagas esgotadas.'}</span>
                       </div>
                     )}
-
-                    
-
-
 
                 </div>
               </div>
