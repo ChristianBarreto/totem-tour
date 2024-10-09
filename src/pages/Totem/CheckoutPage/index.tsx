@@ -54,7 +54,7 @@ export default function CheckoutPage() {
         return false;
       }
     }
-    return true; // TODO: mudar para false para produção
+    return true;
   }
 
   const nextDisabled = handleNextDisabled();

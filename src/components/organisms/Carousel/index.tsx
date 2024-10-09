@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import { getSlides } from "../../../api";
 
 export default function HeroCarousel() {
+  const fallBackImg = "https://firebasestorage.googleapis.com/v0/b/totem-tour.appspot.com/o/slide1.jpg?alt=media&token=f87ebc89-439c-47f8-a19c-345f48f4c6cc";
   const someItems = [
     {
       id: '1',
-      img: 'https://firebasestorage.googleapis.com/v0/b/totem-tour.appspot.com/o/slide1.jpg?alt=media&token=f87ebc89-439c-47f8-a19c-345f48f4c6cc',
+      img: fallBackImg,
       description: "Service 1"
     },
   ]
@@ -55,7 +56,7 @@ export default function HeroCarousel() {
           {carouselItens?.map((item, index) => (
             <div key={item.id} id={`slide${item.id}`} ref={el => carouselRef.current[index] = el} className="carousel-item relative w-full">
                 <img
-                  src={item.img}
+                  src={item.img ? item.img : fallBackImg}
                   className="h-full object-center"
                   style={{ marginRight: 'auto'}}
                   alt="slide"
