@@ -18,7 +18,7 @@ export default function StorePage() {
         setCities(citiesResp as Cities);
         setProducts(productsResp as Products);
       })
-    })    
+    })
   }, []);
 
   useEffect(() => {

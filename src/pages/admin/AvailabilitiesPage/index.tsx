@@ -1,5 +1,6 @@
 import Table from "../../../components/organisms/Table";
 import { getAdminPurchaseItens } from "../../../api";
+import AvailabilityTable from "../../../components/molecules/AvailabilityTable";
 
 export default function AvailabilitiesPage() {
 
@@ -13,16 +14,10 @@ export default function AvailabilitiesPage() {
     {name: "Agência comm", value: "agencyComm"},
   ]
 
-  
-
   return (
     <div>
-      <p>Dashboard</p>
-      <Table
-        tableName="Vendas"
-        tableHeader={tableHeader}
-        tableFetch={getAdminPurchaseItens}
-      />
+      <p>Disponibilidades</p>
+      <AvailabilityTable />
     </div>
   )
 }

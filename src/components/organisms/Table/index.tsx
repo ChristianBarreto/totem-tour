@@ -44,7 +44,7 @@ export default function Table({
       
 
       <div className="overflow-x-auto border">
-        <table className="table table-xs table-pin-rows table-pin-cols">
+        <table className="table table-zebra table-xs table-pin-rows table-pin-cols">
           <thead>
             <tr>
               {tableHeader.map((header) => (

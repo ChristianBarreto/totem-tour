@@ -12,6 +12,7 @@ import CitiesPage from "../pages/admin/CitiesPage";
 import EditProductPage from "../pages/admin/Products/AddEditProductPage";
 import PosPage from "../pages/admin/PosPage";
 import EditCompanyPage from "../pages/admin/EditCompanyPage";
+import AvailabilitiesPage from "../pages/admin/AvailabilitiesPage";
 
 
 export const rawRoutes = [
@@ -51,6 +52,10 @@ export const rawRoutes = [
       {
         index: true,
         element: <DashboardPage />,
+      },
+      {
+        path: '/admin/availabilities',
+        element: <AvailabilitiesPage />,
       },
       {
         path: '/admin/products',

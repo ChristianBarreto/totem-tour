@@ -46,12 +46,13 @@ initializeApp();
 const db = getFirestore();
 
 async function getDbItem(dbName: string, id: string) {
-  const snapshot = await db.collection(dbName).doc(id).get();  
+  const snapshot = await db.collection(dbName).doc(id).get();
   return {id: snapshot.id, ...snapshot.data()};
 }
 
 async function editDbItem(dbName: string, id: string, data: any) {
   delete data['id']
+  console.log(data)
   const snapshot = await db.collection(dbName).doc(id).set({
     ...data,
     lastUpdated: Date.now(),
@@ -59,11 +60,12 @@ async function editDbItem(dbName: string, id: string, data: any) {
   return {id: snapshot.id}
 }
 
-async function addDbItem(dbName: string, id: string, data: any) {
+async function addDbItem(dbName: string, data: any) {
   delete data['id']
   const snapshot = await db.collection(dbName).add({
     ...data,
     lastUpdated: Date.now(),
+    timestamp: Date.now(),
   });
   return {id: snapshot.id}
 }
@@ -79,7 +81,7 @@ app.get("/products", async (req: Request, res: Response) => {
 });
 
 app.post("/products", async (req: Request, res: Response) => {
-  const resp = await addDbItem("products", req.params.id, req.body);
+  const resp = await addDbItem("products", req.body);
   res.json(resp);
 });
 
@@ -117,6 +119,34 @@ app.get("/availabilities/:productId", async (req: Request, res: Response) => {
     data.push({id: doc.id, ...doc.data()});
   });
   res.json(data);
+});
+
+app.get("/next-availabilities/", async (req: Request, res: Response) => {
+  const snapshot = await db.collection("availabilities")
+    .orderBy("date")
+    .get();
+
+  const data: any[] = [];
+
+  snapshot.forEach((doc: any) => {
+    data.push({id: doc.id, ...doc.data()});
+  });
+  res.json(data);
+});
+
+app.get("/availability/:id", async (req: Request, res: Response) => {
+  const resp = await getDbItem("availabilities", req.params.id);
+  res.json(resp);
+});
+
+app.post("/availabilities", async (req: Request, res: Response) => {
+  const resp = await addDbItem("availabilities", req.body);
+  res.json(resp);
+});
+
+app.put("/availabilities/:id", async (req: Request, res: Response) => {
+  const resp = await editDbItem("availabilities", req.params.id, req.body);
+  res.json(resp);
 });
 
 const MPExpirationDate = () => dayjs().tz("America/Sao_Paulo").add(5, 'minutes').add(10, 'seconds').format("YYYY-MM-DDTHH:mm:ss.SSSZ")
