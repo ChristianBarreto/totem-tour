@@ -9,14 +9,27 @@ export default function PaymentCardInvoice({
         <div className="card-body text-center">
           <p className="text-2xl text-primary text-center">Pagamento com cartão</p>
           <div className="text-start p-4 m-2 border-t border-b">
-            <p className="text-xl pb-4">
-              1. Aperte o botão <span className="font-bold bg-green-500 text-white p-1 rounded">VERDE</span> da maquininha.
-            </p>
+            <p className="text-xl text-center mb-4">Faça o pagamento na maquininha conforme as instruções abaixo:</p>
             <img src={require('./maquininha.png')} alt='maquininha' width={70} className="ml-auto mr-auto pb-2"/>
-            <p className="text-xl pb-4">
-              2. <span className="font-bold">Aproxime</span> ou <span className="font-bold">insira</span> seu cartão e digite a senha se solicitado.
-            </p>
-            <p className="text-xl pb-4">3. Aperto o botão <span className="font-bold bg-green-500 text-white p-1 rounded">VERDE</span> para confirmar o pagamento.</p>
+
+            <ul className="steps steps-vertical">
+              <li className="step">
+                  <p className="text-xl">
+                    Aperte o botão <span className="font-bold bg-green-500 text-white p-1 rounded">VERDE</span> da maquininha.
+                  </p>
+              </li>
+              <li className="step">
+                <p className="text-xl pb-4">
+                  <span className="font-bold">Aproxime</span> ou <span className="font-bold">insira</span> seu cartão e digite a senha se solicitado.
+                </p>
+              </li>
+              <li className="step">
+                  <p className="text-xl pb-4">Aperto o botão <span className="font-bold bg-green-500 text-white p-1 rounded">VERDE</span> para confirmar o pagamento.</p>
+              </li>
+            </ul>
+            <p className="pl-12 pt-4 pb-4">(ou aperto o botão <span className="font-bold bg-red-500 text-white p-1 rounded">vermelho</span> para cancelar o pagamento)</p>
+
+            
           </div>
           
           
