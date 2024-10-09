@@ -7,7 +7,7 @@
 }
 .paragraph {
   white-space: pre-wrap;
-  padding: 5px;
+  padding: 10px;
   border: 1px solid lightgray;
   border-radius: 5px;
 }

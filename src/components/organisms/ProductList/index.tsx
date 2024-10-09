@@ -28,6 +28,7 @@ export default function ProductList({
           )}
           {products
             .filter((prod) => prod.cityId === selectedCity)
+            .filter((prod) => prod.showDisplay)
             .sort((a, b) => a.priority - b.priority)
             .map((product) => (
               <ProductCard key={product.id} product={product} setCartOpen={setCartOpen}/>

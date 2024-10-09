@@ -59,14 +59,28 @@ async function editDbItem(dbName: string, id: string, data: any) {
   return {id: snapshot.id}
 }
 
+async function addDbItem(dbName: string, id: string, data: any) {
+  delete data['id']
+  const snapshot = await db.collection(dbName).add({
+    ...data,
+    lastUpdated: Date.now(),
+  });
+  return {id: snapshot.id}
+}
+
+
 app.get("/products", async (req: Request, res: Response) => {
   const snapshot = await db.collection("products").get();
   const data: any[] = [];
   snapshot.forEach((doc: any) => {
-    if (doc.data().showDisplay) {
-      data.push({id: doc.id, ...doc.data()});
-    }});
+    data.push({id: doc.id, ...doc.data()});
+  });
   res.json(data);
+});
+
+app.post("/products", async (req: Request, res: Response) => {
+  const resp = await addDbItem("products", req.params.id, req.body);
+  res.json(resp);
 });
 
 app.get("/products/:id", async (req: Request, res: Response) => {

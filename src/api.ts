@@ -30,6 +30,8 @@ export type Product = {
   maxPerRound: number,
   showDisplay: boolean,
   isAvailable: boolean,
+  notAvailableMessage: string,
+  isTest: boolean,
   timestamp?: number,
   lastUpdated?: number,
 }
@@ -170,6 +172,17 @@ export const editProductById = async (productId: string | undefined, body: Produ
     console.log("productId is undefined")
   }
   const data = axios.put<Product>(`${baseUrl}/products/${productId}`, body, axiosParams)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("API ERROR", err)
+    })
+  return data;
+}
+
+export const addProduct = async (body: Product): Promise<Product | void> => {
+  const data = axios.post<Product>(`${baseUrl}/products/`, body, axiosParams)
     .then((res) => {
       return res.data;
     })

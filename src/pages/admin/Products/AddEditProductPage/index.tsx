@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
-import { Cities, editProductById, getCities, getProductById, Product } from "../../../../api";
-import { useNavigate, useParams } from "react-router-dom";
+import { addProduct, Cities, editProductById, getCities, getProductById, Product } from "../../../../api";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 
 const initProduct = {
@@ -22,17 +22,23 @@ const initProduct = {
   time: '',
   showDisplay: false,
   isAvailable: false,
+  notAvailableMessage: '',
+  isTest: false,
   address: '',
 }
 
-export default function EditProductPage() {
+export default function AddEditProductPage() {
   const { id } = useParams();
   const [product, setProduct] = useState<Product>(initProduct);
   const [cities, setCities] = useState<Cities>([]);
+
   const productRef = useRef(initProduct);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
+  const isEditing = (location.pathname !== '/admin/products/add')
+  
   useEffect(() => {
     let ignore = false;
 
@@ -58,11 +64,17 @@ export default function EditProductPage() {
     setProduct(productRef.current)
   }
  
-
   const handleSave = () => {
-    editProductById(product.id, product).then((res) => {
-      navigate('/admin/products')
-    })
+    if (isEditing) {
+      editProductById(product.id, product).then((res) => {
+        navigate('/admin/products')
+      })
+    } else {
+      addProduct( product).then((res) => {
+        navigate('/admin/products')
+      })
+    }
+
   }
 
   const productChanged = (prod1: Product, prod2: Product) => {
@@ -79,7 +91,7 @@ export default function EditProductPage() {
   
   return (
     <div>
-      <p>Edit product: {product.name}</p>
+      <p>Edit product: {product.name} - ID: {product.id}</p>
 
       <div className="flex flex-col pt-6">
 
@@ -107,9 +119,31 @@ export default function EditProductPage() {
               checked={product.isAvailable}
               onChange={() => setProduct({...product, isAvailable: !product.isAvailable})}
             />
-            <span className="label-text pl-4">Tem disponibilidade:</span>
+            <span className="label-text pl-4">Tem disponibilidade</span>
           </label>
         </div>
+
+        <div className="form-control pb-4">
+          <label className="label cursor-pointer justify-start w-1/3">
+            <input
+              type="checkbox"
+              className="toggle"
+              checked={product.isTest}
+              onChange={() => setProduct({...product, isTest: !product.isTest})}
+            />
+            <span className="label-text pl-4">É produto de teste?</span>
+          </label>
+        </div>
+
+        <label className="form-control label-text pb-4">Mensagem se indisponível:
+          <input
+            type="text"
+            placeholder="Type here"
+            className="input input-bordered w-full"
+            value={product.notAvailableMessage}
+            onChange={(e) => setProduct({...product, notAvailableMessage: e.target.value})}
+          />
+        </label>
 
         <label className="form-control label-text pb-4">Prioridade:
           <input
@@ -175,8 +209,9 @@ export default function EditProductPage() {
             className="select select-bordered w-full"
             onChange={(e) => setProduct({...product, cityId: e.target.value})}
             value={product.cityId}
+            defaultValue=""
           >
-            <option disabled>Escolha a cidade</option>
+            <option value="" disabled>Escolha a cidade</option>
             {cities.map((city) => (
               <option key={city.id} value={city.id}>{city.name}</option>
             ))}
@@ -209,7 +244,7 @@ export default function EditProductPage() {
           <p className="font-bold pb-2">Passageiros:</p>
         </div>
 
-        <label className="form-control label-text pb-4">Capacidade máxima:
+        <label className="form-control label-text pb-4">Capacidade máxima (total de pessoas em todos os veículos):
           <input
             type="number"
             placeholder="Type here"
