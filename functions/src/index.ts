@@ -105,12 +105,14 @@ app.get("/cities", async (req: Request, res: Response) => {
 });
 
 app.get("/availabilities/:productId", async (req: Request, res: Response) => {
+  const today = dayjs().format('YYYY-MM-DD')
   const snapshot = await db.collection("availabilities")
     .where('productId', '==', req.params.productId)
     .where('active', '==', true)
     .where("availability", ">", 0)
     .where("remaining", ">", 0)
-    .orderBy("date")
+    .where("date", ">=", today)
+    .orderBy("date", 'asc')
     .get();
 
   const data: any[] = [];
