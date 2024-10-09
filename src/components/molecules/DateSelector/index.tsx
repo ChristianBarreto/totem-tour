@@ -49,7 +49,7 @@ export default function DateSelector({
         )}
         {availabilities.map((option, index) => (
           <option key={option.date} value={index}>{
-            dayjs(option.date).locale('pt-br').format('dddd, DD/MM/YYYY')
+            dayjs(option.date).locale('pt-br').format('DD/MM/YYYY - (dddd)')
           }</option>
         ))}
       </select>

@@ -9,9 +9,10 @@ import DashboardPage from "../pages/admin/DashboardPage";
 import ProductsPage from "../pages/admin/Products/ProductsPage";
 import PurchasesPage from "../pages/admin/PurchasesPage";
 import CitiesPage from "../pages/admin/CitiesPage";
-import EditProductPage from "../pages/admin/Products/EditProductPage";
+import EditProductPage from "../pages/admin/Products/AddEditProductPage";
 import PosPage from "../pages/admin/PosPage";
 import EditCompanyPage from "../pages/admin/EditCompanyPage";
+import AvailabilitiesPage from "../pages/admin/AvailabilitiesPage";
 
 
 export const rawRoutes = [
@@ -53,11 +54,19 @@ export const rawRoutes = [
         element: <DashboardPage />,
       },
       {
+        path: '/admin/availabilities',
+        element: <AvailabilitiesPage />,
+      },
+      {
         path: '/admin/products',
         element: <ProductsPage />,
       },
       {
         path: '/admin/products/:id',
+        element: <EditProductPage />,
+      },
+      {
+        path: '/admin/products/add',
         element: <EditProductPage />,
       },
       {

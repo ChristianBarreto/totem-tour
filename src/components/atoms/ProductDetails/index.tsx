@@ -12,9 +12,9 @@ export default function ProductDetails({
 
   return (
     <div className={`${styles.container}`}>
-      <div >
+      <div>
         <div className={styles.paragraph}>
-          <div className={`${hidden && styles.hidden}`}><span className='font-bold'>Detalhes: </span> {text}</div>
+          <div className={`${hidden && styles.hidden}`}><span className='font-bold'>Detalhes: <br /></span>{text}</div>
           {hidden && <p className='text-sm pt-4 text-center' onClick={() => setHidden(!hidden)} >...mostrar mais</p>}
         </div>
       </div>

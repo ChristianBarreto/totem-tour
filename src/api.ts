@@ -30,6 +30,8 @@ export type Product = {
   maxPerRound: number,
   showDisplay: boolean,
   isAvailable: boolean,
+  notAvailableMessage: string,
+  isTest: boolean,
   timestamp?: number,
   lastUpdated?: number,
 }
@@ -41,6 +43,7 @@ export type Availabilitiy = {
   availability: number,
   booked: number,
   remaining: number,
+  id: string,
 }
 
 export type PurchaseItem = {
@@ -179,6 +182,17 @@ export const editProductById = async (productId: string | undefined, body: Produ
   return data;
 }
 
+export const addProduct = async (body: Product): Promise<Product | void> => {
+  const data = axios.post<Product>(`${baseUrl}/products/`, body, axiosParams)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("API ERROR", err)
+    })
+  return data;
+}
+
 export const getCities = async (): Promise<Cities | void> => {
   const data = axios.get<Cities>(`${baseUrl}/cities`, axiosParams)
     .then((res) => {
@@ -200,6 +214,33 @@ export const getAvailabilitiesByProduct = async (productId: string): Promise<Ava
       console.log("API ERROR", err)
       return [];
     })
+  return data;
+}
+
+export const getNextAvailabilities = async (): Promise<Availabilities | void> => {
+  const data = axios.get<Availabilities>(`${baseUrl}/next-availabilities/`, axiosParams)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("API ERROR", err)
+      return [];
+    })
+  return data;
+}
+
+export const addAvailability = async (body: Availabilitiy): Promise<Availabilitiy | void> => {
+  const { data } = await axios.post(`${baseUrl}/availabilities/`, body, axiosParams);
+  return data;
+}
+
+export const getAvailabilityById = async (id: string): Promise<Availabilitiy | void> => {
+  const { data } = await axios.get(`${baseUrl}/availability/${id}`, axiosParams);
+  return data;
+}
+
+export const editAvailabilityById = async (id: string, body: Availabilitiy): Promise<Availabilitiy | void> => {
+  const { data } = await axios.put(`${baseUrl}/availabilities/${id}`, body, axiosParams);
   return data;
 }
 

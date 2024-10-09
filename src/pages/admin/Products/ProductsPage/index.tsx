@@ -30,7 +30,6 @@ export default function ProductsPage() {
     navigate(`/admin/products/${productId}`)
   }
 
-
   const tableHeader = [
     {name: "Nome", value: "name"},
     {name: "Cidade", value: "location"},
@@ -47,6 +46,10 @@ export default function ProductsPage() {
         tableHeader={tableHeader}
         tableFetch={getProducts}
       />
+
+      <div className="p-4 flex justify-end">
+        <button className="btn btn-primary" onClick={() => navigate('/admin/products/add')}>Novo produto</button>
+      </div>
     </div>
   )
 }

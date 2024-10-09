@@ -113,66 +113,83 @@ export default function ProductModal({
                   
                   <h2 className="text-4xl font-bold text-gray-900 sm:pr-12 mb-6">{product.name}</h2>
 
-                  <section aria-labelledby="information-heading" className="mt-2">
-                    <p className='text-xl mb-4'>
-                      {product.description}
-                    </p>
+                  <p className='text-xl mb-4'>
+                    {product.description}
+                  </p>
 
-                    {product.details && <ProductDetails text={product.details} />}
+                  {product.details && <ProductDetails text={product.details} />}
 
-                    <div className='mb-4'>
-                      <p className='text-xl'>
-                        <span className='font-bold'>Local: </span>
-                        {cities.find((city) => city.id === product.cityId)?.name}
-                      </p>
-                      <p className='text-neutral-400'>(você receberá a localização exata por Email/WhatsApp)</p>
-                    </div>
-                    
+                    {product.isAvailable ? (
+                      <div>
+                        <div className='mb-4'>
+                          <p className='text-xl'>
+                            <span className='font-bold'>Local: </span>
+                            {cities.find((city) => city.id === product.cityId)?.name}
+                          </p>
+                          <p className='text-neutral-400'>(você receberá a localização exata por Email/WhatsApp)</p>
+                        </div>
+                        <p className='text-xl mb-4'>
+                          <span className='font-bold'>Horário: </span>
+                          {product.time}
+                        </p>
+                        {true && (
+                          <p className='text-xl mb-4'>
+                            <span className='font-bold'>Valor por pessoa: </span>
+                            R${product.pricePerPerson},00 
+                          </p>
+                        )}
 
-                    <p className='text-xl mb-4'>
-                      <span className='font-bold'>Horário: </span>
-                      {product.time}
-                    </p>
-                    
-                    {true && (
-                      <p className='text-xl mb-4'>
-                        <span className='font-bold'>Valor por pessoa: </span>
-                        R${product.pricePerPerson},00 
-                      </p>
+                        {product.minTotalPrice > 0 && (
+                          <p className='text-xl mb-4'>
+                            <span className='font-bold'>Valor mínimo: </span>
+                            R${product.minTotalPrice},00 
+                            <span className='text-neutral-400 pl-2 text-base'>({product.minPriceDescription})</span>
+                          </p>
+                        )}
+
+                        <ProductForm 
+                          setAvailability={setAvailability}
+                          availabilities={availabilities}
+                          qty={qty}
+                          setQty={setQty}
+                          product={product}
+                          availability={availability}
+                          setMaxRound={setMaxRound}
+                          qtySelectorDisable={qtySelectorDisable}
+                          price={price}
+                        />
+                        {maxRound && <AlertMaxRound setMaxRound={setMaxRound}/>}
+                  
+                        <button
+                          className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-indigo-200"
+                          onClick={handleAdd}
+                          disabled={addCartDisabled}
+                        >
+                          <IconCart size={10}/>
+                          <p className='text-3xl pl-3'>Adicionar ao carrinho</p>
+                        </button>
+                      </div>
+                    ): (
+                      <div role="alert" className="alert alert-warning">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          className="h-6 w-6 shrink-0 stroke-current">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>{product.notAvailableMessage || 'Vagas esgotadas.'}</span>
+                      </div>
                     )}
 
-                    {product.minTotalPrice > 0 && (
-                        <p className='text-xl mb-4'>
-                          <span className='font-bold'>Valor mínimo: </span>
-                          R${product.minTotalPrice},00 
-                          <span className='text-neutral-400 pl-2 text-base'>({product.minPriceDescription})</span>
-                        </p>
-                      )}
-                    <ProductForm 
-                      setAvailability={setAvailability}
-                      availabilities={availabilities}
-                      qty={qty}
-                      setQty={setQty}
-                      product={product}
-                      availability={availability}
-                      setMaxRound={setMaxRound}
-                      qtySelectorDisable={qtySelectorDisable}
-                      price={price}
-                    />
-                    {maxRound && <AlertMaxRound setMaxRound={setMaxRound}/>}
+                    
 
-                  </section>
 
-                  <section aria-labelledby="options-heading" className="mt-10">
-                   <button
-                      className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-indigo-200"
-                      onClick={handleAdd}
-                      disabled={addCartDisabled}
-                    >
-                      <IconCart size={10}/>
-                      <p className='text-3xl pl-3'>Adicionar ao carrinho</p>
-                    </button>
-                  </section>
+
                 </div>
               </div>
             </div>
