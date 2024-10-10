@@ -50,14 +50,14 @@ export default function HeroCarousel() {
   }, []);
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full overflow-hidden	">
       <Link to="/totem/store">
         <div className="carousel h-full w-full">
           {carouselItens?.map((item, index) => (
-            <div key={item.id} id={`slide${item.id}`} ref={el => carouselRef.current[index] = el} className="carousel-item relative w-full">
+            <div key={item.id} id={`slide${item.id}`} ref={el => carouselRef.current[index] = el} className="carousel-item relative w-full h-full">
                 <img
                   src={item.img ? item.img : fallBackImg}
-                  className="h-full object-center"
+                  className="object-center"
                   style={{ marginRight: 'auto'}}
                   alt="slide"
                 />
