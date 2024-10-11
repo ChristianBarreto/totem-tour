@@ -1,5 +1,6 @@
 import { createContext, ReactNode, Reducer, useContext, useEffect, useReducer, useRef } from "react";
 import { Purchase, PurchaseItem, websiteUrl } from "../api";
+import { pageCountDown } from "../helpers";
 
 const redirectToInitial = () => window.location.replace(`${websiteUrl}/totem`);
 
@@ -18,11 +19,11 @@ export function CounterProvider({
   children: ReactNode
 }) {
   const [counter, dispatch] = useReducer<Reducer<number, ACTIONTYPE>>(counterReducer, initialCounter);
-  
+
   useEffect(() => {
     const timer = setInterval(() => {
       if (counter > 0) {
-        if (!(window.location.href === ('http://localhost:3000/totem' || 'https://totem-tour.web.app/totem'))){
+        if (pageCountDown(window.location.href)){
           dispatch({type: 'decrease'})
         } 
       } else {

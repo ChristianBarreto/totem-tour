@@ -154,7 +154,7 @@ export const getProducts = async (): Promise<Products | void> => {
   return data;
 }
 
-export const getProductById = async (productId: string | undefined): Promise<Product | void> => {
+export const getProductById = (productId: string | undefined): Promise<Product | void> => {
   if (productId === undefined) {
     console.log("productId is undefined")
   }
