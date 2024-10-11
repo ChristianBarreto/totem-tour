@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import { getSlides } from "../../../api";
 
 export default function HeroCarousel() {
+  const fallBackImg = "https://firebasestorage.googleapis.com/v0/b/totem-tour.appspot.com/o/slide1.jpg?alt=media&token=f87ebc89-439c-47f8-a19c-345f48f4c6cc";
   const someItems = [
     {
       id: '1',
-      img: 'https://firebasestorage.googleapis.com/v0/b/totem-tour.appspot.com/o/slide1.jpg?alt=media&token=f87ebc89-439c-47f8-a19c-345f48f4c6cc',
+      img: fallBackImg,
       description: "Service 1"
     },
   ]
@@ -17,6 +18,7 @@ export default function HeroCarousel() {
   const initialized = useRef(false);
 
   useEffect(() => {
+    
     getSlides().then((res) => {
       setCarouselItems(res)
       carouselRef.current = carouselItens;
@@ -49,14 +51,14 @@ export default function HeroCarousel() {
   }, []);
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full overflow-hidden	">
       <Link to="/totem/store">
         <div className="carousel h-full w-full">
           {carouselItens?.map((item, index) => (
-            <div key={item.id} id={`slide${item.id}`} ref={el => carouselRef.current[index] = el} className="carousel-item relative w-full">
+            <div key={item.id} id={`slide${item.id}`} ref={el => carouselRef.current[index] = el} className="carousel-item relative w-full h-full">
                 <img
-                  src={item.img}
-                  className="h-full object-center"
+                  src={item.img ? item.img : fallBackImg}
+                  className="object-center"
                   style={{ marginRight: 'auto'}}
                   alt="slide"
                 />

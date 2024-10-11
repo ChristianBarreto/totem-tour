@@ -6,16 +6,19 @@ import { RouterProvider } from 'react-router-dom';
 
 import { routes } from './routes/routes';
 import { CartProvider } from './context/CartContext';
-import InteractionManagement from './components/atoms/InteractionManagement';
+import { CounterProvider } from './context/CounterContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 root.render(
-  <CartProvider>
-    <RouterProvider router={routes} />
-  </CartProvider>
+  <CounterProvider>
+    <CartProvider>
+      <RouterProvider router={routes} />
+    </CartProvider>
+  </CounterProvider>
+
 );
 
 // If you want to start measuring performance in your app, pass a function

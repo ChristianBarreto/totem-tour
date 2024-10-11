@@ -1,33 +1,24 @@
 import { ReactNode, useEffect, useRef } from "react";
+import { useCounter } from "../../../context/CounterContext";
 
 export default function InteractionManagement({
   children
 }: {
   children: ReactNode
 }) {
+  // @ts-expect-error: TODO: fix type of context
+  const [, dispatch] = useCounter();
   const appRef = useRef()as React.MutableRefObject<HTMLDivElement>;
 
   useEffect(() => {
-    
-    const timer = setTimeout(() => {
-      console.log("Time is over")
-      if (typeof window !== 'undefined') {
-        if (!(window.location.href === ('http://localhost:3000/totem' || 'https://totem-tour.web.app/totem'))) {
-          console.log("redirect")
-          window.location.href = `${window.location.href}totem`;
-        }
-      }
-    }, 2000);
-
     appRef.current?.addEventListener("mousedown", e => {
-      clearTimeout(timer)
+      dispatch({type: 'reinit'})
     });
-
   }, []);
 
   return (
-    <div ref={appRef}>
+    <span ref={appRef}>
       {children}
-    </div>
+    </span>
   )
 }

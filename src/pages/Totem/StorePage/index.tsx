@@ -6,13 +6,23 @@ import { Cities, getCities, getProducts, Products } from "../../../api";
 import CartModal from "../../../components/organisms/CartModal";
 import Header from "../../../components/organisms/Header";
 import Footer from "../../../components/organisms/Footer";
+import { useCounter } from "../../../context/CounterContext";
 
 export default function StorePage() {
   const [products, setProducts] = useState<Products>([]);
   const [cities, setCities] = useState<Cities>([]);
   const [selectedCity, setSelectedCity] = useState('');
 
+  // @ts-expect-error: TODO: fix type of context
+  const [, dispatch] = useCounter();
+  const appRef = useRef()as React.MutableRefObject<HTMLDivElement>;
+
+
   useEffect(() => {
+    appRef.current?.addEventListener("mousedown", e => {
+      dispatch({type: 'reinit'})
+    });
+
     getProducts().then((productsResp) => {
       getCities().then((citiesResp) => {
         setCities(citiesResp as Cities);
@@ -30,7 +40,7 @@ export default function StorePage() {
   const [cartOpen, setCartOpen] = useState(false)
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={appRef}>
       <Header setCartOpen={setCartOpen} />
       <CartModal cartOpen={cartOpen} setCartOpen={setCartOpen} products={products} />
       <div >
