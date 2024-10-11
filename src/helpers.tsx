@@ -74,8 +74,13 @@ export const objectChanged = (prod1: any, prod2: any) => {
 }
 
 export const pageCountDown = (location: string) => {
-  if (location.includes(('http://localhost:3000/totem' || 'https://totem-tour.web.app/totem'))){
-    if (location !== ('http://localhost:3000/totem' || 'https://totem-tour.web.app/totem')){
+  if (location.includes('http://localhost:3000/totem')){
+    if (location !== 'http://localhost:3000/totem'){
+      return true
+    }
+  }
+  if (location.includes('https://totem-tour.web.app/totem')){
+    if (location !== 'https://totem-tour.web.app/totem'){
       return true
     }
   }
