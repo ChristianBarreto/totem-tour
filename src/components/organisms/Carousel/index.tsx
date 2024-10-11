@@ -18,6 +18,7 @@ export default function HeroCarousel() {
   const initialized = useRef(false);
 
   useEffect(() => {
+    
     getSlides().then((res) => {
       setCarouselItems(res)
       carouselRef.current = carouselItens;

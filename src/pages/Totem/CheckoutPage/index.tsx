@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CheckoutSequence from "../../../components/molecules/CheckoutSequence";
 import IconArrowRight from "../../../components/atoms/IconArrawRight";
 import IconRowBack from "../../../components/atoms/IconRowBack";
@@ -8,8 +8,12 @@ import { checkoutFieldValidation } from "../../../helpers";
 import UserTermsForm from "../../../components/molecules/UserTermsForm";
 import UserPaymentForm from "../../../components/molecules/UserPaymentForm";
 import { CustomerData, websiteUrl } from "../../../api";
+import { useCounter } from "../../../context/CounterContext";
 
 export default function CheckoutPage() {
+  // @ts-expect-error: TODO: fix type of context
+  const [, dispatch] = useCounter();
+  const appRef = useRef()as React.MutableRefObject<HTMLDivElement>;
   const navigate = useNavigate();
 
   const [sequence, setSequence] = useState([
@@ -57,12 +61,18 @@ export default function CheckoutPage() {
     return true;
   }
 
+  useEffect(() => {
+    appRef.current?.addEventListener("mousedown", e => {
+      dispatch({type: 'reinit'})
+    });
+  }, [])
+
   const nextDisabled = handleNextDisabled();
   
   const redirectToInitial = () => window.location.replace(`${websiteUrl}/totem`);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center" ref={appRef}>
       <div className="p-10 flex flex-col w-full">
         <CheckoutSequence sequence={sequence} />
         
