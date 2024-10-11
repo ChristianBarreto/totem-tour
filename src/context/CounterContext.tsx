@@ -21,7 +21,6 @@ export function CounterProvider({
   const [counter, dispatch] = useReducer<Reducer<number, ACTIONTYPE>>(counterReducer, initialCounter);
 
   useEffect(() => {
-    console.log(counter)
     const timer = setInterval(() => {
       if (counter > 0) {
         if (pageCountDown(window.location.href)){
