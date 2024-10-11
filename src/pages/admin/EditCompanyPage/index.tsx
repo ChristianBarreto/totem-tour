@@ -4,23 +4,23 @@ import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { objectChanged } from "../../../helpers";
 
-const iniCompany = {
-  privacyTerms: '',
-  serviceAndCancelationTerms: '',
-  cnpj: '',
-  companyName: '',
-  phone: '',
-  email: '',
-  address: '',
-  lastUpdated: '',
-  timestamp: '',
-}
+
 
 export default function EditCompanyPage() {
+  const iniCompany = {
+    privacyTerms: '',
+    serviceAndCancelationTerms: '',
+    cnpj: '',
+    companyName: '',
+    phone: '',
+    email: '',
+    address: '',
+    lastUpdated: '',
+    timestamp: '',
+  }
+
   const [company, setCompany] = useState(iniCompany);
   const companyRef = useRef(iniCompany);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     let ignore = false;
@@ -41,10 +41,9 @@ export default function EditCompanyPage() {
   }
  
   const handleSave = () => {
-    console.log('1', company)
+    console.log('SAVE', company)
     setTotemTour(company).then((res) => {
       if (res) {
-        setCompany(res);
         companyRef.current = company;
       }
     })
@@ -53,6 +52,7 @@ export default function EditCompanyPage() {
   const isCancelDisabled = !objectChanged(company, companyRef.current)
   const isSaveDisabled = !objectChanged(company, companyRef.current);
   
+  console.log(company)
   return (
     <div>
       <p>Informações da Totem Tour</p>
