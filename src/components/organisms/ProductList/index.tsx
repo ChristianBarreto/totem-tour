@@ -13,6 +13,18 @@ export default function ProductList({
   setCartOpen: (value: boolean) => void,
 }) {
 
+  const availableProducts = products
+    .filter((prod) => prod.cityId === selectedCity)
+    .filter((prod) => prod.showDisplay)
+    .filter((prod) => prod.isAvailable)
+    .sort((a, b) => a.priority - b.priority)
+
+  const unavailableProducts = products
+    .filter((prod) => prod.cityId === selectedCity)
+    .filter((prod) => prod.showDisplay)
+    .filter((prod) => !prod.isAvailable)
+    .sort((a, b) => a.priority - b.priority)
+
   return (
     <div className={`bg-white ${styles.container}`}>
       <div className="flex justify-center">
@@ -26,13 +38,29 @@ export default function ProductList({
               <CardSkeleton />
             </>
           )}
-          {products
-            .filter((prod) => prod.cityId === selectedCity)
-            .filter((prod) => prod.showDisplay)
-            .sort((a, b) => a.priority - b.priority)
-            .map((product) => (
-              <ProductCard key={product.id} product={product} setCartOpen={setCartOpen}/>
-            ))}
+          {
+            <>
+              {!!availableProducts.length && (
+                <div className="w-full p-4 rounded text-center bg-green-400">
+                  <p className="text-2xl text-white">Disponíveis</p>
+                </div>
+              )}
+              {availableProducts
+                .map((product) => (
+                  <ProductCard key={product.id} product={product} setCartOpen={setCartOpen}/>
+                ))}
+
+              {!!unavailableProducts.length && (
+                <div className="w-full p-4 rounded text-center bg-accent">
+                  <p className="text-2xl text-white">Em breve!</p>
+                </div>
+              )}
+              {unavailableProducts
+                .map((product) => (
+                  <ProductCard key={product.id} product={product} setCartOpen={setCartOpen}/>
+                ))}
+            </>
+          }
         </div>
       </div>
     </div>
