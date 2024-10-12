@@ -17,7 +17,8 @@ export default function AvailabilitiesPage() {
   return (
     <div>
       <p>Disponibilidades</p>
-      <AvailabilityTable />
+      <AvailabilityTable filter={["!==", "isTest"]} sort="cityId" />
+      <AvailabilityTable filter={["===", "isTest"]} sort="cityId" />
     </div>
   )
 }
