@@ -2,6 +2,8 @@ import { ReactNode, useEffect, useState } from "react"
 
 type Filter = [string, string]
 
+type Sort = string
+
 type TableHeaderItem = {
   name: string,
   value: string,
@@ -14,12 +16,14 @@ export default function Table({
   tableFetch,
   reloadTable = 0,
   filter,
+  sort
 }: {
   tableName: string,
   tableHeader: TableHeaderItem[],
   tableFetch: (body?: any) => Promise<any>,
   reloadTable?: number,
   filter?: Filter,
+  sort?: Sort,
 }) {
   const [items, setItems] = useState<any[]>([])
 
@@ -57,15 +61,28 @@ export default function Table({
             </tr>
           </thead>
           <tbody>
-            {items.filter((item) => {
-              if (filter ) {
-                if (eval(item[filter[1]] + filter[0] + true)) {
+            {items
+              .filter((item) => {
+                if (filter) {
+                  if (eval(item[filter[1]] + filter[0] + true)) {
+                    return item
+                  }
+                } else {
                   return item
                 }
-              } else {
-                return item
-              }
-            }).map((item, indexA) => (
+              })
+              .sort((a, b) => {
+                if (sort) {
+                  if (a.cityId < b.cityId) {
+                    return -1
+                  } else {
+                    return 0
+                  }
+                } else {
+                  return 0
+                }
+              })
+              .map((item, indexA) => (
               <tr key={`row-${item.name}`}>
                 {tableHeader.map((header, indexB) => (
                   <td key={`${header.value}-${indexA}`}>

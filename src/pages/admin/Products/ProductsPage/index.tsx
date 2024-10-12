@@ -46,6 +46,7 @@ export default function ProductsPage() {
         tableHeader={tableHeader}
         tableFetch={getProducts}
         filter={['!==', 'isTest']}
+        sort="cityId"
       />
 
       <Table
@@ -53,6 +54,7 @@ export default function ProductsPage() {
         tableHeader={tableHeader}
         tableFetch={getProducts}
         filter={['===', 'isTest']}
+        sort="cityId"
       />
 
       <div className="p-4 flex justify-end">

@@ -4,11 +4,14 @@ import AvailabilityEdit from "../AvailabilityEdit";
 import dayjs from "dayjs";
 
 type Filter = [string, keyof Product]
+type Sort = string
 
 export default function AvailabilityTable({
   filter,
+  sort,
 }: {
   filter?: Filter,
+  sort?: Sort,
 }) {
   const [availabilities, setAvailabilities] = useState<Availabilities>([]);
   const [products, setProducts] = useState<Product[]>([]);
@@ -84,6 +87,17 @@ export default function AvailabilityTable({
                 }
               } else {
                 return item
+              }
+            })
+            .sort((a, b) => {
+              if (sort) {
+                if (a.cityId < b.cityId) {
+                  return -1
+                } else {
+                  return 0
+                }
+              } else {
+                return 0
               }
             })
             .map((product) => (
