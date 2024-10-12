@@ -1,5 +1,7 @@
 import { ReactNode, useEffect, useState } from "react"
 
+type Filter = [string, string]
+
 type TableHeaderItem = {
   name: string,
   value: string,
@@ -11,11 +13,13 @@ export default function Table({
   tableHeader,
   tableFetch,
   reloadTable = 0,
+  filter,
 }: {
   tableName: string,
   tableHeader: TableHeaderItem[],
   tableFetch: (body?: any) => Promise<any>,
   reloadTable?: number,
+  filter?: Filter,
 }) {
   const [items, setItems] = useState<any[]>([])
 
@@ -36,7 +40,7 @@ export default function Table({
   }
 
   return (
-    <div className="border p-2">
+    <div className="border p-2 mb-4">
       <div className="flex justify-between p-4">
         <p className="text-md pb-2">{tableName}</p>
         <button className="btn btn-sm" onClick={reload}>Atualizar</button>
@@ -53,7 +57,15 @@ export default function Table({
             </tr>
           </thead>
           <tbody>
-            {items.map((item, indexA) => (
+            {items.filter((item) => {
+              if (filter ) {
+                if (eval(item[filter[1]] + filter[0] + true)) {
+                  return item
+                }
+              } else {
+                return item
+              }
+            }).map((item, indexA) => (
               <tr key={`row-${item.name}`}>
                 {tableHeader.map((header, indexB) => (
                   <td key={`${header.value}-${indexA}`}>

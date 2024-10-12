@@ -3,7 +3,13 @@ import { Availabilities, Cities, getCities, getNextAvailabilities, getProducts, 
 import AvailabilityEdit from "../AvailabilityEdit";
 import dayjs from "dayjs";
 
-export default function AvailabilityTable() {
+type Filter = [string, keyof Product]
+
+export default function AvailabilityTable({
+  filter,
+}: {
+  filter?: Filter,
+}) {
   const [availabilities, setAvailabilities] = useState<Availabilities>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [cities, setCities] = useState<Cities>([]);
@@ -31,7 +37,7 @@ export default function AvailabilityTable() {
   }, [reloadTable])
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto mb-4">
       <table className="table table-zebra">
         {/* head */}
         <thead>
@@ -71,6 +77,15 @@ export default function AvailabilityTable() {
         </thead>
         <tbody>
           {products
+            .filter((item) => {
+              if (filter) {
+                if (eval(item[filter[1]] + filter[0] + true)) {
+                  return item
+                }
+              } else {
+                return item
+              }
+            })
             .map((product) => (
               <tr key={product.id}>
                 <td>{product.name}</td>
