@@ -64,19 +64,10 @@
       "fields": [
         {"fieldPath": "active", "mode": "ASCENDING"},
         {"fieldPath": "productId", "mode": "ASCENDING"},
-        {"fieldPath": "date", "mode": "DESCENDING"},
-        {"fieldPath": "availability", "mode": "DESCENDING"},
-        {"fieldPath": "remaining", "mode": "DESCENDING"}
-      ]
-    },
-    {
-      "colectionId": "availabilities",
-      "fields": [
-        {"fieldPath": "active", "mode": "ASCENDING"},
-        {"fieldPath": "productId", "mode": "ASCENDING"},
         {"fieldPath": "date", "mode": "ASCENDING"},
         {"fieldPath": "availability", "mode": "ASCENDING"},
-        {"fieldPath": "remaining", "mode": "ASCENDING"}
+        {"fieldPath": "remaining", "mode": "ASCENDING"},
+        {"fieldPath": "__name__", "mode": "ASCENDING"}
       ]
     }
   ]
