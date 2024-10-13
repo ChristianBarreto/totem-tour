@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import PaymentError from "../PaymentError";
-import { CustomerData, generatePixPayment, Purchase, setNewPurchase, verifyPayment, websiteUrl } from "../../../api";
+import { CustomerData, generatePixPayment, Purchase, setNewPurchase, Totem, verifyPayment, websiteUrl } from "../../../api";
 import PaymentLoading from "../PaymentLoading";
 import PaymentExpired from "../PaymentExpired";
 import PaymentPixQR from "../PaymentPixQR";
@@ -9,9 +9,11 @@ import PaymentPixSuccess from "../PaymentPixSuccess";
 export default function PaymentPix({
   cart,
   customerData,
+  totem,
 }: {
   cart: Purchase,
   customerData: CustomerData,
+  totem: Totem,
 }) {
   const [paymentLoading, setPaymentLoading] = useState(true);
   const [isPayError, setIsPayError] = useState(false);
@@ -44,6 +46,7 @@ export default function PaymentPix({
     paymentValue: 0,
     paymentMethod: '',
     acceptedTerms: false,
+    totemId: ''
   })
   const expirationTime = 300000; // 300000 for 5 minutes
   const consultTime = 5000; // 5000 for 5 seconds
@@ -118,6 +121,7 @@ export default function PaymentPix({
                 paymentValue: pix.transaction_details.total_paid_amount,
                 paymentMethod: 'pix',
                 acceptedTerms: true,
+                totemId: totem.id
               })
             }
           }

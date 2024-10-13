@@ -57,6 +57,7 @@ export type PurchaseItem = {
   totalPrice: number,
   date: string,
   cityId: string,
+  totemId: string,
 }
 
 export type CustomerData = {
@@ -75,6 +76,7 @@ export type Purchase = {
   paymentMethod: string,
   acceptedTerms: boolean,
   installments?: number,
+  totemId: string,
 }
 
 export type Availabilities = Availabilitiy[];

@@ -211,6 +211,7 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
     paymentMethod,
     paymentValue,
     products,
+    totemId,
   } = req.body;
 
   const customerDb = await db
@@ -230,8 +231,9 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
       paymentId,
       paymentMethod,
       paymentValue,
+      totemId,
       timestamp: Date.now(),
-    });
+    }); // TODO: quando login ficar pronto, informações do login e device ID
 
   const purchaseItensDb = await db
     .collection("purchaseItems")
@@ -241,8 +243,9 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
       ...item,
       purchaseId: purchaseDb.id,
       customerId: customerDb.id,
+      totemId,
       timestamp: Date.now(),
-    })
+    }) // TODO: quando login ficar pronto, informações do login e device ID
   })
 
   res.send({ status: 'ok', purchaseId: purchaseDb.id })

@@ -7,8 +7,20 @@ import { useNavigate } from "react-router-dom";
 import { checkoutFieldValidation } from "../../../helpers";
 import UserTermsForm from "../../../components/molecules/UserTermsForm";
 import UserPaymentForm from "../../../components/molecules/UserPaymentForm";
-import { CustomerData, websiteUrl } from "../../../api";
+import { CustomerData, getTotemById, Totem, websiteUrl } from "../../../api";
 import { useCounter } from "../../../context/CounterContext";
+
+const initTotem = {
+  id: '',
+  number: 0,
+  locationDescription: '',
+  responsiblePerson: '',
+  posId: '',
+  cityOrder: '',
+  showTestProduct: false,
+  lastUpdated: '',
+  timestamp: '',
+};
 
 export default function CheckoutPage() {
   // @ts-expect-error: TODO: fix type of context
@@ -27,6 +39,8 @@ export default function CheckoutPage() {
     email: '',
     phone: '',
   });
+
+  const [totem, setTotem] = useState<Totem>(initTotem);
 
   const [count, setCount] = useState(1);
 
@@ -62,6 +76,13 @@ export default function CheckoutPage() {
   }
 
   useEffect(() => {
+
+    getTotemById("1LoQvuu4KzHC1ux7qfOR").then((res) => {
+      setTotem(res);
+    }).then((err) => {
+      console.log("Err", err)
+    })
+
     appRef.current?.addEventListener("mousedown", e => {
       dispatch({type: 'reinit'})
     });
@@ -79,7 +100,7 @@ export default function CheckoutPage() {
         <div className="grow pt-28">
           {count === 1 && (<UserInfoForm customerData={customerData} setCustomerData={setCustomerData} />)}
           {count === 2 && (<UserTermsForm terms={terms} setTerms={setTerms} />)}
-          {count === 3 && (<UserPaymentForm customerData={customerData} />)}
+          {count === 3 && (<UserPaymentForm customerData={customerData} totem={totem} />)}
         </div>
 
         <div className="flex justify-between">

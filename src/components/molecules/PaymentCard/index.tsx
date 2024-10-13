@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { cancelLastPaymentIntent, CustomerData, getPaymentIntentStatus, PaymentIntent, paymentIntent, Products, Purchase, PurchaseItem, setNewPurchase, verifyPayment, websiteUrl } from "../../../api";
+import { cancelLastPaymentIntent, CustomerData, getPaymentIntentStatus, PaymentIntent, paymentIntent, Products, Purchase, PurchaseItem, setNewPurchase, Totem, verifyPayment, websiteUrl } from "../../../api";
 import MethodSelector from "../MethodSelector";
 import PaymentLoading from "../PaymentLoading";
 import PaymentError from "../PaymentError";
@@ -17,6 +17,7 @@ const initPurchase = {
   paymentValue: 0,
   paymentMethod: 'debit_card',
   acceptedTerms: false,
+  totemId: ''
 }
 
 type CardProcessStatus = | 'select_method'
@@ -33,9 +34,11 @@ type CardProcessStatus = | 'select_method'
 export default function PaymentCard({
   cart,
   customerData,
+  totem,
 }: {
   cart: Purchase,
   customerData: CustomerData,
+  totem: Totem,
 }) {
   const [purchase, setPurchase] = useState<Purchase>(initPurchase);
   const [paymentError, setPaymentError] = useState({});
@@ -53,7 +56,7 @@ export default function PaymentCard({
     setCardProcessStatus('creating_intent')
 
     const payIntent: PaymentIntent = {
-      device_id: "GERTEC_MP35P__8701372447462731",
+      device_id: totem.posId,
       amount: purchase.paymentValue * 100,
       description: customerData.email,
       type: purchase.paymentMethod,
@@ -113,6 +116,7 @@ export default function PaymentCard({
                     paymentId: res.id,
                     payementCaptured: res.captured,
                     acceptedTerms: true,
+                    totemId: totem.id,
                   })
 
                   setNewPurchase({
@@ -123,6 +127,7 @@ export default function PaymentCard({
                     paymentId: res.id,
                     payementCaptured: res.captured,
                     acceptedTerms: true,
+                    totemId: totem.id,
                   }).then((res) => {
                     setCardProcessStatus('purchase_stored') // se store purchase success
                     console.log("SUCCESS", res)
@@ -155,7 +160,7 @@ export default function PaymentCard({
   
         const expireTimer = setTimeout(() => {
           cancelLastPaymentIntent({
-            device_id: 'GERTEC_MP35P__8701372447462731',
+            device_id: totem.posId,
           }).then((res) => {
             clearTimeout(expireTimer);
           }).catch((err) => {
