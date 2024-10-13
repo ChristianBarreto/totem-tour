@@ -13,6 +13,8 @@ import AddEditProductPage from "../pages/admin/Products/AddEditProductPage";
 import PosPage from "../pages/admin/PosPage";
 import EditCompanyPage from "../pages/admin/EditCompanyPage";
 import AvailabilitiesPage from "../pages/admin/AvailabilitiesPage";
+import TotemsPage from "../pages/admin/Totems/TotemsPage";
+import AddEditTotemPage from "../pages/admin/Totems/AddEditTotemPage";
 
 
 export const rawRoutes = [
@@ -80,6 +82,18 @@ export const rawRoutes = [
       {
         path: '/admin/pos',
         element: <PosPage />,
+      },
+      {
+        path: '/admin/totems',
+        element: <TotemsPage />,
+      },
+      {
+        path: '/admin/totems/:id',
+        element: <AddEditTotemPage />,
+      },
+      {
+        path: '/admin/totems/add',
+        element: <AddEditTotemPage />,
       },
       {
         path: '/admin/totem-tour',

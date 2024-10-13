@@ -15,6 +15,7 @@ const initialPurchase = {
   paymentValue: 0,
   paymentMethod: '',
   acceptedTerms: false,
+  totemId: '',
 };
 
 const CartContext = createContext({});

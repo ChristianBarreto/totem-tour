@@ -211,6 +211,7 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
     paymentMethod,
     paymentValue,
     products,
+    totemId,
   } = req.body;
 
   const customerDb = await db
@@ -230,8 +231,9 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
       paymentId,
       paymentMethod,
       paymentValue,
+      totemId,
       timestamp: Date.now(),
-    });
+    }); // TODO: quando login ficar pronto, informações do login e device ID
 
   const purchaseItensDb = await db
     .collection("purchaseItems")
@@ -241,8 +243,9 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
       ...item,
       purchaseId: purchaseDb.id,
       customerId: customerDb.id,
+      totemId,
       timestamp: Date.now(),
-    })
+    }) // TODO: quando login ficar pronto, informações do login e device ID
   })
 
   res.send({ status: 'ok', purchaseId: purchaseDb.id })
@@ -431,6 +434,26 @@ app.put("/set-totem-tour", async (req: Request, res: Response) => {
   res.json(resp);
 });
 
+app.get("/get-totems", async (req: Request, res: Response) => {
+  const slides = await getDbItems("totens")
+  res.json(slides)
+});
+
+app.get("/get-totem/:id", async (req: Request, res: Response) => {
+  const resp = await getDbItem("totens", req.params.id);
+  res.json(resp);
+});
+
+app.put("/edit-totem", async (req: Request, res: Response) => {
+  const resp = await editDbItem("totens", req.body.id, req.body);
+  res.json(resp);
+});
+
+app.post("/totem", async (req: Request, res: Response) => {
+  console.log("POST")
+  const resp = await addDbItem("totens", req.body);
+  res.json(resp);
+});
 
 exports.totem = onRequest(app);
 

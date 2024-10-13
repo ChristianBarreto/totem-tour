@@ -86,8 +86,22 @@ export default function Table({
               <tr key={`row-${item.name}`}>
                 {tableHeader.map((header, indexB) => (
                   <td key={`${header.value}-${indexA}`}>
-                    <span>{!header.component && item[header.value]}</span>
-                    <span key={`comp-${indexA}`}><span id={item[header.value]}>{header.component && header.component}</span></span>
+                    
+                    {!header.component ? (
+                      <>
+                        {item[header.value] === true && (<p>TRUE</p>)}
+                        {item[header.value] === false && (<p>FALSE</p>)}
+                        <span id={item[header.value]}>{item[header.value]}</span>
+                      </>
+
+                    ): (
+                      <span key={`comp-${indexA}`}>
+                        <span id={item[header.value]?.toString()}>
+                          {header.component}
+                        </span>
+                      </span>
+                    )}
+                    
                   </td>
                 ))}
               </tr>

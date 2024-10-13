@@ -27,6 +27,7 @@ export default function AdminDrawer({
           <li><Link to="/admin/purchases">Compras</Link></li>
           <li><Link to="/admin/cities">Cidades</Link></li>
           <li><Link to="/admin/pos">POS</Link></li>
+          <li><Link to="/admin/totems">Totens</Link></li>
           <li><Link to="/admin/totem-tour">Totem Tour</Link></li>
         </ul>
       </div>
