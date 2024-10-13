@@ -431,6 +431,26 @@ app.put("/set-totem-tour", async (req: Request, res: Response) => {
   res.json(resp);
 });
 
+app.get("/get-totems", async (req: Request, res: Response) => {
+  const slides = await getDbItems("totens")
+  res.json(slides)
+});
+
+app.get("/get-totem/:id", async (req: Request, res: Response) => {
+  const resp = await getDbItem("totens", req.params.id);
+  res.json(resp);
+});
+
+app.put("/edit-totem", async (req: Request, res: Response) => {
+  const resp = await editDbItem("totens", req.body.id, req.body);
+  res.json(resp);
+});
+
+app.post("/totem", async (req: Request, res: Response) => {
+  console.log("POST")
+  const resp = await addDbItem("totens", req.body);
+  res.json(resp);
+});
 
 exports.totem = onRequest(app);
 

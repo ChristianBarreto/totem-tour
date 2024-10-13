@@ -93,7 +93,6 @@ export default function AvailabilityModal({
     }
   }
 
-  console.log("Disabled", objectChanged(availability, availabilityRef))
 
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">

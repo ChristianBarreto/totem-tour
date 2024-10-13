@@ -163,7 +163,6 @@ export default function PaymentCard({
             console.log(err)
           })
         }, expirationTime);
-    
       }
   
     } else if (cardProcessStatus === 'payment_rejected') {
