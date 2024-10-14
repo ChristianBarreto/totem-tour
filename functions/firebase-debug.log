@@ -1,48 +1,45 @@
-[debug] [2024-10-13T14:25:49.630Z] ----------------------------------------------------------------------
-[debug] [2024-10-13T14:25:49.633Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\chris\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --only functions
-[debug] [2024-10-13T14:25:49.634Z] CLI Version:   13.18.0
-[debug] [2024-10-13T14:25:49.634Z] Platform:      win32
-[debug] [2024-10-13T14:25:49.634Z] Node Version:  v20.10.0
-[debug] [2024-10-13T14:25:49.634Z] Time:          Sun Oct 13 2024 11:25:49 GMT-0300 (Horário Padrão de Brasília)
-[debug] [2024-10-13T14:25:49.634Z] ----------------------------------------------------------------------
+[debug] [2024-10-14T00:26:00.879Z] ----------------------------------------------------------------------
+[debug] [2024-10-14T00:26:00.882Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\chris\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --only functions
+[debug] [2024-10-14T00:26:00.882Z] CLI Version:   13.18.0
+[debug] [2024-10-14T00:26:00.883Z] Platform:      win32
+[debug] [2024-10-14T00:26:00.883Z] Node Version:  v20.10.0
+[debug] [2024-10-14T00:26:00.883Z] Time:          Sun Oct 13 2024 21:26:00 GMT-0300 (Horário Padrão de Brasília)
+[debug] [2024-10-14T00:26:00.883Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2024-10-13T14:25:49.638Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
-[debug] [2024-10-13T14:25:49.766Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2024-10-13T14:25:49.767Z] > authorizing via signed-in user (christiannabasbarreto@gmail.com)
+[debug] [2024-10-14T00:26:01.027Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-14T00:26:01.028Z] > authorizing via signed-in user (christiannabasbarreto@gmail.com)
 [info] i  emulators: Starting emulators: functions {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions"}}
-[debug] [2024-10-13T14:25:49.776Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2024-10-13T14:25:49.776Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}]},"metadata":{"message":"assigned listening specs for emulators"}}
-[debug] [2024-10-13T14:25:49.783Z] [hub] writing locator at C:\Users\chris\AppData\Local\Temp\hub-totem-tour.json
-[debug] [2024-10-13T14:25:49.808Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2024-10-13T14:25:49.809Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2024-10-13T14:25:49.809Z] [tasks] Cloud Tasks Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2024-10-13T14:25:49.809Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}],"tasks":[{"address":"127.0.0.1","family":"IPv4","port":9499}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[debug] [2024-10-14T00:26:01.039Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-10-14T00:26:01.039Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2024-10-14T00:26:01.047Z] [hub] writing locator at C:\Users\chris\AppData\Local\Temp\hub-totem-tour.json
+[debug] [2024-10-14T00:26:01.072Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-10-14T00:26:01.073Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-10-14T00:26:01.073Z] [tasks] Cloud Tasks Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-10-14T00:26:01.073Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}],"tasks":[{"address":"127.0.0.1","family":"IPv4","port":9499}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
 [warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: auth, firestore, database, hosting, pubsub, storage, dataconnect {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mauth, firestore, database, hosting, pubsub, storage, dataconnect\u001b[22m"}}
-[debug] [2024-10-13T14:25:49.814Z] defaultcredentials: writing to file C:\Users\chris\AppData\Roaming\firebase\christiannabasbarreto_gmail_com_application_default_credentials.json
-[debug] [2024-10-13T14:25:49.816Z] Setting GAC to C:\Users\chris\AppData\Roaming\firebase\christiannabasbarreto_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\chris\\AppData\\Roaming\\firebase\\christiannabasbarreto_gmail_com_application_default_credentials.json"}}
-[debug] [2024-10-13T14:25:49.817Z] > refreshing access token with scopes: []
-[debug] [2024-10-13T14:25:49.818Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
-[debug] [2024-10-13T14:25:49.818Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
-[debug] [2024-10-13T14:25:50.136Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
-[debug] [2024-10-13T14:25:50.136Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
-[debug] [2024-10-13T14:25:50.153Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
-[debug] [2024-10-13T14:25:50.154Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
-[debug] [2024-10-13T14:25:50.164Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/totem-tour/adminSdkConfig [none]
-[debug] [2024-10-13T14:25:50.903Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/totem-tour/adminSdkConfig 200
-[debug] [2024-10-13T14:25:50.904Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/totem-tour/adminSdkConfig {"projectId":"totem-tour","storageBucket":"totem-tour.appspot.com","locationId":"southamerica-east1"}
-[debug] [2024-10-13T14:25:50.937Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
-[debug] [2024-10-13T14:25:50.938Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
-[debug] [2024-10-13T14:25:50.938Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\chris\\.cache\\firebase\\emulators\\ui-v1.13.0\\server\\server.mjs"],"optionalArgs":[],"joinArgs":false,"shell":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\chris\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.13.0\\\\server\\\\server.mjs\"],\"optionalArgs\":[],\"joinArgs\":false,\"shell\":false}"}}
+[debug] [2024-10-14T00:26:01.077Z] defaultcredentials: writing to file C:\Users\chris\AppData\Roaming\firebase\christiannabasbarreto_gmail_com_application_default_credentials.json
+[debug] [2024-10-14T00:26:01.080Z] Setting GAC to C:\Users\chris\AppData\Roaming\firebase\christiannabasbarreto_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\chris\\AppData\\Roaming\\firebase\\christiannabasbarreto_gmail_com_application_default_credentials.json"}}
+[debug] [2024-10-14T00:26:01.081Z] > refreshing access token with scopes: []
+[debug] [2024-10-14T00:26:01.083Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-10-14T00:26:01.083Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-10-14T00:26:01.415Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-10-14T00:26:01.416Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-10-14T00:26:01.433Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/totem-tour/adminSdkConfig [none]
+[debug] [2024-10-14T00:26:02.226Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/totem-tour/adminSdkConfig 200
+[debug] [2024-10-14T00:26:02.227Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/totem-tour/adminSdkConfig {"projectId":"totem-tour","storageBucket":"totem-tour.appspot.com","locationId":"southamerica-east1"}
+[debug] [2024-10-14T00:26:02.267Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-10-14T00:26:02.267Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2024-10-14T00:26:02.267Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\chris\\.cache\\firebase\\emulators\\ui-v1.13.0\\server\\server.mjs"],"optionalArgs":[],"joinArgs":false,"shell":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\chris\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.13.0\\\\server\\\\server.mjs\"],\"optionalArgs\":[],\"joinArgs\":false,\"shell\":false}"}}
 [info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
-[debug] [2024-10-13T14:25:51.100Z] Web / API server started at 127.0.0.1:4000
+[debug] [2024-10-14T00:26:02.432Z] Web / API server started at 127.0.0.1:4000
  {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
-[debug] [2024-10-13T14:25:51.100Z] Web / API server started at ::1:4000
+[debug] [2024-10-14T00:26:02.432Z] Web / API server started at ::1:4000
  {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4000\n"}}
 [info] i  functions: Watching "C:\Users\chris\projects\resourses\totem-tour\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"C:\\Users\\chris\\projects\\resourses\\totem-tour\\functions\" for Cloud Functions..."}}
-[debug] [2024-10-13T14:25:51.182Z] Validating nodejs source
+[debug] [2024-10-14T00:26:02.538Z] Validating nodejs source
 [warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
 [warn] !  functions: Please note that there will be breaking changes when you upgrade. 
-[debug] [2024-10-13T14:25:52.361Z] > [functions] package.json contents: {
+[debug] [2024-10-14T00:26:03.729Z] > [functions] package.json contents: {
   "name": "functions",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
@@ -79,16 +76,16 @@
   },
   "private": true
 }
-[debug] [2024-10-13T14:25:52.361Z] Building nodejs source
-[debug] [2024-10-13T14:25:52.362Z] Failed to find version of module node: reached end of search path C:\Users\chris\projects\resourses\totem-tour\functions\node_modules
+[debug] [2024-10-14T00:26:03.730Z] Building nodejs source
+[debug] [2024-10-14T00:26:03.730Z] Failed to find version of module node: reached end of search path C:\Users\chris\projects\resourses\totem-tour\functions\node_modules
 [warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
 [info] i  functions: Loaded environment variables from .env. 
-[debug] [2024-10-13T14:25:52.366Z] Could not find functions.yaml. Must use http discovery
-[debug] [2024-10-13T14:25:52.377Z] Found firebase-functions binary at 'C:\Users\chris\projects\resourses\totem-tour\functions\node_modules\.bin\firebase-functions'
-[info] Serving at port 8459
+[debug] [2024-10-14T00:26:03.735Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-14T00:26:03.743Z] Found firebase-functions binary at 'C:\Users\chris\projects\resourses\totem-tour\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8610
 
 [info] PRODUCTION false
 
 [info] MP-KEY APP_USR-5803744304383341-101217-a2eda4ca0653c5d7dd87b55c9836c834-2032016489
 
-[debug] [2024-10-13T14:25:53.028Z] Got response from /__/functions.yaml {"endpoints":{"totem":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"totem"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-14T00:26:04.388Z] Got response from /__/functions.yaml {"endpoints":{"totem":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"totem"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}

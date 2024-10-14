@@ -279,33 +279,18 @@ async function getDbItems(dbName: string) {
 }
 
 app.get("/sales", async (req: Request, res: Response) => {
-  const purchaseItems = await getDbItems("purchaseItems")
+  const today = dayjs().format('YYYY-MM-DD');
+  const snapshot = await db.collection("purchaseItems")
+    .where("date", ">=", today)
+    .orderBy("date", 'asc')
+    .get();
 
-  const promise = new Promise((resolve, reject) => {
-    
-   const data = (purchaseItems as never[]).map((item: any) => {
-      return ({
-        id: item.id,
-        date: item.date,
-        qty: item.qty,
-        location: item.location,
-        productId: item.productId,
-        customerId: item.customerId,
-        purchaseId: item.purchaseId,
-        customerName: 'customerName',
-        productName: 'productName',
-        paymentCaptured: 'paymentCaptured',
-        customerComm: "customerComm",
-        agencyComm: "agencyComm"
-      });
-    })
-    resolve(data)
-  })
+  const data: any[] = [];
 
-  promise.then((resp) => {
-    res.json(resp)
-  })
-
+  snapshot.forEach((doc: any) => {
+    data.push({id: doc.id, ...doc.data()});
+  });
+  res.json(data);
 });
 
 app.get("/pos", async (req: Request, res: Response) => {

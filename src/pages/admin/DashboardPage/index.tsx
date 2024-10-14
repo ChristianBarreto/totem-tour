@@ -18,6 +18,7 @@ export default function DashboardPage() {
     <div className="">
       <p>Dashboard</p>
       <Table
+        sort="date"
         tableName="Reservas à cumprir"
         tableHeader={tableHeader}
         tableFetch={getAdminPurchaseItens}
