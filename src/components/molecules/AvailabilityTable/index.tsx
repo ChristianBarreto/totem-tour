@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
-import { Availabilities, Cities, getCities, getNextAvailabilities, getProducts, Product, Products } from "../../../api";
+import { Availabilities, Cities, getCities, getNextAvailabilities, getProducts, Product, Products, websiteUrl } from "../../../api";
 import AvailabilityEdit from "../AvailabilityEdit";
 import dayjs from "dayjs";
+import { Link } from "react-router-dom";
 
 type Filter = [string, keyof Product]
 type Sort = string
@@ -76,6 +77,7 @@ export default function AvailabilityTable({
               <p>{dayjs().locale('pt-br').add(7, 'day').format('DD/MM')}</p>
             </th>
             <th>Display</th>
+            <th>Dispon.</th>
           </tr>
         </thead>
         <tbody>
@@ -102,7 +104,7 @@ export default function AvailabilityTable({
             })
             .map((product) => (
               <tr key={product.id}>
-                <td>{product.name}</td>
+                <td><Link to={`${websiteUrl}/admin/products/${product.id}`}>{product.name}</Link></td>
                 <td className="p-0">
                   <AvailabilityEdit
                     product={product}
@@ -175,7 +177,25 @@ export default function AvailabilityTable({
                     reloadTable={reloadTable}
                   />
                 </td>
-                <td className="p-0">Show</td>
+                <td className="p-0">{product.showDisplay ? (
+                    <div className="flex justify-center">
+                      <div className="text-center badge badge-primary badge-md"></div>
+                    </div>  
+                  ) : (
+                    <div className="flex justify-center">
+                      <p className="text-center badge bg-red-500 badge-md"></p>
+                    </div>
+                  )}</td>
+                <td className="p-0">{product.isAvailable ? (
+                    <div className="flex justify-center">
+                      <div className="text-center badge badge-primary badge-md"></div>
+                    </div>  
+                  ) : (
+                    <div className="flex justify-center">
+                      <p className="text-center badge bg-red-500 badge-md"></p>
+                    </div>
+                  )}
+                </td>
             </tr>
           ))}
         </tbody>

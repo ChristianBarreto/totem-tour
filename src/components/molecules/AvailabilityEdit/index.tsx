@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import IconCheckCircle from "../../atoms/IconCheckCircle";
 import AvailabilityModal from "../AvailabilityModal";
 import { useState } from "react";
-import { Availabilities, Product } from "../../../api";
+import { Availabilities, Availabilitiy, Product } from "../../../api";
 import IconXCircle from "../../atoms/IconXCircle";
 
 export default function AvailabilityEdit({
@@ -20,13 +20,17 @@ export default function AvailabilityEdit({
 }) {
   const [modalOpen, setModalOpen] = useState(false);
   const date = dayjs().add(day, "days").format('YYYY-MM-DD');
-
-  const availability = availabilities.find((av) => {
+  const today = dayjs().format('YYYY-MM-DD');
+  
+  const availability: any = availabilities.find((av) => {
     if ((av.productId === product.id) && (av.date === date)) {
+      if ((av.date === today) && product.todayUnavailable) {
+        return null
+      }
       return av
-    }
+    } 
     return null
-  })
+  });
 
   return (
     <div>
@@ -36,9 +40,19 @@ export default function AvailabilityEdit({
           {availability.booked}/{availability.availability}
         </button>
       ): (
-        <button className="btn btn-sm btn-ghost p-1 w-14" onClick={() => setModalOpen(true)}>
-          -
-        </button>
+        <>
+          {((date === today) && product.todayUnavailable) ? (
+            <button className="text-base-300 p-1 w-14">
+              x
+            </button>
+          ) : (
+            <button className="btn btn-sm btn-ghost p-1 w-14" onClick={() => setModalOpen(true)}>
+              -
+            </button>
+          )}
+          
+        </>
+
       )}
       {modalOpen && (
         <AvailabilityModal

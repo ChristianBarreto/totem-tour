@@ -34,6 +34,7 @@ export type Product = {
   isTest: boolean,
   timestamp?: number,
   lastUpdated?: number,
+  todayUnavailable: boolean,
 }
 
 export type Availabilitiy = {

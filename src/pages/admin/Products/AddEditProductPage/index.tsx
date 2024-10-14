@@ -3,7 +3,7 @@ import { addProduct, Cities, editProductById, getCities, getProductById, Product
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 
-const initProduct = {
+const initProduct: Product = {
   cityId: '',
   companyComm: 0,
   description: '',
@@ -25,6 +25,7 @@ const initProduct = {
   notAvailableMessage: '',
   isTest: false,
   address: '',
+  todayUnavailable: true
 }
 
 export default function AddEditProductPage() {
@@ -68,11 +69,11 @@ export default function AddEditProductPage() {
   const handleSave = () => {
     if (isEditing) {
       editProductById(product.id, product).then((res) => {
-        navigate('/admin/products')
+        navigate(-1)
       })
     } else {
       addProduct( product).then((res) => {
-        navigate('/admin/products')
+        navigate(-1)
       })
     }
 
@@ -142,6 +143,18 @@ export default function AddEditProductPage() {
                 onChange={(e) => setProduct({...product, notAvailableMessage: e.target.value})}
               />
             </label>
+
+            <div className="form-control pb-4">
+              <label className="label cursor-pointer justify-start w-1/3">
+                <input
+                  type="checkbox"
+                  className="toggle toggle-primary"
+                  checked={product.todayUnavailable}
+                  onChange={() => setProduct({...product, todayUnavailable: !product.todayUnavailable})}
+                />
+                <span className="label-text pl-4">Indisponível no dia atual (recomendado)</span>
+              </label>
+            </div>
 
             <div className="form-control pb-4">
               <label className="label cursor-pointer justify-start w-1/3">
