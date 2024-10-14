@@ -12,9 +12,11 @@ dayjs.locale('pt')
 export default function DateSelector({
   setAvailability,
   availabilities,
+  unavailableToday
 }: {
   setAvailability: (date: Availabilitiy | null) => void,
   availabilities: Availabilities
+  unavailableToday: boolean
 }) {
 
   const selectRef = useRef<HTMLSelectElement>(null)
@@ -33,6 +35,8 @@ export default function DateSelector({
     setAvailability(avail)
   }
 
+  const today = dayjs().locale('pt-br').format('YYYY-MM-DD')
+
   return (
     <div className="ml-5">
       <select
@@ -47,11 +51,16 @@ export default function DateSelector({
         ):(
           <option disabled value={0}>Selecione a data</option>
         )}
-        {availabilities.map((option, index) => (
-          <option key={option.date} value={index}>{
-            dayjs(option.date).locale('pt-br').format('DD/MM/YYYY - (dddd)')
-          }</option>
-        ))}
+        {availabilities.map((option, index) => {
+          if ((option.date === today) && unavailableToday ){
+            return null
+          }
+          return (
+            <option key={option.date} value={index}>{
+              dayjs(option.date).locale('pt-br').format('DD/MM/YYYY - (dddd)')
+            }</option>
+          )
+        })}
       </select>
     </div>
 

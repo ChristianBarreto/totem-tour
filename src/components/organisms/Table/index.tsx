@@ -72,9 +72,12 @@ export default function Table({
                 }
               })
               .sort((a, b) => {
+
                 if (sort) {
-                  if (a.cityId < b.cityId) {
+                  if (a[sort] < b[sort]) {
                     return -1
+                  } else if (a[sort] < b[sort]){
+                    return 1
                   } else {
                     return 0
                   }

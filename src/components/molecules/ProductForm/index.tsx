@@ -34,6 +34,7 @@ export default function ProductForm({
             <DateSelector
               setAvailability={setAvailability}
               availabilities={availabilities}
+              unavailableToday={product.todayUnavailable}
             />
           </div>
         </li>
