@@ -1,4 +1,5 @@
-import { Products } from "../../../api"
+import { useLocation } from "react-router-dom";
+import { Product, Products } from "../../../api"
 import CardSkeleton from "../../atoms/CardSkeleton"
 import ProductCard from "../../molecules/ProductCard"
 import styles from './ProductList.module.css'
@@ -12,17 +13,39 @@ export default function ProductList({
   selectedCity: string,
   setCartOpen: (value: boolean) => void,
 }) {
+  const location = useLocation();
+
+  let showTest = false;
+  if (location.pathname === '/totem/test'){
+    showTest = true;
+  }
+
+  const handleShowTest = (show: boolean, product: Product) => {
+    if (show) {
+      if (product.isTest) {
+        return true
+      }
+      return false
+    } else {
+      if (!product.isTest) {
+        return true
+      }
+      return false
+    }
+  }
 
   const availableProducts = products
     .filter((prod) => prod.cityId === selectedCity)
     .filter((prod) => prod.showDisplay)
     .filter((prod) => prod.isAvailable)
+    .filter((prod) => handleShowTest(showTest, prod))
     .sort((a, b) => a.priority - b.priority)
 
   const unavailableProducts = products
     .filter((prod) => prod.cityId === selectedCity)
     .filter((prod) => prod.showDisplay)
     .filter((prod) => !prod.isAvailable)
+    .filter((prod) => handleShowTest(showTest, prod))
     .sort((a, b) => a.priority - b.priority)
 
   return (
