@@ -17,7 +17,6 @@ export default function StorePage() {
   const [, dispatch] = useCounter();
   const appRef = useRef()as React.MutableRefObject<HTMLDivElement>;
 
-
   useEffect(() => {
     appRef.current?.addEventListener("mousedown", e => {
       dispatch({type: 'reinit'})

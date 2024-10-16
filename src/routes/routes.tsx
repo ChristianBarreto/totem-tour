@@ -43,6 +43,16 @@ export const rawRoutes = [
     ]
   },
   {
+    path: "/totem/test",
+    element: <StoreTemplate />,
+    children: [
+      {
+        index: true,
+        element: <StorePage />
+      }
+    ]
+  },
+  {
     path: "/totem/checkout",
     element: <CheckoutPage />,
     
