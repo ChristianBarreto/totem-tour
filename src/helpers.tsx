@@ -1,3 +1,5 @@
+import { PriceTypes } from "./api";
+
 export function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
@@ -86,3 +88,14 @@ export const pageCountDown = (location: string) => {
   }
   return false
 }
+
+type PriceType = {
+  type: PriceTypes,
+  description: string,
+}
+
+export const priceTypes: PriceType[] = [
+  {type: "single-value", description: "Valor único"},
+  {type: "variable-value", description: "Valor variável"},
+  {type: "defined-value", description: "Valor pré-definido"},
+]

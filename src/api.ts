@@ -10,6 +10,8 @@ export type City = {
 
 export type Cities = City[];
 
+export type PriceTypes = undefined | "single-value" | "variable-value" | "defined-value"
+
 export type Product = {
   id: string,
   name: string,
@@ -19,6 +21,7 @@ export type Product = {
   imgUrl: string,
   details: string,
   time: string,
+  duration: string,
   priority: number,
   netPrice: number,
   partnerComm: number,
@@ -35,6 +38,19 @@ export type Product = {
   timestamp?: number,
   lastUpdated?: number,
   todayUnavailable: boolean,
+  priceType: PriceTypes,
+  netPrice1: number,
+  netPrice2: number,
+  netPrice3: number,
+  netPrice4: number,
+  partnerComm1: number,
+  partnerComm2: number,
+  partnerComm3: number,
+  partnerComm4: number,
+  companyComm1: number,
+  companyComm2: number,
+  companyComm3: number,
+  companyComm4: number,
 }
 
 export type Availabilitiy = {
