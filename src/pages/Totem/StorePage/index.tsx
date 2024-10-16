@@ -7,6 +7,7 @@ import CartModal from "../../../components/organisms/CartModal";
 import Header from "../../../components/organisms/Header";
 import Footer from "../../../components/organisms/Footer";
 import { useCounter } from "../../../context/CounterContext";
+import CitySelect from "../../../components/cells/CitySelect";
 
 export default function StorePage() {
   const [products, setProducts] = useState<Products>([]);
@@ -42,6 +43,11 @@ export default function StorePage() {
     <div className={styles.container} ref={appRef}>
       <Header setCartOpen={setCartOpen} />
       <CartModal cartOpen={cartOpen} setCartOpen={setCartOpen} products={products} />
+      <CitySelect
+        cities={cities}
+        selectedCity={selectedCity}
+        setSelectedCity={setSelectedCity}      
+      />
       <div >
         <CategoryDrawer
           cities={cities}

@@ -25,7 +25,7 @@ export function CategoryDrawer({
         {children}
       </div>
 
-      <div className={`bg-amber-100 ${styles.container}`}>      
+      <div className={`hidden md:block bg-amber-100 ${styles.container}`}>      
         <ul className="menu text-base-content w-80 p-0">
           <div className="bg-amber-200 p-2 flex justify-center">
             <p className="text-4xl text-neutral-500">Escolha a cidade</p>
