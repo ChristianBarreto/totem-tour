@@ -51,6 +51,7 @@ export type Product = {
   companyComm2: number,
   companyComm3: number,
   companyComm4: number,
+  isConsistent: boolean
 }
 
 export type Availabilitiy = {

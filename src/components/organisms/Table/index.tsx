@@ -99,7 +99,7 @@ export default function Table({
 
                     ): (
                       <span key={`comp-${indexA}`}>
-                        <span id={item[header.value]?.toString()}>
+                        <span className={item[header.value]?.toString()}>
                           {header.component}
                         </span>
                       </span>

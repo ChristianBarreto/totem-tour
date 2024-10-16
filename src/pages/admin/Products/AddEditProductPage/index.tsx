@@ -42,6 +42,7 @@ const initProduct: Product = {
   companyComm2: 0,
   companyComm3: 0,
   companyComm4: 0,
+  isConsistent: false,
 }
 
 export default function AddEditProductPage() {

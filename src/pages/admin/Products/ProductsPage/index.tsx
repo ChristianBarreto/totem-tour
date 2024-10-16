@@ -1,7 +1,8 @@
 import Table from "../../../../components/organisms/Table";
 import { getProducts } from "../../../../api";
 import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { RedGreenLight } from "../../../../components/atoms/RedGreenLight";
 
 const TableEditButton = ({
   onClickEvent,
@@ -24,6 +25,20 @@ const TableEditButton = ({
   )
 }
 
+const Light = () => {
+  const [value, setValue] = useState("");
+  const ref = useRef<HTMLDivElement>(null)
+  
+
+  useEffect(() => {
+    if (ref.current?.parentElement){
+      setValue(ref.current?.parentElement?.className);
+    }
+  }, []);
+
+  return <RedGreenLight value={value === "true" ? true : false} ref={ref} />
+}
+
 export default function ProductsPage() {
   const navigate = useNavigate()
   const handleClick = (productId: string) => {
@@ -33,8 +48,9 @@ export default function ProductsPage() {
   const tableHeader = [
     {name: "Nome", value: "name"},
     {name: "Cidade", value: "location"},
-    {name: "Mostrar Display", value: "showDisplay"},
-    {name: "Disponível", value: "isAvailable"},
+    {name: "Mostrar Display", value: "showDisplay", component: (<Light />)},
+    {name: "Consistente", value: "isConsistent", component: (<Light />)},
+    {name: "Disponível", value: "isAvailable", component: (<Light />)},
     {name: "Opções", value: 'id', component: (<TableEditButton onClickEvent={(id) => handleClick(id)} />)}
   ]
 

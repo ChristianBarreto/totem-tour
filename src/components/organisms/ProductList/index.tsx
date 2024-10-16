@@ -3,6 +3,7 @@ import { Product, Products } from "../../../api"
 import CardSkeleton from "../../atoms/CardSkeleton"
 import ProductCard from "../../molecules/ProductCard"
 import styles from './ProductList.module.css'
+import { productIsConsistent } from "../../../helpers";
 
 export default function ProductList({
   products,
