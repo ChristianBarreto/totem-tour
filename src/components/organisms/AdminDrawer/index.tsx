@@ -19,6 +19,7 @@ export default function AdminDrawer({
       </div>
       <div className="drawer-side">
         <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
+
         <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
           {/* Sidebar content here */}
           <li><Link to="/admin">Dashboard</Link></li>
@@ -29,6 +30,10 @@ export default function AdminDrawer({
           <li><Link to="/admin/pos">POS</Link></li>
           <li><Link to="/admin/totems">Totens</Link></li>
           <li><Link to="/admin/totem-tour">Totem Tour</Link></li>
+          <hr className="mt-4 mb-4"/>
+          <li><Link to="/totem/test" target="_blank" rel="noopener noreferrer">Página de testes</Link></li>
+          <li><Link to="/totem/" target="_blank" rel="noopener noreferrer">Página Totem Tour</Link></li>
+
         </ul>
       </div>
     </div>
