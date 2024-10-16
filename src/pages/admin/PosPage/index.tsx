@@ -19,7 +19,7 @@ const ChangeOpMode = ({
 
   const handleClick = () => {
     if (buttonRef.current?.parentElement && onClickEvent){
-      onClickEvent(buttonRef.current?.parentElement?.id)
+      onClickEvent(buttonRef.current?.parentElement?.className)
     }
   }
 
@@ -35,13 +35,17 @@ export default function PosPage() {
   const [reload, setReload] = useState(0);
 
   const changeToPdv = (pos_id: string) => {
-    switchPosMode(pos_id, {mode: 'PDV'});
-    setReload(reload + 1);
+    if(pos_id) {
+      switchPosMode(pos_id, {mode: 'PDV'});
+      setReload(reload + 1);  
+    }
   }
 
-  const changeTStandalone = (pos_id: string) => {
-    switchPosMode(pos_id, {mode: 'STANDALONE'});
-    setReload(reload + 1);
+  const changeToStd = (pos_id: string) => {
+    if(pos_id) {
+      switchPosMode(pos_id, {mode: 'STANDALONE'});
+      setReload(reload + 1);
+    }
   }
 
   const tableHeader = [
@@ -55,7 +59,7 @@ export default function PosPage() {
       value: 'id',
       component: (<>
         <ChangeOpMode name="PDV" onClickEvent={(id) => changeToPdv(id)} />
-        <ChangeOpMode name="SDT" onClickEvent={(id) => changeTStandalone(id)} />
+        <ChangeOpMode name="SDT" onClickEvent={(id) => changeToStd(id)} />
       </>)
     },
   ]

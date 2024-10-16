@@ -14,7 +14,7 @@ const TableEditButton = ({
 
   const handleClick = () => {
     if (buttonRef.current?.parentElement && onClickEvent){
-      onClickEvent(buttonRef.current?.parentElement?.id)
+      onClickEvent(buttonRef.current?.parentElement?.className)
     }
   }
 
