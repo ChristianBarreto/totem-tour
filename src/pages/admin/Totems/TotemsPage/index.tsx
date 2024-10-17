@@ -2,6 +2,7 @@ import Table from "../../../../components/organisms/Table";
 import {  getTotems } from "../../../../api";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { classNames } from "../../../../helpers";
 
 
 const TableEditButton = ({
@@ -14,7 +15,7 @@ const TableEditButton = ({
 
   const handleClick = () => {
     if (buttonRef.current?.parentElement && onClickEvent){
-      onClickEvent(buttonRef.current?.parentElement?.id)
+      onClickEvent(buttonRef.current?.parentElement?.className)
     }
   }
 
@@ -25,15 +26,13 @@ const TableEditButton = ({
   )
 }
 
-const ShowTests = ({
-}: {
-}) => {
+const ShowTests = () => {
   const [value, setValue] = useState('');
   const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (ref.current?.parentElement ){
-      setValue(ref.current?.parentElement?.id)
+      setValue(ref.current?.parentElement?.className)
     }
   }, [])
 

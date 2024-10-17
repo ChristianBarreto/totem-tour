@@ -185,7 +185,8 @@ export default function AvailabilityTable({
                     <div className="flex justify-center">
                       <p className="text-center badge bg-red-500 badge-md"></p>
                     </div>
-                  )}</td>
+                  )}
+                </td>
                 <td className="p-0">{product.isAvailable ? (
                     <div className="flex justify-center">
                       <div className="text-center badge badge-primary badge-md"></div>

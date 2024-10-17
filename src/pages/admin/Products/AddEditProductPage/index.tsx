@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react"
-import { addProduct, Cities, editProductById, getCities, getProductById, Product } from "../../../../api";
+import { addProduct, Cities, editProductById, getCities, getProductById, PriceTypes, Product } from "../../../../api";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
+import { priceTypes, productCanBeAvailable, productCanBeDisplayed } from "../../../../helpers";
+import PriceForm from "../../../../components/cells/PriceForm";
+import ProductConsistency from "../../../../components/cells/ProductConsistency";
 
 const initProduct: Product = {
   cityId: '',
-  companyComm: 0,
   description: '',
   details: '',
   id: '',
@@ -13,19 +15,35 @@ const initProduct: Product = {
   maxPaxDay: 0,
   maxPerRound: 0,
   minPriceDescription: '',
-  minTotalPrice: 0,
   name: '',
   netPrice: 0,
+  minTotalPrice: 0,
   partnerComm: 0,
+  companyComm: 0,
   pricePerPerson: 0,
-  priority: 0,
   time: '',
+  duration: '',
+  priority: 0,
   showDisplay: false,
   isAvailable: false,
   notAvailableMessage: '',
   isTest: false,
   address: '',
-  todayUnavailable: true
+  todayUnavailable: true,
+  priceType: undefined,
+  netPrice1: 0,
+  netPrice2: 0,
+  netPrice3: 0,
+  netPrice4: 0,
+  partnerComm1: 0,
+  partnerComm2: 0,
+  partnerComm3: 0,
+  partnerComm4: 0,
+  companyComm1: 0,
+  companyComm2: 0,
+  companyComm3: 0,
+  companyComm4: 0,
+  isConsistent: false,
 }
 
 export default function AddEditProductPage() {
@@ -41,15 +59,20 @@ export default function AddEditProductPage() {
 
   const isEditing = (location.pathname !== '/admin/products/add')
   
+  const canBeDisplayed = productCanBeDisplayed(product);
+  const canBeAvailable = productCanBeAvailable(product);
+
   useEffect(() => {
     let ignore = false;
 
-    getProductById(id).then((res) => {
-      if (res && !ignore) {
-        setProduct(res)
-        productRef.current = res;
-      }
-    })
+    if (isEditing) {
+      getProductById(id).then((res) => {
+        if (res && !ignore) {
+          setProduct(res)
+          productRef.current = res;
+        }
+      })
+    }
 
     getCities().then((res) => {
       if (res) {
@@ -96,10 +119,15 @@ export default function AddEditProductPage() {
       <p className="text-2xl"><span className="font-bold">Adicionar ou editar produto:</span> {product.name}</p>
       <p>ID: {product.id}</p>
 
+      <ProductConsistency
+        canBeDisplayed={canBeDisplayed}
+        canBeAvailable={canBeAvailable}
+      />
+
       <div role="tablist" className="tabs tabs-boxed mt-4">
         <p role="tab" className={`tab ${tab === 0 && "tab-active"}`} onClick={() => setTab(0)}>Display</p>
         <p role="tab" className={`tab ${tab === 1 && "tab-active"}`} onClick={() => setTab(1)}>Características</p>
-        <p role="tab" className={`tab ${tab === 2 && "tab-active"}`} onClick={() => setTab(2)}>Passageiros</p>
+        <p role="tab" className={`tab ${tab === 2 && "tab-active"}`} onClick={() => setTab(2)}>Capacidade</p>
         <p role="tab" className={`tab ${tab === 3 && "tab-active"}`} onClick={() => setTab(3)}>Preços</p>
       </div>
 
@@ -305,65 +333,27 @@ export default function AddEditProductPage() {
               <p className="font-bold pb-2">Preços:</p>
             </div>
 
-            <label className="form-control label-text pb-4">Preço neto:
-              <input
-                type="number"
-                placeholder="Type here"
-                className="input input-bordered w-full"
-                value={product.netPrice}
-                onChange={(e) => setProduct({...product, netPrice: Number(e.target.value) })}
-              />
+            <label className="form-control w-full pb-4">
+              <span className="label-text">Tipo de preço:</span>
+              <select
+                className="select select-bordered w-full"
+                onChange={(e) => setProduct({...product, priceType: (e.target.value as PriceTypes)})}
+                value={product.priceType}
+                defaultValue=""
+              >
+                <option value="" disabled>Escolha</option>
+                {priceTypes.map((priceType) => {
+                  if (priceType.type) {
+                    return (
+                      <option key={priceType.type} value={priceType.type}>{priceType.description}</option>
+                    )
+                  }
+                  else return null
+                })}
+              </select>
             </label>
 
-            <label className="form-control label-text pb-4">Preço por pessoa:
-              <input
-                type="number"
-                placeholder="Type here"
-                className="input input-bordered w-full"
-                value={product.pricePerPerson}
-                onChange={(e) => setProduct({...product, pricePerPerson: Number(e.target.value) })}
-              />
-            </label>
-
-            <label className="form-control label-text pb-4">Preço mínimo:
-              <input
-                type="number"
-                placeholder="Type here"
-                className="input input-bordered w-full"
-                value={product.minTotalPrice}
-                onChange={(e) => setProduct({...product, minTotalPrice: Number(e.target.value) })}
-              />
-            </label>
-
-            <label className="form-control label-text pb-4">Descrição do preço mínimo:
-              <input
-                type="text"
-                placeholder="Type here"
-                className="input input-bordered w-full"
-                value={product.minPriceDescription}
-                onChange={(e) => setProduct({...product, minPriceDescription: e.target.value})}
-              />
-            </label>
-
-            <label className="form-control label-text pb-4">Comissão do parceiro:
-              <input
-                type="number"
-                placeholder="Type here"
-                className="input input-bordered w-full"
-                value={product.partnerComm}
-                onChange={(e) => setProduct({...product, partnerComm: Number(e.target.value) })}
-              />
-            </label>
-
-            <label className="form-control label-text pb-4">Comissão da Totem Tour:
-              <input
-                type="number"
-                placeholder="Type here"
-                className="input input-bordered w-full"
-                value={product.companyComm}
-                onChange={(e) => setProduct({...product, companyComm: Number(e.target.value) })}
-              />
-            </label>
+            <PriceForm priceType={product.priceType} product={product} setProduct={setProduct}/>
 
           </>
         )}
