@@ -13,7 +13,7 @@ export default function PaymentPixSuccess() {
             <div className="flex justify-center">
               <IconCheckCircle  classes="text-primary size-36"/>
             </div>
-            <p className="text-xl text-center">Você receberá as informações dos seus passeios por WhatsApp/E-mail.</p>
+            <p className="text-xl text-center">Você receberá as informações dos seus passeios por WhatsApp/E-mail <span className="font-bold">em até 1h</span>.</p>
             
             <div className="flex justify-center">
               <div className="flex mb-4">

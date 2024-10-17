@@ -130,13 +130,13 @@ export default function ProductModal({
                             {product.priceType === "single-value" && (
                               <>
                                 <span className='text-xl font-bold'>Valor único: </span>
-                                <span>R${product.netPrice + product.partnerComm + product.companyComm},00</span>
+                                <span className='text-xl'>R${product.netPrice + product.partnerComm + product.companyComm},00</span>
                               </>
                             )}
                             {product.priceType === "variable-value" && (
                               <>
                                 <span className='text-xl font-bold'>Valor por pessoa: </span>
-                                <span>R${product.netPrice + product.partnerComm + product.companyComm},00</span>
+                                <span className='text-xl'>R${product.netPrice + product.partnerComm + product.companyComm},00</span>
                               </>
                             )}
                             {product.priceType === "defined-value" && (
