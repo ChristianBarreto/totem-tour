@@ -72,6 +72,7 @@ export default function ProductModal({
   let price = calcPrice(qty, product);
   const addCartDisabled = qty === 0 || price === 0;
 
+  console.log(product.priceType)
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
       <DialogBackdrop
@@ -112,6 +113,7 @@ export default function ProductModal({
 
                     {product.isAvailable ? (
                       <div>
+
                         <div className='mb-4'>
                           <p className='text-xl'>
                             <span className='font-bold'>Local: </span>
@@ -119,22 +121,32 @@ export default function ProductModal({
                           </p>
                           <p className='text-neutral-400'>(você receberá a localização exata por Email/WhatsApp)</p>
                         </div>
+
                         <p className='text-xl mb-4'>
                           <span className='font-bold'>Horário: </span>
                           {product.time}
                         </p>
                         {true && (
-                          <p className='text-xl mb-4'>
-                            <span className='font-bold'>Valor por pessoa: </span>
-                            R${product.pricePerPerson},00 
-                          </p>
-                        )}
-
-                        {product.minTotalPrice > 0 && (
-                          <p className='text-xl mb-4'>
-                            <span className='font-bold'>Valor mínimo: </span>
-                            R${product.minTotalPrice},00 
-                            <span className='text-neutral-400 pl-2 text-base'>({product.minPriceDescription})</span>
+                          <p className='mb-4'>
+                            {product.priceType === "single-value" && (
+                              <>
+                                <span className='text-xl font-bold'>Valor único: </span>
+                                <span>R${product.netPrice + product.partnerComm + product.companyComm},00</span>
+                              </>
+                            )}
+                            {product.priceType === "variable-value" && (
+                              <>
+                                <span className='text-xl font-bold'>Valor por pessoa: </span>
+                                <span>R${product.netPrice + product.partnerComm + product.companyComm},00</span>
+                              </>
+                            )}
+                            {product.priceType === "defined-value" && (
+                              <p>
+                                <span className='text-xl font-bold'>Valor: </span>
+                                <span className='text-neutral-400 text-md'>(selecione a quantidade de pessoas para ver o valor)</span>
+                              </p>
+                            )}
+                            
                           </p>
                         )}
 
