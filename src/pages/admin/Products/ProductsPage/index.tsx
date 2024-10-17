@@ -49,7 +49,6 @@ export default function ProductsPage() {
     {name: "Nome", value: "name"},
     {name: "Cidade", value: "location"},
     {name: "Mostrar Display", value: "showDisplay", component: (<Light />)},
-    {name: "Consistente", value: "isConsistent", component: (<Light />)},
     {name: "Disponível", value: "isAvailable", component: (<Light />)},
     {name: "Opções", value: 'id', component: (<TableEditButton onClickEvent={(id) => handleClick(id)} />)}
   ]

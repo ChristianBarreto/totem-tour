@@ -122,68 +122,116 @@ export const calcPrice = (qty: number, product: Product): number => {
     return calcVariableValue(qty, product.netPrice, product.partnerComm, product.companyComm)
   }
 
-  return -1;
+  return 0;
 };
+export const productCanBeDisplayed = (product: Product) => {
+  if (
+    (product.imgUrl?.length > 10) &&
+    (product.notAvailableMessage?.length) &&
+    (product.name?.length) &&
+    (product.description?.length) &&
+    (product.cityId?.length)
+  ) {
+    return true
+  }
+  return false;
+}
 
-export const productIsConsistent = (product: Product) => {
+const logPriceConsistent = (product: Product) => console.log({
+  aAName: product.name,
+  aBpriceType: product.priceType,
+
+  bAnetPrice1: product.netPrice1,
+  bBpartnerComm1: product.partnerComm1,
+  bCcompanyComm1: product.companyComm1,
+
+  cAnetPrice2: product.netPrice2,
+  cBpartnerComm2: product.partnerComm2,
+  cCcompanyComm2: product.companyComm2,
+
+  dAnetPrice3: product.netPrice3,
+  dBpartnerComm4: product.partnerComm3,
+  dCcompanyComm4: product.companyComm3,
+
+  eAnetPrice4: product.netPrice4,
+  eBpartnerComm4: product.partnerComm4,
+  eCcompanyComm4: product.companyComm4,
+  fAresult: (product.netPrice1 > 0)
+  && (product.partnerComm1 > 0)
+  && (product.companyComm1 > 0)
+  && (product.netPrice2 > 0)
+  && (product.partnerComm2 > 0)
+  && (product.companyComm2 > 0)
+  && (product.netPrice3 > 0)
+  && (product.partnerComm3 > 0)
+  && (product.companyComm3 > 0)
+  && (product.netPrice4 > 0)
+  && (product.partnerComm4 > 0)
+  && (product.companyComm4 > 0)
+})
+
+export const priceIsConsistentCheck = (product: Product) => {
   // TODO: Add all necessary info to put a product on live, show a flag on admin/products
-  console.log({
-    aaaName: product.name,
-    aapriceType: product.priceType,
-    anetPrice: product.netPrice,
-    apartnerComm: product.partnerComm,
-    acompanyComm: product.companyComm,
-    bnetPrice1: product.netPrice1,
-    bpartnerComm1: product.partnerComm1,
-    bcompanyComm1: product.companyComm1,
-    bnetPrice2: product.netPrice2,
-    bpartnerComm2: product.partnerComm2,
-    bcompanyComm2: product.companyComm2,
-    cnetPrice3: product.netPrice3,
-    cpartnerComm3: product.partnerComm3,
-    ccompanyComm3: product.companyComm3,
-    dnetPrice4: product.netPrice4,
-    dpartnerComm4: product.partnerComm4,
-    dcompanyComm4: product.companyComm4,
-  })
+  // logPriceConsistent(product)
   if (product.priceType === "single-value") {
     if (
-      (product.netPrice > 0) &&
-      (product.partnerComm > 0) &&
-      (product.companyComm > 0)
+      (product.netPrice > 0)
+      && (product.partnerComm > 0)
+      && (product.companyComm > 0)
     ) {
       return true;
     }
   }
   if (product.priceType === "variable-value") {
     if (
-      (product.netPrice > 0) &&
-      (product.partnerComm > 0) &&
-      (product.companyComm > 0)
+      (product.netPrice > 0)
+      && (product.partnerComm > 0)
+      && (product.companyComm > 0)
     ) {
       return true;
     }
   }
-  if (product.priceType === "variable-value") {
+  if (product.priceType === "defined-value") {
     if (
-      (product.netPrice1 > 0) &&
-      (product.partnerComm1 > 0) &&
-      (product.companyComm1 > 0) &&
-      (product.netPrice2 > 0) &&
-      (product.partnerComm2 > 0) &&
-      (product.companyComm2 > 0) &&
-      (product.netPrice3 > 0) &&
-      (product.partnerComm3 > 0) &&
-      (product.companyComm3 > 0) &&
-      (product.netPrice4 > 0) &&
-      (product.partnerComm4 > 0) &&
-      (product.companyComm4 > 0)
+      (product.netPrice1 > 0)
+      && (product.partnerComm1 > 0)
+      && (product.companyComm1 > 0)
+      && (product.netPrice2 > 0)
+      && (product.partnerComm2 > 0)
+      && (product.companyComm2 > 0)
+      && (product.netPrice3 > 0)
+      && (product.partnerComm3 > 0)
+      && (product.companyComm3 > 0)
+      && (product.netPrice4 > 0)
+      && (product.partnerComm4 > 0)
+      && (product.companyComm4 > 0)
     ) {
       return true;
     }
   }
   return false;
 }
+
+export const infoConsistentCheck = (product: Product) => {
+  if (
+    (product.details?.length)
+    && (product.address?.length)
+    && (product.time?.length) 
+    && (product.priceType === "single-value" || "variable-value" || "defined-price")
+  ) {
+    return true;
+  }
+  return false
+}
+
+export const productCanBeAvailable = (product: Product) => {
+  const priceIsConsistent = priceIsConsistentCheck(product);
+  const infoIsConsistent = infoConsistentCheck(product);
+  
+
+  return priceIsConsistent && infoIsConsistent
+}
+
 
 export const qtySelectorDisabler = (availability: Availabilitiy | null) => {
   if (availability !== null) {

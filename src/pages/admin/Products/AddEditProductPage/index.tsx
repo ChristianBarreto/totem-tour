@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react"
 import { addProduct, Cities, editProductById, getCities, getProductById, PriceTypes, Product } from "../../../../api";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
-import { priceTypes } from "../../../../helpers";
+import { priceTypes, productCanBeAvailable, productCanBeDisplayed } from "../../../../helpers";
 import PriceForm from "../../../../components/cells/PriceForm";
+import ProductConsistency from "../../../../components/cells/ProductConsistency";
 
 const initProduct: Product = {
   cityId: '',
@@ -58,6 +59,9 @@ export default function AddEditProductPage() {
 
   const isEditing = (location.pathname !== '/admin/products/add')
   
+  const canBeDisplayed = productCanBeDisplayed(product);
+  const canBeAvailable = productCanBeAvailable(product);
+
   useEffect(() => {
     let ignore = false;
 
@@ -115,10 +119,15 @@ export default function AddEditProductPage() {
       <p className="text-2xl"><span className="font-bold">Adicionar ou editar produto:</span> {product.name}</p>
       <p>ID: {product.id}</p>
 
+      <ProductConsistency
+        canBeDisplayed={canBeDisplayed}
+        canBeAvailable={canBeAvailable}
+      />
+
       <div role="tablist" className="tabs tabs-boxed mt-4">
         <p role="tab" className={`tab ${tab === 0 && "tab-active"}`} onClick={() => setTab(0)}>Display</p>
         <p role="tab" className={`tab ${tab === 1 && "tab-active"}`} onClick={() => setTab(1)}>Características</p>
-        <p role="tab" className={`tab ${tab === 2 && "tab-active"}`} onClick={() => setTab(2)}>Passageiros</p>
+        <p role="tab" className={`tab ${tab === 2 && "tab-active"}`} onClick={() => setTab(2)}>Capacidade</p>
         <p role="tab" className={`tab ${tab === 3 && "tab-active"}`} onClick={() => setTab(3)}>Preços</p>
       </div>
 

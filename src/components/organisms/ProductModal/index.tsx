@@ -12,7 +12,7 @@ import PriceDisplay from '../../molecules/PriceDisplay'
 import AlertMaxRound from '../../molecules/AlertMaxRound'
 import { useCart } from '../../../context/CartContext'
 import ProductForm from '../../molecules/ProductForm'
-import { calcPrice, qtySelectorDisabler, productIsConsistent } from '../../../helpers'
+import { calcPrice, qtySelectorDisabler } from '../../../helpers'
 
 export default function ProductModal({
   product,
@@ -69,12 +69,8 @@ export default function ProductModal({
   }
 
   const qtySelectorDisable = qtySelectorDisabler(availability);
-  const addCartDisabled = qty === 0;
-
   let price = calcPrice(qty, product);
-
-  console.log("asd")
-  // productIsConsistent(product)
+  const addCartDisabled = qty === 0 || price === 0;
 
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
