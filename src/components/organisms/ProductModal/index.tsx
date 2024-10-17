@@ -72,7 +72,6 @@ export default function ProductModal({
   let price = calcPrice(qty, product);
   const addCartDisabled = qty === 0 || price === 0;
 
-  console.log(product.priceType)
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
       <DialogBackdrop
