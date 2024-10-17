@@ -109,6 +109,35 @@ const calcVariableValue = (qty: number, netPrice: number, partnerComm: number, c
   return (qty * unitPrice);
 }
 
+const calcDefinedValue = (
+  qty: number,
+  netPrice1: number,
+  partnerComm1: number,
+  companyComm1: number,
+  netPrice2: number,
+  partnerComm2: number,
+  companyComm2: number,
+  netPrice3: number,
+  partnerComm3: number,
+  companyComm3: number,
+  netPrice4: number,
+  partnerComm4: number,
+  companyComm4: number,
+) => {
+  if (qty === 1) {
+    return netPrice1 + partnerComm1 + companyComm1;
+  }
+  if (qty === 2) {
+    return netPrice2 + partnerComm2 + companyComm2;
+  }
+  if (qty === 3) {
+    return netPrice3 + partnerComm3 + companyComm3;
+  }
+  if (qty === 4) {
+    return netPrice4 + partnerComm4 + companyComm4;
+  }
+  return 0;
+}
 export const calcPrice = (qty: number, product: Product): number => {
   if (qty < 1) {
     return 0;
@@ -120,6 +149,25 @@ export const calcPrice = (qty: number, product: Product): number => {
 
   if (product.priceType === "variable-value") {
     return calcVariableValue(qty, product.netPrice, product.partnerComm, product.companyComm)
+  }
+
+  if (product.priceType === "defined-value") {
+    return calcDefinedValue(
+      qty,
+      product.netPrice1,
+      product.partnerComm1,
+      product.companyComm1,
+      product.netPrice2,
+      product.partnerComm2,
+      product.companyComm2,
+      product.netPrice3,
+      product.partnerComm3,
+      product.companyComm3,
+      product.netPrice4,
+      product.partnerComm4,
+      product.companyComm4,
+
+    )
   }
 
   return 0;
