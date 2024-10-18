@@ -14,12 +14,12 @@ export const RedGreenLight = forwardRef<Ref, Props>(function RedGreenLight(props
       {props.value ? (
         <div className="flex">
           <div className="text-center badge badge-primary badge-md">{props.insideText}</div>
-          <p>{props.outsideText}</p>
+          <p>&nbsp;{props.outsideText}</p>
         </div>
       ) : (
         <div className="flex">
           <p className="text-center badge bg-red-500 badge-md">{props.insideText}</p>
-          <p>{props.outsideText}</p>
+          <p>&nbsp;{props.outsideText}</p>
         </div>
       )}
     </div>

@@ -293,6 +293,39 @@ app.get("/sales", async (req: Request, res: Response) => {
   res.json(data);
 });
 
+app.get("/purchases", async (req: Request, res: Response) => {
+  const snapshot = await db.collection("purchases")
+    .orderBy("timestamp", 'asc')
+    .get();
+
+  const data: any[] = [];
+
+  snapshot.forEach((doc: any) => {
+    data.push({id: doc.id, ...doc.data()});
+  });
+  res.json(await data);
+});
+
+app.get("/purchases/:id", async (req: Request, res: Response) => {
+  const purchase = await getDbItem("purchases", req.params.id)
+  res.json(purchase)
+});
+
+app.get("/purchasePurchaseItens/:id", async (req: Request, res: Response) => {
+  const snapshot = await db.collection("purchaseItems")
+    .where('purchaseId', '==', req.params.id)
+    .orderBy("date", 'asc')
+    .get();
+
+  const data: any[] = [];
+
+  snapshot.forEach((doc: any) => {
+    data.push({id: doc.id, ...doc.data()});
+  });
+
+  res.json(data);
+});
+
 app.get("/pos", async (req: Request, res: Response) => {
   const request = {
     options: {},

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { RedGreenLight } from "../../../../components/atoms/RedGreenLight";
 
-const TableEditButton = ({
+const TableButton = ({
   onClickEvent,
 }: {
   onClickEvent?: (value: string) => void,
@@ -50,7 +50,7 @@ export default function ProductsPage() {
     {name: "Cidade", value: "location"},
     {name: "Mostrar Display", value: "showDisplay", component: (<Light />)},
     {name: "Disponível", value: "isAvailable", component: (<Light />)},
-    {name: "Opções", value: 'id', component: (<TableEditButton onClickEvent={(id) => handleClick(id)} />)}
+    {name: "Opções", value: 'id', component: (<TableButton onClickEvent={(id) => handleClick(id)} />)}
   ]
 
   return (

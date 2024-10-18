@@ -78,6 +78,23 @@ export type PurchaseItem = {
   totemId: string,
 }
 
+export type PurchaseItemDb = { // TODO: melhorar tipo do carrinho x tipo da compra que vai p/ DB
+  id: string,
+  productId: string,
+  qty: number,
+  netPrice: number,
+  partnerComm: number,
+  companyComm: number,
+  pricePerPerson: number,
+  minTotalPrice: number,
+  totalPrice: number,
+  date: string,
+  cityId: string,
+  totemId: string,
+  lastUpdate: number,
+  timestamp: number,
+}
+
 export type CustomerData = {
   name: string,
   email: string,
@@ -95,6 +112,20 @@ export type Purchase = {
   acceptedTerms: boolean,
   installments?: number,
   totemId: string,
+}
+
+export type PurchaseDb = { // TODO: melhorar tipo do carrinho x tipo da compra que vai p/ DB
+  id: string,
+  customerId: string,
+  acceptedTerms: boolean,
+  cartPrice: number,
+  payementCaptured: boolean,
+  paymentId: number,
+  paymentMethod: string,
+  paymentValue: number,
+  totemId: string,
+  timestamp: number,
+  lastUpdated: number,
 }
 
 export type Availabilities = Availabilitiy[];
@@ -288,6 +319,21 @@ export const verifyPayment = async (body: VerifyPayment) => {
 
 export const setNewPurchase = async (body: Purchase) => {
   const { data } = await axios.post(`${baseUrl}/set-purchase/`, body, axiosParams);
+  return data;
+}
+
+export const getAdminPurchases = async () => {
+  const { data } = await axios.get(`${baseUrl}/purchases/`, axiosParams);
+  return data;
+}
+
+export const getPurchaseById = async (id: string) => {
+  const { data } = await axios.get(`${baseUrl}/purchases/${id}`, axiosParams);
+  return data;
+}
+
+export const getPurchaseItensByPurchaseId = async (id: string) => {
+  const { data } = await axios.get(`${baseUrl}/purchasePurchaseItens/${id}`, axiosParams);
   return data;
 }
 
