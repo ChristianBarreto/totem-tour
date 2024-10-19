@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
-import { Availabilities, Cities, getCities, getNextAvailabilities, websiteUrl } from "../../../api/api";
+import { Availabilities, getNextAvailabilities, websiteUrl } from "../../../api/api";
+import { Cities } from "../../../api/cities/types";
+import { getCities } from "../../../api/cities/api";
 import { getProducts } from "../../../api/products/api";
 import { Product, Products } from "../../../api/products/types";
 import AvailabilityEdit from "../AvailabilityEdit";

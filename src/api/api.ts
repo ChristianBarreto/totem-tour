@@ -3,14 +3,6 @@ import { Product, Products } from "./products/types";
 
 export type APIError = string;
 
-export type City = {
-  id: string,
-  name: string,
-  imgUrl: string,
-}
-
-export type Cities = City[];
-
 export type PriceTypes = undefined | "single-value" | "variable-value" | "defined-value"
 
 export type Availabilitiy = {
@@ -170,18 +162,6 @@ export const websiteUrl = process.env.NODE_ENV === 'production'
   : 'http://localhost:3000'
 
 console.log(process.env.NODE_ENV, baseUrl)
-
-export const getCities = async (): Promise<Cities | void> => {
-  const data = axios.get<Cities>(`${baseUrl}/cities`, axiosParams)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      console.log("API ERROR", err)
-      return [];
-    })
-  return data;
-}
 
 export const getAvailabilitiesByProduct = async (productId: string): Promise<Availabilities | void> => {
   const data = axios.get<Availabilities>(`${baseUrl}/availabilities/${productId}`, axiosParams)

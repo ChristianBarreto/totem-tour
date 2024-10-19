@@ -1,6 +1,6 @@
 import { ReactElement } from "react"
 import CategoryCard from "../../molecules/CategoryCard"
-import { Cities } from "../../../api/api"
+import { Cities } from "../../../api/cities/types";
 import styles from './CategoryDrawer.module.css';
 import CardSkeleton from "../../atoms/CardSkeleton";
 

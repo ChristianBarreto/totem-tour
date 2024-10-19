@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { Cities, getCities, PurchaseItem } from "../../../api/api";
+import { PurchaseItem } from "../../../api/api";
+import { Cities } from "../../../api/cities/types";
+import { getCities } from "../../../api/cities/api";
 import { Product } from "../../../api/products/types";
 import { useCart } from "../../../context/CartContext";
 import IconTrash from "../../atoms/IconTrash";

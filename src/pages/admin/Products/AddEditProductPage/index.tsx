@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react"
-import { Cities, getCities, PriceTypes } from "../../../../api/api";
+import { PriceTypes } from "../../../../api/api";
+import { Cities } from "../../../../api/cities/types";
+import { getCities } from "../../../../api/cities/api";
 import { addProduct, editProductById } from "../../../../api/products/api";
 import { getProductById } from "../../../../api/products/api";
 import { Product } from "../../../../api/products/types";

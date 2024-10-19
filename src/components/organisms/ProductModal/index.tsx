@@ -3,7 +3,9 @@
 import { useEffect, useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { Availabilities, Availabilitiy, Cities, getAvailabilitiesByProduct, getCities, PurchaseItem } from '../../../api/api'
+import { Availabilities, Availabilitiy, getAvailabilitiesByProduct, PurchaseItem } from '../../../api/api';
+import { Cities } from '../../../api/cities/types';
+import { getCities } from '../../../api/cities/api';
 import { Product } from '../../../api/products/types'
 import { IconCart } from '../../atoms/IconCart'
 import ProductDetails from '../../atoms/ProductDetails'
