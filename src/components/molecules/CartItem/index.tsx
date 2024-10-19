@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Cities, getCities, Product, PurchaseItem } from "../../../api"
+import { Cities, getCities, PurchaseItem } from "../../../api/api";
+import { Product } from "../../../api/products/types";
 import { useCart } from "../../../context/CartContext";
-import IconTrash from "../../atoms/IconTrash"
+import IconTrash from "../../atoms/IconTrash";
 
 export default function CartItem({
   refProduct,

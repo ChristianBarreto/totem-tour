@@ -1,15 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { Dialog, DialogBackdrop, DialogPanel, Radio, RadioGroup } from '@headlessui/react'
+import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { Availabilities, Availabilitiy, getAvailabilitiesByProduct, Product, PurchaseItem } from '../../../api'
-import { IconCart } from '../../atoms/IconCart'
-import QtySelector from '../../molecules/QtySelector'
-import ProductDetails from '../../atoms/ProductDetails'
-import DateSelector from '../../molecules/DateSelector'
-import PriceDisplay from '../../molecules/PriceDisplay'
-import AlertMaxRound from '../../molecules/AlertMaxRound'
 import { useCart } from '../../../context/CartContext'
 import IconTrash from '../../atoms/IconTrash'
 

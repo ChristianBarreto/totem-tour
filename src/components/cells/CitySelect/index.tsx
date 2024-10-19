@@ -1,4 +1,4 @@
-import { Cities, City } from "../../../api"
+import { Cities, City } from "../../../api/api"
 
 export default function CitySelect({
   cities,

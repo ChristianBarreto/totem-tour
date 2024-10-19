@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { cancelLastPaymentIntent, CustomerData, Totem } from "../../../api"
+import { cancelLastPaymentIntent, CustomerData, Totem } from "../../../api/api"
 import PaymentPix from "../PaymentPix"
 import { useCart } from "../../../context/CartContext";
 import PaymentCard from "../PaymentCard";

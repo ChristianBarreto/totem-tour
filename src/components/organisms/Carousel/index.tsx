@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom";
-import { getSlides } from "../../../api";
+import { getSlides } from "../../../api/api";
 
 export default function HeroCarousel() {
   const fallBackImg = "https://firebasestorage.googleapis.com/v0/b/totem-tour.appspot.com/o/slide1.jpg?alt=media&token=f87ebc89-439c-47f8-a19c-345f48f4c6cc";

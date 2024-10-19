@@ -3,7 +3,7 @@ import IconCalendar from "../../atoms/IconCalendar";
 import { useRef } from "react";
 
 import 'dayjs/locale/pt-br'
-import { Availabilitiy, Availabilities } from "../../../api";
+import { Availabilitiy, Availabilities } from "../../../api/api";
 
 
 

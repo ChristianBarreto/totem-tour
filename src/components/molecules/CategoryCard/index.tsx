@@ -1,4 +1,4 @@
-import { City } from "../../../api"
+import { City } from "../../../api/api"
 import styles from './CategoryCard.module.css';
 
 export default function CategoryCard({

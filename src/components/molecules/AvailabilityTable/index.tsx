@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
-import { Availabilities, Cities, getCities, getNextAvailabilities, getProducts, Product, Products, websiteUrl } from "../../../api";
+import { Availabilities, Cities, getCities, getNextAvailabilities, websiteUrl } from "../../../api/api";
+import { getProducts } from "../../../api/products/api";
+import { Product, Products } from "../../../api/products/types";
 import AvailabilityEdit from "../AvailabilityEdit";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";

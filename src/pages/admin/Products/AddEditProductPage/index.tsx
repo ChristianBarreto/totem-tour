@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react"
-import { addProduct, Cities, editProductById, getCities, getProductById, PriceTypes, Product } from "../../../../api";
+import { Cities, getCities, PriceTypes } from "../../../../api/api";
+import { addProduct, editProductById } from "../../../../api/products/api";
+import { getProductById } from "../../../../api/products/api";
+import { Product } from "../../../../api/products/types";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import { priceTypes, productCanBeAvailable, productCanBeDisplayed } from "../../../../helpers";

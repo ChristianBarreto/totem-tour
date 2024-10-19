@@ -1,5 +1,5 @@
 import Table from "../../../components/organisms/Table";
-import { getPoss, switchPosMode } from "../../../api";
+import { getPoss, switchPosMode } from "../../../api/api";
 import { useRef, useState } from "react";
 
 const getPossDevices = async () => {

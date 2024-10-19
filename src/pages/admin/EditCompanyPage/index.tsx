@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { getTotemTour, setTotemTour } from "../../../api";
+import { getTotemTour, setTotemTour } from "../../../api/api";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { objectChanged } from "../../../helpers";

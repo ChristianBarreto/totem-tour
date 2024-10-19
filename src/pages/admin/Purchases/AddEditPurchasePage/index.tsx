@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { getPurchaseById, getPurchaseItensByPurchaseId, PurchaseDb, PurchaseItemDb } from "../../../../api";
+import { getPurchaseById, getPurchaseItensByPurchaseId, PurchaseDb, PurchaseItemDb } from "../../../../api/api";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import { priceTypes } from "../../../../helpers";
@@ -181,7 +181,8 @@ export default function AddEditPurchasePage() {
                     ✅ *Passeio:* ...<br />
                     - 😎 *Qtd.:* {item.qty} pessoa(s)<br />
                     - 📅 *Data:* {dayjs(item.date).locale('pt-br').format('DD/MM/YYYY')}<br />
-                    - 🕑 *Hora:* ...<br />
+                    - 🕑 *Hora:* ... *Duração:* ...<br />
+                    - *Obs.:* ---alignMessage---<br />
                     - 🌴 *Cidade:* ...<br />
                     - 🗺️ *Local:* ...<br />
                     - 📍 *Localização:* ...<br />
@@ -191,7 +192,7 @@ export default function AddEditPurchasePage() {
                 )}
                 <br />
                 📢 Sobre horários, dúvidas sobre o passeio e remarcação, entre em contato com a(s) agência(s) acima. <br />
-                📢 Sobre pagamento e cancelamento, responda a este WhatsApp. <br /><br />
+                📢 Sobre pagamento e cancelamento, responda a esta mensagem. <br /><br />
                 Número da venda Totem Tour: {purchase.id}
               </p>
             </div>
@@ -249,7 +250,7 @@ export default function AddEditPurchasePage() {
                   <>
                     ✅ *Passeio:* ...<br />
                     - *Qtd.:* {item.qty} pessoa(s)<br />
-                    - *Data da compra:* {dayjs(item.timestamp).locale('pt-br').format('DD/MM/YYYY')}<br />
+                    - *Data da compra:* {dayjs(item.timestamp).locale('pt-br').format('DD/MM/YYYY HH:mm')}<br />
                     - *Comissão:* R$ {item.partnerComm},00<br />
                   </>
                 )}

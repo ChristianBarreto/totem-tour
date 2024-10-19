@@ -1,5 +1,5 @@
 import Table from "../../../components/organisms/Table";
-import { getAdminPurchaseItens } from "../../../api";
+import { getAdminPurchaseItens } from "../../../api/api";
 import AvailabilityTable from "../../../components/molecules/AvailabilityTable";
 
 export default function AvailabilitiesPage() {

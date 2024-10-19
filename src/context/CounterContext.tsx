@@ -1,5 +1,5 @@
 import { createContext, ReactNode, Reducer, useContext, useEffect, useReducer, useRef } from "react";
-import { Purchase, PurchaseItem, websiteUrl } from "../api";
+import { Purchase, PurchaseItem, websiteUrl } from "../api/api";
 import { pageCountDown } from "../helpers";
 
 const redirectToInitial = () => window.location.replace(`${websiteUrl}/totem`);

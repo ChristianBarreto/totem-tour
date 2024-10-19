@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react"
-import { addProduct, addTotem, Cities, editProductById, editTotemById, getCities, getProductById, getTotemById, Product, Totem } from "../../../../api";
+import { addTotem, editTotemById, getTotemById, Totem } from "../../../../api/api";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
-import { objectChanged } from "../../../../helpers";
 
 const initTotem = {
   id: '',

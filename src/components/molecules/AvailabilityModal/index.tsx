@@ -4,11 +4,9 @@
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import dayjs from 'dayjs'
-import { addAvailability, Availabilitiy, editAvailabilityById, getAvailabilityById, Product } from '../../../api'
+import { addAvailability, Availabilitiy, editAvailabilityById, getAvailabilityById } from '../../../api/api'
+import { Product } from '../../../api/products/types'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { objectChanged } from '../../../helpers'
-
 
 export default function AvailabilityModal({
   open,

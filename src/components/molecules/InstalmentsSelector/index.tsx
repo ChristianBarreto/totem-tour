@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Purchase } from "../../../api";
+import { Purchase } from "../../../api/api";
 
 
 

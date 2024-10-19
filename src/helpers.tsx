@@ -1,4 +1,5 @@
-import { Availabilitiy, PriceTypes, Product } from "./api";
+import { Availabilitiy, PriceTypes } from "./api/api";
+import { Product } from "./api/products/types";
 
 export function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')

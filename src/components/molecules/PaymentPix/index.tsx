@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import PaymentError from "../PaymentError";
-import { CustomerData, generatePixPayment, Purchase, setNewPurchase, Totem, verifyPayment, websiteUrl } from "../../../api";
+import { CustomerData, generatePixPayment, Purchase, setNewPurchase, Totem, verifyPayment, websiteUrl } from "../../../api/api";
 import PaymentLoading from "../PaymentLoading";
 import PaymentExpired from "../PaymentExpired";
 import PaymentPixQR from "../PaymentPixQR";

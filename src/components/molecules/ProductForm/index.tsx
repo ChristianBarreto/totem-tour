@@ -1,7 +1,8 @@
-import { Availabilities, Availabilitiy, Product } from "../../../api"
-import DateSelector from "../DateSelector"
-import PriceDisplay from "../PriceDisplay"
-import QtySelector from "../QtySelector"
+import { Availabilities, Availabilitiy } from "../../../api/api";
+import { Product } from "../../../api/products/types";
+import DateSelector from "../DateSelector";
+import PriceDisplay from "../PriceDisplay";
+import QtySelector from "../QtySelector";
 
 export default function ProductForm({
   availabilities,

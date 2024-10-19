@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import IconChevronDown from "../../atoms/IconChevronDown";
 import TermsModal from "../TermsModal";
-import { getTotemTour } from "../../../api";
+import { getTotemTour } from "../../../api/api";
 
 export default function UserTermsForm({
  terms,

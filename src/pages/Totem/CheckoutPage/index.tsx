@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { checkoutFieldValidation } from "../../../helpers";
 import UserTermsForm from "../../../components/molecules/UserTermsForm";
 import UserPaymentForm from "../../../components/molecules/UserPaymentForm";
-import { CustomerData, getTotemById, Totem, websiteUrl } from "../../../api";
+import { CustomerData, getTotemById, Totem, websiteUrl } from "../../../api/api";
 import { useCounter } from "../../../context/CounterContext";
 
 const initTotem = {

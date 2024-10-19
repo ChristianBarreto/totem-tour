@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Purchase } from "../../../api";
+import { Purchase } from "../../../api/api";
 import InstalmentsSelector from "../InstalmentsSelector";
 
 
