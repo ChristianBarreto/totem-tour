@@ -77,11 +77,6 @@ export type PurchaseDb = { // TODO: melhorar tipo do carrinho x tipo da compra q
   partnerMsg: boolean,
 }
 
-type VerifyPayment = {
-  id: string,
-  transaction_amount: number
-}
-
 export type PosMode = {
   mode: string
 }
@@ -151,15 +146,7 @@ export const websiteUrl = process.env.NODE_ENV === 'production'
 console.log(process.env.NODE_ENV, baseUrl)
 
 
-export const generatePixPayment = async (body: Purchase) => {
-  const { data } = await axios.post(`${baseUrl}/pix-payment/`, body, axiosParams);
-  return data;
-}
 
-export const verifyPayment = async (body: VerifyPayment) => {
-  const { data } = await axios.post(`${baseUrl}/verify-payment/`, body, axiosParams)
-  return data;
-}
 
 export const setNewPurchase = async (body: Purchase) => {
   const { data } = await axios.post(`${baseUrl}/set-purchase/`, body, axiosParams);

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { cancelLastPaymentIntent, CustomerData, getPaymentIntentStatus, PaymentIntent, paymentIntent, Purchase, PurchaseItem, setNewPurchase, Totem, verifyPayment, websiteUrl } from "../../../api/api";
+import { cancelLastPaymentIntent, CustomerData, getPaymentIntentStatus, PaymentIntent, paymentIntent, Purchase, PurchaseItem, setNewPurchase, Totem, websiteUrl } from "../../../api/api";
+import { verifyPayment } from "../../../api/mercadopago/api";
 import MethodSelector from "../MethodSelector";
 import PaymentLoading from "../PaymentLoading";
 import PaymentError from "../PaymentError";
