@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Purchase } from "../../../api";
+import { NewPurchase } from "../../../api/purchases/types"
 
 
 
@@ -9,7 +8,7 @@ export default function InstalmentsSelector({
   setPurchase,
 }: {
   disabled: boolean,
-  purchase: Purchase,
+  purchase: NewPurchase,
   setPurchase:(value: any) => void,
 }) {
 

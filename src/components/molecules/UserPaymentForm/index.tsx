@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
-import { cancelLastPaymentIntent, CustomerData, Totem } from "../../../api"
+import { Customer } from "../../../api/customers/types";
+import { Totem } from "../../../api/totems/types";
+import { cancelLastPaymentIntent } from "../../../api/mercadopago/api";
 import PaymentPix from "../PaymentPix"
 import { useCart } from "../../../context/CartContext";
 import PaymentCard from "../PaymentCard";
@@ -8,7 +10,7 @@ export default function UserPaymentForm({
   customerData,
   totem,
 }: {
-  customerData: CustomerData,
+  customerData: Customer,
   totem: Totem,
 }) {
   // @ts-expect-error: TODO: fix type of context

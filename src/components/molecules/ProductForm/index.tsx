@@ -1,7 +1,8 @@
-import { Availabilities, Availabilitiy, Product } from "../../../api"
-import DateSelector from "../DateSelector"
-import PriceDisplay from "../PriceDisplay"
-import QtySelector from "../QtySelector"
+import { Availability, Availabilities } from "../../../api/availabilities/types"; 
+import { Product } from "../../../api/products/types";
+import DateSelector from "../DateSelector";
+import PriceDisplay from "../PriceDisplay";
+import QtySelector from "../QtySelector";
 
 export default function ProductForm({
   availabilities,
@@ -14,13 +15,13 @@ export default function ProductForm({
   qtySelectorDisable,
   price,
 }: {
-  setAvailability: (date: Availabilitiy | null) => void,
+  setAvailability: (date: Availability | null) => void,
   availabilities: Availabilities,
   qty: number,
   setQty: (value: number) => void
   setMaxRound: (value: boolean) => void,
   product: Product
-  availability: Availabilitiy | null
+  availability: Availability | null
   qtySelectorDisable: boolean
   price: number
 }) {

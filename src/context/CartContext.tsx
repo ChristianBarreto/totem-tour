@@ -1,9 +1,10 @@
 import { createContext, ReactNode, Reducer, useContext, useReducer } from "react";
-import { Purchase, PurchaseItem } from "../api";
+import { NewPurchase, Purchase } from "../api/purchases/types";
+import { CartItemType } from "../api/purchaseitems/types";
 
 type ACTIONTYPE =
-  | { type: "addToCart"; product: PurchaseItem }
-  | { type: "removeItem"; product: PurchaseItem, index: number }
+  | { type: "addToCart"; product: CartItemType }
+  | { type: "removeItem"; product: CartItemType, index: number }
   | { type: "deleteCart" };
 
 const initialPurchase = {
@@ -25,7 +26,7 @@ export function CartProvider({
 }: {
   children: ReactNode
 }) {
-  const [cart, dispatch] = useReducer<Reducer<Purchase, ACTIONTYPE>>(cartReducer, initialPurchase);
+  const [cart, dispatch] = useReducer<Reducer<NewPurchase, ACTIONTYPE>>(cartReducer, initialPurchase);
 
   return (
     <CartContext.Provider value={[cart, dispatch]}>
@@ -38,7 +39,7 @@ export function useCart() {
   return useContext(CartContext);
 }
 
-function cartReducer(cart: Purchase, action: ACTIONTYPE): Purchase {
+function cartReducer(cart: NewPurchase, action: ACTIONTYPE): NewPurchase {
   switch(action.type) {
     case 'addToCart': {
       return {

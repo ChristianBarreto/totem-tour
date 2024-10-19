@@ -1,4 +1,6 @@
-import { Availabilitiy, PriceTypes, Product } from "./api";
+import { PriceTypes } from "./api/api";
+import { Availability } from "./api/availabilities/types";
+import { Product } from "./api/products/types";
 
 export function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
@@ -264,8 +266,15 @@ export const infoConsistentCheck = (product: Product) => {
   if (
     (product.details?.length)
     && (product.address?.length)
+    && (product.location?.length)
     && (product.time?.length) 
+    && (product.duration?.length) 
+    && (product.alignMessage?.length) 
+    && (product.maxPaxDay > 0) 
+    && (product.maxPerRound > 0) 
     && (product.priceType === "single-value" || "variable-value" || "defined-price")
+    && (product.operatorName?.length) 
+    && (product.operatorPhone?.length) 
   ) {
     return true;
   }
@@ -281,7 +290,7 @@ export const productCanBeAvailable = (product: Product) => {
 }
 
 
-export const qtySelectorDisabler = (availability: Availabilitiy | null) => {
+export const qtySelectorDisabler = (availability: Availability | null) => {
   if (availability !== null) {
     return false
   }

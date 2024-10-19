@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react"
-import { Availabilities, Cities, getCities, getNextAvailabilities, getProducts, Product, Products, websiteUrl } from "../../../api";
+import { websiteUrl } from "../../../api/api";
+import { Availabilities } from "../../../api/availabilities/types";
+import { getNextAvailabilities } from "../../../api/availabilities/api";
+import { Cities } from "../../../api/cities/types";
+import { getCities } from "../../../api/cities/api";
+import { getProducts } from "../../../api/products/api";
+import { Product, Products } from "../../../api/products/types";
 import AvailabilityEdit from "../AvailabilityEdit";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";

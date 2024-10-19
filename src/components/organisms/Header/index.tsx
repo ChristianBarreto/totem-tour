@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { IconCart } from "../../atoms/IconCart";
 import styles from './Header.module.css';
 import { useCart } from "../../../context/CartContext";
-import { websiteUrl } from "../../../api";
+import { websiteUrl } from "../../../api/api";
 
 export default function Header({
   setCartOpen,

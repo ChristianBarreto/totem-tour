@@ -1,6 +1,7 @@
-import { ChangeEvent, useEffect, useState } from "react"
-import { PriceTypes, Product } from "../../../api"
-import { listenerCount } from "stream";
+import { ChangeEvent } from "react"
+import { PriceTypes } from "../../../api/api"
+import { Product } from "../../../api/products/types";
+import IsShownWhereBadge from "../../atoms/IsShownWhereBadge";
 
 export default function PriceForm({
   priceType,
@@ -297,6 +298,7 @@ export default function PriceForm({
         </table>        
         
       )}
+      <IsShownWhereBadge isShownDisplay isShownPurchase/>
     </div>
   )
 }

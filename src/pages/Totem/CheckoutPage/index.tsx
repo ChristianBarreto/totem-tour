@@ -7,7 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { checkoutFieldValidation } from "../../../helpers";
 import UserTermsForm from "../../../components/molecules/UserTermsForm";
 import UserPaymentForm from "../../../components/molecules/UserPaymentForm";
-import { CustomerData, getTotemById, Totem, websiteUrl } from "../../../api";
+import { websiteUrl } from "../../../api/api";
+import { Customer } from "../../../api/customers/types";
+import { Totem } from "../../../api/totems/types";
+import { getTotemById } from "../../../api/totems/api";
 import { useCounter } from "../../../context/CounterContext";
 
 const initTotem = {
@@ -34,7 +37,7 @@ export default function CheckoutPage() {
     {id: 3, name: "Pagamento", active: false},
   ])
 
-  const [customerData, setCustomerData] = useState<CustomerData>({
+  const [customerData, setCustomerData] = useState<Customer>({
     name: '',
     email: '',
     phone: '',

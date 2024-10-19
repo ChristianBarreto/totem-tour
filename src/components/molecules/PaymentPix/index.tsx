@@ -1,6 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import PaymentError from "../PaymentError";
-import { CustomerData, generatePixPayment, Purchase, setNewPurchase, Totem, verifyPayment, websiteUrl } from "../../../api";
+import { websiteUrl } from "../../../api/api";
+import { Customer } from "../../../api/customers/types";
+import { Totem } from "../../../api/totems/types";
+import { NewPurchase } from "../../../api/purchases/types";
+import { setNewPurchase } from "../../../api/purchases/api";
+import { generatePixPayment, verifyPayment } from "../../../api/mercadopago/api";
 import PaymentLoading from "../PaymentLoading";
 import PaymentExpired from "../PaymentExpired";
 import PaymentPixQR from "../PaymentPixQR";
@@ -11,8 +16,8 @@ export default function PaymentPix({
   customerData,
   totem,
 }: {
-  cart: Purchase,
-  customerData: CustomerData,
+  cart: NewPurchase,
+  customerData: Customer,
   totem: Totem,
 }) {
   const [paymentLoading, setPaymentLoading] = useState(true);
@@ -33,7 +38,7 @@ export default function PaymentPix({
     statusDetail: '',
     captured: false,
   });
-  const [purchase, setPurchase] = useState<Purchase>({
+  const [purchase, setPurchase] = useState<NewPurchase>({
     cartPrice: 0,
     products: [],
     customerData: {

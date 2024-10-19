@@ -1,4 +1,4 @@
-import { Product } from "../../../api"
+import { Product } from "../../../api/products/types";
 import { useState } from "react"
 import ProductModal from "../../organisms/ProductModal";
 

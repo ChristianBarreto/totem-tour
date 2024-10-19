@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { Product, Products } from "../../../api"
+import { Product, Products } from "../../../api/products/types";
 import CardSkeleton from "../../atoms/CardSkeleton"
 import ProductCard from "../../molecules/ProductCard"
 import styles from './ProductList.module.css'

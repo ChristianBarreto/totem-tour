@@ -1,14 +1,16 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Dialog, DialogBackdrop, DialogPanel, Radio, RadioGroup } from '@headlessui/react'
+import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { Availabilities, Availabilitiy, Cities, getAvailabilitiesByProduct, getCities, Product, PurchaseItem } from '../../../api'
+import { CartItemType } from '../../../api/purchaseitems/types'
+import { Availability, Availabilities } from '../../../api/availabilities/types';
+import { getAvailabilitiesByProduct } from '../../../api/availabilities/api';
+import { Cities } from '../../../api/cities/types';
+import { getCities } from '../../../api/cities/api';
+import { Product } from '../../../api/products/types'
 import { IconCart } from '../../atoms/IconCart'
-import QtySelector from '../../molecules/QtySelector'
 import ProductDetails from '../../atoms/ProductDetails'
-import DateSelector from '../../molecules/DateSelector'
-import PriceDisplay from '../../molecules/PriceDisplay'
 import AlertMaxRound from '../../molecules/AlertMaxRound'
 import { useCart } from '../../../context/CartContext'
 import ProductForm from '../../molecules/ProductForm'
@@ -26,7 +28,7 @@ export default function ProductModal({
   setCartOpen: (value: boolean) => void,
 }) {
   const [availabilities, setAvailabilities] = useState<Availabilities>([]);
-  const [availability, setAvailability] = useState<Availabilitiy | null>(null);
+  const [availability, setAvailability] = useState<Availability | null>(null);
   const [qty, setQty] = useState(0);
   const [maxRound, setMaxRound] = useState(false);
   const [cities, setCities] = useState<Cities>([])
@@ -48,7 +50,7 @@ export default function ProductModal({
 
   const handleAdd = () => {
     if (availability) {
-      const currentProduct: PurchaseItem = {
+      const currentProduct: CartItemType = {
         productId: product.id,
         qty: qty,
         netPrice: product.netPrice,
@@ -58,8 +60,13 @@ export default function ProductModal({
         minTotalPrice: product.minTotalPrice,
         totalPrice: price,
         date: availability?.date,
+        time: '',
         cityId: product.cityId,
-        totemId: '',
+        local: '',
+        location: '',
+        operatorName: '',
+        operatorPhone: '',
+        totemId: ''
       }
   
       dispatch({type: 'addToCart', product: currentProduct})
@@ -121,10 +128,19 @@ export default function ProductModal({
                           <p className='text-neutral-400'>(você receberá a localização exata por Email/WhatsApp)</p>
                         </div>
 
-                        <p className='text-xl mb-4'>
-                          <span className='font-bold'>Horário: </span>
-                          {product.time}
-                        </p>
+                        <div className='mb-4'>
+                          <p className='text-xl'>
+                            <span className='font-bold'>Horário: </span>
+                            {product.time}
+                          </p>
+                          {product.alignMessage && <p className='text-neutral-400'>({product.alignMessage})</p>}
+                        </div>
+
+                        {product.duration && <p className='text-xl mb-4'>
+                          <span className='font-bold'>Duração: </span>
+                          {product.duration}
+                        </p>}
+                        
                         {true && (
                           <p className='mb-4'>
                             {product.priceType === "single-value" && (

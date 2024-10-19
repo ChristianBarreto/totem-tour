@@ -1,10 +1,16 @@
 import { useEffect, useRef, useState } from "react"
-import { addProduct, Cities, editProductById, getCities, getProductById, PriceTypes, Product } from "../../../../api";
+import { PriceTypes } from "../../../../api/api";
+import { Cities } from "../../../../api/cities/types";
+import { getCities } from "../../../../api/cities/api";
+import { addProduct, editProductById } from "../../../../api/products/api";
+import { getProductById } from "../../../../api/products/api";
+import { Product } from "../../../../api/products/types";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import { priceTypes, productCanBeAvailable, productCanBeDisplayed } from "../../../../helpers";
 import PriceForm from "../../../../components/cells/PriceForm";
 import ProductConsistency from "../../../../components/cells/ProductConsistency";
+import IsShownWhereBadge from "../../../../components/atoms/IsShownWhereBadge";
 
 const initProduct: Product = {
   cityId: '',
@@ -44,6 +50,10 @@ const initProduct: Product = {
   companyComm3: 0,
   companyComm4: 0,
   isConsistent: false,
+  location: '',
+  alignMessage: '',
+  operatorName: '',
+  operatorPhone: '',
 }
 
 export default function AddEditProductPage() {
@@ -127,8 +137,10 @@ export default function AddEditProductPage() {
       <div role="tablist" className="tabs tabs-boxed mt-4">
         <p role="tab" className={`tab ${tab === 0 && "tab-active"}`} onClick={() => setTab(0)}>Display</p>
         <p role="tab" className={`tab ${tab === 1 && "tab-active"}`} onClick={() => setTab(1)}>Características</p>
-        <p role="tab" className={`tab ${tab === 2 && "tab-active"}`} onClick={() => setTab(2)}>Capacidade</p>
-        <p role="tab" className={`tab ${tab === 3 && "tab-active"}`} onClick={() => setTab(3)}>Preços</p>
+        <p role="tab" className={`tab ${tab === 2 && "tab-active"}`} onClick={() => setTab(2)}>Local e horário</p>
+        <p role="tab" className={`tab ${tab === 3 && "tab-active"}`} onClick={() => setTab(3)}>Capacidade</p>
+        <p role="tab" className={`tab ${tab === 4 && "tab-active"}`} onClick={() => setTab(4)}>Preços</p>
+        <p role="tab" className={`tab ${tab === 5 && "tab-active"}`} onClick={() => setTab(5)}>Operador</p>
       </div>
 
       <div className="flex flex-col pt-6">
@@ -162,7 +174,7 @@ export default function AddEditProductPage() {
               </label>
             </div>
 
-            <label className="form-control label-text pb-4">Mensagem se indisponível:
+            <label className="form-control label-text pb-4">Mensagem se indisponível: 
               <input
                 type="text"
                 placeholder="Type here"
@@ -170,6 +182,7 @@ export default function AddEditProductPage() {
                 value={product.notAvailableMessage}
                 onChange={(e) => setProduct({...product, notAvailableMessage: e.target.value})}
               />
+              <IsShownWhereBadge isShownDisplay />
             </label>
 
             <div className="form-control pb-4">
@@ -222,6 +235,7 @@ export default function AddEditProductPage() {
                 value={product.imgUrl}
                 onChange={(e) => setProduct({...product, imgUrl: e.target.value})}
               />
+              <IsShownWhereBadge isShownDisplay />
             </label>
 
             <label className="form-control label-text pb-4">Nome do produto:
@@ -232,6 +246,7 @@ export default function AddEditProductPage() {
                 value={product.name}
                 onChange={(e) => setProduct({...product, name: e.target.value})}
               />
+              <IsShownWhereBadge isShownDisplay isShownPurchase />
             </label>
 
             <label className="form-control pb-4">
@@ -244,6 +259,7 @@ export default function AddEditProductPage() {
                 value={product.description}
                 onChange={(e) => setProduct({...product, description: e.target.value})}
               ></textarea>
+              <IsShownWhereBadge isShownDisplay />
             </label>
 
             <label className="form-control pb-4">
@@ -256,7 +272,18 @@ export default function AddEditProductPage() {
                 value={product.details}
                 onChange={(e) => setProduct({...product, details: e.target.value})}
               ></textarea>
+              <IsShownWhereBadge isShownDisplay />
             </label>
+
+          </>
+
+        )}
+
+        {tab === 2 && (
+          <>
+            <div className="w-full">
+              <p className="font-bold pb-2">Local e horário:</p>
+            </div>
 
             <label className="form-control w-full pb-4">
               <span className="label-text">Cidade:</span>
@@ -271,11 +298,12 @@ export default function AddEditProductPage() {
                   <option key={city.id} value={city.id}>{city.name}</option>
                 ))}
               </select>
+              <IsShownWhereBadge isShownDisplay isShownPurchase />
             </label>
 
             <label className="form-control pb-4">
               <div className="label">
-                <span className="label-text">Endereço:</span>
+                <span className="label-text">Local do ponto de encontro:</span>
               </div>
               <textarea
                 className="textarea textarea-bordered h-40"
@@ -283,6 +311,18 @@ export default function AddEditProductPage() {
                 value={product.address}
                 onChange={(e) => setProduct({...product, address: e.target.value})}
               ></textarea>
+              <IsShownWhereBadge isShownPurchase />
+            </label>
+
+            <label className="form-control label-text pb-4">Localização (maps) do ponto de encontro:
+              <input
+                type="text"
+                placeholder="Type here"
+                className="input input-bordered w-full"
+                value={product.location}
+                onChange={(e) => setProduct({...product, location: e.target.value})}
+              />
+              <IsShownWhereBadge isShownPurchase />
             </label>
 
             <label className="form-control label-text pb-4">Horário:
@@ -293,13 +333,35 @@ export default function AddEditProductPage() {
                 value={product.time}
                 onChange={(e) => setProduct({...product, time: e.target.value})}
               />
+              <IsShownWhereBadge isShownDisplay isShownPurchase />
+            </label>
+
+            <label className="form-control label-text pb-4">Duração:
+              <input
+                type="text"
+                placeholder="Type here"
+                className="input input-bordered w-full"
+                value={product.duration}
+                onChange={(e) => setProduct({...product, duration: e.target.value})}
+              />
+              <IsShownWhereBadge isShownDisplay isShownPurchase />
+            </label>
+
+            <label className="form-control label-text pb-4">Mensagem para alinhamento após a reserva:
+              <input
+                type="text"
+                placeholder="Type here"
+                className="input input-bordered w-full"
+                value={product.alignMessage}
+                onChange={(e) => setProduct({...product, alignMessage: e.target.value})}
+              />
+              <IsShownWhereBadge isShownDisplay isShownPurchase />
             </label>
 
           </>
-
         )}
 
-        {tab === 2 && (
+        {tab === 3 && (
           <>
             <div className="form-control w-full">
               <p className="font-bold pb-2">Passageiros:</p>
@@ -313,6 +375,7 @@ export default function AddEditProductPage() {
                 value={product.maxPaxDay}
                 onChange={(e) => setProduct({...product, maxPaxDay: Number(e.target.value) })}
               />
+              <IsShownWhereBadge isShownDisplay />
             </label>
 
             <label className="form-control label-text pb-4">Qty máxima em cada item do carrinho:
@@ -323,11 +386,12 @@ export default function AddEditProductPage() {
                 value={product.maxPerRound}
                 onChange={(e) => setProduct({...product, maxPerRound: Number(e.target.value) })}
               />
+              <IsShownWhereBadge isShownDisplay />
             </label>
           </>
         )}
         
-        {tab === 3 && (
+        {tab === 4 && (
           <>
             <div className="form-control w-full">
               <p className="font-bold pb-2">Preços:</p>
@@ -358,9 +422,38 @@ export default function AddEditProductPage() {
           </>
         )}
 
+        {tab === 5 && (
+          <>
+            <div className="w-full">
+              <p className="font-bold pb-2">Operador:</p>
+            </div>
+
+            <label className="form-control label-text pb-4">Nome da empresa do operador:
+              <input
+                type="text"
+                placeholder="Type here"
+                className="input input-bordered w-full"
+                value={product.operatorName}
+                onChange={(e) => setProduct({...product, operatorName: e.target.value})}
+              />
+              <IsShownWhereBadge isShownPurchase />
+            </label>
+
+            <label className="form-control label-text pb-4">Telefone do operador:
+              <input
+                type="text"
+                placeholder="Type here"
+                className="input input-bordered w-full"
+                value={product.operatorPhone}
+                onChange={(e) => setProduct({...product, operatorPhone: e.target.value})}
+              />
+              <IsShownWhereBadge isShownPurchase />
+            </label>
+          </>
+        )}
 
         <hr />
-        {/* <p>Created on: {dayjs(product.timestamp).format('DD/MM/YYYY - HH:mm:ss')}</p> */}
+        <p>Created on: {product.timestamp && dayjs(product.timestamp).format('DD/MM/YYYY - HH:mm:ss')}</p>
         <p>Last updated: {dayjs(product.lastUpdated).format('DD/MM/YYYY - HH:mm:ss')}</p>
       </div>
 
