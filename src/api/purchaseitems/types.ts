@@ -1,4 +1,4 @@
-export type PurchaseItem = {
+export type CartItemType = {
   productId: string,
   qty: number,
   netPrice: number,
@@ -16,3 +16,4 @@ export type PurchaseItem = {
   operatorPhone: string,
   totemId: string,
 }
+

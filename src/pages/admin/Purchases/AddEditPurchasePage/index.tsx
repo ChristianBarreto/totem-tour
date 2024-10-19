@@ -2,21 +2,18 @@ import { useEffect, useRef, useState } from "react"
 import { PurchaseItemDb } from "../../../../api/api";
 import { getPurchaseById } from "../../../../api/purchases/api";
 import { getPurchaseItensByPurchaseId } from "../../../../api/purchaseitems/api";
-import { PurchaseDb } from "../../../../api/purchases/types";
+import { Purchase } from "../../../../api/purchases/types";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
-import { priceTypes } from "../../../../helpers";
-import PriceForm from "../../../../components/cells/PriceForm";
-import ProductConsistency from "../../../../components/cells/ProductConsistency";
 import { RedGreenLight } from "../../../../components/atoms/RedGreenLight";
 
-const initPurchase: PurchaseDb = {
+const initPurchase: Purchase = {
   id: '',
   customerId: '',
   acceptedTerms: false,
   cartPrice: 0,
   payementCaptured: false,
-  paymentId: 0,
+  paymentId: '',
   paymentMethod: '',
   paymentValue: 0,
   totemId: '',
@@ -29,7 +26,7 @@ const initPurchase: PurchaseDb = {
 
 export default function AddEditPurchasePage() {
   const { id } = useParams();
-  const [purchase, setPurchase] = useState<PurchaseDb>(initPurchase);
+  const [purchase, setPurchase] = useState<Purchase>(initPurchase);
   const [purchaseItems, setPurchaseItems] = useState<PurchaseItemDb[]>([]);
   const [tab, setTab] = useState(0);
 
@@ -82,9 +79,9 @@ export default function AddEditPurchasePage() {
 
   }
 
-  const purchaseChanged = (purchase1: PurchaseDb, purchase2: PurchaseDb) => {
+  const purchaseChanged = (purchase1: Purchase, purchase2: Purchase) => {
     for (let i in purchase1) {
-      if (purchase1[i as keyof PurchaseDb] !== purchase2[i as keyof PurchaseDb]) {
+      if (purchase1[i as keyof Purchase] !== purchase2[i as keyof Purchase]) {
         return true
       }
     }

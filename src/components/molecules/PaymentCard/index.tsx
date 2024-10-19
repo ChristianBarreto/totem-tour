@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
-import { cancelLastPaymentIntent, CustomerData, getPaymentIntentStatus, PaymentIntent, paymentIntent, Purchase, Totem, websiteUrl } from "../../../api/api";
-import { PurchaseItem } from "../../../api/purchaseitems/types";
+import { CustomerData, Totem, websiteUrl } from "../../../api/api";
+import { PaymentIntent } from "../../../api/mercadopago/types";
+import { NewPurchase } from "../../../api/purchases/types";
+import { cancelLastPaymentIntent, getPaymentIntentStatus, paymentIntent } from "../../../api/mercadopago/api";
+import { CartItemType } from "../../../api/purchaseitems/types";
 import { setNewPurchase } from "../../../api/purchases/api";
 import { verifyPayment } from "../../../api/mercadopago/api";
 import MethodSelector from "../MethodSelector";
@@ -11,9 +14,9 @@ import PaymentExpired from "../PaymentExpired";
 import PaymentPixSuccess from "../PaymentPixSuccess";
 import PaymentCanceled from "../PaymentCanceled";
 
-const initPurchase = {
+const initNewPurchase: NewPurchase = {
   cartPrice: 0,
-  products: [] as PurchaseItem[],
+  products: [] as CartItemType[],
   customerData: {} as CustomerData,
   paymentId: '',
   payementCaptured: false,
@@ -39,11 +42,11 @@ export default function PaymentCard({
   customerData,
   totem,
 }: {
-  cart: Purchase,
+  cart: NewPurchase,
   customerData: CustomerData,
   totem: Totem,
 }) {
-  const [purchase, setPurchase] = useState<Purchase>(initPurchase);
+  const [purchase, setPurchase] = useState<NewPurchase>(initNewPurchase);
   const [paymentError, setPaymentError] = useState({});
   const [payIntent, setPayIntent] = useState<any>({});
 

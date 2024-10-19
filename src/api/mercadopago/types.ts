@@ -36,3 +36,25 @@ export type MpVerifyPayment = {
   id: string,
   transaction_amount: number
 }
+
+export type PosMode = {
+  mode: string
+}
+
+export type PaymentIntent = {
+  device_id: string,
+  amount: number,
+  description: string,
+  installments?: number,
+  installments_cost?: string
+  type: string,
+  print: boolean,
+}
+
+export type CancelPaymentIntent = {
+  device_id: string,
+}
+
+export type PaymentInterStatus = {
+  payment_intent_id: string,
+}

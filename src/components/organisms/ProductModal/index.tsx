@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { PurchaseItem } from '../../../api/purchaseitems/types'
+import { CartItemType } from '../../../api/purchaseitems/types'
 import { Availability, Availabilities } from '../../../api/availabilities/types';
 import { getAvailabilitiesByProduct } from '../../../api/availabilities/api';
 import { Cities } from '../../../api/cities/types';
@@ -50,7 +50,7 @@ export default function ProductModal({
 
   const handleAdd = () => {
     if (availability) {
-      const currentProduct: PurchaseItem = {
+      const currentProduct: CartItemType = {
         productId: product.id,
         qty: qty,
         netPrice: product.netPrice,

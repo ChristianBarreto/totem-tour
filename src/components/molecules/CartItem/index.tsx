@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PurchaseItem } from "../../../api/purchaseitems/types";
+import { CartItemType } from "../../../api/purchaseitems/types";
 import { Cities } from "../../../api/cities/types";
 import { getCities } from "../../../api/cities/api";
 import { Product } from "../../../api/products/types";
@@ -12,7 +12,7 @@ export default function CartItem({
   cartIndex,
 }:{
   refProduct: Product | undefined,
-  product: PurchaseItem,
+  product: CartItemType,
   cartIndex: number,
 }) {
   // @ts-expect-error: TODO: fix type of context

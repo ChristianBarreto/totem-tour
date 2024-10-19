@@ -1,7 +1,4 @@
 import axios from "axios";
-import { Product, Products } from "./products/types";
-import { PurchaseItem } from "./purchaseitems/types";
-
 export type APIError = string;
 
 export type PriceTypes = undefined | "single-value" | "variable-value" | "defined-value"
@@ -29,41 +26,6 @@ export type CustomerData = {
   name: string,
   email: string,
   phone: string,
-}
-
-export type Purchase = {
-  cartPrice: number,
-  products: PurchaseItem[],
-  customerData: CustomerData,
-  paymentId: string,
-  payementCaptured: boolean,
-  paymentValue: number,
-  paymentMethod: string,
-  acceptedTerms: boolean,
-  installments?: number,
-  totemId: string,
-}
-
-export type PosMode = {
-  mode: string
-}
-
-export type PaymentIntent = {
-  device_id: string,
-  amount: number,
-  description: string,
-  installments?: number,
-  installments_cost?: string
-  type: string,
-  print: boolean,
-}
-
-export type CancelPaymentIntent = {
-  device_id: string,
-}
-
-export type PaymentInterStatus = {
-  payment_intent_id: string,
 }
 
 export type CarouselItems = Array<{
@@ -112,31 +74,6 @@ export const websiteUrl = process.env.NODE_ENV === 'production'
 
 console.log(process.env.NODE_ENV, baseUrl)
 
-
-export const getPoss = async () => {
-  const { data } = await axios.get(`${baseUrl}/pos/`, axiosParams);
-  return data;
-}
-
-export const switchPosMode = async (id: string, body: PosMode) => {
-  const { data } = await axios.post(`${baseUrl}/pos/${id}/change-mode/`, body, axiosParams);
-  return data;
-}
-
-export const paymentIntent = async (body: PaymentIntent) => {
-  const { data } = await axios.post(`${baseUrl}/payment-intent/`, body, axiosParams);
-  return data;
-}
-
-export const cancelLastPaymentIntent = async (body: CancelPaymentIntent) => {
-  const { data } = await axios.post(`${baseUrl}/cancel-last-payment-intent/`, body, axiosParams);
-  return data;
-}
-
-export const getPaymentIntentStatus = async (body: PaymentInterStatus) => {
-  const { data } = await axios.post(`${baseUrl}/get-payment-intent-status/`, body, axiosParams);
-  return data;
-}
 
 export const getSlides = async () => {
   const { data } = await axios.get(`${baseUrl}/get-slides/`, axiosParams);

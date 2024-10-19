@@ -1,13 +1,13 @@
 import { CustomerData } from "../api"
-import { PurchaseItem } from "../purchaseitems/types"
+import { CartItemType } from "../purchaseitems/types"
 
-export type PurchaseDb = { // TODO: melhorar tipo do carrinho x tipo da compra que vai p/ DB
+export type Purchase = { // TODO: melhorar tipo do carrinho x tipo da compra que vai p/ DB
   id: string,
   customerId: string,
   acceptedTerms: boolean,
   cartPrice: number,
   payementCaptured: boolean,
-  paymentId: number,
+  paymentId: string,
   paymentMethod: string,
   paymentValue: number,
   totemId: string,
@@ -18,9 +18,9 @@ export type PurchaseDb = { // TODO: melhorar tipo do carrinho x tipo da compra q
   partnerMsg: boolean,
 }
 
-export type Purchase = {
+export type NewPurchase = {
   cartPrice: number,
-  products: PurchaseItem[],
+  products: CartItemType[],
   customerData: CustomerData,
   paymentId: string,
   payementCaptured: boolean,

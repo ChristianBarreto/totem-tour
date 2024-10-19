@@ -1,7 +1,8 @@
 import axios from "axios";
-import { axiosParams, baseUrl, Purchase } from "../api";
+import { axiosParams, baseUrl } from "../api";
+import { NewPurchase } from "./types";
 
-export const setNewPurchase = async (body: Purchase) => {
+export const setNewPurchase = async (body: NewPurchase) => {
   const { data } = await axios.post(`${baseUrl}/set-purchase/`, body, axiosParams);
   return data;
 }

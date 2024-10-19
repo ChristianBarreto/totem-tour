@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { Purchase } from "../../../api/api";
+import { NewPurchase } from "../../../api/purchases/types";
 import InstalmentsSelector from "../InstalmentsSelector";
 
 
@@ -8,7 +7,7 @@ export default function MethodSelector({
   setPurchase,
   handlePay,
 }: {
-  purchase: Purchase,
+  purchase: NewPurchase,
   setPurchase:(value: any) => void,
   handlePay:(value: any) => void,
 }) {
