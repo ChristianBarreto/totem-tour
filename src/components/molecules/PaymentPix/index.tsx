@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PaymentError from "../PaymentError";
-import { CustomerData, Purchase, setNewPurchase, Totem, websiteUrl } from "../../../api/api";
+import { CustomerData, Purchase, Totem, websiteUrl } from "../../../api/api";
+import { setNewPurchase } from "../../../api/purchases/api";
 import { generatePixPayment, verifyPayment } from "../../../api/mercadopago/api";
 import PaymentLoading from "../PaymentLoading";
 import PaymentExpired from "../PaymentExpired";

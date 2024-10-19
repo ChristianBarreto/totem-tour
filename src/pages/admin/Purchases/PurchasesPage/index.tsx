@@ -1,5 +1,5 @@
 import Table from "../../../../components/organisms/Table";
-import { getAdminPurchases } from "../../../../api/api";
+import { getAdminPurchases } from "../../../../api/purchases/api";
 import { useEffect, useRef, useState } from "react";
 import { RedGreenLight } from "../../../../components/atoms/RedGreenLight";
 import dayjs from "dayjs";

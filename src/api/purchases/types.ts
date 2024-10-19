@@ -1,0 +1,16 @@
+export type PurchaseDb = { // TODO: melhorar tipo do carrinho x tipo da compra que vai p/ DB
+  id: string,
+  customerId: string,
+  acceptedTerms: boolean,
+  cartPrice: number,
+  payementCaptured: boolean,
+  paymentId: number,
+  paymentMethod: string,
+  paymentValue: number,
+  totemId: string,
+  timestamp: number,
+  lastUpdated: number,
+  customerMsg: boolean,
+  operatorMsg: boolean,
+  partnerMsg: boolean,
+}

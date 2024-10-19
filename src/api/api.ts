@@ -60,23 +60,6 @@ export type Purchase = {
   totemId: string,
 }
 
-export type PurchaseDb = { // TODO: melhorar tipo do carrinho x tipo da compra que vai p/ DB
-  id: string,
-  customerId: string,
-  acceptedTerms: boolean,
-  cartPrice: number,
-  payementCaptured: boolean,
-  paymentId: number,
-  paymentMethod: string,
-  paymentValue: number,
-  totemId: string,
-  timestamp: number,
-  lastUpdated: number,
-  customerMsg: boolean,
-  operatorMsg: boolean,
-  partnerMsg: boolean,
-}
-
 export type PosMode = {
   mode: string
 }
@@ -145,33 +128,6 @@ export const websiteUrl = process.env.NODE_ENV === 'production'
 
 console.log(process.env.NODE_ENV, baseUrl)
 
-
-
-
-export const setNewPurchase = async (body: Purchase) => {
-  const { data } = await axios.post(`${baseUrl}/set-purchase/`, body, axiosParams);
-  return data;
-}
-
-export const getAdminPurchases = async () => {
-  const { data } = await axios.get(`${baseUrl}/purchases/`, axiosParams);
-  return data;
-}
-
-export const getPurchaseById = async (id: string) => {
-  const { data } = await axios.get(`${baseUrl}/purchases/${id}`, axiosParams);
-  return data;
-}
-
-export const getPurchaseItensByPurchaseId = async (id: string) => {
-  const { data } = await axios.get(`${baseUrl}/purchasePurchaseItens/${id}`, axiosParams);
-  return data;
-}
-
-export const getAdminPurchaseItens = async () => {
-  const { data } = await axios.get(`${baseUrl}/sales/`, axiosParams);
-  return data;
-}
 
 export const getPoss = async () => {
   const { data } = await axios.get(`${baseUrl}/pos/`, axiosParams);

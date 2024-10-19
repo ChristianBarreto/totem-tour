@@ -1,5 +1,5 @@
 import Table from "../../../components/organisms/Table";
-import { getAdminPurchaseItens } from "../../../api/api";
+import { getAdminPurchaseItens } from "../../../api/purchases/api";
 
 export default function CustomerPage() {
 
