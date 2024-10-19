@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import PaymentError from "../PaymentError";
-import { CustomerData, Totem, websiteUrl } from "../../../api/api";
+import { websiteUrl } from "../../../api/api";
+import { Customer } from "../../../api/customers/types";
+import { Totem } from "../../../api/totems/types";
 import { NewPurchase } from "../../../api/purchases/types";
 import { setNewPurchase } from "../../../api/purchases/api";
 import { generatePixPayment, verifyPayment } from "../../../api/mercadopago/api";
@@ -15,7 +17,7 @@ export default function PaymentPix({
   totem,
 }: {
   cart: NewPurchase,
-  customerData: CustomerData,
+  customerData: Customer,
   totem: Totem,
 }) {
   const [paymentLoading, setPaymentLoading] = useState(true);

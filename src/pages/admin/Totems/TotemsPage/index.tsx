@@ -1,8 +1,7 @@
 import Table from "../../../../components/organisms/Table";
-import {  getTotems } from "../../../../api/api";
+import { getTotems } from "../../../../api/totems/api";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { classNames } from "../../../../helpers";
 
 
 const TableEditButton = ({

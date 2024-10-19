@@ -17,3 +17,20 @@ export type CartItemType = {
   totemId: string,
 }
 
+export type PurchaseItem = { // TODO: melhorar tipo do carrinho x tipo da compra que vai p/ DB
+  id: string,
+  productId: string,
+  qty: number,
+  netPrice: number,
+  partnerComm: number,
+  companyComm: number,
+  pricePerPerson: number,
+  minTotalPrice: number,
+  totalPrice: number,
+  date: string,
+  cityId: string,
+  totemId: string,
+  lastUpdate: number,
+  timestamp: number,
+}
+

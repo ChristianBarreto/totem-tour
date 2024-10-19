@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { PurchaseItemDb } from "../../../../api/api";
+import { PurchaseItem } from "../../../../api/purchaseitems/types";
 import { getPurchaseById } from "../../../../api/purchases/api";
 import { getPurchaseItensByPurchaseId } from "../../../../api/purchaseitems/api";
 import { Purchase } from "../../../../api/purchases/types";
@@ -27,7 +27,7 @@ const initPurchase: Purchase = {
 export default function AddEditPurchasePage() {
   const { id } = useParams();
   const [purchase, setPurchase] = useState<Purchase>(initPurchase);
-  const [purchaseItems, setPurchaseItems] = useState<PurchaseItemDb[]>([]);
+  const [purchaseItems, setPurchaseItems] = useState<PurchaseItem[]>([]);
   const [tab, setTab] = useState(0);
 
   const productRef = useRef(initPurchase);

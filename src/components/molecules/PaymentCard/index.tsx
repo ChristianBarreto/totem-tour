@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { CustomerData, Totem, websiteUrl } from "../../../api/api";
+import { websiteUrl } from "../../../api/api";
+import { Customer } from "../../../api/customers/types";
+import { Totem } from "../../../api/totems/types";
 import { PaymentIntent } from "../../../api/mercadopago/types";
 import { NewPurchase } from "../../../api/purchases/types";
 import { cancelLastPaymentIntent, getPaymentIntentStatus, paymentIntent } from "../../../api/mercadopago/api";
@@ -17,7 +19,7 @@ import PaymentCanceled from "../PaymentCanceled";
 const initNewPurchase: NewPurchase = {
   cartPrice: 0,
   products: [] as CartItemType[],
-  customerData: {} as CustomerData,
+  customerData: {} as Customer,
   paymentId: '',
   payementCaptured: false,
   paymentValue: 0,
@@ -43,7 +45,7 @@ export default function PaymentCard({
   totem,
 }: {
   cart: NewPurchase,
-  customerData: CustomerData,
+  customerData: Customer,
   totem: Totem,
 }) {
   const [purchase, setPurchase] = useState<NewPurchase>(initNewPurchase);

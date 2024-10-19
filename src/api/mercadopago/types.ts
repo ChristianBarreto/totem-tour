@@ -1,4 +1,4 @@
-import { CustomerData } from "../api";
+import { Customer } from "../customers/types" 
 
 export type MpPurchaseItem = {
   productId: string,
@@ -22,7 +22,7 @@ export type MpPurchaseItem = {
 export type MpPurchase = {
   cartPrice: number,
   products: MpPurchaseItem[],
-  customerData: CustomerData,
+  customerData: Customer,
   paymentId: string,
   payementCaptured: boolean,
   paymentValue: number,
