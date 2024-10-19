@@ -264,8 +264,15 @@ export const infoConsistentCheck = (product: Product) => {
   if (
     (product.details?.length)
     && (product.address?.length)
+    && (product.location?.length)
     && (product.time?.length) 
+    && (product.duration?.length) 
+    && (product.alignMessage?.length) 
+    && (product.maxPaxDay > 0) 
+    && (product.maxPerRound > 0) 
     && (product.priceType === "single-value" || "variable-value" || "defined-price")
+    && (product.operatorName?.length) 
+    && (product.operatorPhone?.length) 
   ) {
     return true;
   }

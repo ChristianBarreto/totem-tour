@@ -17,7 +17,7 @@ export default function ProductConsistency({
       </div>
       <div>
         <RedGreenLight value={canBeAvailable} outsideText={canBeAvailable ? "Pode ser dispinibilizado." : "Não pode ser disponibilizado."} />
-        <p className="text-sm">(detalhes, endereço, horário, capacidade e preços)</p>
+        <p className="text-sm">(detalhes, local, localização, horário, duração, msg alinhamento, capacidade, preços e info operador)</p>
       </div>      
     </div>
   )

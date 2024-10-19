@@ -52,6 +52,10 @@ export type Product = {
   companyComm3: number,
   companyComm4: number,
   isConsistent: boolean
+  location: string,
+  alignMessage: string,
+  operatorName: string,
+  operatorPhone: string,
 }
 
 export type Availabilitiy = {
