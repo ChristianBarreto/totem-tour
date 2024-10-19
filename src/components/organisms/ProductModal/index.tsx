@@ -58,8 +58,13 @@ export default function ProductModal({
         minTotalPrice: product.minTotalPrice,
         totalPrice: price,
         date: availability?.date,
+        time: '',
         cityId: product.cityId,
-        totemId: '',
+        local: '',
+        location: '',
+        operatorName: '',
+        operatorPhone: '',
+        totemId: ''
       }
   
       dispatch({type: 'addToCart', product: currentProduct})

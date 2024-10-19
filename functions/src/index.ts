@@ -379,7 +379,6 @@ app.post("/payment-intent", async (req: Request, res: Response) => {
     res.status(400)
     res.json(err)
   })
-
 });
 
 const getOpenPaymentIntentId = (intents: any) => {

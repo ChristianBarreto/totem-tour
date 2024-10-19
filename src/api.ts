@@ -74,7 +74,12 @@ export type PurchaseItem = {
   minTotalPrice: number,
   totalPrice: number,
   date: string,
+  time: string,
   cityId: string,
+  local: string,
+  location: string,
+  operatorName: string,
+  operatorPhone: string,
   totemId: string,
 }
 
@@ -126,6 +131,9 @@ export type PurchaseDb = { // TODO: melhorar tipo do carrinho x tipo da compra q
   totemId: string,
   timestamp: number,
   lastUpdated: number,
+  customerMsg: boolean,
+  operatorMsg: boolean,
+  partnerMsg: boolean,
 }
 
 export type Availabilities = Availabilitiy[];

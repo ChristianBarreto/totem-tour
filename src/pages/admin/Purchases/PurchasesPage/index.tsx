@@ -13,7 +13,7 @@ const DateTime = () => {
   useEffect(() => {
     if (ref.current?.parentElement){
       const date = ref.current?.parentElement.className
-      setValue(dayjs(Number(date)).locale('pt-br').format('DD/MM/YYYY HH:MM'));
+      setValue(dayjs(Number(date)).locale('pt-br').format('DD/MM/YYYY HH:mm'));
     }
   }, []);
 
@@ -78,7 +78,9 @@ export default function PurchasesPage() {
     {name: "Data da compra", value: "timestamp", component: <DateTime /> },
     {name: "Valor", value: "paymentValue", component: <Value />},
     {name: "Pagamento", value: "payementCaptured", component: <Light />},
-    {name: "Cliente comm", value: "customerComm", component: <Light />},
+    {name: "Msg cliente", value: "customerMsg", component: <Light />},
+    {name: "Msg op.", value: "operatorMsg", component: <Light />},
+    // {name: "Msg parceiro", value: "customerComm", component: <Light />},
     {name: "Totem venda", value: "totemId"},
     {name: "Actions", value: "id", component: (<TableButton onClickEvent={(id) => handleClick(id)} />)},
   ]
