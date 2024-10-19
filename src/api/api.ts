@@ -1,28 +1,12 @@
 import axios from "axios";
 import { Product, Products } from "./products/types";
+import { PurchaseItem } from "./purchaseitems/types";
 
 export type APIError = string;
 
 export type PriceTypes = undefined | "single-value" | "variable-value" | "defined-value"
 
-export type PurchaseItem = {
-  productId: string,
-  qty: number,
-  netPrice: number,
-  partnerComm: number,
-  companyComm: number,
-  pricePerPerson: number,
-  minTotalPrice: number,
-  totalPrice: number,
-  date: string,
-  time: string,
-  cityId: string,
-  local: string,
-  location: string,
-  operatorName: string,
-  operatorPhone: string,
-  totemId: string,
-}
+
 
 export type PurchaseItemDb = { // TODO: melhorar tipo do carrinho x tipo da compra que vai p/ DB
   id: string,

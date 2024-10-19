@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { PurchaseItemDb } from "../../../../api/api";
-import { getPurchaseById, getPurchaseItensByPurchaseId } from "../../../../api/purchases/api";
+import { getPurchaseById } from "../../../../api/purchases/api";
+import { getPurchaseItensByPurchaseId } from "../../../../api/purchaseitems/api";
 import { PurchaseDb } from "../../../../api/purchases/types";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";

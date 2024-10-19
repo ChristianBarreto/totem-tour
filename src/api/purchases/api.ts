@@ -15,13 +15,3 @@ export const getPurchaseById = async (id: string) => {
   const { data } = await axios.get(`${baseUrl}/purchases/${id}`, axiosParams);
   return data;
 }
-
-export const getPurchaseItensByPurchaseId = async (id: string) => {
-  const { data } = await axios.get(`${baseUrl}/purchasePurchaseItens/${id}`, axiosParams);
-  return data;
-}
-
-export const getAdminPurchaseItens = async () => {
-  const { data } = await axios.get(`${baseUrl}/sales/`, axiosParams);
-  return data;
-}
