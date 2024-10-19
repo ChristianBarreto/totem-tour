@@ -126,10 +126,19 @@ export default function ProductModal({
                           <p className='text-neutral-400'>(você receberá a localização exata por Email/WhatsApp)</p>
                         </div>
 
-                        <p className='text-xl mb-4'>
-                          <span className='font-bold'>Horário: </span>
-                          {product.time}
-                        </p>
+                        <div className='mb-4'>
+                          <p className='text-xl'>
+                            <span className='font-bold'>Horário: </span>
+                            {product.time}
+                          </p>
+                          {product.alignMessage && <p className='text-neutral-400'>({product.alignMessage})</p>}
+                        </div>
+
+                        {product.duration && <p className='text-xl mb-4'>
+                          <span className='font-bold'>Duração: </span>
+                          {product.duration}
+                        </p>}
+                        
                         {true && (
                           <p className='mb-4'>
                             {product.priceType === "single-value" && (
