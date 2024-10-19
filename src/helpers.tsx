@@ -1,4 +1,5 @@
-import { Availabilitiy, PriceTypes } from "./api/api";
+import { PriceTypes } from "./api/api";
+import { Availability } from "./api/availabilities/types";
 import { Product } from "./api/products/types";
 
 export function classNames(...classes: any) {
@@ -289,7 +290,7 @@ export const productCanBeAvailable = (product: Product) => {
 }
 
 
-export const qtySelectorDisabler = (availability: Availabilitiy | null) => {
+export const qtySelectorDisabler = (availability: Availability | null) => {
   if (availability !== null) {
     return false
   }

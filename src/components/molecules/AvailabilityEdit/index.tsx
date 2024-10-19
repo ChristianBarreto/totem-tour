@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import IconCheckCircle from "../../atoms/IconCheckCircle";
 import AvailabilityModal from "../AvailabilityModal";
 import { useState } from "react";
-import { Availabilities } from "../../../api/api";
+import { Availabilities } from "../../../api/availabilities/types";
 import { Product } from "../../../api/products/types";
 import IconXCircle from "../../atoms/IconXCircle";
 

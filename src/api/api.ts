@@ -5,16 +5,6 @@ export type APIError = string;
 
 export type PriceTypes = undefined | "single-value" | "variable-value" | "defined-value"
 
-export type Availabilitiy = {
-  active: boolean,
-  date: string,
-  productId: string,
-  availability: number,
-  booked: number,
-  remaining: number,
-  id: string,
-}
-
 export type PurchaseItem = {
   productId: string,
   qty: number,
@@ -86,9 +76,6 @@ export type PurchaseDb = { // TODO: melhorar tipo do carrinho x tipo da compra q
   operatorMsg: boolean,
   partnerMsg: boolean,
 }
-
-export type Availabilities = Availabilitiy[];
-
 
 type VerifyPayment = {
   id: string,
@@ -163,44 +150,6 @@ export const websiteUrl = process.env.NODE_ENV === 'production'
 
 console.log(process.env.NODE_ENV, baseUrl)
 
-export const getAvailabilitiesByProduct = async (productId: string): Promise<Availabilities | void> => {
-  const data = axios.get<Availabilities>(`${baseUrl}/availabilities/${productId}`, axiosParams)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      console.log("API ERROR", err)
-      return [];
-    })
-  return data;
-}
-
-export const getNextAvailabilities = async (): Promise<Availabilities | void> => {
-  const data = axios.get<Availabilities>(`${baseUrl}/next-availabilities/`, axiosParams)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      console.log("API ERROR", err)
-      return [];
-    })
-  return data;
-}
-
-export const addAvailability = async (body: Availabilitiy): Promise<Availabilitiy | void> => {
-  const { data } = await axios.post(`${baseUrl}/availabilities/`, body, axiosParams);
-  return data;
-}
-
-export const getAvailabilityById = async (id: string): Promise<Availabilitiy | void> => {
-  const { data } = await axios.get(`${baseUrl}/availability/${id}`, axiosParams);
-  return data;
-}
-
-export const editAvailabilityById = async (id: string, body: Availabilitiy): Promise<Availabilitiy | void> => {
-  const { data } = await axios.put(`${baseUrl}/availabilities/${id}`, body, axiosParams);
-  return data;
-}
 
 export const generatePixPayment = async (body: Purchase) => {
   const { data } = await axios.post(`${baseUrl}/pix-payment/`, body, axiosParams);

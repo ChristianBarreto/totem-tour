@@ -4,7 +4,8 @@
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import dayjs from 'dayjs'
-import { addAvailability, Availabilitiy, editAvailabilityById, getAvailabilityById } from '../../../api/api'
+import { Availability } from '../../../api/availabilities/types'
+import { addAvailability, editAvailabilityById, getAvailabilityById } from '../../../api/availabilities/api';
 import { Product } from '../../../api/products/types'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 
@@ -35,7 +36,7 @@ export default function AvailabilityModal({
     remaining: 0,
   }
 
-  const [availability, setAvailability] = useState<Availabilitiy>(initAvailability);
+  const [availability, setAvailability] = useState<Availability>(initAvailability);
   
   const availabilityRef = useRef(initAvailability);
 

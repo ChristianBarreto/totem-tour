@@ -3,7 +3,9 @@
 import { useEffect, useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { Availabilities, Availabilitiy, getAvailabilitiesByProduct, PurchaseItem } from '../../../api/api';
+import { PurchaseItem } from '../../../api/api';
+import { Availability, Availabilities } from '../../../api/availabilities/types';
+import { getAvailabilitiesByProduct } from '../../../api/availabilities/api';
 import { Cities } from '../../../api/cities/types';
 import { getCities } from '../../../api/cities/api';
 import { Product } from '../../../api/products/types'
@@ -26,7 +28,7 @@ export default function ProductModal({
   setCartOpen: (value: boolean) => void,
 }) {
   const [availabilities, setAvailabilities] = useState<Availabilities>([]);
-  const [availability, setAvailability] = useState<Availabilitiy | null>(null);
+  const [availability, setAvailability] = useState<Availability | null>(null);
   const [qty, setQty] = useState(0);
   const [maxRound, setMaxRound] = useState(false);
   const [cities, setCities] = useState<Cities>([])

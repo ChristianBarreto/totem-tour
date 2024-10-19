@@ -1,9 +1,8 @@
 import dayjs from "dayjs";
-import IconCalendar from "../../atoms/IconCalendar";
 import { useRef } from "react";
 
 import 'dayjs/locale/pt-br'
-import { Availabilitiy, Availabilities } from "../../../api/api";
+import { Availability, Availabilities } from "../../../api/availabilities/types";
 
 
 
@@ -14,7 +13,7 @@ export default function DateSelector({
   availabilities,
   unavailableToday
 }: {
-  setAvailability: (date: Availabilitiy | null) => void,
+  setAvailability: (date: Availability | null) => void,
   availabilities: Availabilities
   unavailableToday: boolean
 }) {
