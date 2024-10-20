@@ -270,6 +270,10 @@ export default function AddEditPurchasePage() {
                     <br />
                     <br />
                     📢 Favor entrar em contato com o cliente para combinar os detalhes do embarque. <br />
+                    <br />
+                    ⚠️📢 *RESPONDA ESTA MENSAGEM QUANDO A VAGA DESTE CLIENTE ESTIVER RESERVADA!* <br />
+                    <br />
+
 
                     Número da venda Totem Tour: {purchase.id}
                   </p>
