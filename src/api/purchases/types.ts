@@ -20,6 +20,14 @@ export type Purchase = {
   lastUpdated: number,
 }
 
+type PurchaseSideData = {
+  totemNickName: string
+  totemLocationDescription: string
+  totemResponsiblePerson: string
+}
+
+export type PurchaseResp = Purchase & PurchaseSideData;
+
 export type NewPurchase = {
   acceptedTerms: boolean,
   totemId: string,

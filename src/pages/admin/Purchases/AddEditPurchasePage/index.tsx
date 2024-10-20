@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from "react"
 import { PurchaseItem } from "../../../../api/purchaseitems/types";
 import { editPurchaseById, getPurchaseById } from "../../../../api/purchases/api";
 import { getPurchaseItensByPurchaseId } from "../../../../api/purchaseitems/api";
-import { Purchase } from "../../../../api/purchases/types";
+import { PurchaseResp } from "../../../../api/purchases/types";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import { RedGreenLight } from "../../../../components/atoms/RedGreenLight";
 
-const initPurchase: Purchase = {
+const initPurchase: PurchaseResp = {
   id: '',
   customerId: '',
   acceptedTerms: false,
@@ -17,6 +17,9 @@ const initPurchase: Purchase = {
   paymentMethod: '',
   paymentValue: 0,
   totemId: '',
+  totemNickName: '',
+  totemLocationDescription: '',
+  totemResponsiblePerson: '',
   timestamp: 0,
   lastUpdated: 0,
   customerMsg: false,
@@ -27,7 +30,7 @@ const initPurchase: Purchase = {
 
 export default function AddEditPurchasePage() {
   const { id } = useParams();
-  const [purchase, setPurchase] = useState<Purchase>(initPurchase);
+  const [purchase, setPurchase] = useState<PurchaseResp>(initPurchase);
   const [purchaseItems, setPurchaseItems] = useState<PurchaseItem[]>([]);
   const [tab, setTab] = useState(0);
 
@@ -82,9 +85,9 @@ export default function AddEditPurchasePage() {
 
   }
 
-  const purchaseChanged = (purchase1: Purchase, purchase2: Purchase) => {
+  const purchaseChanged = (purchase1: PurchaseResp, purchase2: PurchaseResp) => {
     for (let i in purchase1) {
-      if (purchase1[i as keyof Purchase] !== purchase2[i as keyof Purchase]) {
+      if (purchase1[i as keyof PurchaseResp] !== purchase2[i as keyof PurchaseResp]) {
         return true
       }
     }
@@ -117,7 +120,7 @@ export default function AddEditPurchasePage() {
           </tr>
           <tr>
             <td className="pr-2 font-bold">Totem da venda:</td>
-            <td>{purchase.totemId}</td>
+            <td>{purchase.totemNickName}</td>
           </tr>
           <tr>
             <td className="pr-2 font-bold">Valor foi capturado:</td>

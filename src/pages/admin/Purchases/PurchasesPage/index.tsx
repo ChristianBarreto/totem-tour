@@ -77,7 +77,7 @@ export default function PurchasesPage() {
   const tableHeader = [
     {name: "Data da compra", value: "timestamp", component: <DateTime /> },
     {name: "Valor", value: "paymentValue", component: <Value />},
-    {name: "Totem venda", value: "totemId"},
+    {name: "Totem venda", value: "totemNickName"},
     {name: "Pagamento", value: "payementCaptured", component: <Light />},
     {name: "Msg cliente", value: "customerMsg", component: <Light />},
     {name: "Msg ops.", value: "operatorsMsg", component: <Light />},
@@ -92,7 +92,7 @@ export default function PurchasesPage() {
       <Table
         tableName="Vendas"
         tableHeader={tableHeader}
-        tableFetch={getAdminPurchases}
+        tableFetch={() => getAdminPurchases({params: {timestamp: "asc", paymentCaptured: "asc"}})}
       />
     </div>
   )

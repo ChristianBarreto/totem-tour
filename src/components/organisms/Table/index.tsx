@@ -25,20 +25,26 @@ export default function Table({
   filter?: Filter,
   sort?: Sort,
 }) {
-  const [items, setItems] = useState<any[]>([])
+  const [isLoading, setIsLoading] = useState(true);
+  const [items, setItems] = useState<any[]>([]);
 
   useEffect(() => {
     tableFetch().then((res: any) => {
       setItems(res);
+      setIsLoading(false);
     }).catch((err) => {
       console.log("Table error", err)
+      setIsLoading(false);
     });
   }, [reloadTable])
 
   const reload = () => {
+    setIsLoading(true);
     tableFetch().then((res: any) => {
       setItems(res);
+      setIsLoading(false);
     }).catch((err) => {
+      setIsLoading(false);
       console.log("Table error", err)
     });
   }
@@ -61,54 +67,60 @@ export default function Table({
             </tr>
           </thead>
           <tbody>
-            {items
-              .filter((item) => {
-                if (filter) {
-                  if (eval(item[filter[1]] + filter[0] + true)) {
+            {isLoading ? (
+              <p>Loading</p>
+            ): (
+              <>
+                {items
+                .filter((item) => {
+                  if (filter) {
+                    if (eval(item[filter[1]] + filter[0] + true)) {
+                      return item
+                    }
+                  } else {
                     return item
                   }
-                } else {
-                  return item
-                }
-              })
-              .sort((a, b) => {
+                })
+                .sort((a, b) => {
 
-                if (sort) {
-                  if (a[sort] < b[sort]) {
-                    return -1
-                  } else if (a[sort] < b[sort]){
-                    return 1
+                  if (sort) {
+                    if (a[sort] < b[sort]) {
+                      return -1
+                    } else if (a[sort] < b[sort]){
+                      return 1
+                    } else {
+                      return 0
+                    }
                   } else {
                     return 0
                   }
-                } else {
-                  return 0
-                }
-              })
-              .map((item, indexA) => (
-              <tr key={`row-${item.name}`}>
-                {tableHeader.map((header, indexB) => (
-                  <td key={`${header.value}-${indexA}`}>
-                    
-                    {!header.component ? (
-                      <>
-                        {item[header.value] === true && (<p>TRUE</p>)}
-                        {item[header.value] === false && (<p>FALSE</p>)}
-                        <span id={item[header.value]}>{item[header.value]}</span>
-                      </>
+                })
+                .map((item, indexA) => (
+                <tr key={`row-${item.name}`}>
+                  {tableHeader.map((header, indexB) => (
+                    <td key={`${header.value}-${indexA}`}>
+                      
+                      {!header.component ? (
+                        <>
+                          {item[header.value] === true && (<p>TRUE</p>)}
+                          {item[header.value] === false && (<p>FALSE</p>)}
+                          <span id={item[header.value]}>{item[header.value]}</span>
+                        </>
 
-                    ): (
-                      <span key={`comp-${indexA}`}>
-                        <span className={item[header.value]?.toString()}>
-                          {header.component}
+                      ): (
+                        <span key={`comp-${indexA}`}>
+                          <span className={item[header.value]?.toString()}>
+                            {header.component}
+                          </span>
                         </span>
-                      </span>
-                    )}
-                    
-                  </td>
-                ))}
-              </tr>
-            ))}
+                      )}
+                      
+                    </td>
+                  ))}
+                </tr>
+              ))}
+              </>
+            )}
           </tbody>
         </table>
       </div>
