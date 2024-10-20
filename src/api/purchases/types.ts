@@ -1,32 +1,34 @@
 import { Customer } from "../customers/types"
 import { CartItemType } from "../purchaseitems/types"
 
-export type Purchase = { // TODO: melhorar tipo do carrinho x tipo da compra que vai p/ DB
+export type Purchase = {
   id: string,
   customerId: string,
+  totemId: string,
   acceptedTerms: boolean,
   cartPrice: number,
+  paymentValue: number,
   payementCaptured: boolean,
   paymentId: string,
   paymentMethod: string,
-  paymentValue: number,
-  totemId: string,
+  installments?: number,
+  customerMsg: boolean,
+  operatorsMsg: boolean,
+  operatorsConfirmed: boolean,
+  partnerMsg: boolean,
   timestamp: number,
   lastUpdated: number,
-  customerMsg: boolean,
-  operatorMsg: boolean,
-  partnerMsg: boolean,
 }
 
 export type NewPurchase = {
-  cartPrice: number,
-  products: CartItemType[],
-  customerData: Customer,
-  paymentId: string,
-  payementCaptured: boolean,
-  paymentValue: number,
-  paymentMethod: string,
   acceptedTerms: boolean,
-  installments?: number,
   totemId: string,
+  cartPrice: number,
+  paymentValue: number,
+  payementCaptured: boolean,
+  paymentId: string,
+  paymentMethod: string,
+  installments?: number,
+  customerData: Customer,
+  products: CartItemType[],
 }

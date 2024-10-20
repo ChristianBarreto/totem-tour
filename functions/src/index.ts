@@ -52,7 +52,6 @@ async function getDbItem(dbName: string, id: string) {
 
 async function editDbItem(dbName: string, id: string, data: any) {
   delete data['id']
-  console.log(data)
   const snapshot = await db.collection(dbName).doc(id).set({
     ...data,
     lastUpdated: Date.now(),
@@ -250,6 +249,12 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
 
   res.send({ status: 'ok', purchaseId: purchaseDb.id })
 });
+
+app.put("/purchases/:id", async (req: Request, res: Response) => {
+  const resp = await editDbItem("purchases", req.params.id, req.body);
+  res.json(resp);
+});
+
 
 // async function getCustomerById(customerId: string) {
 //   const customer = await db.collection("customers").doc(customerId).get();

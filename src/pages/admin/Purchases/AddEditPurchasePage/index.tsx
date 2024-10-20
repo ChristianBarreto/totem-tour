@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { PurchaseItem } from "../../../../api/purchaseitems/types";
-import { getPurchaseById } from "../../../../api/purchases/api";
+import { editPurchaseById, getPurchaseById } from "../../../../api/purchases/api";
 import { getPurchaseItensByPurchaseId } from "../../../../api/purchaseitems/api";
 import { Purchase } from "../../../../api/purchases/types";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -20,7 +20,8 @@ const initPurchase: Purchase = {
   timestamp: 0,
   lastUpdated: 0,
   customerMsg: false,
-  operatorMsg: false,
+  operatorsMsg: false,
+  operatorsConfirmed: false,
   partnerMsg: false,
 }
 
@@ -30,7 +31,7 @@ export default function AddEditPurchasePage() {
   const [purchaseItems, setPurchaseItems] = useState<PurchaseItem[]>([]);
   const [tab, setTab] = useState(0);
 
-  const productRef = useRef(initPurchase);
+  const purchaseRef = useRef(initPurchase);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,7 +45,7 @@ export default function AddEditPurchasePage() {
       getPurchaseById(id).then((res) => {
         if (res && !ignore) {
           setPurchase(res)
-          productRef.current = res;
+          purchaseRef.current = res;
           getPurchaseItensByPurchaseId(res.id).then((res) => {
             setPurchaseItems(res)
           }).catch((err) => {
@@ -62,14 +63,16 @@ export default function AddEditPurchasePage() {
   }, []);
 
   const handleCancel = () => {
-    setPurchase(productRef.current)
+    setPurchase(purchaseRef.current)
   }
  
   const handleSave = () => {
     if (isEditing) {
-      // editPurchaseById(purchase.id, purchase).then((res) => {
-      //   navigate(-1)
-      // })
+      editPurchaseById(purchase.id, purchase).then((res) => {
+        navigate(-1)
+      }).catch((err) => {
+        console.log("Err", err)
+      })
     } 
     // else {
     //   addPurchase(purchase).then((res) => {
@@ -88,33 +91,57 @@ export default function AddEditPurchasePage() {
     return false
   }
 
-  
+  const isCancelDisabled = !purchaseChanged(purchaseRef.current, purchase)
+  const isSaveDisabled = !purchaseChanged(purchaseRef.current, purchase)
+
   return (
     <div>
       <p className="text-2xl pb-4"><span className="font-bold">Compra ID: </span> {purchase.id}</p>
-      <div className="pb-4">
-        <p><span className="font-bold">Data da compra:</span> {dayjs(purchase.timestamp).locale('pt-br').format('DD/MM/YYYY HH:MM')}</p>
-        <p><span className="font-bold">Valor:</span> R${purchase.paymentValue},00</p>
-        <p><span className="font-bold">Método de pagamento:</span> {purchase.paymentMethod}</p>
-        <p><span className="font-bold">ID do pagamento:</span> {purchase.paymentId}</p>
-        <div className="flex">
-          <span className="font-bold">Valor foi capturado: &nbsp;</span>
-          {<RedGreenLight value={purchase.payementCaptured} outsideText={purchase.payementCaptured ? "SIM" : "NÃO"} />}
-        </div>
-        <div className="flex">
-          <span className="font-bold">Cliente foi informado: &nbsp;</span>
-          {<RedGreenLight value={false} outsideText={false ? "SIM" : "NÃO"} />}
-        </div>
-        <div className="flex">
-          <span className="font-bold">Operadores foram informados: &nbsp;</span>
-          {<RedGreenLight value={false} outsideText={false ? "SIM" : "NÃO"} />}
-        </div>
-        <div className="flex">
-          <span className="font-bold">Parceiro foi informado: &nbsp;</span>
-          {<RedGreenLight value={false} outsideText={false ? "SIM" : "NÃO"} />}
-        </div>
-        <p><span className="font-bold">Totem da venda: </span>{purchase.totemId}</p>
-      </div>
+      <table className="">
+        <tbody>
+          <tr>
+            <td className="pr-2 font-bold">Data da compra:</td>
+            <td>{dayjs(purchase.timestamp).locale('pt-br').format('DD/MM/YYYY HH:MM')}</td>
+          </tr>
+          <tr>
+            <td className="pr-2 font-bold">Valor:</td>
+            <td>R${purchase.paymentValue},00</td>
+          </tr>
+          <tr>
+            <td className="pr-2 font-bold">Método de pagamento:</td>
+            <td>{purchase.paymentMethod}</td>
+          </tr>
+          <tr>
+            <td className="pr-2 font-bold">ID do pagamento:</td>
+            <td>{purchase.paymentId}</td>
+          </tr>
+          <tr>
+            <td className="pr-2 font-bold">Totem da venda:</td>
+            <td>{purchase.totemId}</td>
+          </tr>
+          <tr>
+            <td className="pr-2 font-bold">Valor foi capturado:</td>
+            <td>{<RedGreenLight value={purchase.payementCaptured} outsideText={purchase.payementCaptured ? "SIM" : "NÃO"} />}</td>
+          </tr>
+          <tr>
+            <td className="pr-2 font-bold">Cliente foi informado:</td>
+            <td>{<RedGreenLight value={purchase.customerMsg} outsideText={purchase.customerMsg ? "SIM" : "NÃO"} />}</td>
+          </tr>
+          <tr>
+            <td className="pr-2 font-bold">Operadores informados:</td>
+            <td>{<RedGreenLight value={purchase.operatorsMsg} outsideText={purchase.operatorsMsg ? "SIM" : "NÃO"} />}</td>
+          </tr>
+          <tr>
+            <td className="pr-2 font-bold">Parceiro foi informado:</td>
+            <td>{<RedGreenLight value={purchase.partnerMsg} outsideText={purchase.partnerMsg ? "SIM" : "NÃO"} />}</td>
+          </tr>
+          <tr>
+            <td className="pr-2 font-bold">Operadores confir. a reserva:</td>
+            <td>{<RedGreenLight value={purchase.operatorsConfirmed} outsideText={purchase.operatorsConfirmed ? "SIM" : "NÃO"} />}</td>
+          </tr>
+
+        </tbody>
+      </table>
       
       <div role="tablist" className="tabs tabs-boxed mt-4">
         <p role="tab" className={`tab ${tab === 0 && "tab-active"}`} onClick={() => setTab(0)}>Itens</p>
@@ -165,49 +192,64 @@ export default function AddEditPurchasePage() {
         )}
 
         {tab === 1 && (
-          <>
+          <div className="mb-14">
             <div className="w-full">
               <p className="font-bold pb-2">Cliente WhatsApp:</p>
             </div>
-
-            <div className="border p-2 mb-14">
-              <p>
-                Obrigado por reservar seus passeios com a *Totem Tour*!
-                <br /><br />
-                Segue abaixo as suas reservas:
-                <br /><br />
-                {purchaseItems.map((item) => 
-                  <>
-                    ✅ *Passeio:* ...<br />
-                    - 😎 *Qtd.:* {item.qty} pessoa(s)<br />
-                    - 📅 *Data:* {dayjs(item.date).locale('pt-br').format('DD/MM/YYYY')}<br />
-                    - 🕑 *Hora:* ... *Duração:* ...<br />
-                    - *Obs.:* ---alignMessage---<br />
-                    - 🌴 *Cidade:* ...<br />
-                    - 🗺️ *Local:* ...<br />
-                    - 📍 *Localização:* ...<br />
-                    - 🏪 *Nome da agência:* ...<br />
-                    - 📞 *Telefoneda agência:* ...<br />
-                  </>
-                )}
-                <br />
-                📢 Sobre horários, dúvidas sobre o passeio e remarcação, entre em contato com a(s) agência(s) acima. <br />
-                📢 Sobre pagamento e cancelamento, responda a esta mensagem. <br /><br />
-                Número da venda Totem Tour: {purchase.id}
-              </p>
+            <div className="p-2 pl-2 pb-14 border bg-gray-100">
+              <div className="border ml-2 p-2 bg-white">
+                <p>
+                  Obrigado por reservar seus passeios com a *Totem Tour*!
+                  <br /><br />
+                  Segue abaixo as suas reservas:
+                  <br /><br />
+                  {purchaseItems.map((item) => 
+                    <>
+                      ✅ *Passeio:* ...<br />
+                      - 😎 *Qtd.:* {item.qty} pessoa(s)<br />
+                      - 📅 *Data:* {dayjs(item.date).locale('pt-br').format('DD/MM/YYYY')}<br />
+                      - 🕑 *Hora:* ... *Duração:* ...<br />
+                      - *Obs.:* ---alignMessage---<br />
+                      - 🌴 *Cidade:* ...<br />
+                      - 🗺️ *Local:* ...<br />
+                      - 📍 *Localização:* ...<br />
+                      - 🏪 *Nome da agência:* ...<br />
+                      - 📞 *Telefoneda agência:* ...<br />
+                    </>
+                  )}
+                  <br />
+                  📢 Sobre horários, dúvidas sobre o passeio e remarcação, entre em contato com a(s) agência(s) acima. <br />
+                  📢 Sobre pagamento e cancelamento, responda a esta mensagem. <br /><br />
+                  Número da venda Totem Tour: {purchase.id}
+                </p>
+              </div>
             </div>
-          </>
+
+            <div className="">
+              <p>Confirmações da compra (cliente):</p>
+              <label className="label cursor-pointer justify-start w-1/3">
+                <input
+                  type="checkbox"
+                  className="toggle toggle-primary"
+                  checked={purchase.customerMsg}
+                  onChange={() => setPurchase({...purchase, customerMsg: !purchase.customerMsg})}
+                />
+                <span className="label-text pl-4">Cliente foi informado?</span>
+              </label>
+            </div>
+
+          </div>
         )}
 
         {tab === 2 && (
-          <>
+          <div className="mb-14">
             <div className="w-full">
               <p className="font-bold pb-2">Operador WhatsApp:</p>
             </div>
             {purchaseItems.map((item, index) => 
-              <>
-                <p>{index+1}- {'item.operatorName'}:</p>
-                <div className="border p-2 mb-14">
+              <div className="border p-2 bg-gray-100 mb-4">
+                <p className="pb-2">{index+1}- {'item.operatorName'}:</p>
+                <div className="border p-2 ml-4 bg-white ">
                   <p>
                     Olá, {"item.operatorName"}! Nova reserva da *Totem Tour*!
                     <br /><br />
@@ -228,37 +270,94 @@ export default function AddEditPurchasePage() {
                     Número da venda Totem Tour: {purchase.id}
                   </p>
                 </div>
-              </>
-              
-            )}
 
-          </>
+                <div className="ml-2">
+                  <p>Confirmação do item:</p>
+                  <label className="label cursor-pointer justify-start w-1/3">
+                    <input
+                      type="checkbox"
+                      className="toggle toggle-primary"
+                      checked={false}
+                      // onChange={() => setPurchase({...purchase, customerMsg: !purchase.customerMsg})}
+                    />
+                    <span className="label-text pl-4">Operador foi informado?</span>
+                  </label>
+                  <label className="label cursor-pointer justify-start w-1/3">
+                    <input
+                      type="checkbox"
+                      className="toggle toggle-primary"
+                      checked={false}
+                      // onChange={() => setPurchase({...purchase, customerMsg: !purchase.customerMsg})}
+                    />
+                    <span className="label-text pl-4">Operador confirmou a reserva?</span>
+                  </label>
+                  </div>
+              </div>
+            )}
+            <div>
+              <p>Confirmações da compra (operadores):</p>
+              <label className="label cursor-pointer justify-start">
+                <input
+                  type="checkbox"
+                  className="toggle toggle-primary"
+                  checked={purchase.operatorsMsg}
+                  onChange={() => setPurchase({...purchase, operatorsMsg: !purchase.operatorsMsg})}
+                />
+                <span className="label-text pl-4">Todos os operadores foram informados?</span>
+              </label>
+              <label className="label cursor-pointer justify-start">
+                <input
+                  type="checkbox"
+                  className="toggle toggle-primary"
+                  checked={purchase.operatorsConfirmed}
+                  onChange={() => setPurchase({...purchase, operatorsConfirmed: !purchase.operatorsConfirmed})}
+                />
+                <span className="label-text pl-4">Todos os operadores confirmaram a reserva?</span>
+              </label>
+            </div>
+          </div>
         )}
 
 
         {tab === 3 && (
-          <>
+          <div className="mb-14">
             <div className="w-full">
               <p className="font-bold pb-2">Parceiro WhatsApp:</p>
             </div>
-
-            <div className="border p-2 mb-14">
-              <p>
-                Olá, {"nome_do_parceiro"}, nova reserva(s) da totem *Totem Tour*!
-                <br /><br />
-                {purchaseItems.map((item) => 
-                  <>
-                    ✅ *Passeio:* ...<br />
-                    - *Qtd.:* {item.qty} pessoa(s)<br />
-                    - *Data da compra:* {dayjs(item.timestamp).locale('pt-br').format('DD/MM/YYYY HH:mm')}<br />
-                    - *Comissão:* R$ {item.partnerComm},00<br />
-                  </>
-                )}
-                <br />
-                Número da venda Totem Tour: {purchase.id}
-              </p>
+            <div className="border p-2 bg-gray-100">
+              <div className="border p-2 ml-2 bg-white">
+                <p>
+                  Olá, {"nome_do_parceiro"}, nova reserva(s) da totem *Totem Tour*!
+                  <br /><br />
+                  {purchaseItems.map((item) => 
+                    <>
+                      ✅ *Passeio:* ...<br />
+                      - *Qtd.:* {item.qty} pessoa(s)<br />
+                      - *Data da compra:* {dayjs(item.timestamp).locale('pt-br').format('DD/MM/YYYY HH:mm')}<br />
+                      - *Comissão:* R$ {item.partnerComm},00<br />
+                    </>
+                  )}
+                  <br />
+                  Número da venda Totem Tour: {purchase.id}
+                </p>
+              </div>
             </div>
-          </>
+
+            <div>
+              <p>Confirmações da compra (parceiro):</p>
+              <label className="label cursor-pointer justify-start w-1/3">
+                <input
+                  type="checkbox"
+                  className="toggle toggle-primary"
+                  checked={purchase.partnerMsg}
+                  onChange={() => setPurchase({...purchase, partnerMsg: !purchase.partnerMsg})}
+                />
+                <span className="label-text pl-4">Parceiro foi informado?</span>
+              </label>
+            </div>
+
+
+          </div>
         )}
         <hr />
         <p>Criado em: {dayjs(purchase.timestamp).format('DD/MM/YYYY - HH:mm:ss')}</p>
@@ -268,13 +367,13 @@ export default function AddEditPurchasePage() {
       <div className="flex justify-end">
         <button
           className="btn"
-          // disabled={isCancelDisabled}
+          disabled={isCancelDisabled}
           onClick={handleCancel}
         >
           Cancelar
         </button>
         <button
-          // disabled={isSaveDisabled}
+          disabled={isSaveDisabled}
           className="btn btn-primary ml-4"
           onClick={handleSave}
         >
