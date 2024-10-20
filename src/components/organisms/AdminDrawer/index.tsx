@@ -22,10 +22,10 @@ export default function AdminDrawer({
 
         <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
           {/* Sidebar content here */}
-          <li><Link to="/admin">Dashboard</Link></li>
+          <li><Link to="/admin/">Compras</Link></li>
+          <li><Link to="/admin/dashboard">Dashboard</Link></li>
           <li><Link to="/admin/availabilities">Disponibilidades</Link></li>
           <li><Link to="/admin/products">Produtos</Link></li>
-          <li><Link to="/admin/purchases">Compras</Link></li>
           <li><Link to="/admin/cities">Cidades</Link></li>
           <li><Link to="/admin/pos">POS</Link></li>
           <li><Link to="/admin/totems">Totens</Link></li>

@@ -64,6 +64,10 @@ export const rawRoutes = [
     children: [
       {
         index: true,
+        element: <PurchasesPage />,
+      },
+      {
+        path: '/admin/dashboard',
         element: <DashboardPage />,
       },
       {
@@ -82,10 +86,7 @@ export const rawRoutes = [
         path: '/admin/products/add',
         element: <AddEditProductPage   />,
       },
-      {
-        path: '/admin/purchases',
-        element: <PurchasesPage />,
-      },
+
       {
         path: '/admin/purchases/:id',
         element: <AddEditPurchasePage />,
