@@ -19,7 +19,7 @@ export default function PurchaseItemsPage() {
     <div>
       <p>Dashboard</p>
       <Table
-        tableName="Vendas"
+        tableName="Próximos passeios"
         tableHeader={tableHeader}
         tableFetch={getAdminPurchaseItens}
       />

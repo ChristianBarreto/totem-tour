@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { PurchaseItem } from "../../../../api/purchaseitems/types";
+import { PurchaseItemResp } from "../../../../api/purchaseitems/types";
 import { editPurchaseById, getPurchaseById } from "../../../../api/purchases/api";
 import { getPurchaseItensByPurchaseId } from "../../../../api/purchaseitems/api";
 import { PurchaseResp } from "../../../../api/purchases/types";
@@ -31,7 +31,7 @@ const initPurchase: PurchaseResp = {
 export default function AddEditPurchasePage() {
   const { id } = useParams();
   const [purchase, setPurchase] = useState<PurchaseResp>(initPurchase);
-  const [purchaseItems, setPurchaseItems] = useState<PurchaseItem[]>([]);
+  const [purchaseItems, setPurchaseItems] = useState<PurchaseItemResp[]>([]);
   const [tab, setTab] = useState(0);
 
   const purchaseRef = useRef(initPurchase);
@@ -178,8 +178,8 @@ export default function AddEditPurchasePage() {
                 <tbody>
                 {purchaseItems?.map((item) => (
                   <tr key={item.id} className="hover">
-                    <td></td>
-                    <td></td>
+                    <td>{item.productName}</td>
+                    <td>{item.cityName}</td>
                     <td>{dayjs(item.date).locale('pt-br').format('DD/MM/YYYY')}</td>
                     <td></td>
                     <td>R$ {item.netPrice},00</td>
@@ -208,16 +208,17 @@ export default function AddEditPurchasePage() {
                   <br /><br />
                   {purchaseItems.map((item) => 
                     <>
-                      ✅ *Passeio:* ...<br />
+                      ✅ *Passeio:* {item.productName}<br />
                       - 😎 *Qtd.:* {item.qty} pessoa(s)<br />
                       - 📅 *Data:* {dayjs(item.date).locale('pt-br').format('DD/MM/YYYY')}<br />
                       - 🕑 *Hora:* ... *Duração:* ...<br />
-                      - *Obs.:* ---alignMessage---<br />
-                      - 🌴 *Cidade:* ...<br />
-                      - 🗺️ *Local:* ...<br />
-                      - 📍 *Localização:* ...<br />
-                      - 🏪 *Nome da agência:* ...<br />
-                      - 📞 *Telefoneda agência:* ...<br />
+                      - *Obs.:* {item.productAlignMessage}<br />
+                      - 🌴 *Cidade:* {item.cityName}<br />
+                      - 🗺️ *Local:* {item.productAddres}<br />
+                      - 📍 *Localização:* {item.productLocation}<br />
+                      - 🏪 *Nome da agência:* {item.productOperatorName}<br />
+                      - 📞 *Telefone da agência:* {item.productOperatorPhone}<br />
+                      <br />
                     </>
                   )}
                   <br />
@@ -254,16 +255,16 @@ export default function AddEditPurchasePage() {
                 <p className="pb-2">{index+1}- {'item.operatorName'}:</p>
                 <div className="border p-2 ml-4 bg-white ">
                   <p>
-                    Olá, {"item.operatorName"}! Nova reserva da *Totem Tour*!
+                    Olá, {item.productOperatorName}! Nova reserva da *Totem Tour*!
                     <br /><br />
                     <>
-                      ✅ *Passeio:* ...<br />
+                      ✅ *Passeio:* {item.productName}<br />
                       - *Qtd.:* {item.qty} pessoa(s)<br />
                       - *Data:* {dayjs(item.date).locale('pt-br').format('DD/MM/YYYY')}<br />
                       - *Hora:* ...<br />
-                      - *Nome do resp. da reserva:* ...<br />
-                      - *Telefone:* ...<br />
-                      - *E-mail:* ...<br />
+                      - *Nome do resp. da reserva:* {item.customerName}<br />
+                      - *Telefone:*  {item.customerPhone}<br />
+                      - *E-mail:*  {item.customerEmail}<br />
                       - *Preço neto:* R$ {item.netPrice},00<br />
                     </>
                     <br />
@@ -330,11 +331,11 @@ export default function AddEditPurchasePage() {
             <div className="border p-2 bg-gray-100">
               <div className="border p-2 ml-2 bg-white">
                 <p>
-                  Olá, {"nome_do_parceiro"}, nova reserva(s) da totem *Totem Tour*!
+                  Olá, {purchase.totemResponsiblePerson}, nova reserva(s) da *Totem Tour*!
                   <br /><br />
                   {purchaseItems.map((item) => 
                     <>
-                      ✅ *Passeio:* ...<br />
+                      ✅ *Passeio:* {item.productName}<br />
                       - *Qtd.:* {item.qty} pessoa(s)<br />
                       - *Data da compra:* {dayjs(item.timestamp).locale('pt-br').format('DD/MM/YYYY HH:mm')}<br />
                       - *Comissão:* R$ {item.partnerComm},00<br />

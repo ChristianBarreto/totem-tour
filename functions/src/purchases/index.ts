@@ -11,8 +11,8 @@ export const getPurchases = async (req: Request, res: Response) => {
     resp.push({
       ...purchase,
       totemNickName: totem.nickName,
-      totemLocationDescription: totem.totemLocationDescription,
-      totemResponsiblePerson: totem.totemResponsiblePerson,
+      totemLocationDescription: totem.locationDescription,
+      totemResponsiblePerson: totem.responsiblePerson,
     })
 
     index === purchases.length -1 && res.status(200).json(resp) 
@@ -25,6 +25,8 @@ export const getPurchaseById = async (req: Request, res: Response) => {
   res.json({
     ...purchase,
     totemNickName: totem.nickName,
+    totemLocationDescription: totem.locationDescription,
+    totemResponsiblePerson: totem.responsiblePerson,
   })
 }
 

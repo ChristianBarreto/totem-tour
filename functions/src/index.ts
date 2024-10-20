@@ -14,6 +14,7 @@ import { MercadoPagoConfig, Payment, Point } from 'mercadopago';
 import { PointGetDevicesData } from "mercadopago/dist/clients/point/getDevices/types";
 import { GetPaymentIntentListResponse } from "mercadopago/dist/clients/point/commonTypes";
 import { editPurchaseById, getPurchaseById, getPurchases } from "./purchases";
+import { getNextPurchaseItems, getPurchaseItemByPurchaseId } from "./purchaseItems";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -65,14 +66,29 @@ const db = getFirestore();
 
 export async function getDbItems(dbName: string, params?: any): Promise<any[]> {
   // console.log(qs.parse(params)) TODO: implementation of query params
-  const purchaseItensRef = await db.collection(dbName).get();
+  const itemsRef = await db.collection(dbName).get();
 
   const data: any[] = [];
-  purchaseItensRef?.forEach((doc: any, index: number, array: any) => {
+  itemsRef?.forEach((doc: any, index: number, array: any) => {
     data.push({id: doc.id, ...doc.data()})
   });
 
   return data;
+}
+
+export async function getDbItemsByParentId(dbName: string, id: string, params?: any): Promise<any[]> {
+  // console.log(qs.parse(params)) TODO: implementation of query params
+  const snapshot = await db.collection("purchaseItems")
+  .where('purchaseId', '==', id)
+  .orderBy("date", 'asc')
+  .get();
+
+  const data: any[] = [];
+
+  snapshot.forEach((doc: any) => {
+    data.push({id: doc.id, ...doc.data()});
+  });
+  return (data);
 }
 
 export async function getDbItem(dbName: string, id: string) {
@@ -285,35 +301,8 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
   res.send({ status: 'ok', purchaseId: purchaseDb.id })
 });
 
-app.get("/sales", async (req: Request, res: Response) => {
-  const today = dayjs().format('YYYY-MM-DD');
-  const snapshot = await db.collection("purchaseItems")
-    .where("date", ">=", today)
-    .orderBy("date", 'asc')
-    .get();
-
-  const data: any[] = [];
-
-  snapshot.forEach((doc: any) => {
-    data.push({id: doc.id, ...doc.data()});
-  });
-  res.json(data);
-});
-
-app.get("/purchasePurchaseItens/:id", async (req: Request, res: Response) => {
-  const snapshot = await db.collection("purchaseItems")
-    .where('purchaseId', '==', req.params.id)
-    .orderBy("date", 'asc')
-    .get();
-
-  const data: any[] = [];
-
-  snapshot.forEach((doc: any) => {
-    data.push({id: doc.id, ...doc.data()});
-  });
-
-  res.json(data);
-});
+app.get("/next-items", async (req: Request, res: Response) => getNextPurchaseItems(req, res));
+app.get("/purchasePurchaseItens/:id", async (req: Request, res: Response) => getPurchaseItemByPurchaseId(req, res));
 
 app.get("/pos", async (req: Request, res: Response) => {
   const request = {

@@ -34,3 +34,19 @@ export type PurchaseItem = { // TODO: melhorar tipo do carrinho x tipo da compra
   timestamp: number,
 }
 
+type PurcahseItemSideData = {
+  cityName: string,
+  productName: string,
+  productAlignMessage: string,
+  productAddres: string,
+  productLocation: string,
+  productOperatorName: string,
+  productOperatorPhone: string,
+  productDuration: string
+  customerName: string,
+  customerPhone: string,
+  customerEmail: string,
+}
+
+export type PurchaseItemResp = PurchaseItem & PurcahseItemSideData;
+

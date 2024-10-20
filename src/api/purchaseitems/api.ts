@@ -7,6 +7,6 @@ export const getPurchaseItensByPurchaseId = async (id: string) => {
 }
 
 export const getAdminPurchaseItens = async () => {
-  const { data } = await axios.get(`${baseUrl}/sales/`, axiosParams);
+  const { data } = await axios.get(`${baseUrl}/next-items/`, axiosParams);
   return data;
 }
