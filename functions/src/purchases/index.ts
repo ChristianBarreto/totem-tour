@@ -22,11 +22,16 @@ export const getPurchases = async (req: Request, res: Response) => {
 export const getPurchaseById = async (req: Request, res: Response) => {
   const purchase = await getDbItem("purchases", req.params.id);
   const totem = await getDbItem("totens", purchase.totemId);
+  const customer = await getDbItem("customers", purchase.customerId);
+
   res.json({
     ...purchase,
     totemNickName: totem.nickName,
     totemLocationDescription: totem.locationDescription,
     totemResponsiblePerson: totem.responsiblePerson,
+    customerName: customer.name,
+    customerPhone: customer.phone,
+    customerEmail: customer.email,
   })
 }
 

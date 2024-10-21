@@ -15,7 +15,6 @@ export const getPurchaseItemByPurchaseId = async (req: Request, res: Response) =
   purchaseItems.forEach(async (purchaseItem, index) => {
     const city = await getDbItem("cities", purchaseItem.cityId);
     const product = await getDbItem("products", purchaseItem.productId);
-    const customer = await getDbItem("customers", purchaseItem.customerId);
 
     resp.push({
       ...purchaseItem,
@@ -28,9 +27,6 @@ export const getPurchaseItemByPurchaseId = async (req: Request, res: Response) =
       productLocation: product.location,
       productOperatorName: product.operatorName,
       productOperatorPhone: product.operatorPhone,
-      customerName: customer.name,
-      customerPhone: customer.phone,
-      customerEmail: customer.email,
     })
     index === purchaseItems.length -1 && res.status(200).json(resp);
   });

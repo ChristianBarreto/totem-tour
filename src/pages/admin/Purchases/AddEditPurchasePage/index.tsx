@@ -26,6 +26,9 @@ const initPurchase: PurchaseResp = {
   operatorsMsg: false,
   operatorsConfirmed: false,
   partnerMsg: false,
+  customerName: '',
+  customerPhone: '',
+  customerEmail: '',
 }
 
 export default function AddEditPurchasePage() {
@@ -196,12 +199,12 @@ export default function AddEditPurchasePage() {
 
         {tab === 1 && (
           <div className="mb-14">
-            <div className="w-full">
+            <div className="w-full mb-4">
               <p className="font-bold pb-2">Cliente WhatsApp:</p>
-              <p>Enviar menssagem para:</p>
+              <p><span className="font-bold">Enviar menssagem para:</span></p>
               {/* TODO: mudar customer data para purchase e não purchaseItems */}
-              <p><span>Nome:</span> {purchaseItems[0].customerName}</p> 
-              <p><span>Telefone:</span>  {purchaseItems[0].customerPhone}</p>
+              <p><span className="font-bold">Nome:</span> {purchase.customerName}</p> 
+              <p><span className="font-bold">Telefone:</span>  {purchase.customerPhone}</p>
             </div>
             <div className="p-2 pl-2 pb-14 border bg-gray-100">
               <div className="border ml-2 p-2 bg-white">
@@ -266,9 +269,9 @@ export default function AddEditPurchasePage() {
                       - *Qtd.:* {item.qty} pessoa(s)<br />
                       - *Data:* {dayjs(item.date).locale('pt-br').format('DD/MM/YYYY')}<br />
                       - *Hora:* {item.productTime}<br />
-                      - *Nome do resp. da reserva:* {item.customerName}<br />
-                      - *Telefone:*  {item.customerPhone}<br />
-                      - *E-mail:*  {item.customerEmail}<br />
+                      - *Nome do resp. da reserva:* {purchase.customerName}<br />
+                      - *Telefone:*  {purchase.customerPhone}<br />
+                      - *E-mail:*  {purchase.customerEmail}<br />
                       - *Preço neto:* R$ {item.netPrice},00<br />
                     </>
                     <br />

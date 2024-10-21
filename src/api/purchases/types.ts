@@ -24,6 +24,9 @@ type PurchaseSideData = {
   totemNickName: string
   totemLocationDescription: string
   totemResponsiblePerson: string
+  customerName: string,
+  customerPhone: string,
+  customerEmail: string,
 }
 
 export type PurchaseResp = Purchase & PurchaseSideData;

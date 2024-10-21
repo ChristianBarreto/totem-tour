@@ -44,9 +44,6 @@ type PurcahseItemSideData = {
   productLocation: string,
   productOperatorName: string,
   productOperatorPhone: string,
-  customerName: string,
-  customerPhone: string,
-  customerEmail: string,
 }
 
 export type PurchaseItemResp = PurchaseItem & PurcahseItemSideData;
