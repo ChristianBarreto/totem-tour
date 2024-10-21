@@ -89,7 +89,7 @@ export async function getDbItemsByParentId(dbName: string, id: string, params?: 
     data.push({id: doc.id, ...doc.data()});
   });
   return (data);
-}
+};
 
 export async function getDbItem(dbName: string, id: string) {
   const snapshot = await db.collection(dbName).doc(id).get();
@@ -282,6 +282,10 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
       paymentMethod,
       paymentValue,
       totemId,
+      customerMsg: false,
+      operatorsMsg: false,
+      operatorsConfirmed: false,
+      partnerMsg: false,
       timestamp: Date.now(),
     }); // TODO: quando login ficar pronto, informações do login e device ID
 
