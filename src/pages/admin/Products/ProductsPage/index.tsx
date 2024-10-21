@@ -39,6 +39,24 @@ const Light = () => {
   return <RedGreenLight value={value === "true" ? true : false} ref={ref} />
 }
 
+const Short = ({
+  size = 20,
+}: {
+  size?: number
+}) => {
+  const [value, setValue] = useState("");
+  const ref = useRef<HTMLDivElement>(null)
+  
+
+  useEffect(() => {
+    if (ref.current?.parentElement){
+      setValue(ref.current?.parentElement?.className);
+    }
+  }, []);
+
+  return <div ref={ref} className="tooltip" data-tip={value}>{value.slice(0, size)}{value && "..."}</div>
+}
+
 export default function ProductsPage() {
   const navigate = useNavigate()
   const handleClick = (productId: string) => {
@@ -47,8 +65,14 @@ export default function ProductsPage() {
 
   const tableHeader = [
     {name: "Nome", value: "name"},
-    {name: "Mostrar Display", value: "showDisplay", component: (<Light />)},
-    {name: "Disponível", value: "isAvailable", component: (<Light />)},
+    {name: "Local", value: "address", component: (<Short />)},
+    {name: "Localiz.", value: "location", component: (<Short />)},
+    {name: "Horário", value: "time", component: (<Short />)},
+    {name: "Duração", value: "duration"},
+    {name: "Nome op.", value: "operatorName", component: (<Short size={23} />)},
+    {name: "Tel. op.", value: "operatorPhone"},
+    {name: "Show", value: "showDisplay", component: (<Light />)},
+    {name: "Disp.", value: "isAvailable", component: (<Light />)},
     {name: "Opções", value: 'id', component: (<TableButton onClickEvent={(id) => handleClick(id)} />)}
   ]
 
