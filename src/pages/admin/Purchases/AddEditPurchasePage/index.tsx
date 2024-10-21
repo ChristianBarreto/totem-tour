@@ -211,7 +211,7 @@ export default function AddEditPurchasePage() {
                       ✅ *Passeio:* {item.productName}<br />
                       - 😎 *Qtd.:* {item.qty} pessoa(s)<br />
                       - 📅 *Data:* {dayjs(item.date).locale('pt-br').format('DD/MM/YYYY')}<br />
-                      - 🕑 *Hora:* ... *Duração:* ...<br />
+                      - 🕑 *Hora:* {item.productTime} *Duração:* {item.productDuration}<br />
                       - *Obs.:* {item.productAlignMessage}<br />
                       - 🌴 *Cidade:* {item.cityName}<br />
                       - 🗺️ *Local:* {item.productAddres}<br />
@@ -261,7 +261,7 @@ export default function AddEditPurchasePage() {
                       ✅ *Passeio:* {item.productName}<br />
                       - *Qtd.:* {item.qty} pessoa(s)<br />
                       - *Data:* {dayjs(item.date).locale('pt-br').format('DD/MM/YYYY')}<br />
-                      - *Hora:* ...<br />
+                      - *Hora:* {item.productTime}<br />
                       - *Nome do resp. da reserva:* {item.customerName}<br />
                       - *Telefone:*  {item.customerPhone}<br />
                       - *E-mail:*  {item.customerEmail}<br />
