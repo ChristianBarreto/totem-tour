@@ -1,8 +1,8 @@
 import { editDbItem, getDbItem, getDbItems } from "../index";
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 
 export const getPurchases = async (req: Request, res: Response) => {
-  const purchases =  await getDbItems("purchases");
+  const purchases = await getDbItems("purchases");
   const resp: any[] = [];
 
   purchases.forEach(async (purchase, index) => {
@@ -13,9 +13,9 @@ export const getPurchases = async (req: Request, res: Response) => {
       totemNickName: totem.nickName,
       totemLocationDescription: totem.locationDescription,
       totemResponsiblePerson: totem.responsiblePerson,
-    })
+    });
 
-    index === purchases.length -1 && res.status(200).json(resp) 
+    index === purchases.length -1 && res.status(200).json(resp);
   });
 };
 
@@ -32,10 +32,10 @@ export const getPurchaseById = async (req: Request, res: Response) => {
     customerName: customer.name,
     customerPhone: customer.phone,
     customerEmail: customer.email,
-  })
-}
+  });
+};
 
 export const editPurchaseById = async (req: Request, res: Response) => {
   const resp = await editDbItem("purchases", req.params.id, req.body);
   return res.json(resp);
-}
+};
