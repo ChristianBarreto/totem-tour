@@ -181,7 +181,7 @@ export default function AddEditPurchasePage() {
                     <td>{item.productName}</td>
                     <td>{item.cityName}</td>
                     <td>{dayjs(item.date).locale('pt-br').format('DD/MM/YYYY')}</td>
-                    <td></td>
+                    <td>{item.productTime}</td>
                     <td>R$ {item.netPrice},00</td>
                     <td>R$ {item.partnerComm},00</td>
                     <td>R$ {item.companyComm},00</td>
@@ -198,6 +198,10 @@ export default function AddEditPurchasePage() {
           <div className="mb-14">
             <div className="w-full">
               <p className="font-bold pb-2">Cliente WhatsApp:</p>
+              <p>Enviar menssagem para:</p>
+              {/* TODO: mudar customer data para purchase e não purchaseItems */}
+              <p><span>Nome:</span> {purchaseItems[0].customerName}</p> 
+              <p><span>Telefone:</span>  {purchaseItems[0].customerPhone}</p>
             </div>
             <div className="p-2 pl-2 pb-14 border bg-gray-100">
               <div className="border ml-2 p-2 bg-white">
@@ -212,7 +216,7 @@ export default function AddEditPurchasePage() {
                       - 😎 *Qtd.:* {item.qty} pessoa(s)<br />
                       - 📅 *Data:* {dayjs(item.date).locale('pt-br').format('DD/MM/YYYY')}<br />
                       - 🕑 *Hora:* {item.productTime} *Duração:* {item.productDuration}<br />
-                      - *Obs.:* {item.productAlignMessage}<br />
+                      - *Obs.:* ({item.productAlignMessage})<br />
                       - 🌴 *Cidade:* {item.cityName}<br />
                       - 🗺️ *Local:* {item.productAddres}<br />
                       - 📍 *Localização:* {item.productLocation}<br />

@@ -347,7 +347,7 @@ export default function AddEditProductPage() {
               <IsShownWhereBadge isShownDisplay isShownPurchase />
             </label>
 
-            <label className="form-control label-text pb-4">Mensagem para alinhamento após a reserva:
+            <label className="form-control label-text pb-4">Mensagem para alinhamento após a reserva (não usar parênteses):
               <input
                 type="text"
                 placeholder="Type here"

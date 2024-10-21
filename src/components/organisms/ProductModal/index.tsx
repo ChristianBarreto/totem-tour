@@ -125,7 +125,7 @@ export default function ProductModal({
                             <span className='font-bold'>Local: </span>
                             {cities.find((city) => city.id === product.cityId)?.name}
                           </p>
-                          <p className='text-neutral-400'>(você receberá a localização exata por Email/WhatsApp)</p>
+                          <p className='text-neutral-400'>(você receberá a localização exata por WhatsApp/Email)</p>
                         </div>
 
                         <div className='mb-4'>
@@ -133,7 +133,7 @@ export default function ProductModal({
                             <span className='font-bold'>Horário: </span>
                             {product.time}
                           </p>
-                          {product.alignMessage && <p className='text-neutral-400'>({product.alignMessage})</p>}
+                          <p className='text-neutral-400'>(horario será confirmado por WhatsApp/Email após a reserva)</p>
                         </div>
 
                         {product.duration && <p className='text-xl mb-4'>
