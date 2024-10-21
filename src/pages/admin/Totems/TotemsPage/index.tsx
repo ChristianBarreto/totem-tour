@@ -55,7 +55,7 @@ export default function TotemsPage() {
   }
 
   const tableHeader = [
-    {name: "#", value: "number"},
+    {name: "Totem", value: "nickName"},
     {name: "Estabelecimento", value: "locationDescription"},
     {name: "Responsável", value: "responsiblePerson"},
       {

@@ -64,7 +64,7 @@ const TableButton = ({
 
   return (
     <button className="btn btn-sm" onClick={handleClick} ref={buttonRef}>
-      Ver
+      Editar
     </button>
   )
 }
@@ -77,11 +77,12 @@ export default function PurchasesPage() {
   const tableHeader = [
     {name: "Data da compra", value: "timestamp", component: <DateTime /> },
     {name: "Valor", value: "paymentValue", component: <Value />},
+    {name: "Totem venda", value: "totemNickName"},
     {name: "Pagamento", value: "payementCaptured", component: <Light />},
     {name: "Msg cliente", value: "customerMsg", component: <Light />},
-    {name: "Msg op.", value: "operatorMsg", component: <Light />},
-    // {name: "Msg parceiro", value: "customerComm", component: <Light />},
-    {name: "Totem venda", value: "totemId"},
+    {name: "Msg ops.", value: "operatorsMsg", component: <Light />},
+    {name: "Msg parceiro", value: "partnerMsg", component: <Light />},
+    {name: "Ops. conf.", value: "operatorsConfirmed", component: <Light />},
     {name: "Actions", value: "id", component: (<TableButton onClickEvent={(id) => handleClick(id)} />)},
   ]
 
@@ -91,7 +92,7 @@ export default function PurchasesPage() {
       <Table
         tableName="Vendas"
         tableHeader={tableHeader}
-        tableFetch={getAdminPurchases}
+        tableFetch={() => getAdminPurchases({params: {timestamp: "asc", paymentCaptured: "asc"}})}
       />
     </div>
   )

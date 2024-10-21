@@ -64,7 +64,7 @@ export default function ProductsPage() {
       />
 
       <Table
-        tableName="Produtos teste"
+        tableName="⚠️Produtos teste"
         tableHeader={tableHeader}
         tableFetch={getProducts}
         filter={['===', 'isTest']}

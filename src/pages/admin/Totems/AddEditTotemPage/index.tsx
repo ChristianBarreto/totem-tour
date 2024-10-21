@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 
 const initTotem = {
   id: '',
-  number: 0,
+  nickName: "",
   locationDescription: '',
   responsiblePerson: '',
   posId: '',
@@ -29,7 +29,6 @@ export default function AddEditTotemPage() {
   
   useEffect(() => {
     let ignore = false;
-    console.log(isEditing)
     if (isEditing) {
       getTotemById(id as string).then((res) => {
         setTotem(res)
@@ -62,7 +61,6 @@ export default function AddEditTotemPage() {
   }
 
   const totemChanged = (prod1: Totem, prod2: Totem) => {
-    console.log(prod1, prod2)
     for (let i in prod1) {
       if (prod1[i as keyof Totem] !== prod2[i as keyof Totem]) {
         return true
@@ -76,7 +74,7 @@ export default function AddEditTotemPage() {
   
   return (
     <div>
-      <p className="text-2xl"><span className="font-bold">Adicionar ou editar totem #:</span> {totem.number}</p>
+      <p className="text-2xl"><span className="font-bold">Adicionar ou editar totem #:</span> {totem.nickName}</p>
       <p>ID: {totem.id}</p>
 
       <div className="flex flex-col pt-6">
@@ -119,19 +117,20 @@ export default function AddEditTotemPage() {
           <input
             type="text"
             placeholder="Type here"
-            className="input input-bordered w-full"
+            className="input input-bordered w-full bg-red-300"
             value={totem.posId}
             onChange={(e) => setTotem({...totem, posId: e.target.value})}
           />
+          <p className="text-red-500 pt-1"><span className="font-bold">CUIDADO!</span> Caso este código esteja errado, a cobrança da maquininha não será feita.</p>
         </label>
 
-        <label className="form-control label-text pb-4">Número seq totem:
+        <label className="form-control label-text pb-4">Apelido do totem:
           <input
-            type="number"
+            type="text"
             placeholder="Type here"
             className="input input-bordered w-full"
-            value={totem.number}
-            onChange={(e) => setTotem({...totem, number: Number(e.target.value)})}
+            value={totem.nickName}
+            onChange={(e) => setTotem({...totem, nickName: e.target.value})}
           />
         </label>
 

@@ -1,6 +1,6 @@
 export type Totem = {
   id: string,
-  number: number,
+  nickName: string,
   locationDescription: string,
   responsiblePerson: string,
   posId: string,

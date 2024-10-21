@@ -15,7 +15,7 @@ import { useCounter } from "../../../context/CounterContext";
 
 const initTotem = {
   id: '',
-  number: 0,
+  nickName: "",
   locationDescription: '',
   responsiblePerson: '',
   posId: '',

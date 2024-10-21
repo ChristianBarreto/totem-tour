@@ -5,17 +5,20 @@ const {initializeApp} = require("firebase-admin/app");
 const {getFirestore} = require("firebase-admin/firestore");
 const express = require("express");
 const dayjs = require('dayjs');
+// const qs = require('qs');
 var utc = require("dayjs/plugin/utc");
 const timezone = require("dayjs/plugin/timezone");
-import {Request, Response } from "express";
+import { Request, Response } from "express";
 import 'dotenv/config';
 import { MercadoPagoConfig, Payment, Point } from 'mercadopago';
 import { PointGetDevicesData } from "mercadopago/dist/clients/point/getDevices/types";
 import { GetPaymentIntentListResponse } from "mercadopago/dist/clients/point/commonTypes";
+import { editPurchaseById, getPurchaseById, getPurchases } from "./purchases";
+import { getNextPurchaseItems, getPurchaseItemByPurchaseId } from "./purchaseItems";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-const app = express();
+export const app = express();
 
 const envProduction = process.env.FUNCTIONS_EMULATOR !== 'true'
 
@@ -35,6 +38,22 @@ app.use(function(request: Request, response: Response, next: any) {
   next();
 });
 
+// TODO: this is an example of CORS usage
+// export const buildResponse = (request: Request, response: Response, data: any) => {
+
+// 	const allowedOrigins = ['http://localhost:3000/', 'https://power-design.firebaseapp.com'];
+//   const origin = request.headers.origin;
+//   if(origin && allowedOrigins.indexOf(origin) > -1){
+// 		response.setHeader('Access-Control-Allow-Origin', origin);
+// 	}
+
+// 	response.setHeader('Content-Type', 'application/json');
+//   response.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+//   response.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+// 	response.send(data);
+
+// }
+
 const OnlineClient = new MercadoPagoConfig({
   accessToken: mpApiKey as string,
 });
@@ -45,14 +64,40 @@ const point = new Point(OnlineClient);
 initializeApp();
 const db = getFirestore();
 
-async function getDbItem(dbName: string, id: string) {
+export async function getDbItems(dbName: string, params?: any): Promise<any[]> {
+  // console.log(qs.parse(params)) TODO: implementation of query params
+  const itemsRef = await db.collection(dbName).get();
+
+  const data: any[] = [];
+  itemsRef?.forEach((doc: any, index: number, array: any) => {
+    data.push({id: doc.id, ...doc.data()})
+  });
+
+  return data;
+}
+
+export async function getDbItemsByParentId(dbName: string, id: string, params?: any): Promise<any[]> {
+  // console.log(qs.parse(params)) TODO: implementation of query params
+  const snapshot = await db.collection("purchaseItems")
+  .where('purchaseId', '==', id)
+  .orderBy("date", 'asc')
+  .get();
+
+  const data: any[] = [];
+
+  snapshot.forEach((doc: any) => {
+    data.push({id: doc.id, ...doc.data()});
+  });
+  return (data);
+}
+
+export async function getDbItem(dbName: string, id: string) {
   const snapshot = await db.collection(dbName).doc(id).get();
   return {id: snapshot.id, ...snapshot.data()};
 }
 
-async function editDbItem(dbName: string, id: string, data: any) {
+export async function editDbItem(dbName: string, id: string, data: any) {
   delete data['id']
-  console.log(data)
   const snapshot = await db.collection(dbName).doc(id).set({
     ...data,
     lastUpdated: Date.now(),
@@ -69,6 +114,7 @@ async function addDbItem(dbName: string, data: any) {
   });
   return {id: snapshot.id}
 }
+
 
 
 app.get("/products", async (req: Request, res: Response) => {
@@ -201,6 +247,10 @@ app.post("/verify-payment", async (req: Request, res: Response) => {
   
 });
 
+app.get("/purchases", async (req: Request, res: Response) => getPurchases(req, res));
+app.get("/purchases/:id", async (req: Request, res: Response) => getPurchaseById(req, res));
+app.put("/purchases/:id", async (req: Request, res: Response) => editPurchaseById(req, res));
+
 app.post("/set-purchase", async (req: Request, res: Response) => {
   const {
     acceptedTerms,
@@ -251,80 +301,8 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
   res.send({ status: 'ok', purchaseId: purchaseDb.id })
 });
 
-// async function getCustomerById(customerId: string) {
-//   const customer = await db.collection("customers").doc(customerId).get();
-//   return (customer.data())
-// }
-
-async function getDbItems(dbName: string) {
-  const purchaseItensRef = await db.collection(dbName).get();
-  const promise = new Promise((resolve, reject) => {
-    const data: any[] = [];
-    if (purchaseItensRef.size) {
-      purchaseItensRef?.forEach((doc: any, index: number, array: any) => {
-        data.push({id: doc.id, ...doc.data()})
-        resolve(data);
-      });
-    } else {
-      reject([])
-    }
-
-  })
-
-  return promise.then((res) => {
-    return res;
-  }).catch((err) => {
-    return err
-  })
-}
-
-app.get("/sales", async (req: Request, res: Response) => {
-  const today = dayjs().format('YYYY-MM-DD');
-  const snapshot = await db.collection("purchaseItems")
-    .where("date", ">=", today)
-    .orderBy("date", 'asc')
-    .get();
-
-  const data: any[] = [];
-
-  snapshot.forEach((doc: any) => {
-    data.push({id: doc.id, ...doc.data()});
-  });
-  res.json(data);
-});
-
-app.get("/purchases", async (req: Request, res: Response) => {
-  const snapshot = await db.collection("purchases")
-    .orderBy("timestamp", 'asc')
-    .get();
-
-  const data: any[] = [];
-
-  snapshot.forEach((doc: any) => {
-    data.push({id: doc.id, ...doc.data()});
-  });
-  res.json(await data);
-});
-
-app.get("/purchases/:id", async (req: Request, res: Response) => {
-  const purchase = await getDbItem("purchases", req.params.id)
-  res.json(purchase)
-});
-
-app.get("/purchasePurchaseItens/:id", async (req: Request, res: Response) => {
-  const snapshot = await db.collection("purchaseItems")
-    .where('purchaseId', '==', req.params.id)
-    .orderBy("date", 'asc')
-    .get();
-
-  const data: any[] = [];
-
-  snapshot.forEach((doc: any) => {
-    data.push({id: doc.id, ...doc.data()});
-  });
-
-  res.json(data);
-});
+app.get("/next-items", async (req: Request, res: Response) => getNextPurchaseItems(req, res));
+app.get("/purchasePurchaseItens/:id", async (req: Request, res: Response) => getPurchaseItemByPurchaseId(req, res));
 
 app.get("/pos", async (req: Request, res: Response) => {
   const request = {
