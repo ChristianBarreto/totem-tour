@@ -2,6 +2,8 @@ import Table from "../../../../components/organisms/Table";
 import { getTotems } from "../../../../api/totems/api";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getSlides } from "../../../../api/slides/api";
+import { RedGreenLight } from "../../../../components/atoms/RedGreenLight";
 
 
 const TableEditButton = ({
@@ -25,9 +27,9 @@ const TableEditButton = ({
   )
 }
 
-const ShowTests = () => {
+const Thumb = () => {
   const [value, setValue] = useState('');
-  const ref = useRef<HTMLSpanElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (ref.current?.parentElement ){
@@ -37,12 +39,30 @@ const ShowTests = () => {
 
 
   return (
-    <span ref={ref}>{value === "true" ? (
-      <p className="font-bold text-red-500">MOSTRAR!</p>
-    ): (
-      <p className="">Não mostrar</p>
-    )}</span>
+    <div className="flex items-center gap-3" ref={ref}>
+      <div className="avatar">
+        <div className="mask rounded h-20 w-20">
+          <img
+            src={value}
+            alt="Avatar Tailwind CSS Component" />
+        </div>
+      </div>
+    </div>
   )
+}
+
+const Light = () => {
+  const [value, setValue] = useState("");
+  const ref = useRef<HTMLDivElement>(null)
+  
+
+  useEffect(() => {
+    if (ref.current?.parentElement){
+      setValue(ref.current?.parentElement?.className);
+    }
+  }, []);
+
+  return <RedGreenLight value={value === "true" ? true : false} ref={ref} />
 }
 
 
@@ -55,16 +75,11 @@ export default function SlidesPage() {
   }
 
   const tableHeader = [
-    {name: "Totem", value: "nickName"},
-    {name: "Estabelecimento", value: "locationDescription"},
-    {name: "Responsável", value: "responsiblePerson"},
-      {
-      name: "Mostra testes",
-      value: 'showTestProduct',
-      component: (<>
-        <ShowTests />
-      </>)
-    },
+    {name: "Imagem", value: "img", component: <Thumb />},
+    {name: "Descrição", value: "description"},
+    {name: "Ordem", value: "order"},
+    {name: "Duração (s)",value: 'duration'},
+    {name: "Ativo",value: 'active', component: <Light />},
     {
       name: "Ações",
       value: 'id',
@@ -78,10 +93,10 @@ export default function SlidesPage() {
     <div className="">
       <p>Slides</p>
       <Table
-        tableName="Totems"
+        tableName="Slides"
         tableHeader={tableHeader}
-        tableFetch={getTotems}
-        sort="number"
+        tableFetch={getSlides}
+        sort="order"
       />
       <div className="p-4 flex justify-end">
         <button className="btn btn-primary" onClick={() => navigate('/admin/slides/add')}>Novo totem</button>

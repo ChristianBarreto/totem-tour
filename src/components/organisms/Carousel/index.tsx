@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom";
 import { getSlides } from "../../../api/slides/api";
-import { Slides } from "../../../api/slides/types";
+import { SlideResp, Slides } from "../../../api/slides/types";
 
 export default function HeroCarousel() {
   const fallBackImg = "https://firebasestorage.googleapis.com/v0/b/totem-tour.appspot.com/o/slides%2F0-fallback-slide-DO-NOT-DELETE.jpg?alt=media&token=52ef0826-7158-461e-b613-9811e42716a5";
@@ -15,16 +15,16 @@ export default function HeroCarousel() {
   useEffect(() => {
     
     getSlides().then((res) => {
-      setCarouselItems(res)
+      setCarouselItems(res.filter(((slide: SlideResp) => slide.active)))
       carouselRef.current = carouselItens;
     }).catch(() => {
       setCarouselItems([])
     })
-  }, [])
+  }, []);
 
   const defineNextIndex = () => {
     return slideIndex === carouselItens.length-1 ? 0 : slideIndex + 1
-  }
+  };
 
   useEffect(() => {
     const interval = carouselItens[slideIndex]?.duration * 1000;

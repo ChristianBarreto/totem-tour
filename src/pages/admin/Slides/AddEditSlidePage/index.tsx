@@ -3,36 +3,37 @@ import { Totem } from "../../../../api/totems/types";
 import { addTotem, editTotemById, getTotemById } from "../../../../api/totems/api";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
+import { SlideResp } from "../../../../api/slides/types";
+import { addSlide, editSlide, getSlide } from "../../../../api/slides/api";
 
-const initTotem = {
+const initSlide: SlideResp = {
   id: '',
-  nickName: "",
-  locationDescription: '',
-  responsiblePerson: '',
-  posId: '',
-  cityOrder: '',
-  showTestProduct: false,
-  lastUpdated: '',
-  timestamp: '',
-}
+  img: '',
+  description: '',
+  active: false,
+  order: 0,
+  duration: 0,
+  lastUpdated: 0,
+  timestamp: 0,
+};
 
 export default function AddEditSlidePage() {
   const { id } = useParams();
-  const [totem, setTotem] = useState<Totem>(initTotem);
+  const [slide, setSlide] = useState<SlideResp>(initSlide);
 
-  const totemRef = useRef(initTotem);
+  const slideRef = useRef(initSlide);
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isEditing = (location.pathname !== '/admin/totems/add')
+  const isEditing = (location.pathname !== '/admin/slides/add')
   
   useEffect(() => {
     let ignore = false;
     if (isEditing) {
-      getTotemById(id as string).then((res) => {
-        setTotem(res)
-        totemRef.current = res
+      getSlide(id as string).then((res) => {
+        setSlide(res)
+        slideRef.current = res
       }).catch((err) => {
         console.log("Err", err)
       })
@@ -44,110 +45,106 @@ export default function AddEditSlidePage() {
   }, []);
 
   const handleCancel = () => {
-    setTotem(totemRef.current)
+    setSlide(slideRef.current)
   }
  
   const handleSave = () => {
-    if (isEditing) {
-      editTotemById(totem).then((res) => {
-        navigate('/admin/totems')
+    if (isEditing && id) {
+      editSlide(id, slide).then((res) => {
+        navigate('/admin/slides')
       })
     } else {
-      addTotem(totem).then((res) => {
-        navigate('/admin/totems')
+      addSlide(slide).then((res) => {
+        navigate('/admin/slides')
       })
     }
 
   }
 
-  const totemChanged = (prod1: Totem, prod2: Totem) => {
-    for (let i in prod1) {
-      if (prod1[i as keyof Totem] !== prod2[i as keyof Totem]) {
+  const slideChanged = (slide1: SlideResp, slide2: SlideResp) => {
+    for (let i in slide1) {
+      if (slide1[i as keyof SlideResp] !== slide2[i as keyof SlideResp]) {
         return true
       }
     }
     return false
   }
 
-  const isCancelDisabled = !totemChanged(totem, totemRef.current)
-  const isSaveDisabled = !totemChanged(totem, totemRef.current);
+  const isCancelDisabled = !slideChanged(slide, slideRef.current)
+  const isSaveDisabled = !slideChanged(slide, slideRef.current);
   
   return (
     <div>
-      <p className="text-2xl"><span className="font-bold">Adicionar ou editar slide #:</span> {totem.nickName}</p>
-      <p>ID: {totem.id}</p>
+      <p className="text-2xl"><span className="font-bold">Adicionar ou editar slide #:</span> {slide.description}</p>
+      <p>ID: {slide.id}</p>
 
       <div className="flex flex-col pt-6">
+
+      <div className="flex items-center gap-3 mr-auto ml-auto">
+        <div className="avatar">
+          <div className="mask rounded h-80 w-80">
+            <img
+              src={slide.img}
+              alt="Avatar Tailwind CSS Component" />
+          </div>
+        </div>
+      </div>
 
         <div className="form-control pb-4">
           <label className="label cursor-pointer justify-start w-1/3">
             <input
               type="checkbox"
-              className={`toggle toggle-accent ${totem.showTestProduct && "bg-red-500"}`}
-              checked={totem.showTestProduct}
-              onChange={() => setTotem({...totem, showTestProduct: !totem.showTestProduct})}
+              className={`toggle toggle-primary`}
+              checked={slide.active}
+              onChange={() => setSlide({...slide, active: !slide.active})}
             />
-            <span className={`label-text pl-4 ${totem.showTestProduct && "text-red-500 font-bold"}`}>Mostra produtos de teste</span>
+            <span className={`label-text pl-4 mr-2`}> Slide ativo</span>
           </label>
         </div>
 
+        <label className="form-control label-text pb-4">Ordem:
+          <input
+            type="number"
+            placeholder="Type here"
+            className="input input-bordered w-40"
+            value={slide.order}
+            onChange={(e) => setSlide({...slide, order: Number(e.target.value)})}
+          />
+        </label>
 
+        <label className="form-control label-text pb-4">Duração (s):
+          <input
+            type="number"
+            placeholder="Type here"
+            className="input input-bordered w-40"
+            value={slide.duration}
+            onChange={(e) => setSlide({...slide, duration: Number(e.target.value)})}
+          />
+        </label>
 
-        <label className="form-control label-text pb-4">Estabelecimento:
+        <label className="form-control label-text pb-4">Descrição:
           <input
             type="text"
             placeholder="Type here"
             className="input input-bordered w-full"
-            value={totem.locationDescription}
-            onChange={(e) => setTotem({...totem, locationDescription: e.target.value})}
+            value={slide.description}
+            onChange={(e) => setSlide({...slide, description: e.target.value})}
           />
         </label>
 
-        <label className="form-control label-text pb-4">Responsável:
+        <label className="form-control label-text pb-4">URL da imagem:
           <input
             type="text"
             placeholder="Type here"
             className="input input-bordered w-full"
-            value={totem.responsiblePerson}
-            onChange={(e) => setTotem({...totem, responsiblePerson: e.target.value})}
+            value={slide.img}
+            onChange={(e) => setSlide({...slide, img: e.target.value})}
           />
         </label>
-
-        <label className="form-control label-text pb-4">POS ID:
-          <input
-            type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full bg-red-300"
-            value={totem.posId}
-            onChange={(e) => setTotem({...totem, posId: e.target.value})}
-          />
-          <p className="text-red-500 pt-1"><span className="font-bold">CUIDADO!</span> Caso este código esteja errado, a cobrança da maquininha não será feita.</p>
-        </label>
-
-        <label className="form-control label-text pb-4">Apelido do totem:
-          <input
-            type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full"
-            value={totem.nickName}
-            onChange={(e) => setTotem({...totem, nickName: e.target.value})}
-          />
-        </label>
-
-        <label className="form-control label-text pb-4">Ordem das cidades mostradas:
-          <input
-            type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full"
-            value={totem.cityOrder}
-            onChange={(e) => setTotem({...totem, cityOrder: e.target.value})}
-          />
-        </label>
-
 
         <hr />
         {/* <p>Created on: {dayjs(product.timestamp).format('DD/MM/YYYY - HH:mm:ss')}</p> */}
-        <p>Last updated: {dayjs(totem.lastUpdated).format('DD/MM/YYYY - HH:mm:ss')}</p>
+        <p>Last updated: {dayjs(slide.lastUpdated).format('DD/MM/YYYY - HH:mm:ss')}</p>
       </div>
 
       <div className="flex justify-end">
