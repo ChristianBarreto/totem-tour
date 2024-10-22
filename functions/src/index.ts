@@ -288,7 +288,7 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
     .add({
       customerId: customerDb.id,
       acceptedTerms,
-      cartPrice,
+      cartPrice, // TODO: RECEBER TOTAL NETO, TOTAL PARTNER COMM e TOTAL TOTEM TOUR COMM
       payementCaptured,
       paymentId,
       paymentMethod,
@@ -306,8 +306,8 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
   
   products.forEach((item: any) => { // TODO: replace all 'any's
     purchaseItensDb.add({
-      ...item,
-      purchaseId: purchaseDb.id,
+      ...item, // TODO: RECEBER NETO, PARTNER COMM e TOTEM TOUR COMM DE CADA ITEM
+      purchaseId: purchaseDb.id, 
       customerId: customerDb.id,
       totemId,
       timestamp: Date.now(),

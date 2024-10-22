@@ -9,6 +9,9 @@ type ACTIONTYPE =
 
 const initialPurchase = {
   cartPrice: 0,
+  totalNetPrice: 0,
+  totalPartnerComm: 0,
+  totalCompanyComm: 0,
   products: [],
   customerData: {name: '', email: '', phone: ''},
   paymentId: '',
@@ -27,7 +30,7 @@ export function CartProvider({
   children: ReactNode
 }) {
   const [cart, dispatch] = useReducer<Reducer<NewPurchase, ACTIONTYPE>>(cartReducer, initialPurchase);
-
+  console.log(cart)
   return (
     <CartContext.Provider value={[cart, dispatch]}>
       {children}
@@ -45,6 +48,9 @@ function cartReducer(cart: NewPurchase, action: ACTIONTYPE): NewPurchase {
       return {
         ...cart,
         cartPrice: cart.cartPrice + action.product.totalPrice,
+        totalNetPrice: cart.totalNetPrice + action.product.netPrice,
+        totalPartnerComm: cart.totalPartnerComm + action.product.partnerComm,
+        totalCompanyComm: cart.totalCompanyComm + action.product.companyComm,
         products: [...cart.products, action.product]
       }
     }
@@ -52,6 +58,9 @@ function cartReducer(cart: NewPurchase, action: ACTIONTYPE): NewPurchase {
       return {
         ...cart,
         cartPrice: cart.cartPrice - action.product.totalPrice,
+        totalNetPrice: cart.totalNetPrice - action.product.netPrice,
+        totalPartnerComm: cart.totalPartnerComm - action.product.partnerComm,
+        totalCompanyComm: cart.totalCompanyComm - action.product.companyComm,
         products: cart.products.filter((p, index) => index !== action.index)
       }
     }

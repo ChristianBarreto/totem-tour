@@ -18,6 +18,9 @@ import PaymentCanceled from "../PaymentCanceled";
 
 const initNewPurchase: NewPurchase = {
   cartPrice: 0,
+  totalNetPrice: 0,
+  totalPartnerComm: 0,
+  totalCompanyComm: 0,
   products: [] as CartItemType[],
   customerData: {} as Customer,
   paymentId: '',

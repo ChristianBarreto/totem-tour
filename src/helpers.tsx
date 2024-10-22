@@ -102,17 +102,11 @@ export const priceTypes: PriceType[] = [
   {type: "defined-value", description: "Valor pré-definido"},
 ];
 
-const calcSingleValue = (netPrice: number, partnerComm: number, companyComm: number) => {
-  return (netPrice + partnerComm + companyComm)
-}
-
-const calcVariableValue = (qty: number, netPrice: number, partnerComm: number, companyComm: number) => {
-  const unitPrice = netPrice + partnerComm + companyComm;
-  return (qty * unitPrice);
-}
-
-const calcDefinedValue = (
+type ProductPricesQty = {
   qty: number,
+  netPrice: number,
+  partnerComm: number,
+  companyComm: number,
   netPrice1: number,
   partnerComm1: number,
   companyComm1: number,
@@ -125,55 +119,144 @@ const calcDefinedValue = (
   netPrice4: number,
   partnerComm4: number,
   companyComm4: number,
-) => {
+}
+
+type CalcPrices = {
+  price: number,
+  netPrice: number,
+  partnerComm: number,
+  companyComm: number,
+}
+
+const getProductPricesQty = (qty: number, product: Product): ProductPricesQty => ({
+  qty,
+  netPrice: product.netPrice,
+  partnerComm: product.partnerComm,
+  companyComm: product.companyComm,
+  netPrice1: product.netPrice1,
+  partnerComm1: product.partnerComm1,
+  companyComm1: product.companyComm1,
+  netPrice2: product.netPrice2,
+  partnerComm2: product.partnerComm2,
+  companyComm2: product.companyComm2,
+  netPrice3: product.netPrice3,
+  partnerComm3: product.partnerComm3,
+  companyComm3: product.companyComm3,
+  netPrice4: product.netPrice4,
+  partnerComm4: product.partnerComm4,
+  companyComm4: product.companyComm4,
+})
+
+const calcSingleValue = (qtyPrices: ProductPricesQty): CalcPrices => {
+  const {netPrice, partnerComm, companyComm } = qtyPrices;
+  return {
+    price: netPrice + partnerComm + companyComm,
+    netPrice: netPrice,
+    partnerComm: partnerComm,
+    companyComm: companyComm,
+  }
+}
+
+const calcVariableValue = (qtyPrices: ProductPricesQty): CalcPrices => {
+  const {qty, netPrice, partnerComm, companyComm} = qtyPrices;
+  const unitPrice = netPrice + partnerComm + companyComm;
+  return {
+    price: qty * unitPrice,
+    netPrice: qty * netPrice,
+    partnerComm: qty * partnerComm,
+    companyComm: qty * companyComm,
+  };
+}
+
+const calcDefinedValue = (qtyPrices: ProductPricesQty): CalcPrices => {
+  const {
+    qty,
+    netPrice1,
+    partnerComm1,
+    companyComm1,
+    netPrice2,
+    partnerComm2,
+    companyComm2,
+    netPrice3,
+    partnerComm3,
+    companyComm3,
+    netPrice4,
+    partnerComm4,
+    companyComm4,
+  } = qtyPrices;
+
   if (qty === 1) {
-    return netPrice1 + partnerComm1 + companyComm1;
+    return {
+      price: netPrice1 + partnerComm1 + companyComm1,
+      netPrice: netPrice1,
+      partnerComm: partnerComm1,
+      companyComm: companyComm1,
+    };
   }
   if (qty === 2) {
-    return netPrice2 + partnerComm2 + companyComm2;
+    return {
+      price: netPrice2 + partnerComm2 + companyComm2,
+      netPrice: netPrice2,
+      partnerComm: partnerComm2,
+      companyComm: companyComm2,
+    };
   }
   if (qty === 3) {
-    return netPrice3 + partnerComm3 + companyComm3;
+    return {
+      price: netPrice3 + partnerComm3 + companyComm3,
+      netPrice: netPrice3,
+      partnerComm: partnerComm3,
+      companyComm: companyComm3,
+    };
   }
   if (qty === 4) {
-    return netPrice4 + partnerComm4 + companyComm4;
+    return {
+      price: netPrice4 + partnerComm4 + companyComm4,
+      netPrice: netPrice4,
+      partnerComm: partnerComm4,
+      companyComm: companyComm4,
+    };
   }
-  return 0;
+  return {
+    price: 0,
+    netPrice: 0,
+    partnerComm: 0,
+    companyComm: 0,
+  };
 }
-export const calcPrice = (qty: number, product: Product): number => {
+
+export const calcPrice = (qty: number, product: Product): CalcPrices => {
+  const productPricesQty: ProductPricesQty = getProductPricesQty(qty, product)
+
   if (qty < 1) {
-    return 0;
+    return {
+      price: 0,
+      netPrice: 0,
+      partnerComm: 0,
+      companyComm: 0,
+    };
   } 
 
   if (product.priceType === "single-value"){
-    return calcSingleValue(product.netPrice, product.partnerComm, product.companyComm)
+    return calcSingleValue(productPricesQty)
   }
 
   if (product.priceType === "variable-value") {
-    return calcVariableValue(qty, product.netPrice, product.partnerComm, product.companyComm)
+    return calcVariableValue(productPricesQty)
   }
 
   if (product.priceType === "defined-value") {
-    return calcDefinedValue(
-      qty,
-      product.netPrice1,
-      product.partnerComm1,
-      product.companyComm1,
-      product.netPrice2,
-      product.partnerComm2,
-      product.companyComm2,
-      product.netPrice3,
-      product.partnerComm3,
-      product.companyComm3,
-      product.netPrice4,
-      product.partnerComm4,
-      product.companyComm4,
-
-    )
+    return calcDefinedValue(productPricesQty);
   }
 
-  return 0;
+  return {
+    price: 0,
+    netPrice: 0,
+    partnerComm: 0,
+    companyComm: 0,
+  };
 };
+
 export const productCanBeDisplayed = (product: Product) => {
   if (
     (product.imgUrl?.length > 10) &&

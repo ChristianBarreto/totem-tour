@@ -48,14 +48,16 @@ export default function ProductModal({
     })
   }, [])
 
+  let { price, netPrice, partnerComm, companyComm } = calcPrice(qty, product);
+
   const handleAdd = () => {
     if (availability) {
       const currentProduct: CartItemType = {
         productId: product.id,
         qty: qty,
-        netPrice: product.netPrice,
-        partnerComm: product.partnerComm,
-        companyComm: product.companyComm,
+        netPrice: netPrice,
+        partnerComm: partnerComm,
+        companyComm: companyComm,
         pricePerPerson: product.pricePerPerson,
         minTotalPrice: product.minTotalPrice,
         totalPrice: price,
@@ -76,7 +78,6 @@ export default function ProductModal({
   }
 
   const qtySelectorDisable = qtySelectorDisabler(availability);
-  let price = calcPrice(qty, product);
   const addCartDisabled = qty === 0 || price === 0;
 
   return (
