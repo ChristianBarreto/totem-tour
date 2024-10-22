@@ -58,8 +58,6 @@ export default function ProductModal({
         netPrice: netPrice,
         partnerComm: partnerComm,
         companyComm: companyComm,
-        pricePerPerson: product.pricePerPerson,
-        minTotalPrice: product.minTotalPrice,
         totalPrice: price,
         date: availability?.date,
         time: '',
