@@ -1,5 +1,8 @@
 export type Slides = Array<{
-  img: string,
   id: string,
+  img: string,
   description: string,
+  active: boolean,
+  order: number,
+  duration: number,
 }>

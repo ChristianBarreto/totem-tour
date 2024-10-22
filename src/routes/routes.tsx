@@ -102,8 +102,16 @@ export const rawRoutes = [
         element: <PosPage />,
       },
       {
-        path: '/admin/totems',
+        path: '/admin/slides',
         element: <TotemsPage />,
+      },
+      {
+        path: '/admin/slides/:id',
+        element: <TotemsPage />,
+      },
+      {
+        path: '/admin/totems',
+        element: <AddEditTotemPage />,
       },
       {
         path: '/admin/totems/:id',
