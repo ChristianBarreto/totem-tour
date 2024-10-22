@@ -1,8 +1,9 @@
 /* eslint-disable */
 // const {logger} = require("firebase-functions");
-const {onRequest} = require("firebase-functions/v2/https");
+const { onRequest } = require("firebase-functions/v2/https");
 const {initializeApp} = require("firebase-admin/app");
-const {getFirestore} = require("firebase-admin/firestore");
+// import { getAnalytics } from "firebase/analytics";
+const { getFirestore } = require("firebase-admin/firestore");
 const express = require("express");
 const dayjs = require('dayjs');
 // const qs = require('qs');
@@ -19,6 +20,16 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 export const app = express();
+
+const firebaseConfig = {
+  apiKey: "AIzaSyABCz5FMFYj5HHfxsb0QArGtSMTsYUEorQ",
+  authDomain: "totem-tour.firebaseapp.com",
+  projectId: "totem-tour",
+  storageBucket: "totem-tour.appspot.com",
+  messagingSenderId: "335364335110",
+  appId: "1:335364335110:web:ba7dcfcad7b342a071c587",
+  measurementId: "G-MDGS5J1TP0"
+};
 
 const envProduction = process.env.FUNCTIONS_EMULATOR !== 'true'
 
@@ -61,7 +72,8 @@ const OnlineClient = new MercadoPagoConfig({
 const onlinePayment = new Payment(OnlineClient);
 const point = new Point(OnlineClient);
 
-initializeApp();
+initializeApp(firebaseConfig);
+// getAnalytics(app);
 const db = getFirestore();
 
 export async function getDbItems(dbName: string, params?: any): Promise<any[]> {
@@ -255,6 +267,9 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
   const {
     acceptedTerms,
     cartPrice,
+    totalNetPrice,
+    totalPartnerComm,
+    totalCompanyComm,    
     customerData,
     payementCaptured,
     paymentId,
@@ -277,6 +292,9 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
       customerId: customerDb.id,
       acceptedTerms,
       cartPrice,
+      totalNetPrice,
+      totalPartnerComm,
+      totalCompanyComm, 
       payementCaptured,
       paymentId,
       paymentMethod,
@@ -295,7 +313,7 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
   products.forEach((item: any) => { // TODO: replace all 'any's
     purchaseItensDb.add({
       ...item,
-      purchaseId: purchaseDb.id,
+      purchaseId: purchaseDb.id, 
       customerId: customerDb.id,
       totemId,
       timestamp: Date.now(),

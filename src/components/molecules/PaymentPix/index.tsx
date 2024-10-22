@@ -40,6 +40,9 @@ export default function PaymentPix({
   });
   const [purchase, setPurchase] = useState<NewPurchase>({
     cartPrice: 0,
+    totalNetPrice: 0,
+    totalPartnerComm: 0,
+    totalCompanyComm: 0,
     products: [],
     customerData: {
       name: '',
@@ -119,6 +122,9 @@ export default function PaymentPix({
               setPaymentStatus(status)
               setPurchase({
                 cartPrice: cart.cartPrice,
+                totalNetPrice: cart.totalNetPrice,
+                totalPartnerComm: cart.totalPartnerComm,
+                totalCompanyComm: cart.totalCompanyComm,
                 products: cart.products,
                 customerData: customerData,
                 paymentId: pix.paymentId,

@@ -6,8 +6,6 @@ export type MpPurchaseItem = {
   netPrice: number,
   partnerComm: number,
   companyComm: number,
-  pricePerPerson: number,
-  minTotalPrice: number,
   totalPrice: number,
   date: string,
   time: string,

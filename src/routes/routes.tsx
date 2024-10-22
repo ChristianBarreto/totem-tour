@@ -16,6 +16,8 @@ import AvailabilitiesPage from "../pages/admin/AvailabilitiesPage";
 import TotemsPage from "../pages/admin/Totems/TotemsPage";
 import AddEditTotemPage from "../pages/admin/Totems/AddEditTotemPage";
 import AddEditPurchasePage from "../pages/admin/Purchases/AddEditPurchasePage";
+import UsersPage from "../pages/admin/users/UsersPage";
+import AddEditUserPage from "../pages/admin/users/AddEditUserPage";
 
 
 export const rawRoutes = [
@@ -106,6 +108,14 @@ export const rawRoutes = [
       {
         path: '/admin/totems/:id',
         element: <AddEditTotemPage />,
+      },
+      {
+        path: '/admin/users',
+        element: <UsersPage />,
+      },
+      {
+        path: '/admin/users/:id',
+        element: <AddEditUserPage />,
       },
       {
         path: '/admin/totems/add',

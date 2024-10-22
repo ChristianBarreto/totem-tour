@@ -12,6 +12,9 @@ const initPurchase: PurchaseResp = {
   customerId: '',
   acceptedTerms: false,
   cartPrice: 0,
+  totalNetPrice: 0,
+  totalPartnerComm: 0,
+  totalCompanyComm: 0,
   payementCaptured: false,
   paymentId: '',
   paymentMethod: '',
@@ -107,7 +110,7 @@ export default function AddEditPurchasePage() {
         <tbody>
           <tr>
             <td className="pr-2 font-bold">Data da compra:</td>
-            <td>{dayjs(purchase.timestamp).locale('pt-br').format('DD/MM/YYYY HH:MM')}</td>
+            <td>{dayjs(purchase.timestamp).locale('pt-br').format('DD/MM/YYYY HH:mm')}</td>
           </tr>
           <tr>
             <td className="pr-2 font-bold">Valor:</td>
@@ -172,6 +175,7 @@ export default function AddEditPurchasePage() {
                     <th>Cidade</th>
                     <th>Data</th>
                     <th>Hora</th>
+                    <th>Qtd</th>
                     <th>Neto</th>
                     <th>Com. Parceiro</th>
                     <th>Com. Totem Tour</th>
@@ -185,12 +189,24 @@ export default function AddEditPurchasePage() {
                     <td>{item.cityName}</td>
                     <td>{dayjs(item.date).locale('pt-br').format('DD/MM/YYYY')}</td>
                     <td>{item.productTime}</td>
+                    <td>{item.qty}</td>
                     <td>R$ {item.netPrice},00</td>
                     <td>R$ {item.partnerComm},00</td>
                     <td>R$ {item.companyComm},00</td>
                     <td>R$ {item.totalPrice},00</td>
                   </tr>
                 ))}
+                  <tr className="bg-gray-200">
+                    <td>Total:</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>R$ {purchase.totalNetPrice},00</td>
+                    <td>R$ {purchase.totalPartnerComm},00</td>
+                    <td>R$ {purchase.totalCompanyComm},00</td>
+                    <td>R$ {purchase.paymentValue},00</td>
+                  </tr>
                 </tbody>
               </table>
             </div>

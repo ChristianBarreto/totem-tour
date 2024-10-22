@@ -12,7 +12,7 @@ export const getPurchaseItemByPurchaseId = async (req: Request, res: Response) =
   const purchaseItems = await getDbItemsByParentId("purhcaseItems", req.params.id);
   const resp: any[] = [];
 
-  purchaseItems.forEach(async (purchaseItem, index) => {
+  purchaseItems.forEach(async (purchaseItem) => {
     const city = await getDbItem("cities", purchaseItem.cityId);
     const product = await getDbItem("products", purchaseItem.productId);
 
@@ -28,6 +28,9 @@ export const getPurchaseItemByPurchaseId = async (req: Request, res: Response) =
       productOperatorName: product.operatorName,
       productOperatorPhone: product.operatorPhone,
     });
-    index === purchaseItems.length -1 && res.status(200).json(resp);
+    resp.length === purchaseItems.length
+      && res.status(200).json(
+        resp.sort((a, b) => (a.date < b.date ? -1 : 0))
+      );
   });
 };
