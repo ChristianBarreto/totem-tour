@@ -16,6 +16,7 @@ import { PointGetDevicesData } from "mercadopago/dist/clients/point/getDevices/t
 import { GetPaymentIntentListResponse } from "mercadopago/dist/clients/point/commonTypes";
 import { editPurchaseById, getPurchaseById, getPurchases } from "./purchases";
 import { getNextPurchaseItems, getPurchaseItemByPurchaseId } from "./purchaseItems";
+import { addSlide, editSlide, getSlide, getSlides } from "./slides";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -117,7 +118,7 @@ export async function editDbItem(dbName: string, id: string, data: any) {
   return {id: snapshot.id}
 }
 
-async function addDbItem(dbName: string, data: any) {
+export async function addDbItem(dbName: string, data: any) {
   delete data['id']
   const snapshot = await db.collection(dbName).add({
     ...data,
@@ -436,10 +437,11 @@ app.post("/get-payment-intent-status", async (req: Request, res: Response) => {
   }
 });
 
-app.get("/get-slides", async (req: Request, res: Response) => {
-  const slides = await getDbItems("slides")
-  res.json(slides)
-});
+app.get("/slides", async (req: Request, res: Response) => getSlides(req, res));
+app.get("/slides/:id", async (req: Request, res: Response) => getSlide(req, res));
+app.post("/slides/", async (req: Request, res: Response) => addSlide(req, res));
+app.put("/slides/:id", async (req: Request, res: Response) => editSlide(req, res));
+// app.delete("/slides:id", async (req: Request, res: Response) => getSlides(req, res));
 
 app.get("/get-totem-tour", async (req: Request, res: Response) => {
   const totemTour = await getDbItem("totemTour", "s4r21ilBohl2w3PiFdZQ")
@@ -452,8 +454,8 @@ app.put("/set-totem-tour", async (req: Request, res: Response) => {
 });
 
 app.get("/get-totems", async (req: Request, res: Response) => {
-  const slides = await getDbItems("totens")
-  res.json(slides)
+  const resp = await getDbItems("totens")
+  res.json(resp)
 });
 
 app.get("/get-totem/:id", async (req: Request, res: Response) => {

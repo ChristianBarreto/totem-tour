@@ -18,6 +18,8 @@ import AddEditTotemPage from "../pages/admin/Totems/AddEditTotemPage";
 import AddEditPurchasePage from "../pages/admin/Purchases/AddEditPurchasePage";
 import UsersPage from "../pages/admin/users/UsersPage";
 import AddEditUserPage from "../pages/admin/users/AddEditUserPage";
+import SlidesPage from "../pages/admin/Slides/SlidesPage";
+import AddEditSlidePage from "../pages/admin/Slides/AddEditSlidePage";
 
 
 export const rawRoutes = [
@@ -100,6 +102,14 @@ export const rawRoutes = [
       {
         path: '/admin/pos',
         element: <PosPage />,
+      },
+      {
+        path: '/admin/slides',
+        element: <SlidesPage />,
+      },
+      {
+        path: '/admin/slides/:id',
+        element: <AddEditSlidePage />,
       },
       {
         path: '/admin/totems',
