@@ -5,17 +5,20 @@ export const getPurchases = async (req: Request, res: Response) => {
   const purchases = await getDbItems("purchases");
   const resp: any[] = [];
 
-  purchases.forEach(async (purchase, index) => {
+  purchases.forEach(async (purchase) => {
     const totem = await getDbItem("totens", purchase.totemId);
 
-    resp.push({
+    await resp.push({
       ...purchase,
       totemNickName: totem.nickName,
       totemLocationDescription: totem.locationDescription,
       totemResponsiblePerson: totem.responsiblePerson,
     });
 
-    index === purchases.length -1 && res.status(200).json(resp);
+    resp.length === purchases.length
+      && res.status(200).json(
+        resp.sort((a, b) => b.timestamp - a.timestamp)
+      );
   });
 };
 
