@@ -15,8 +15,8 @@ export const getPurchases = async (req: Request, res: Response) => {
       totemResponsiblePerson: totem.responsiblePerson,
     });
 
-    resp.length === purchases.length
-      && res.status(200).json(resp.sort((a, b) => b.timestamp - a.timestamp));
+    resp.length === purchases.length &&
+      res.status(200).json(resp.sort((a, b) => b.timestamp - a.timestamp));
   });
 };
 
