@@ -48,7 +48,7 @@ export default function AvailabilityTable({
 
   return (
     <div className="overflow-x-auto mb-4">
-      <table className="table table-zebra">
+      <table className="table">
         {/* head */}
         <thead>
           <tr>
@@ -109,7 +109,7 @@ export default function AvailabilityTable({
               }
             })
             .map((product) => (
-              <tr key={product.id}>
+              <tr className="hover" key={product.id}>
                 <td><Link to={`${websiteUrl}/admin/products/${product.id}`}>{product.name}</Link></td>
                 <td className="p-0">
                   <AvailabilityEdit

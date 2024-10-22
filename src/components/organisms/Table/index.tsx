@@ -58,7 +58,7 @@ export default function Table({
       
 
       <div className="overflow-x-auto border">
-        <table className="table table-zebra table-xs table-pin-rows table-pin-cols">
+        <table className="table table-xs table-pin-rows table-pin-cols">
           <thead>
             <tr>
               {tableHeader.map((header) => (
@@ -96,29 +96,27 @@ export default function Table({
                   }
                 })
                 .map((item, indexA) => (
-                <tr key={`row-${item.name}`}>
-                  {tableHeader.map((header, indexB) => (
-                    <td key={`${header.value}-${indexA}`}>
-                      
-                      {!header.component ? (
-                        <>
-                          {item[header.value] === true && (<p>TRUE</p>)}
-                          {item[header.value] === false && (<p>FALSE</p>)}
-                          <span id={item[header.value]}>{item[header.value]}</span>
-                        </>
+                  <tr className="hover" key={`row-${item.name}`}>
+                    {tableHeader.map((header, indexB) => (
+                      <td key={`${header.value}-${indexA}`}>
+                        {!header.component ? (
+                          <>
+                            {item[header.value] === true && (<p>TRUE</p>)}
+                            {item[header.value] === false && (<p>FALSE</p>)}
+                            <span id={item[header.value]}>{item[header.value]}</span>
+                          </>
 
-                      ): (
-                        <span key={`comp-${indexA}`}>
-                          <span className={item[header.value]?.toString()}>
-                            {header.component}
+                        ): (
+                          <span key={`comp-${indexA}`}>
+                            <span className={item[header.value]?.toString()}>
+                              {header.component}
+                            </span>
                           </span>
-                        </span>
-                      )}
-                      
-                    </td>
-                  ))}
-                </tr>
-              ))}
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
               </>
             )}
           </tbody>
