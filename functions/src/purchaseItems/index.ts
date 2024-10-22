@@ -28,8 +28,8 @@ export const getPurchaseItemByPurchaseId = async (req: Request, res: Response) =
       productOperatorName: product.operatorName,
       productOperatorPhone: product.operatorPhone,
     });
-    resp.length === purchaseItems.length
-      && res.status(200).json(
+    resp.length === purchaseItems.length &&
+      res.status(200).json(
         resp.sort((a, b) => (a.date < b.date ? -1 : 0))
       );
   });
