@@ -30,7 +30,7 @@ export const getPurchaseItemByPurchaseId = async (req: Request, res: Response) =
     });
     resp.length === purchaseItems.length
       && res.status(200).json(
-        resp.sort((a, b) => a.time - b.time)
+        resp.sort((a, b) => (a.date < b.date ? -1 : 0))
       );
   });
 };

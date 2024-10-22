@@ -16,9 +16,7 @@ export const getPurchases = async (req: Request, res: Response) => {
     });
 
     resp.length === purchases.length
-      && res.status(200).json(
-        resp.sort((a, b) => b.timestamp - a.timestamp)
-      );
+      && res.status(200).json(resp.sort((a, b) => b.timestamp - a.timestamp));
   });
 };
 
