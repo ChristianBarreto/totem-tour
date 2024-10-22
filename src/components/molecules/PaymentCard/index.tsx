@@ -122,23 +122,32 @@ export default function PaymentCard({
                   setPurchase({
                     ...purchase,
                     cartPrice: cart.cartPrice,
+                    totalNetPrice: cart.totalNetPrice,
+                    totalPartnerComm: cart.totalPartnerComm,
+                    totalCompanyComm: cart.totalCompanyComm,    
                     products: cart.products,
                     customerData: customerData,
                     paymentId: res.id,
                     payementCaptured: res.captured,
+                    paymentValue: res.transaction_amount,
+                    paymentMethod: res.payment_method_id,
                     acceptedTerms: true,
-                    totemId: totem.id,
+                    totemId: totem.id
                   })
 
                   setNewPurchase({
-                    ...purchase,
                     cartPrice: cart.cartPrice,
+                    totalNetPrice: cart.totalNetPrice,
+                    totalPartnerComm: cart.totalPartnerComm,
+                    totalCompanyComm: cart.totalCompanyComm,    
                     products: cart.products,
                     customerData: customerData,
                     paymentId: res.id,
                     payementCaptured: res.captured,
+                    paymentValue: res.transaction_amount,
+                    paymentMethod: res.payment_method_id,
                     acceptedTerms: true,
-                    totemId: totem.id,
+                    totemId: totem.id
                   }).then((res) => {
                     setCardProcessStatus('purchase_stored') // se store purchase success
                     console.log("SUCCESS", res)

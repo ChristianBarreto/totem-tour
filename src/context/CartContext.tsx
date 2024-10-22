@@ -1,5 +1,5 @@
 import { createContext, ReactNode, Reducer, useContext, useReducer } from "react";
-import { NewPurchase, Purchase } from "../api/purchases/types";
+import { NewPurchase } from "../api/purchases/types";
 import { CartItemType } from "../api/purchaseitems/types";
 
 type ACTIONTYPE =
