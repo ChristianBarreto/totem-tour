@@ -1,6 +1,8 @@
 import { createContext, ReactNode, Reducer, useContext, useReducer } from "react";
 import { NewPurchase } from "../api/purchases/types";
 import { CartItemType } from "../api/purchaseitems/types";
+import { logEvent } from "firebase/analytics";
+import { analytics } from "../firebase";
 
 type ACTIONTYPE =
   | { type: "addToCart"; product: CartItemType }
@@ -45,6 +47,7 @@ export function useCart() {
 function cartReducer(cart: NewPurchase, action: ACTIONTYPE): NewPurchase {
   switch(action.type) {
     case 'addToCart': {
+      logEvent(analytics, `add_to_cart`)
       return {
         ...cart,
         cartPrice: cart.cartPrice + action.product.totalPrice,

@@ -15,6 +15,8 @@ import AlertMaxRound from '../../molecules/AlertMaxRound'
 import { useCart } from '../../../context/CartContext'
 import ProductForm from '../../molecules/ProductForm'
 import { calcPrice, qtySelectorDisabler } from '../../../helpers'
+import { logEvent } from 'firebase/analytics'
+import { analytics } from '../../../firebase'
 
 export default function ProductModal({
   product,
@@ -36,6 +38,8 @@ export default function ProductModal({
   const [, dispatch] = useCart();
 
   useEffect(() => {
+    logEvent(analytics, `product_modal_${product.name}`)
+
     getAvailabilitiesByProduct(product.id)
     .then((data) =>{
       setAvailabilities(data as Availabilities)

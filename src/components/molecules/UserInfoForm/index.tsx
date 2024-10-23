@@ -7,6 +7,8 @@ import Keyboard from "react-simple-keyboard";
 import 'react-simple-keyboard/build/css/index.css';
 import IconXCircle from "../../atoms/IconXCircle"
 import IconCheckCircle from "../../atoms/IconCheckCircle"
+import { logEvent } from "firebase/analytics"
+import { analytics } from "../../../firebase"
 
 type customerData = {
   name: string,
@@ -87,6 +89,7 @@ export default function UserInfoForm({
   }
  
   useEffect(() => {
+    logEvent(analytics, `checkout_user_info`)
     nameRef.current?.focus();
   }, [])
 
