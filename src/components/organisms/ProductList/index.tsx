@@ -3,6 +3,9 @@ import { Product, Products } from "../../../api/products/types";
 import CardSkeleton from "../../atoms/CardSkeleton"
 import ProductCard from "../../molecules/ProductCard"
 import styles from './ProductList.module.css'
+import { useEffect } from "react";
+import { analytics } from "../../../firebase";
+import { logEvent } from "firebase/analytics";
 
 export default function ProductList({
   products,
@@ -47,6 +50,10 @@ export default function ProductList({
     .filter((prod) => !prod.isAvailable)
     .filter((prod) => handleShowTest(showTest, prod))
     .sort((a, b) => a.priority - b.priority)
+
+  useEffect(() => {
+    logEvent(analytics, "product_list")
+  }, [])
 
   return (
     <div className={`bg-white ${styles.container}`}>
