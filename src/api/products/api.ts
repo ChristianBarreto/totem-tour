@@ -25,19 +25,33 @@ export const getProducts = async (): Promise<Products | void> => {
   return data;
 }
 
-export const getProductById = (productId: string | undefined): Promise<Product | void> => {
-  if (productId === undefined) {
-    console.log("productId is undefined")
+export const getProductById = (productId: string | undefined) =>  new Promise((resolve, reject) => {
+  if (productId?.length) {
+    axios.get<Product>(`${baseUrl}/products/${productId}`, axiosParams)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        console.log("API ERROR", err);
+        reject(`error to get product by id: ${productId}`);
+      })
   }
-  const data = axios.get<Product>(`${baseUrl}/products/${productId}`, axiosParams)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      console.log("API ERROR", err)
-    })
-  return data;
-}
+});
+
+// export const getProductById = (productId: string | undefined): Promise<Product | string> => {
+//   if (productId) {
+//     const data = axios.get<Product>(`${baseUrl}/products/${productId}`, axiosParams)
+//       .then((res) => {
+//         return res.data;
+//       })
+//       .catch((err) => {
+//         console.log("API ERROR", err)
+//         return "error get product by id"
+//       })
+//     return data;
+//   }
+
+// }
 
 export const editProductById = async (productId: string | undefined, body: Product): Promise<Product | void> => {
   if (productId === undefined) {

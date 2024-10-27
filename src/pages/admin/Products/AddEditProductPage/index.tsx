@@ -7,54 +7,10 @@ import { getProductById } from "../../../../api/products/api";
 import { Product } from "../../../../api/products/types";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
-import { priceTypes, productCanBeAvailable, productCanBeDisplayed } from "../../../../helpers";
+import { initProduct, priceTypes, productCanBeAvailable, productCanBeDisplayed } from "../../../../helpers";
 import PriceForm from "../../../../components/cells/PriceForm";
 import ProductConsistency from "../../../../components/cells/ProductConsistency";
 import IsShownWhereBadge from "../../../../components/atoms/IsShownWhereBadge";
-
-const initProduct: Product = {
-  cityId: '',
-  description: '',
-  details: '',
-  id: '',
-  imgUrl: '',
-  maxPaxDay: 0,
-  maxPerRound: 0,
-  minPriceDescription: '',
-  name: '',
-  netPrice: 0,
-  minTotalPrice: 0,
-  partnerComm: 0,
-  companyComm: 0,
-  pricePerPerson: 0,
-  time: '',
-  duration: '',
-  priority: 0,
-  showDisplay: false,
-  isAvailable: false,
-  notAvailableMessage: '',
-  isTest: false,
-  address: '',
-  todayUnavailable: true,
-  priceType: undefined,
-  netPrice1: 0,
-  netPrice2: 0,
-  netPrice3: 0,
-  netPrice4: 0,
-  partnerComm1: 0,
-  partnerComm2: 0,
-  partnerComm3: 0,
-  partnerComm4: 0,
-  companyComm1: 0,
-  companyComm2: 0,
-  companyComm3: 0,
-  companyComm4: 0,
-  isConsistent: false,
-  location: '',
-  alignMessage: '',
-  operatorName: '',
-  operatorPhone: '',
-}
 
 export default function AddEditProductPage() {
   const { id } = useParams();
@@ -78,8 +34,8 @@ export default function AddEditProductPage() {
     if (isEditing) {
       getProductById(id).then((res) => {
         if (res && !ignore) {
-          setProduct(res)
-          productRef.current = res;
+          setProduct(res as Product)
+          productRef.current = res as Product;
         }
       })
     }

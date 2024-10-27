@@ -2,6 +2,50 @@ import { PriceTypes } from "./api/api";
 import { Availability } from "./api/availabilities/types";
 import { Product } from "./api/products/types";
 
+export const initProduct: Product = {
+  cityId: '',
+  description: '',
+  details: '',
+  id: '',
+  imgUrl: '',
+  maxPaxDay: 0,
+  maxPerRound: 0,
+  minPriceDescription: '',
+  name: '',
+  netPrice: 0,
+  minTotalPrice: 0,
+  partnerComm: 0,
+  companyComm: 0,
+  pricePerPerson: 0,
+  time: '',
+  duration: '',
+  priority: 0,
+  showDisplay: false,
+  isAvailable: false,
+  notAvailableMessage: '',
+  isTest: false,
+  address: '',
+  todayUnavailable: true,
+  priceType: undefined,
+  netPrice1: 0,
+  netPrice2: 0,
+  netPrice3: 0,
+  netPrice4: 0,
+  partnerComm1: 0,
+  partnerComm2: 0,
+  partnerComm3: 0,
+  partnerComm4: 0,
+  companyComm1: 0,
+  companyComm2: 0,
+  companyComm3: 0,
+  companyComm4: 0,
+  isConsistent: false,
+  location: '',
+  alignMessage: '',
+  operatorName: '',
+  operatorPhone: '',
+}
+
 export function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }

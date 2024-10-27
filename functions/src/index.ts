@@ -104,10 +104,16 @@ export async function getDbItemsByParentId(dbName: string, id: string, params?: 
   return (data);
 };
 
-export async function getDbItem(dbName: string, id: string) {
-  const snapshot = await db.collection(dbName).doc(id).get();
-  return {id: snapshot.id, ...snapshot.data()};
-}
+export const getDbItem = async (dbName: string, id: string): Promise<any> => new Promise((resolve, reject) => {
+  db.collection(dbName).doc(id).get().then((snapshot: any) => {
+    if (snapshot.exists) {
+      resolve({id: snapshot.id, ...snapshot.data()})
+    }else {
+      reject("Item id not found");
+    }
+  });
+
+})
 
 export async function editDbItem(dbName: string, id: string, data: any) {
   delete data['id']
@@ -145,8 +151,13 @@ app.post("/products", async (req: Request, res: Response) => {
 });
 
 app.get("/products/:id", async (req: Request, res: Response) => {
-  const product = await getDbItem("products", req.params.id);
-  res.json(product);
+  await getDbItem("products", req.params.id)
+    .then((product) => {
+      res.json(product);
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    })
 });
 
 app.put("/products/:id", async (req: Request, res: Response) => {
