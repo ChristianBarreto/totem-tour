@@ -17,6 +17,7 @@ import { GetPaymentIntentListResponse } from "mercadopago/dist/clients/point/com
 import { editPurchaseById, getPurchaseById, getPurchases } from "./purchases";
 import { getNextPurchaseItems, getPurchaseItemByPurchaseId } from "./purchaseItems";
 import { addSlide, editSlide, getSlide, getSlides } from "./slides";
+import { addProduct, editProduct, getProduct, getProducts } from "./products";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -112,7 +113,6 @@ export const getDbItem = async (dbName: string, id: string): Promise<any> => new
       reject("Item id not found");
     }
   });
-
 })
 
 export async function editDbItem(dbName: string, id: string, data: any) {
@@ -134,36 +134,24 @@ export async function addDbItem(dbName: string, data: any) {
   return {id: snapshot.id}
 }
 
+app.get("/products", async (req: Request, res: Response) => getProducts(req, res));
+app.get("/products/:id", async (req: Request, res: Response) => getProduct(req, res));
+app.post("/products", async (req: Request, res: Response) => addProduct(req, res));
+app.put("/products/:id", async (req: Request, res: Response) => editProduct(req, res));
 
+app.get("/purchases", async (req: Request, res: Response) => getPurchases(req, res));
+app.get("/purchases/:id", async (req: Request, res: Response) => getPurchaseById(req, res));
+app.put("/purchases/:id", async (req: Request, res: Response) => editPurchaseById(req, res));
 
-app.get("/products", async (req: Request, res: Response) => {
-  const snapshot = await db.collection("products").get();
-  const data: any[] = [];
-  snapshot.forEach((doc: any) => {
-    data.push({id: doc.id, ...doc.data()});
-  });
-  res.json(data);
-});
+app.get("/next-items", async (req: Request, res: Response) => getNextPurchaseItems(req, res));
+app.get("/purchasePurchaseItens/:id", async (req: Request, res: Response) => getPurchaseItemByPurchaseId(req, res));
 
-app.post("/products", async (req: Request, res: Response) => {
-  const resp = await addDbItem("products", req.body);
-  res.json(resp);
-});
+app.get("/slides", async (req: Request, res: Response) => getSlides(req, res));
+app.get("/slides/:id", async (req: Request, res: Response) => getSlide(req, res));
+app.post("/slides/", async (req: Request, res: Response) => addSlide(req, res));
+app.put("/slides/:id", async (req: Request, res: Response) => editSlide(req, res));
+// app.delete("/slides:id", async (req: Request, res: Response) => getSlides(req, res));
 
-app.get("/products/:id", async (req: Request, res: Response) => {
-  await getDbItem("products", req.params.id)
-    .then((product) => {
-      res.json(product);
-    })
-    .catch((err) => {
-      res.status(404).json(err);
-    })
-});
-
-app.put("/products/:id", async (req: Request, res: Response) => {
-  const resp = await editDbItem("products", req.params.id, req.body);
-  res.json(resp);
-});
 
 app.get("/cities", async (req: Request, res: Response) => {
   const snapshot = await db.collection("cities").get();
@@ -271,9 +259,6 @@ app.post("/verify-payment", async (req: Request, res: Response) => {
   
 });
 
-app.get("/purchases", async (req: Request, res: Response) => getPurchases(req, res));
-app.get("/purchases/:id", async (req: Request, res: Response) => getPurchaseById(req, res));
-app.put("/purchases/:id", async (req: Request, res: Response) => editPurchaseById(req, res));
 
 app.post("/set-purchase", async (req: Request, res: Response) => {
   const {
@@ -335,8 +320,6 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
   res.send({ status: 'ok', purchaseId: purchaseDb.id })
 });
 
-app.get("/next-items", async (req: Request, res: Response) => getNextPurchaseItems(req, res));
-app.get("/purchasePurchaseItens/:id", async (req: Request, res: Response) => getPurchaseItemByPurchaseId(req, res));
 
 app.get("/pos", async (req: Request, res: Response) => {
   const request = {
@@ -447,12 +430,6 @@ app.post("/get-payment-intent-status", async (req: Request, res: Response) => {
     })
   }
 });
-
-app.get("/slides", async (req: Request, res: Response) => getSlides(req, res));
-app.get("/slides/:id", async (req: Request, res: Response) => getSlide(req, res));
-app.post("/slides/", async (req: Request, res: Response) => addSlide(req, res));
-app.put("/slides/:id", async (req: Request, res: Response) => editSlide(req, res));
-// app.delete("/slides:id", async (req: Request, res: Response) => getSlides(req, res));
 
 app.get("/get-totem-tour", async (req: Request, res: Response) => {
   const totemTour = await getDbItem("totemTour", "s4r21ilBohl2w3PiFdZQ")
