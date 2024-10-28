@@ -6,6 +6,7 @@ import { PurchaseResp } from "../../../../api/purchases/types";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import { RedGreenLight } from "../../../../components/atoms/RedGreenLight";
+import { displayPrice } from "../../../../helpers";
 
 const initPurchase: PurchaseResp = {
   id: '',
@@ -114,7 +115,7 @@ export default function AddEditPurchasePage() {
           </tr>
           <tr>
             <td className="pr-2 font-bold">Valor:</td>
-            <td>R${purchase.paymentValue},00</td>
+            <td>{displayPrice(purchase.paymentValue)}</td>
           </tr>
           <tr>
             <td className="pr-2 font-bold">Método de pagamento:</td>
@@ -190,10 +191,10 @@ export default function AddEditPurchasePage() {
                     <td>{dayjs(item.date).locale('pt-br').format('DD/MM/YYYY')}</td>
                     <td>{item.productTime}</td>
                     <td>{item.qty}</td>
-                    <td>R$ {item.netPrice},00</td>
-                    <td>R$ {item.partnerComm},00</td>
-                    <td>R$ {item.companyComm},00</td>
-                    <td>R$ {item.totalPrice},00</td>
+                    <td>{displayPrice(item.netPrice)}</td>
+                    <td>{displayPrice(item.partnerComm)}</td>
+                    <td>{displayPrice(item.companyComm)}</td>
+                    <td>{displayPrice(item.totalPrice)}</td>
                   </tr>
                 ))}
                   <tr className="bg-gray-200">
@@ -202,10 +203,10 @@ export default function AddEditPurchasePage() {
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>R$ {purchase.totalNetPrice},00</td>
-                    <td>R$ {purchase.totalPartnerComm},00</td>
-                    <td>R$ {purchase.totalCompanyComm},00</td>
-                    <td>R$ {purchase.paymentValue},00</td>
+                    <td>{displayPrice(purchase.totalNetPrice)}</td>
+                    <td>{displayPrice(purchase.totalPartnerComm)}</td>
+                    <td>{displayPrice(purchase.totalCompanyComm)}</td>
+                    <td>{displayPrice(purchase.paymentValue)}</td>
                   </tr>
                 </tbody>
               </table>
@@ -288,7 +289,7 @@ export default function AddEditPurchasePage() {
                       - *Nome do resp. da reserva:* {purchase.customerName}<br />
                       - *Telefone:*  {purchase.customerPhone}<br />
                       - *E-mail:*  {purchase.customerEmail}<br />
-                      - *Preço neto:* R$ {item.netPrice},00<br />
+                      - *Preço neto total:* {displayPrice(item.netPrice)}<br />
                     </>
                     <br />
                     <br />
@@ -365,7 +366,7 @@ export default function AddEditPurchasePage() {
                       ✅ *Passeio:* {item.productName}<br />
                       - *Qtd.:* {item.qty} pessoa(s)<br />
                       - *Data da compra:* {dayjs(item.timestamp).locale('pt-br').format('DD/MM/YYYY HH:mm')}<br />
-                      - *Comissão:* R$ {item.partnerComm},00<br />
+                      - *Comissão:* {displayPrice(item.partnerComm)}<br />
                     </>
                   )}
                   <br />

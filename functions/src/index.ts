@@ -291,7 +291,7 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
       cartPrice,
       totalNetPrice,
       totalPartnerComm,
-      totalCompanyComm, 
+      totalCompanyComm,
       payementCaptured,
       paymentId,
       paymentMethod,
