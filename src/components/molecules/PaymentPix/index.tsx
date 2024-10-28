@@ -133,7 +133,7 @@ export default function PaymentPix({
                 customerData: customerData,
                 paymentId: pix.paymentId,
                 payementCaptured: status.captured,
-                paymentValue: pix.transaction_details.total_paid_amount,
+                paymentValue: pix.transaction_details.total_paid_amount * 100, // Convert received reais from MP to cents 
                 paymentMethod: 'pix',
                 acceptedTerms: true,
                 totemId: totem.id

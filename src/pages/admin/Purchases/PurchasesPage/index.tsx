@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { RedGreenLight } from "../../../../components/atoms/RedGreenLight";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
+import { displayPrice } from "../../../../helpers";
 
 
 const DateTime = () => {
@@ -31,7 +32,7 @@ const Value = () => {
     }
   }, []);
 
-  return <div ref={ref}>R${value},00</div>
+  return <div ref={ref}>{displayPrice(Number(value))}</div>
 }
 
 const Light = () => {
