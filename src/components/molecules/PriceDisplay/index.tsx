@@ -1,3 +1,5 @@
+import { displayPrice } from "../../../helpers"
+
 export default function PriceDisplay({
   price,
   qty,
@@ -17,7 +19,7 @@ export default function PriceDisplay({
 
       <div className="">
         <p className="font-bold text-right">Valor total: </p>
-        <p className="text-right text-2xl">R$ {price},00</p>
+        <p className="text-right text-2xl">{displayPrice(price)}</p>
       </div>
 
     </div>

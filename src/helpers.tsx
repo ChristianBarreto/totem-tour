@@ -439,3 +439,7 @@ export const qtySelectorDisabler = (availability: Availability | null) => {
   }
   return true
 }
+
+export const adjPrice = (value: number): number => Number(Math.round(value));
+
+export const displayPrice = (value: number) => new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(value/100);

@@ -13,7 +13,9 @@ export default function QtySelector({
   maxPerRound,
   remaining,
   disabled,
-  setMaxRound
+  setMaxRound,
+  isFreePaxAllowed = false,
+  isHalfPaxAllowed= false,
 }: {
   qty: number,
   setQty: (value: number) => void
@@ -27,6 +29,8 @@ export default function QtySelector({
   remaining: number | undefined,
   disabled: boolean,
   setMaxRound: (value: boolean) => void,
+  isFreePaxAllowed?: boolean,
+  isHalfPaxAllowed?: boolean,
 }) {
 
   const handlePlus = (type: string) => {
@@ -95,7 +99,7 @@ export default function QtySelector({
         </div>
       </div>
 
-      <div className='flex mb-2'>
+      {isFreePaxAllowed && (<div className='flex mb-2'>
         <p className='align-middle ml-auto mr-2 font-bold pt-4'>Crianças até 5 anos:</p>
 
         <div className="join">
@@ -121,9 +125,9 @@ export default function QtySelector({
             +
           </button>
         </div>
-      </div>
+      </div>)}
 
-      <div className='flex mb-2'>
+      {isHalfPaxAllowed && (<div className='flex mb-2'>
         <p className='align-middle ml-auto mr-2 font-bold pt-4'>Crianças de 5 a 10 anos:</p>
 
         <div className="join">
@@ -149,7 +153,7 @@ export default function QtySelector({
             +
           </button>
         </div>
-      </div>
+      </div>)}
 
 
     </div>

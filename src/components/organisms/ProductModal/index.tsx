@@ -14,7 +14,7 @@ import ProductDetails from '../../atoms/ProductDetails';
 import AlertMaxRound from '../../molecules/AlertMaxRound';
 import { useCart } from '../../../context/CartContext';
 import ProductForm from '../../molecules/ProductForm';
-import { calcPrice, initProduct, qtySelectorDisabler } from '../../../helpers';
+import { adjPrice, calcPrice, displayPrice, initProduct, qtySelectorDisabler } from '../../../helpers';
 import { logEvent } from 'firebase/analytics';
 import { analytics } from '../../../firebase';
 import { getProductById } from '../../../api/products/api';
@@ -106,6 +106,9 @@ export default function ProductModal({
   const qtySelectorDisable = qtySelectorDisabler(availability);
   const addCartDisabled = qty === 0 || price === 0;
 
+  displayPrice(price)
+  console.log(adjPrice(price), displayPrice(price))
+  
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
       <DialogBackdrop

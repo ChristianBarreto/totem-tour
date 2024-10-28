@@ -41,7 +41,7 @@ export default function ProductForm({
   return (
     <div className="grid grid-cols-10 gap-0">
       <div>
-        <div className="bg-indigo-500 absolute top-2 w-3 h-24"></div>
+        {/* <div className="bg-indigo-500 absolute top-2 w-3 h-24"></div> */}
         <div className="bg-indigo-500 text-white rounded-full w-10 h-10 mb-4">
           <p className='text-xl text-center pt-1'>1</p>
         </div>
@@ -73,11 +73,13 @@ export default function ProductForm({
           remaining={availability?.remaining}
           disabled={qtySelectorDisable}
           setMaxRound={setMaxRound}
+          isFreePaxAllowed={product.isFreePaxAllowed}
+          isHalfPaxAllowed={product.isHalfPaxAllowed}
         />
         <PriceDisplay price={price} qty={qty} />
 
       </div>
-      <div className="bg-gray-400 text-white rounded-full w-10 h-10">
+      <div className={`text-white rounded-full w-10 h-10 ${availability && qty ? "bg-indigo-500" : "bg-gray-400 "}`}>
         <p className='text-xl text-center pt-1'>3</p>
       </div>
       <div className="col-span-9 mb-4">
