@@ -220,11 +220,12 @@ const calcSingleValue = (qtyPrices: ProductPricesQty): CalcPrices => {
 const calcVariableValue = (qtyPrices: ProductPricesQty): CalcPrices => {
   const {qtyAdult, qtyHalf, netPrice, partnerComm, companyComm} = qtyPrices;
   const unitPrice = netPrice + partnerComm + companyComm;
+
   return {
-    price: (qtyAdult * unitPrice) + (qtyHalf * unitPrice * 0.5),
-    netPrice: (qtyAdult * netPrice) + (qtyHalf * netPrice * 0.5),
-    partnerComm: (qtyAdult * partnerComm) + (partnerComm * netPrice * 0.5),
-    companyComm: (qtyAdult * companyComm) + (companyComm * netPrice * 0.5),
+    price: adjPrice((qtyAdult * unitPrice) + (qtyHalf * unitPrice * 0.5)),
+    netPrice: adjPrice((qtyAdult * netPrice) + (qtyHalf * netPrice * 0.5)),
+    partnerComm: adjPrice((qtyAdult * partnerComm) + (qtyHalf * partnerComm * 0.5)),
+    companyComm: adjPrice((qtyAdult * companyComm) + (qtyHalf * companyComm * 0.5)),
   };
 }
 
@@ -302,6 +303,7 @@ export const calcPrice = (quantities: Quantities, product: Product): CalcPrices 
   }
 
   if (product.priceType === "variable-value") {
+    console.log(calcVariableValue(productPricesQty))
     return calcVariableValue(productPricesQty)
   }
 

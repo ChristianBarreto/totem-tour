@@ -105,10 +105,7 @@ export default function ProductModal({
 
   const qtySelectorDisable = qtySelectorDisabler(availability);
   const addCartDisabled = qty === 0 || price === 0;
-
-  displayPrice(price)
-  console.log(adjPrice(price), displayPrice(price))
-  
+ 
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
       <DialogBackdrop
@@ -198,13 +195,13 @@ export default function ProductModal({
                                   {product.priceType === "single-value" && (
                                     <>
                                       <span className='text-xl font-bold'>Valor único: </span>
-                                      <span className='text-xl'>R${product.netPrice + product.partnerComm + product.companyComm},00</span>
+                                      <span className='text-xl'>{displayPrice(product.netPrice + product.partnerComm + product.companyComm)}</span>
                                     </>
                                   )}
                                   {product.priceType === "variable-value" && (
                                     <>
                                       <span className='text-xl font-bold'>Valor por pessoa: </span>
-                                      <span className='text-xl'>R${product.netPrice + product.partnerComm + product.companyComm},00</span>
+                                      <span className='text-xl'>{displayPrice(product.netPrice + product.partnerComm + product.companyComm)}</span>
                                     </>
                                   )}
                                   {product.priceType === "defined-value" && (

@@ -5,6 +5,7 @@ import { getCities } from "../../../api/cities/api";
 import { Product } from "../../../api/products/types";
 import { useCart } from "../../../context/CartContext";
 import IconTrash from "../../atoms/IconTrash";
+import { displayPrice } from "../../../helpers";
 
 export default function CartItem({
   refProduct,
@@ -43,7 +44,7 @@ export default function CartItem({
             <h3>
               {refProduct?.name}
             </h3>
-            <p className="ml-4">R${product.totalPrice},00</p>
+            <p className="ml-4">{displayPrice(product.totalPrice)}</p>
           </div>
           <p className="mt-1 text-sm text-gray-500">
             <span className='font-bold'>Cidade:</span>

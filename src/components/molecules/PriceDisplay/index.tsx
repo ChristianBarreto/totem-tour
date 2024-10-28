@@ -14,7 +14,6 @@ export default function PriceDisplay({
       <div className="pb-3">
         <p className="font-bold text-right">Quantidade total: </p>
         <p className="text-right text-2xl">{qty} pessoas</p>
-
       </div>
 
       <div className="">

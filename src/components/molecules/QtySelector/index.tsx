@@ -100,7 +100,7 @@ export default function QtySelector({
       </div>
 
       {isFreePaxAllowed && (<div className='flex mb-2'>
-        <p className='align-middle ml-auto mr-2 font-bold pt-4'>Crianças até 5 anos:</p>
+        <p className='align-middle ml-auto mr-2 pt-4 text-right'><span className='font-bold'>Crianças até 5 anos:</span> <br />(não pagam)</p>
 
         <div className="join">
           <button
@@ -128,7 +128,7 @@ export default function QtySelector({
       </div>)}
 
       {isHalfPaxAllowed && (<div className='flex mb-2'>
-        <p className='align-middle ml-auto mr-2 font-bold pt-4'>Crianças de 5 a 10 anos:</p>
+        <p className='align-middle ml-auto mr-2 pt-4 text-right'><span className='font-bold'>Crianças de 5 a 10 anos:</span> <br />(meia)</p>
 
         <div className="join">
           <button

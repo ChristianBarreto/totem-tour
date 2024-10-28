@@ -32,7 +32,7 @@ export function CartProvider({
   children: ReactNode
 }) {
   const [cart, dispatch] = useReducer<Reducer<NewPurchase, ACTIONTYPE>>(cartReducer, initialPurchase);
-
+  console.log(cart)
   return (
     <CartContext.Provider value={[cart, dispatch]}>
       {children}

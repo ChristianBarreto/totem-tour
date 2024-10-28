@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../../context/CartContext";
+import { displayPrice } from "../../../helpers";
 
 export default function CartTotal({
   setCartOpen,
@@ -15,7 +16,7 @@ export default function CartTotal({
     <div className="border-t border-gray-200 px-4 py-6 sm:px-6 mt-6">
       <div className="flex justify-between text-base font-medium text-gray-900">
         <p>Total</p>
-        <p>R${cart.cartPrice},00</p>
+        <p>{displayPrice(cart.cartPrice)}</p>
       </div>
       <p className="mt-0.5 text-sm text-gray-500">Você reberá todas as informações por WhatsApp/E-mail</p>
       <div className="mt-6">
