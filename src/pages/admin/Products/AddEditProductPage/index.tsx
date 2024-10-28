@@ -344,6 +344,43 @@ export default function AddEditProductPage() {
               />
               <IsShownWhereBadge isShownDisplay />
             </label>
+
+            <div className="form-control pb-4">
+              <label className="label cursor-pointer justify-start w-1/3">
+                <input
+                  type="checkbox"
+                  className="toggle"
+                  checked={product.isFreePaxAllowed}
+                  onChange={() => setProduct({...product, isFreePaxAllowed: !product.isFreePaxAllowed})}
+                />
+                <span className="label-text pl-4">Gratuidade permitida</span>
+              </label>
+              <IsShownWhereBadge isShownDisplay />
+            </div>
+
+            <div className="form-control pb-4">
+              <label className="label cursor-pointer justify-start w-1/3">
+                <input
+                  type="checkbox"
+                  className="toggle"
+                  checked={product.isHalfPaxAllowed}
+                  onChange={() => setProduct({...product, isHalfPaxAllowed: !product.isHalfPaxAllowed})}
+                />
+                <span className="label-text pl-4">Meia passagem permitida</span>
+              </label>
+              <IsShownWhereBadge isShownDisplay />
+            </div>
+
+            <label className="form-control label-text pb-4">Mensagem sobre pessoas não permitidas:
+              <input
+                type="text"
+                placeholder="Type here"
+                className="input input-bordered w-full"
+                value={product.notAllowedPersonMsg}
+                onChange={(e) => setProduct({...product, notAllowedPersonMsg: e.target.value })}
+              />
+              <IsShownWhereBadge isShownDisplay />
+            </label>
           </>
         )}
         

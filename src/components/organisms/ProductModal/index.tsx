@@ -38,6 +38,9 @@ export default function ProductModal({
   const [availabilities, setAvailabilities] = useState<Availabilities>([]);
   const [availability, setAvailability] = useState<Availability | null>(null);
   const [qty, setQty] = useState(0);
+  const [qtyAdult, setQtyAdult] = useState(0);
+  const [qtyFree, setQtyFree] = useState(0);
+  const [qtyHalf, setQtyHalf] = useState(0);
   const [maxRound, setMaxRound] = useState(false);
   const [cities, setCities] = useState<Cities>([])
   // @ts-expect-error: TODO: fix type of context
@@ -64,9 +67,16 @@ export default function ProductModal({
         setCities(res)
       }
     })
-  }, [])
+  }, []);
 
-  let { price, netPrice, partnerComm, companyComm } = calcPrice(qty, product);
+  const quantities = {
+    qty,
+    qtyAdult,
+    qtyFree,
+    qtyHalf
+  }
+
+  let { price, netPrice, partnerComm, companyComm } = calcPrice(quantities, product);
 
   const handleAdd = () => {
     if (availability) {
@@ -84,10 +94,10 @@ export default function ProductModal({
         location: '',
         operatorName: '',
         operatorPhone: '',
-        totemId: ''
+        totemId: '',
       }
   
-      dispatch({type: 'addToCart', product: currentProduct})
+      dispatch({type: 'addToCart', product: currentProduct});
       setOpen(false);
       setCartOpen(true);
     }
@@ -209,6 +219,12 @@ export default function ProductModal({
                                 availabilities={availabilities}
                                 qty={qty}
                                 setQty={setQty}
+                                qtyAdult={qtyAdult}
+                                setQtyAdult={setQtyAdult}
+                                qtyFree={qtyFree}
+                                setQtyFree={setQtyFree}
+                                qtyHalf={qtyHalf}
+                                setQtyHalf={setQtyHalf}
                                 product={product}
                                 availability={availability}
                                 setMaxRound={setMaxRound}

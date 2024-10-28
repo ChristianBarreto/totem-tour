@@ -22,6 +22,9 @@ export const initProduct: Product = {
   priority: 0,
   showDisplay: false,
   isAvailable: false,
+  notAllowedPersonMsg: '',
+  isFreePaxAllowed: false,
+  isHalfPaxAllowed: false,
   notAvailableMessage: '',
   isTest: false,
   address: '',
@@ -146,8 +149,18 @@ export const priceTypes: PriceType[] = [
   {type: "defined-value", description: "Valor pré-definido"},
 ];
 
+type Quantities = {
+  qty: number,
+  qtyAdult: number,
+  qtyFree: number,
+  qtyHalf: number,
+}
+
 type ProductPricesQty = {
   qty: number,
+  qtyAdult: number,
+  qtyFree: number,
+  qtyHalf: number,
   netPrice: number,
   partnerComm: number,
   companyComm: number,
@@ -172,8 +185,11 @@ type CalcPrices = {
   companyComm: number,
 }
 
-const getProductPricesQty = (qty: number, product: Product): ProductPricesQty => ({
-  qty,
+const getProductPricesQty = (quantities: Quantities, product: Product): ProductPricesQty => ({
+  qty: quantities.qty,
+  qtyAdult: quantities.qtyAdult,
+  qtyFree: quantities.qtyFree,
+  qtyHalf: quantities.qtyHalf,
   netPrice: product.netPrice,
   partnerComm: product.partnerComm,
   companyComm: product.companyComm,
@@ -202,13 +218,13 @@ const calcSingleValue = (qtyPrices: ProductPricesQty): CalcPrices => {
 }
 
 const calcVariableValue = (qtyPrices: ProductPricesQty): CalcPrices => {
-  const {qty, netPrice, partnerComm, companyComm} = qtyPrices;
+  const {qtyAdult, qtyHalf, netPrice, partnerComm, companyComm} = qtyPrices;
   const unitPrice = netPrice + partnerComm + companyComm;
   return {
-    price: qty * unitPrice,
-    netPrice: qty * netPrice,
-    partnerComm: qty * partnerComm,
-    companyComm: qty * companyComm,
+    price: (qtyAdult * unitPrice) + (qtyHalf * unitPrice * 0.5),
+    netPrice: (qtyAdult * netPrice) + (qtyHalf * netPrice * 0.5),
+    partnerComm: (qtyAdult * partnerComm) + (partnerComm * netPrice * 0.5),
+    companyComm: (qtyAdult * companyComm) + (companyComm * netPrice * 0.5),
   };
 }
 
@@ -269,10 +285,10 @@ const calcDefinedValue = (qtyPrices: ProductPricesQty): CalcPrices => {
   };
 }
 
-export const calcPrice = (qty: number, product: Product): CalcPrices => {
-  const productPricesQty: ProductPricesQty = getProductPricesQty(qty, product)
+export const calcPrice = (quantities: Quantities, product: Product): CalcPrices => {
+  const productPricesQty: ProductPricesQty = getProductPricesQty(quantities, product)
 
-  if (qty < 1) {
+  if (quantities.qty < 1) {
     return {
       price: 0,
       netPrice: 0,
