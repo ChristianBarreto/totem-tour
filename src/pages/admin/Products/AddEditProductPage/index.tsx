@@ -358,6 +358,17 @@ export default function AddEditProductPage() {
               <IsShownWhereBadge isShownDisplay />
             </div>
 
+            <label className="form-control label-text pb-4">Mensagem de regras sobre gratuidade:
+              <input
+                type="text"
+                placeholder="Type here"
+                className="input input-bordered w-full"
+                value={product.freePaxRuleMsg}
+                onChange={(e) => setProduct({...product, freePaxRuleMsg: e.target.value })}
+              />
+              <IsShownWhereBadge isShownDisplay />
+            </label>
+
             <div className="form-control pb-4">
               <label className="label cursor-pointer justify-start w-1/3">
                 <input
@@ -371,13 +382,13 @@ export default function AddEditProductPage() {
               <IsShownWhereBadge isShownDisplay />
             </div>
 
-            <label className="form-control label-text pb-4">Mensagem sobre pessoas não permitidas:
+            <label className="form-control label-text pb-4">Mensagem de regras sobre meia entrada:
               <input
                 type="text"
                 placeholder="Type here"
                 className="input input-bordered w-full"
-                value={product.notAllowedPersonMsg}
-                onChange={(e) => setProduct({...product, notAllowedPersonMsg: e.target.value })}
+                value={product.halfPaxRuleMsg}
+                onChange={(e) => setProduct({...product, halfPaxRuleMsg: e.target.value })}
               />
               <IsShownWhereBadge isShownDisplay />
             </label>

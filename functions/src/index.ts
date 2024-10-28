@@ -221,7 +221,7 @@ app.post("/pix-payment", async (req: Request, res: Response) => {
 
   await onlinePayment.create({
     body: {
-      transaction_amount: cartPrice,
+      transaction_amount: cartPrice / 100, // Conversão de centavos para reais.
       description: 'Passeios Totem Tour',
       payment_method_id: 'pix',
       date_of_expiration: MPExpirationDate(),

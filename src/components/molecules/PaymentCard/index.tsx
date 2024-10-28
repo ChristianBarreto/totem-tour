@@ -74,7 +74,7 @@ export default function PaymentCard({
 
     const payIntent: PaymentIntent = {
       device_id: totem.posId,
-      amount: purchase.paymentValue * 100,
+      amount: purchase.paymentValue,
       description: customerData.email,
       type: purchase.paymentMethod,
       print: false,

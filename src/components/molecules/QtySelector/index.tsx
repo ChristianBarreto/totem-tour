@@ -15,7 +15,9 @@ export default function QtySelector({
   disabled,
   setMaxRound,
   isFreePaxAllowed = false,
-  isHalfPaxAllowed= false,
+  freePaxRuleMsg,
+  isHalfPaxAllowed = false,
+  halfPaxRuleMsg,
 }: {
   qty: number,
   setQty: (value: number) => void
@@ -30,7 +32,9 @@ export default function QtySelector({
   disabled: boolean,
   setMaxRound: (value: boolean) => void,
   isFreePaxAllowed?: boolean,
+  freePaxRuleMsg?: string,
   isHalfPaxAllowed?: boolean,
+  halfPaxRuleMsg?: string,
 }) {
 
   const handlePlus = (type: string) => {
@@ -72,7 +76,7 @@ export default function QtySelector({
   return (
     <div className='flex flex-col'>
       <div className='flex mb-2'>
-        <p className='align-middle ml-auto mr-2 font-bold pt-4'>Adultos:</p>
+        <p className='align-middle ml-auto mr-2 font-bold pt-4'>Passageiros:</p>
 
         <div className="join">
           <button
@@ -100,7 +104,7 @@ export default function QtySelector({
       </div>
 
       {isFreePaxAllowed && (<div className='flex mb-2'>
-        <p className='align-middle ml-auto mr-2 pt-4 text-right'><span className='font-bold'>Crianças até 5 anos:</span> <br />(não pagam)</p>
+        <p className='align-middle ml-auto mr-2 pt-4 text-right'><span className='font-bold'>{freePaxRuleMsg}:</span> <br />(não pagam)</p>
 
         <div className="join">
           <button
@@ -128,7 +132,7 @@ export default function QtySelector({
       </div>)}
 
       {isHalfPaxAllowed && (<div className='flex mb-2'>
-        <p className='align-middle ml-auto mr-2 pt-4 text-right'><span className='font-bold'>Crianças de 5 a 10 anos:</span> <br />(meia)</p>
+        <p className='align-middle ml-auto mr-2 pt-4 text-right'><span className='font-bold'>{halfPaxRuleMsg}:</span> <br />(meia)</p>
 
         <div className="join">
           <button

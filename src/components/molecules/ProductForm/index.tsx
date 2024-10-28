@@ -74,7 +74,9 @@ export default function ProductForm({
           disabled={qtySelectorDisable}
           setMaxRound={setMaxRound}
           isFreePaxAllowed={product.isFreePaxAllowed}
+          freePaxRuleMsg = {product.freePaxRuleMsg}
           isHalfPaxAllowed={product.isHalfPaxAllowed}
+          halfPaxRuleMsg={product.halfPaxRuleMsg}
         />
         <PriceDisplay price={price} qty={qty} />
 
