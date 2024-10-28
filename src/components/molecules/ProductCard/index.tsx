@@ -13,7 +13,7 @@ export default function ProductCard({
 
   return (
     <>
-      {productModalOpen && <ProductModal product={product} open={productModalOpen} setOpen={setProductModalOpen} setCartOpen={setCartOpen}/>}
+      {productModalOpen && <ProductModal prefetch={product} productId={product.id} open={productModalOpen} setOpen={setProductModalOpen} setCartOpen={setCartOpen}/>}
       <span>
         <div className="card card-compact bg-base-100 shadow-xl w-full md:w-80" onClick={() => setProductModalOpen(true)}>
           <figure>

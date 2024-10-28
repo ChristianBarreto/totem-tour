@@ -2,6 +2,7 @@ import { ChangeEvent } from "react"
 import { PriceTypes } from "../../../api/api"
 import { Product } from "../../../api/products/types";
 import IsShownWhereBadge from "../../atoms/IsShownWhereBadge";
+import { displayPrice } from "../../../helpers";
 
 export default function PriceForm({
   priceType,
@@ -83,10 +84,10 @@ export default function PriceForm({
                   />
                 </td>
                 <td className="bg-gray-100">
-                  <p className="mb-2"><span className="font-bold">1 pax:</span> <span className="bg-accent rounded p-1">R${price * 1},00</span></p>
-                  <p className="mb-2"><span className="font-bold">2 pax:</span> <span className="bg-accent rounded p-1"> R${price * 1},00</span></p>
-                  <p className="mb-2"><span className="font-bold">3 pax:</span> <span className="bg-accent rounded p-1"> R${price * 1},00</span></p>
-                  <p className="mb-2"><span className="font-bold">4 pax:</span> <span className="bg-accent rounded p-1"> R${price * 1},00</span></p>
+                  <p className="mb-2"><span className="font-bold">1 pax:</span> <span className="bg-accent rounded p-1">{displayPrice(price)}</span></p>
+                  <p className="mb-2"><span className="font-bold">2 pax:</span> <span className="bg-accent rounded p-1">{displayPrice(price)}</span></p>
+                  <p className="mb-2"><span className="font-bold">3 pax:</span> <span className="bg-accent rounded p-1">{displayPrice(price)}</span></p>
+                  <p className="mb-2"><span className="font-bold">4 pax:</span> <span className="bg-accent rounded p-1">{displayPrice(price)}</span></p>
                   <p className="mb-2">... até a disponibilidade máxima</p>
                 </td>
               </tr>
@@ -96,62 +97,63 @@ export default function PriceForm({
       )}
 
       {(priceType === "variable-value") && (
-        <div>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Preço neto</th>
-              <th>Comissão parceiro</th>
-              <th>Comissão Totem Tour</th>
-              <th>Preço no display</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="align-baseline">
-                <input
-                  type="number"
-                  placeholder="Type here"
-                  className="input input-bordered w-full"
-                  name="netPrice"
-                  value={product.netPrice}
-                  onChange={(e) => handlePrice(e)}
-                />
-              </td>
-              <td className="align-baseline">
-                <input
-                  type="number"
-                  placeholder="Type here"
-                  className="input input-bordered w-full"
-                  name="partnerComm"
-                  value={product.partnerComm}
-                  onChange={(e) => handlePrice(e)}
-                />
-              </td>
-              <td className="align-baseline">
-                <input
-                  type="number"
-                  placeholder="Type here"
-                  className="input input-bordered w-full"
-                  name="companyComm"
-                  value={product.companyComm}
-                  onChange={(e) => handlePrice(e)}
-                />
-              </td>
-              <td className="bg-gray-100">
-                <p className="mb-2"><span className="font-bold">1 pax:</span> <span className="bg-accent rounded p-1">R${price * 1},00</span></p>
-                <p className="mb-2"><span className="font-bold">2 pax:</span> <span className="bg-accent rounded p-1"> R${price * 2},00</span></p>
-                <p className="mb-2"><span className="font-bold">3 pax:</span> <span className="bg-accent rounded p-1"> R${price * 3},00</span></p>
-                <p className="mb-2"><span className="font-bold">4 pax:</span> <span className="bg-accent rounded p-1"> R${price * 4},00</span></p>
-                <p className="mb-2">... até a disponibilidade máxima</p>
-              </td>
-            </tr>
-            <tr>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    )}
+        <div className="mt-8">
+          <p className="text-red-500">* Todos os preços em centavos. Ex.: 1000 = R$ 10,00</p>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Preço neto</th>
+                <th>Comissão parceiro</th>
+                <th>Comissão Totem Tour</th>
+                <th>Preço no display</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="align-baseline">
+                  <input
+                    type="number"
+                    placeholder="Type here"
+                    className="input input-bordered w-full"
+                    name="netPrice"
+                    value={product.netPrice}
+                    onChange={(e) => handlePrice(e)}
+                  />
+                </td>
+                <td className="align-baseline">
+                  <input
+                    type="number"
+                    placeholder="Type here"
+                    className="input input-bordered w-full"
+                    name="partnerComm"
+                    value={product.partnerComm}
+                    onChange={(e) => handlePrice(e)}
+                  />
+                </td>
+                <td className="align-baseline">
+                  <input
+                    type="number"
+                    placeholder="Type here"
+                    className="input input-bordered w-full"
+                    name="companyComm"
+                    value={product.companyComm}
+                    onChange={(e) => handlePrice(e)}
+                  />
+                </td>
+                <td className="bg-gray-100">
+                  <p className="mb-2"><span className="font-bold">1 pax:</span> <span className="bg-accent rounded p-1">{displayPrice(price * 1)}</span></p>
+                  <p className="mb-2"><span className="font-bold">2 pax:</span> <span className="bg-accent rounded p-1">{displayPrice(price * 2)}</span></p>
+                  <p className="mb-2"><span className="font-bold">3 pax:</span> <span className="bg-accent rounded p-1">{displayPrice(price * 3)}</span></p>
+                  <p className="mb-2"><span className="font-bold">4 pax:</span> <span className="bg-accent rounded p-1">{displayPrice(price * 4)}</span></p>
+                  <p className="mb-2">... até a disponibilidade máxima</p>
+                </td>
+              </tr>
+              <tr>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
 
 
       {(priceType === "defined-value") && (
@@ -193,7 +195,7 @@ export default function PriceForm({
               />
             </td>
             <td className="bg-gray-100">
-              <p className="mb-2"><span className="font-bold">1 pax:</span> <span className="bg-accent rounded p-1">R${variablePrice[0]},00</span></p>
+              <p className="mb-2"><span className="font-bold">1 pax:</span> <span className="bg-accent rounded p-1">{displayPrice(variablePrice[0])}</span></p>
             </td>
           </tr>
           <tr>
@@ -226,7 +228,7 @@ export default function PriceForm({
               />
             </td>
             <td className="bg-gray-100">
-              <p className="mb-2"><span className="font-bold">2 pax:</span> <span className="bg-accent rounded p-1">R${variablePrice[1] * 1},00</span></p>
+              <p className="mb-2"><span className="font-bold">2 pax:</span> <span className="bg-accent rounded p-1">{displayPrice(variablePrice[1])}</span></p>
             </td>
           </tr>
           <tr>
@@ -259,7 +261,7 @@ export default function PriceForm({
               />
             </td>
             <td className="bg-gray-100">
-              <p className="mb-2"><span className="font-bold">3 pax:</span> <span className="bg-accent rounded p-1">R${variablePrice[2] * 1},00</span></p>
+              <p className="mb-2"><span className="font-bold">3 pax:</span> <span className="bg-accent rounded p-1">{displayPrice(variablePrice[2])}</span></p>
             </td>
           </tr>
           <tr>
@@ -292,7 +294,7 @@ export default function PriceForm({
               />
             </td>
             <td className="bg-gray-100">
-              <p className="mb-2"><span className="font-bold">4 pax:</span> <span className="bg-accent rounded p-1">R${variablePrice[3] * 1},00</span></p>
+              <p className="mb-2"><span className="font-bold">4 pax:</span> <span className="bg-accent rounded p-1">{displayPrice(variablePrice[3])}</span></p>
             </td>
           </tr>
         </table>        

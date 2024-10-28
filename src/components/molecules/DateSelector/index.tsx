@@ -37,9 +37,9 @@ export default function DateSelector({
   const today = dayjs().locale('pt-br').format('YYYY-MM-DD')
 
   return (
-    <div className="ml-5">
+    <div className="mb-4">
       <select
-        className="select select-bordered border-indigo-200 select-lg bg-white ml-auto"
+        className="select select-bordered border-indigo-300 select-lg bg-white ml-auto w-full"
         ref={selectRef}
         disabled={isDisabled}
         onChange={(e) => handleSelect(e)}

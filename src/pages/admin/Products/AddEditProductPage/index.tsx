@@ -7,54 +7,10 @@ import { getProductById } from "../../../../api/products/api";
 import { Product } from "../../../../api/products/types";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
-import { priceTypes, productCanBeAvailable, productCanBeDisplayed } from "../../../../helpers";
+import { initProduct, priceTypes, productCanBeAvailable, productCanBeDisplayed } from "../../../../helpers";
 import PriceForm from "../../../../components/cells/PriceForm";
 import ProductConsistency from "../../../../components/cells/ProductConsistency";
 import IsShownWhereBadge from "../../../../components/atoms/IsShownWhereBadge";
-
-const initProduct: Product = {
-  cityId: '',
-  description: '',
-  details: '',
-  id: '',
-  imgUrl: '',
-  maxPaxDay: 0,
-  maxPerRound: 0,
-  minPriceDescription: '',
-  name: '',
-  netPrice: 0,
-  minTotalPrice: 0,
-  partnerComm: 0,
-  companyComm: 0,
-  pricePerPerson: 0,
-  time: '',
-  duration: '',
-  priority: 0,
-  showDisplay: false,
-  isAvailable: false,
-  notAvailableMessage: '',
-  isTest: false,
-  address: '',
-  todayUnavailable: true,
-  priceType: undefined,
-  netPrice1: 0,
-  netPrice2: 0,
-  netPrice3: 0,
-  netPrice4: 0,
-  partnerComm1: 0,
-  partnerComm2: 0,
-  partnerComm3: 0,
-  partnerComm4: 0,
-  companyComm1: 0,
-  companyComm2: 0,
-  companyComm3: 0,
-  companyComm4: 0,
-  isConsistent: false,
-  location: '',
-  alignMessage: '',
-  operatorName: '',
-  operatorPhone: '',
-}
 
 export default function AddEditProductPage() {
   const { id } = useParams();
@@ -78,8 +34,8 @@ export default function AddEditProductPage() {
     if (isEditing) {
       getProductById(id).then((res) => {
         if (res && !ignore) {
-          setProduct(res)
-          productRef.current = res;
+          setProduct(res as Product)
+          productRef.current = res as Product;
         }
       })
     }
@@ -385,6 +341,54 @@ export default function AddEditProductPage() {
                 className="input input-bordered w-full"
                 value={product.maxPerRound}
                 onChange={(e) => setProduct({...product, maxPerRound: Number(e.target.value) })}
+              />
+              <IsShownWhereBadge isShownDisplay />
+            </label>
+
+            <div className="form-control pb-4">
+              <label className="label cursor-pointer justify-start w-1/3">
+                <input
+                  type="checkbox"
+                  className="toggle"
+                  checked={product.isFreePaxAllowed}
+                  onChange={() => setProduct({...product, isFreePaxAllowed: !product.isFreePaxAllowed})}
+                />
+                <span className="label-text pl-4">Gratuidade permitida</span>
+              </label>
+              <IsShownWhereBadge isShownDisplay />
+            </div>
+
+            <label className="form-control label-text pb-4">Mensagem de regras sobre gratuidade:
+              <input
+                type="text"
+                placeholder="Type here"
+                className="input input-bordered w-full"
+                value={product.freePaxRuleMsg}
+                onChange={(e) => setProduct({...product, freePaxRuleMsg: e.target.value })}
+              />
+              <IsShownWhereBadge isShownDisplay />
+            </label>
+
+            <div className="form-control pb-4">
+              <label className="label cursor-pointer justify-start w-1/3">
+                <input
+                  type="checkbox"
+                  className="toggle"
+                  checked={product.isHalfPaxAllowed}
+                  onChange={() => setProduct({...product, isHalfPaxAllowed: !product.isHalfPaxAllowed})}
+                />
+                <span className="label-text pl-4">Meia passagem permitida</span>
+              </label>
+              <IsShownWhereBadge isShownDisplay />
+            </div>
+
+            <label className="form-control label-text pb-4">Mensagem de regras sobre meia entrada:
+              <input
+                type="text"
+                placeholder="Type here"
+                className="input input-bordered w-full"
+                value={product.halfPaxRuleMsg}
+                onChange={(e) => setProduct({...product, halfPaxRuleMsg: e.target.value })}
               />
               <IsShownWhereBadge isShownDisplay />
             </label>
