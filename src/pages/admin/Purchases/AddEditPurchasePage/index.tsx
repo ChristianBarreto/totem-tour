@@ -190,7 +190,7 @@ export default function AddEditPurchasePage() {
                     <td>{item.cityName}</td>
                     <td>{dayjs(item.date).locale('pt-br').format('DD/MM/YYYY')}</td>
                     <td>{item.productTime}</td>
-                    <td>{item.qty}</td>
+                    <td>{item.qty} (I: {item.qtyAdult}, M:{item.qtyHalf}, G:{item.qtyFree})</td>
                     <td>{displayPrice(item.netPrice)}</td>
                     <td>{displayPrice(item.partnerComm)}</td>
                     <td>{displayPrice(item.companyComm)}</td>
@@ -228,7 +228,7 @@ export default function AddEditPurchasePage() {
                 <p>
                   Obrigado por reservar seus passeios com a *Totem Tour*!
                   <br /><br />
-                  Segue abaixo as suas reservas:
+                  Seguem abaixo suas reservas:
                   <br /><br />
                   {purchaseItems.map((item) => 
                     <>
@@ -276,14 +276,14 @@ export default function AddEditPurchasePage() {
             </div>
             {purchaseItems.map((item, index) => 
               <div className="border p-2 bg-gray-100 mb-4">
-                <p className="pb-2">{index+1}- {'item.operatorName'}:</p>
+                <p className="pb-2 font-bold">{index+1}- {item.productOperatorName}:</p>
                 <div className="border p-2 ml-4 bg-white ">
                   <p>
                     Olá, {item.productOperatorName}! Nova reserva da *Totem Tour*!
                     <br /><br />
                     <>
                       ✅ *Passeio:* {item.productName}<br />
-                      - *Qtd.:* {item.qty} pessoa(s)<br />
+                      - *Qtd.:* {item.qty} pessoa(s):  (Int.: {item.qtyAdult}, Meia:{item.qtyHalf}, Grat.:{item.qtyFree})<br />
                       - *Data:* {dayjs(item.date).locale('pt-br').format('DD/MM/YYYY')}<br />
                       - *Hora:* {item.productTime}<br />
                       - *Nome do resp. da reserva:* {purchase.customerName}<br />
@@ -364,7 +364,7 @@ export default function AddEditPurchasePage() {
                   {purchaseItems.map((item) => 
                     <>
                       ✅ *Passeio:* {item.productName}<br />
-                      - *Qtd.:* {item.qty} pessoa(s)<br />
+                      - *Qtd.:* {item.qty} pessoa(s):  (Int.: {item.qtyAdult}, Meia:{item.qtyHalf}, Grat.:{item.qtyFree})<br />
                       - *Data da compra:* {dayjs(item.timestamp).locale('pt-br').format('DD/MM/YYYY HH:mm')}<br />
                       - *Comissão:* {displayPrice(item.partnerComm)}<br />
                     </>

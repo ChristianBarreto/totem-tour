@@ -83,6 +83,9 @@ export default function ProductModal({
       const currentProduct: CartItemType = {
         productId: product.id,
         qty: qty,
+        qtyAdult: qtyAdult,
+        qtyFree: qtyFree,
+        qtyHalf: qtyHalf,
         netPrice: netPrice,
         partnerComm: partnerComm,
         companyComm: companyComm,

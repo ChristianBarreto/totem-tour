@@ -304,7 +304,6 @@ export const calcPrice = (quantities: Quantities, product: Product): CalcPrices 
   }
 
   if (product.priceType === "variable-value") {
-    console.log(calcVariableValue(productPricesQty))
     return calcVariableValue(productPricesQty)
   }
 
