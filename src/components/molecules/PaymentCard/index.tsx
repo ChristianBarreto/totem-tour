@@ -151,7 +151,7 @@ export default function PaymentCard({
                     customerData: customerData,
                     paymentId: res.id,
                     payementCaptured: res.captured,
-                    paymentValue: res.transaction_amount,
+                    paymentValue: res.transaction_amount * 100, // Convert MP response from reais to cents
                     paymentMethod: res.payment_method_id,
                     acceptedTerms: true,
                     totemId: totem.id
