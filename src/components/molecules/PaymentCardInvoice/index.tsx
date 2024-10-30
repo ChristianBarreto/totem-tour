@@ -31,9 +31,10 @@ export default function PaymentCardInvoice({
 
             
           </div>
-          
+   
           
           <div className="flex justify-center">
+
             <div className="flex mb-4">
               <IconClock classes="size-6 animate-bounce"/>
               <p className="text-xl">Aguardando o pagamento.</p>
@@ -41,6 +42,7 @@ export default function PaymentCardInvoice({
 
           </div>
           <p style={{marginTop: '-20px'}}>(Este pagamento expira em 5 minutos)</p>
+          <p className="text-sm pt-4 pb-4 font-bold">Digital Storm Serviços de Tecnologia LTDA. <br /> CNPJ: 46.547.192/0001-51</p>
 
         </div>
       </div>
