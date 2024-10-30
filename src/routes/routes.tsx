@@ -20,6 +20,7 @@ import UsersPage from "../pages/admin/users/UsersPage";
 import AddEditUserPage from "../pages/admin/users/AddEditUserPage";
 import SlidesPage from "../pages/admin/Slides/SlidesPage";
 import AddEditSlidePage from "../pages/admin/Slides/AddEditSlidePage";
+import WhoWeArePage from "../pages/Totem/WhoWeArePage";
 
 
 export const rawRoutes = [
@@ -46,6 +47,10 @@ export const rawRoutes = [
         element: <StorePage />
       }
     ]
+  },
+  {
+    path: "/totem/who-we-are",
+    element: <WhoWeArePage />,
   },
   {
     path: "/totem/test",
