@@ -92,7 +92,9 @@ export default function UserTermsForm({
             </label>
             <label className="label cursor-pointer">
               <span className="label-text text-2xl pr-4">
-              <span className="font-bold text-primary">4.</span> Taxas extras, como entrada na Marina dos Anjos e estacionamentos não estão inclusos.
+              <span className="font-bold text-primary">4.</span> No passeio de barco e mergulho em Arraial do Cabo é paga uma taxa de embarque direto para a Marina dos Anjos.
+                <p className="pl-4 pr-4 text-gray-400">- A entrada na Marina dos Anjos custa R$ 10,00 por pessoa e só é aceito dinheiro em espécie no local.</p>
+                <p className="pl-4 pr-4 text-gray-400">- É gratis para crianças até 6 anos, idosos acima de 60, deficientes, estudantes e militares.</p>
               </span>
               <input
                 type="checkbox"

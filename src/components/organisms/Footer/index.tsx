@@ -23,7 +23,7 @@ export default function Footer({
             disabled={!cart.products.length}
           >
             <IconTrash size={10} />
-            <p className="text-3xl">Deletar carrinho</p>
+            <p className="text-3xl">Apagar carrinho</p>
           </button>
         )}
       </div>

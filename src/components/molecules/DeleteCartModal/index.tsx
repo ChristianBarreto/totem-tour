@@ -44,7 +44,7 @@ export default function DeleteCartModal({
               </button>
 
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Deseja mesmo deletar o seu carrinho?</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Deseja mesmo apagar o seu carrinho?</h2>
 
                 <section aria-labelledby="information-heading" className="mt-2">
                   <p className='text-xl mb-4'>
@@ -58,7 +58,7 @@ export default function DeleteCartModal({
                     onClick={() => handleDelete()}
                   >
                     <IconTrash size={10}/>
-                    <p className='text-3xl pl-3'>Deletar carrinho</p>
+                    <p className='text-3xl pl-3'>Apagar carrinho</p>
                   </button>
                 </section>
               </div>
