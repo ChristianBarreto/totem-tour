@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from "react"
-import { Totem } from "../../../../api/totems/types";
-import { addTotem, editTotemById, getTotemById } from "../../../../api/totems/api";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import { SlideResp } from "../../../../api/slides/types";

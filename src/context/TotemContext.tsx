@@ -9,9 +9,8 @@ export function TotemProvider({
 }: {
   children: ReactNode
 }) {
-  console.log(localStorage.getItem("thisTotem"));
   const savedTotem = localStorage.getItem("thisTotem");
-  const [totem, setTotem] = useState();
+  const [totem, setTotem] = useState<Totem>();
 
   useEffect(() => {
     if (savedTotem !== null) {
@@ -40,7 +39,7 @@ export function TotemProvider({
     });
   }
 
-  console.log("Totem", totem);
+  console.log("Totem", totem?.nickName);
 
   return (
     <TotemContext.Provider value={[totem, handleSetTotem]}>

@@ -13,7 +13,7 @@ export default function WhoWeArePage() {
   const [, dispatch] = useCounter();
     // @ts-expect-error: TODO: fix type of context
   const [totem,] = useTotem();
-
+  const [showFooter, setShowFooter] = useState(false);
   const [openTotemModal, setOpenTotemModal] = useState(false);
   const appRef = useRef()as React.MutableRefObject<HTMLDivElement>;
   const navigate = useNavigate();
@@ -22,9 +22,12 @@ export default function WhoWeArePage() {
 
   useEffect(() => {
     logEvents(`who_we_are`)
+    setShowFooter(false);
   }, [])
 
-
+  const toggleFooter = () => {
+    setShowFooter(!showFooter);
+  }
 
   return (
     <div className="flex justify-center" ref={appRef}>
@@ -77,13 +80,20 @@ export default function WhoWeArePage() {
 
         </div>
 
-        <div className="bg-secondary p-8 flex justify-between">
+        {showFooter ? (
+          <div className="bg-secondary p-8 flex justify-between" onClick={toggleFooter}>
+            <button className="btn mt-2 ml-auto" onClick={() => setOpenTotemModal(true)}>
+              <IconPartner size={6} />
+              {totem?.nickName}
+            </button>
+          </div>
+        ) :(
 
-          <button className="btn mt-2 ml-auto" onClick={() => setOpenTotemModal(true)}>
-            <IconPartner size={6} />
-            {totem?.nickName}
-          </button>
-        </div>
+          <div className="bg-secondary block p-4" style={{height: '100px'}} onClick={toggleFooter}>
+            <p className="font-bold text-white">Digital Storm Serviços de tecnologia LTDA</p>
+            <p className="text-white"><span className="font-bold">CNPJ:</span> 46.547.192/0001-51</p>
+          </div>
+        )}
 
       </div>
     </div>

@@ -10,7 +10,7 @@ import UserPaymentForm from "../../../components/molecules/UserPaymentForm";
 import { websiteUrl } from "../../../api/api";
 import { Customer } from "../../../api/customers/types";
 import { Totem } from "../../../api/totems/types";
-import { getTotemById } from "../../../api/totems/api";
+import { useTotem } from "../../../context/TotemContext";
 import { useCounter } from "../../../context/CounterContext";
 
 const initTotem = {
@@ -28,6 +28,9 @@ const initTotem = {
 export default function CheckoutPage() {
   // @ts-expect-error: TODO: fix type of context
   const [, dispatch] = useCounter();
+  // @ts-expect-error: TODO: fix type of context
+  const [totem] = useTotem();
+
   const appRef = useRef()as React.MutableRefObject<HTMLDivElement>;
   const navigate = useNavigate();
 
@@ -42,8 +45,6 @@ export default function CheckoutPage() {
     email: '',
     phone: '',
   });
-
-  const [totem, setTotem] = useState<Totem>(initTotem);
 
   const [count, setCount] = useState(1);
 
@@ -79,13 +80,6 @@ export default function CheckoutPage() {
   }
 
   useEffect(() => {
-
-    getTotemById("1LoQvuu4KzHC1ux7qfOR").then((res) => {
-      setTotem(res);
-    }).then((err) => {
-      console.log("Err", err)
-    })
-
     appRef.current?.addEventListener("mousedown", e => {
       dispatch({type: 'reinit'})
     });

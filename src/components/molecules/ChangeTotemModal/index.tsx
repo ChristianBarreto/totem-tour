@@ -109,7 +109,7 @@ export default function ChangeTotemModal({
                   <p className="text-2xl font-bold text-gray-900 flex">{totem.nickName}</p>
                 </button>
                 
-                {!true ? (
+                {!isLogged ? (
                   <section>
                     <div className='p-10'>
                       <TouchInput
