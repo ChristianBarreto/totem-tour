@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useCounter } from "../../../context/CounterContext";
 import IconRowBack from "../../../components/atoms/IconRowBack";
 import { websiteUrl } from "../../../api/api";
-import { logEvent } from "firebase/analytics";
-import { analytics } from "../../../firebase";
 import IconPartner from "../../../components/atoms/IconPartner";
 import ChangeTotemModal from "../../../components/molecules/ChangeTotemModal";
+import { logEvents } from "../../../firebase";
 
 export default function WhoWeArePage() {
   // @ts-expect-error: TODO: fix type of context
@@ -18,7 +17,7 @@ export default function WhoWeArePage() {
   const videoUrl = "https://firebasestorage.googleapis.com/v0/b/totem-tour.appspot.com/o/video-totem-tour-1.mov?alt=media&token=24bd2f11-a65d-4b2c-ad0f-1e1f292084b3"
 
   useEffect(() => {
-    logEvent(analytics, `who_we_are`)
+    logEvents(`who_we_are`)
   }, [])
 
   return (

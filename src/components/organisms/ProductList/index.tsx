@@ -4,8 +4,7 @@ import CardSkeleton from "../../atoms/CardSkeleton"
 import ProductCard from "../../molecules/ProductCard"
 import styles from './ProductList.module.css'
 import { useEffect } from "react";
-import { analytics } from "../../../firebase";
-import { logEvent } from "firebase/analytics";
+import { logEvents } from "../../../firebase";
 
 export default function ProductList({
   products,
@@ -52,7 +51,7 @@ export default function ProductList({
     .sort((a, b) => a.priority - b.priority)
 
   useEffect(() => {
-    logEvent(analytics, "product_list")
+    logEvents("product_list")
   }, [])
 
   return (

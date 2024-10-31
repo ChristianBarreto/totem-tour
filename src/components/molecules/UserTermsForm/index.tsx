@@ -2,8 +2,7 @@ import { useEffect, useState } from "react"
 import IconChevronDown from "../../atoms/IconChevronDown";
 import TermsModal from "../TermsModal";
 import { getTotemTour } from "../../../api/totemtour/api";
-import { logEvent } from "firebase/analytics";
-import { analytics } from "../../../firebase";
+import { logEvents } from "../../../firebase";
 
 export default function UserTermsForm({
  terms,
@@ -24,7 +23,7 @@ export default function UserTermsForm({
   const [company, setCompany] = useState(null);
 
   useEffect(() => {
-    logEvent(analytics, `checkout_terms`)
+    logEvents(`checkout_terms`)
     getTotemTour().then((res) => {
       setCompany(res)
     }).catch((err) => {

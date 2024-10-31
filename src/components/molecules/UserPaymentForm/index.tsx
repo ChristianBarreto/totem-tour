@@ -5,8 +5,7 @@ import { cancelLastPaymentIntent } from "../../../api/mercadopago/api";
 import PaymentPix from "../PaymentPix"
 import { useCart } from "../../../context/CartContext";
 import PaymentCard from "../PaymentCard";
-import { logEvent } from "firebase/analytics";
-import { analytics } from "../../../firebase";
+import { logEvents } from "../../../firebase";
 
 export default function UserPaymentForm({
   customerData,
@@ -20,7 +19,7 @@ export default function UserPaymentForm({
   const [payOption, setPayOption] = useState(0);
 
   useEffect(() => {
-    logEvent(analytics, `checkout_payment`)
+    logEvents(`checkout_payment`)
     cancelLastPaymentIntent({
       device_id: totem.posId,
     }).then((res) => {

@@ -6,6 +6,9 @@ import { getAnalytics, logEvent } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+export const isProductionMode = process.env.NODE_ENV === 'production'
+
 const firebaseConfig = {
   apiKey: "AIzaSyABCz5FMFYj5HHfxsb0QArGtSMTsYUEorQ",
   authDomain: "totem-tour.firebaseapp.com",
@@ -21,5 +24,5 @@ const app = initializeApp(firebaseConfig);
 export const analytics = getAnalytics(app);
 
 export const logEvents = (eventName: string) => {
-  logEvent(analytics, eventName)
+  isProductionMode && logEvent(analytics, eventName)
 }

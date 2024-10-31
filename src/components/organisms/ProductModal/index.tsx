@@ -14,9 +14,8 @@ import ProductDetails from '../../atoms/ProductDetails';
 import AlertMaxRound from '../../molecules/AlertMaxRound';
 import { useCart } from '../../../context/CartContext';
 import ProductForm from '../../molecules/ProductForm';
-import { adjPrice, calcPrice, displayPrice, initProduct, qtySelectorDisabler } from '../../../helpers';
-import { logEvent } from 'firebase/analytics';
-import { analytics } from '../../../firebase';
+import { calcPrice, displayPrice, initProduct, qtySelectorDisabler } from '../../../helpers';
+import { logEvents } from '../../../firebase';
 import { getProductById } from '../../../api/products/api';
 
 export default function ProductModal({
@@ -47,7 +46,7 @@ export default function ProductModal({
   const [, dispatch] = useCart();
 
   useEffect(() => {
-    logEvent(analytics, `product_modal_${product.name}`)
+    logEvents(`product_modal_${product.name}`)
     getProductById(productId).then((res) => {
       setProduct(res as Product);
       setProductIsLoading(false)
