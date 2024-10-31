@@ -240,7 +240,7 @@ export default function ProductModal({
                                 onClick={handleAdd}
                                 disabled={addCartDisabled}
                               >
-                                <IconCart size="10" />
+                                <IconCart />
                                 <p className='text-3xl pl-3'>Adicionar ao carrinho</p>
                               </button>
                             </div>
