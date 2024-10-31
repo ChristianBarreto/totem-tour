@@ -1,6 +1,6 @@
 export function IconCart({
-  size = "10",
-  color = 'text-base-100'
+  size,
+  color,
 }: {
   size?: "4" | "6" | "10",
   color?: string,

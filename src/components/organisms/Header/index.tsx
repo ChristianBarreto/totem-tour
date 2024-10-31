@@ -31,7 +31,7 @@ export default function Header({
       <div className="flex-none gap-2">
         <div className="indicator">
           <span className="indicator-item badge bg-red-600 text-base-100 text-xl p-3">{cart.products.length}</span>
-          <button onClick={() => setCartOpen(true)}><IconCart size="10" /></button>
+          <button onClick={() => setCartOpen(true)}><IconCart size="10" color="text-white" /></button>
         </div>
       </div>
     </div>   
