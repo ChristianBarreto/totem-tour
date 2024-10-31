@@ -6,10 +6,14 @@ import { websiteUrl } from "../../../api/api";
 import IconPartner from "../../../components/atoms/IconPartner";
 import ChangeTotemModal from "../../../components/molecules/ChangeTotemModal";
 import { logEvents } from "../../../firebase";
+import { useTotem } from "../../../context/TotemContext";
 
 export default function WhoWeArePage() {
   // @ts-expect-error: TODO: fix type of context
   const [, dispatch] = useCounter();
+    // @ts-expect-error: TODO: fix type of context
+  const [totem,] = useTotem();
+
   const [openTotemModal, setOpenTotemModal] = useState(false);
   const appRef = useRef()as React.MutableRefObject<HTMLDivElement>;
   const navigate = useNavigate();
@@ -77,7 +81,7 @@ export default function WhoWeArePage() {
 
           <button className="btn mt-2 ml-auto" onClick={() => setOpenTotemModal(true)}>
             <IconPartner size={6} />
-            Partner name
+            {totem?.nickName}
           </button>
         </div>
 

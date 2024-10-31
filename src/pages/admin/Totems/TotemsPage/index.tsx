@@ -3,7 +3,6 @@ import { getTotems } from "../../../../api/totems/api";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 const TableEditButton = ({
   onClickEvent,
 }: {

@@ -8,6 +8,7 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import Keyboard from "react-simple-keyboard";
 import { Totem } from '../../../api/totems/types'
 import { getTotems } from '../../../api/totems/api'
+import { useTotem } from '../../../context/TotemContext'
 
 
 type User = {
@@ -22,10 +23,12 @@ export default function ChangeTotemModal({
   open: boolean,
   setOpen: (value: boolean) => void,
 }) {
+  // @ts-expect-error: TODO: fix type of context
+  const [totem, handleSetTotem] = useTotem();
   const [user, setUser] = useState<User>({name: "", pass: ""});
   const [isLogged, setIsLogged] = useState(false);
   const [totems, setTotems] = useState<Totem[]>([]);
-  const [selectedTotem, setSelectedTotem] = useState("kYlHD8Z2n0d36AW0MEtS");
+  const [selectedTotem, setSelectedTotem] = useState(totem.id);
 
   const keyboard = useRef();
   const [selectedInput, setSelectedInput] = useState('name');
@@ -74,6 +77,7 @@ export default function ChangeTotemModal({
 
   const handleSelectTotem = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedTotem(e.target.value)
+    handleSetTotem(e.target.value)
   }
 
   return (
@@ -102,7 +106,7 @@ export default function ChangeTotemModal({
               <div className='w-full'>
                 <button className='btn btn-ghost'>
                   <IconPartner />
-                  <p className="text-2xl font-bold text-gray-900 flex">Partner name</p>
+                  <p className="text-2xl font-bold text-gray-900 flex">{totem.nickName}</p>
                 </button>
                 
                 {!true ? (
@@ -157,7 +161,6 @@ export default function ChangeTotemModal({
                   </div>
                 )}
               </div>
-
             </div>
           </DialogPanel>
         </div>
