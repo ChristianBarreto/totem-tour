@@ -5,10 +5,13 @@ import IconRowBack from "../../../components/atoms/IconRowBack";
 import { websiteUrl } from "../../../api/api";
 import { logEvent } from "firebase/analytics";
 import { analytics } from "../../../firebase";
+import IconPartner from "../../../components/atoms/IconPartner";
+import ChangeTotemModal from "../../../components/molecules/ChangeTotemModal";
 
 export default function WhoWeArePage() {
   // @ts-expect-error: TODO: fix type of context
   const [, dispatch] = useCounter();
+  const [openTotemModal, setOpenTotemModal] = useState(false);
   const appRef = useRef()as React.MutableRefObject<HTMLDivElement>;
   const navigate = useNavigate();
 
@@ -20,6 +23,7 @@ export default function WhoWeArePage() {
 
   return (
     <div className="flex justify-center" ref={appRef}>
+      <ChangeTotemModal open={openTotemModal} setOpen={setOpenTotemModal}/>
       <div className="flex flex-col w-full">
 
         <div className="bg-primary p-4 flex justify-between">
@@ -66,6 +70,14 @@ export default function WhoWeArePage() {
             <p><span className="font-bold">CNPJ:</span> 46.547.192/0001-51</p>
           </div>
 
+        </div>
+
+        <div className="bg-secondary p-8 flex justify-between">
+
+          <button className="btn mt-2 ml-auto" onClick={() => setOpenTotemModal(true)}>
+            <IconPartner size={6} />
+            Partner name
+          </button>
         </div>
 
       </div>

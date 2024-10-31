@@ -16,9 +16,10 @@ export default function Header({
       <div className="flex-1">
         <a href={`${websiteUrl}/totem`} className="flex">
           <img src={require('./logo.png')} alt="" width={80}/>
-          <p className="text-4xl text-base-200 mt-4 ml-2">Totem tour</p>
+          <p className="text-4xl text-base-200 mt-4 ml-2">Totem Tour</p>
         </a>
       </div>
+
       <div className="flex-1 ">
         <a href={`${websiteUrl}/totem/who-we-are`} className="indicator p-2 rounded-md">
           <span className="indicator-item indicator-bottom indicator-right badge bg-blue-400 border-blue-400 text-white mr-8 ">Clique aqui!</span>
@@ -33,6 +34,6 @@ export default function Header({
           <button onClick={() => setCartOpen(true)}><IconCart size={10} /></button>
         </div>
       </div>
-    </div>
+    </div>   
   )
 }

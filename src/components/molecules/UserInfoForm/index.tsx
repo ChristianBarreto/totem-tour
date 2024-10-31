@@ -60,7 +60,6 @@ export default function UserInfoForm({
 
     } else if ((customerData.phone !== undefined) && (customerData.phone !== inputs.phone)) {
       handleInputChange('phone', inputs['phone']);
-
     }
   };
 
