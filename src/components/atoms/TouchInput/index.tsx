@@ -28,7 +28,11 @@ export default function TouchInput({
       >
         {icon}
         <input
+<<<<<<< Updated upstream
           type="text"
+=======
+          type={type}
+>>>>>>> Stashed changes
           className="grow"
           placeholder={placeholder}
           required
