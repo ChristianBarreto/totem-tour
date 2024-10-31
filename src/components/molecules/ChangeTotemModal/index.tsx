@@ -2,12 +2,12 @@
 
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { useCart } from '../../../context/CartContext'
-import IconTrash from '../../atoms/IconTrash'
 import IconPartner from '../../atoms/IconPartner'
 import TouchInput from '../../atoms/TouchInput'
-import { useRef, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import Keyboard from "react-simple-keyboard";
+import { Totem } from '../../../api/totems/types'
+import { getTotems } from '../../../api/totems/api'
 
 
 type User = {
@@ -23,14 +23,23 @@ export default function ChangeTotemModal({
   setOpen: (value: boolean) => void,
 }) {
   const [user, setUser] = useState<User>({name: "", pass: ""});
+  const [isLogged, setIsLogged] = useState(false);
+  const [totems, setTotems] = useState<Totem[]>([]);
+  const [selectedTotem, setSelectedTotem] = useState("kYlHD8Z2n0d36AW0MEtS");
 
   const keyboard = useRef();
   const [selectedInput, setSelectedInput] = useState('name');
-  const [layoutName, setLayoutName] = useState("default");  
+  const [layoutName, setLayoutName] = useState("default");
+  
+  useEffect(() => {
+    getTotems().then((res) => {
+      setTotems(res);
+    }).catch((err) => {
+      console.log("Err", err)
+    })
+  }, [])
 
   const onChangeAll = (inputs: any) => {
-    console.log(">>>", selectedInput, inputs)
-
     if ((user.name !== undefined) && (user.name !== inputs.name)) {
       handleInputChange('name', inputs['name']);
     } else if ((user.pass !== undefined) && (user.pass !== inputs.pass)) {
@@ -53,6 +62,19 @@ export default function ChangeTotemModal({
     };
     setLayoutName('default')
   };
+
+  const handleLogin = () => {
+    if (
+      user.name === "totemtouradmin" &&
+      user.pass === "ttadmin@01"
+    ) {
+      setIsLogged(true)
+    }
+  }
+
+  const handleSelectTotem = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedTotem(e.target.value)
+  }
 
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
@@ -83,33 +105,57 @@ export default function ChangeTotemModal({
                   <p className="text-2xl font-bold text-gray-900 flex">Partner name</p>
                 </button>
                 
-                <section>
-                  <div className='p-10'>
-                    <TouchInput
-                      value={user.name}
-                      name="name"
-                      type="text"
-                      placeholder='Login'
-                      setSelectedInput={setSelectedInput}
+                {!true ? (
+                  <section>
+                    <div className='p-10'>
+                      <TouchInput
+                        value={user.name}
+                        name="name"
+                        type="text"
+                        placeholder='Login'
+                        setSelectedInput={setSelectedInput}
+                      />
+                      <TouchInput
+                        value={user.pass}
+                        name="pass"
+                        type="password"
+                        placeholder='Senha'
+                        setSelectedInput={setSelectedInput}
+                      />
+                      <button
+                        className='btn btn-primary w-full mt-4'
+                        onClick={handleLogin}
+                      >
+                        Entrar
+                      </button>
+                    </div>
+                    
+                    <Keyboard
+                      keyboardRef={r => (keyboard.current = r)}
+                      inputName={selectedInput}
+                      layoutName={layoutName}
+                      onChangeAll={onChangeAll}
+                      onKeyPress={(button) => handleShift(button)}
                     />
-                    <TouchInput
-                      value={user.pass}
-                      name="pass"
-                      type="password"
-                      placeholder='Senha'
-                      setSelectedInput={setSelectedInput}
-                    />
+                  </section>
+                ): (
+                  <div className='p-10 text-start'>
+                    <p className='font-bold pb-4 text-center'>Configurações deste totem:</p>
+                    <label className="form-control w-full">
+                      Selecione o totem a ser utilizado aqui
+                      <select
+                        className="select select-bordered"
+                        onChange={handleSelectTotem}
+                        value={selectedTotem}
+                        defaultValue=""
+                      >
+                        {totems.sort((a, b) => b.nickName > a.nickName ? -1 : 1).map((totem) => (
+                          <option key={totem.id} value={totem.id}>{totem.nickName}</option>
+                        ))}
+                      </select>
+                    </label>
                   </div>
-                  
-
-                  <Keyboard
-                    keyboardRef={r => (keyboard.current = r)}
-                    inputName={selectedInput}
-                    layoutName={layoutName}
-                    onChangeAll={onChangeAll}
-                    onKeyPress={(button) => handleShift(button)}
-                  />
-                </section>
+                )}
               </div>
 
             </div>

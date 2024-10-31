@@ -81,7 +81,7 @@ export default function TotemsPage() {
         tableName="Totems"
         tableHeader={tableHeader}
         tableFetch={getTotems}
-        sort="number"
+        sort="nickName"
       />
       <div className="p-4 flex justify-end">
         <button className="btn btn-primary" onClick={() => navigate('/admin/totems/add')}>Novo totem</button>

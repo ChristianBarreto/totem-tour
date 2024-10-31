@@ -20,9 +20,11 @@ export default function WhoWeArePage() {
     logEvents(`who_we_are`)
   }, [])
 
+
+
   return (
     <div className="flex justify-center" ref={appRef}>
-      <ChangeTotemModal open={openTotemModal} setOpen={setOpenTotemModal}/>
+      {openTotemModal && <ChangeTotemModal open={openTotemModal} setOpen={setOpenTotemModal}/>}
       <div className="flex flex-col w-full">
 
         <div className="bg-primary p-4 flex justify-between">
