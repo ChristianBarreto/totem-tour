@@ -19,7 +19,7 @@ type ACTIONTYPE =
   | { type: "res_redirectToInit" }
   | { type: "dec_redirectToInit" }
 
-const timeToPing = 1; // minutes
+const timeToPing = 5; // minutes
 
 const initialCounters: Counters = {
   redirectToInit: 300,
