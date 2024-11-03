@@ -19,6 +19,7 @@ type ACTIONTYPE =
   | { type: "res_redirectToInit" }
   | { type: "dec_redirectToInit" }
 
+const timeToPing = 1; // minutes
 
 const initialCounters: Counters = {
   redirectToInit: 300,
@@ -32,14 +33,16 @@ export function CounterProvider({
   children: ReactNode
 }) {
   const [counters, dispatch] = useReducer<Reducer<Counters, ACTIONTYPE>>(counterReducer, initialCounters);
-  const [lastPint, setLastPing] = useState('');
   // @ts-expect-error: TODO: fix type of context
-  const [totem, ] = useTotem();
+  const [totem] = useTotem();
+
+  let lastPing = 0;
+  const moreThen5Minutes = (lastPing: number): boolean => dayjs().diff(dayjs(lastPing), 'minute') >= timeToPing;
 
   useEffect(() => {
     const timer = setInterval(() => {
 
-      if (allowCountersCountDown(window.location.href)){
+      if (allowCountersCountDown(window.location.href)) {
 
         if (counters.redirectToInit > 0) {         
           if (!isSlidesPage(window.location.href)) {
@@ -49,8 +52,13 @@ export function CounterProvider({
           redirectToInitial();
         }
 
-        console.log(dayjs().valueOf())
-
+        if (moreThen5Minutes(lastPing)) {
+          totem?.id && setTotemPingById({
+            totemId: totem?.id,
+            lastPing: dayjs().valueOf()
+          })
+          lastPing = dayjs().valueOf();
+        }
       }
     }, 1000)
 
@@ -58,13 +66,14 @@ export function CounterProvider({
       clearInterval(timer)
     })
 
-  }, [counters])
+  }, [counters, totem])
 
   useEffect(() => {
     totem?.id && setTotemPingById({
       totemId: totem?.id,
       lastPing: dayjs().valueOf()
     })
+    lastPing = dayjs().valueOf();
   }, [totem]);
 
   useEffect(() => {

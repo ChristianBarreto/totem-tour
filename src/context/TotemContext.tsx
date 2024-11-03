@@ -12,7 +12,7 @@ export function TotemProvider({
   const savedTotem = localStorage.getItem("thisTotem");
   const [totem, setTotem] = useState<Totem>();
 
-  useEffect(() => {
+  const updateCurrentTotemState = () => {
     if (savedTotem !== null) {
       getTotemById(savedTotem).then((res) => {
         localStorage.setItem("thisTotem", res.id);
@@ -28,7 +28,7 @@ export function TotemProvider({
         console.log("Err", err)
       });
     };
-  }, []);
+  }
 
   const handleSetTotem = (totemId: string) => {
     getTotemById(totemId).then((res) => {
@@ -39,7 +39,12 @@ export function TotemProvider({
     });
   }
 
-  console.log("Totem", totem?.nickName);
+  useEffect(() => {
+    updateCurrentTotemState()
+  }, []);
+
+
+  console.log("Totem:", totem?.nickName);
 
   return (
     <TotemContext.Provider value={[totem, handleSetTotem]}>
