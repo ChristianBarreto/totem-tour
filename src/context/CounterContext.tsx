@@ -40,6 +40,7 @@ export function CounterProvider({
   const moreThen5Minutes = (lastPing: number): boolean => dayjs().diff(dayjs(lastPing), 'minute') >= timeToPing;
 
   useEffect(() => {
+    lastPing = totem?.lastPing;
     const timer = setInterval(() => {
 
       if (allowCountersCountDown(window.location.href)) {
@@ -58,6 +59,7 @@ export function CounterProvider({
             lastPing: dayjs().valueOf()
           })
           lastPing = dayjs().valueOf();
+          console.log("PING", dayjs(lastPing).format('DD/MM/YYYY HH:mm'))
         }
       }
     }, 1000)
@@ -67,14 +69,6 @@ export function CounterProvider({
     })
 
   }, [counters, totem])
-
-  useEffect(() => {
-    totem?.id && setTotemPingById({
-      totemId: totem?.id,
-      lastPing: dayjs().valueOf()
-    })
-    lastPing = dayjs().valueOf();
-  }, [totem]);
 
   useEffect(() => {
     if (isSlidesPage(window.location.href)){
