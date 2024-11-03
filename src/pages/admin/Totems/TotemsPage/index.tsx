@@ -2,6 +2,8 @@ import Table from "../../../../components/organisms/Table";
 import { getTotems } from "../../../../api/totems/api";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { RedGreenLight } from "../../../../components/atoms/RedGreenLight";
+import dayjs from "dayjs";
 
 const TableEditButton = ({
   onClickEvent,
@@ -44,6 +46,30 @@ const ShowTests = () => {
   )
 }
 
+const Light = () => {
+  const [value, setValue] = useState("");
+  const ref = useRef<HTMLDivElement>(null)
+  
+
+  useEffect(() => {
+    if (ref.current?.parentElement){
+      setValue(ref.current?.parentElement?.className);
+    }
+  }, []);
+
+  const lessThen5Minutes = dayjs().diff(dayjs(Number(value)), 'minute') < 7;
+
+  return (
+    <div ref={ref}>
+      {value ? (
+        <RedGreenLight value={lessThen5Minutes} outsideText={dayjs(Number(value)).format('DD/MM HH:mm')} />
+      ): (
+        <p>(sem dados)</p>
+      )}
+    </div>
+  )
+}
+
 
 export default function TotemsPage() {
   const [reload, setReload] = useState(0);
@@ -57,8 +83,13 @@ export default function TotemsPage() {
     {name: "Totem", value: "nickName"},
     {name: "Estabelecimento", value: "locationDescription"},
     {name: "Responsável", value: "responsiblePerson"},
-      {
-      name: "Mostra testes",
+    {
+      name: "Ping",
+      value: 'lastPing',
+      component: <Light />
+    },
+    {
+      name: "Mostrar testes",
       value: 'showTestProduct',
       component: (<>
         <ShowTests />

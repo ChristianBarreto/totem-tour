@@ -18,6 +18,8 @@ import { editPurchaseById, getPurchaseById, getPurchases } from "./purchases";
 import { getNextPurchaseItems, getPurchaseItemByPurchaseId } from "./purchaseItems";
 import { addSlide, editSlide, getSlide, getSlides } from "./slides";
 import { addProduct, editProduct, getProduct, getProducts } from "./products";
+import { getTotemPingById, setTotemPingById } from "./totemPing";
+import { getTotemById, getTotens, editTotemById, addTotemById } from "./totems";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -121,6 +123,15 @@ export async function editDbItem(dbName: string, id: string, data: any) {
     ...data,
     lastUpdated: Date.now(),
   });
+  return {id: snapshot.id}
+}
+
+export async function mergeDbItem(dbName: string, id: string, data: any) {
+  delete data['id']
+  const snapshot = await db.collection(dbName).doc(id).set({
+    ...data,
+    lastUpdated: Date.now(),
+  }, { merge: true });
   return {id: snapshot.id}
 }
 
@@ -441,26 +452,13 @@ app.put("/set-totem-tour", async (req: Request, res: Response) => {
   res.json(resp);
 });
 
-app.get("/get-totems", async (req: Request, res: Response) => {
-  const resp = await getDbItems("totens")
-  res.json(resp)
-});
+app.post("/totens", async (req: Request, res: Response) => addTotemById(req, res));
+app.get("/totens", async (req: Request, res: Response) => getTotens(req, res));
+app.get("/totens/:id", async (req: Request, res: Response) => getTotemById(req, res));
+app.put("/totens", async (req: Request, res: Response) => editTotemById(req, res));
 
-app.get("/get-totem/:id", async (req: Request, res: Response) => {
-  const resp = await getDbItem("totens", req.params.id);
-  res.json(resp);
-});
-
-app.put("/edit-totem", async (req: Request, res: Response) => {
-  const resp = await editDbItem("totens", req.body.id, req.body);
-  res.json(resp);
-});
-
-app.post("/totem", async (req: Request, res: Response) => {
-  console.log("POST")
-  const resp = await addDbItem("totens", req.body);
-  res.json(resp);
-});
+app.put("/totem-ping/:id", async (req: Request, res: Response) => setTotemPingById(req, res));
+app.get("/totem-ping/:id", async (req: Request, res: Response) => getTotemPingById(req, res));
 
 exports.totem = onRequest(app);
 

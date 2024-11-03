@@ -1,15 +1,28 @@
-import { createContext, ReactNode, Reducer, useContext, useEffect, useReducer } from "react";
+import { createContext, ReactNode, Reducer, useContext, useEffect, useReducer, useState } from "react";
 import { websiteUrl } from "../api/api";
-import { pageCountDown } from "../helpers";
+import { allowCountersCountDown } from "../helpers";
+import dayjs from "dayjs";
+import { setTotemPingById } from "../api/totemPings/api";
+import { useTotem } from "./TotemContext";
+
+type Counters = {
+  redirectToInit: number
+}
 
 const redirectToInitial = () => window.location.replace(`${websiteUrl}/totem`);
 
+const isSlidesPage = (ref: string): boolean => (
+  ref === 'http://localhost:3000/totem'
+  || ref === 'https://totem-tour.web.app/totem')
+
 type ACTIONTYPE =
-  | { type: "reinit" }
-  | { type: "decrease" }
+  | { type: "res_redirectToInit" }
+  | { type: "dec_redirectToInit" }
 
 
-const initialCounter = 300;
+const initialCounters: Counters = {
+  redirectToInit: 300,
+};
 
 const CounterContext = createContext({});
 
@@ -18,32 +31,50 @@ export function CounterProvider({
 }: {
   children: ReactNode
 }) {
-  const [counter, dispatch] = useReducer<Reducer<number, ACTIONTYPE>>(counterReducer, initialCounter);
+  const [counters, dispatch] = useReducer<Reducer<Counters, ACTIONTYPE>>(counterReducer, initialCounters);
+  const [lastPint, setLastPing] = useState('');
+  // @ts-expect-error: TODO: fix type of context
+  const [totem, ] = useTotem();
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (counter > 0) {
-        if (pageCountDown(window.location.href)){
-          dispatch({type: 'decrease'})
-        } 
-      } else {
-        redirectToInitial();
+
+      if (allowCountersCountDown(window.location.href)){
+
+        if (counters.redirectToInit > 0) {         
+          if (!isSlidesPage(window.location.href)) {
+            dispatch({type: 'dec_redirectToInit'})
+          }
+        } else {
+          redirectToInitial();
+        }
+
+        console.log(dayjs().valueOf())
+
       }
     }, 1000)
 
     return (() => {
       clearInterval(timer)
     })
-  }, [counter])
+
+  }, [counters])
 
   useEffect(() => {
-    if ((window.location.href === ('http://localhost:3000/totem' || 'https://totem-tour.web.app/totem'))){
-      dispatch({type: 'reinit'})
+    totem?.id && setTotemPingById({
+      totemId: totem?.id,
+      lastPing: dayjs().valueOf()
+    })
+  }, [totem]);
+
+  useEffect(() => {
+    if (isSlidesPage(window.location.href)){
+      dispatch({type: 'res_redirectToInit'})
     }
   }, [])
 
   return (
-    <CounterContext.Provider value={[counter, dispatch]}>
+    <CounterContext.Provider value={[counters, dispatch]}>
       {children}
     </CounterContext.Provider>
   )
@@ -53,16 +84,16 @@ export function useCounter() {
   return useContext(CounterContext);
 }
 
-function counterReducer(counter: number, action: ACTIONTYPE): number {
+function counterReducer(counters: Counters, action: ACTIONTYPE): Counters {
   switch(action.type) {
-    case 'decrease': {
-      return counter -1;
+    case 'dec_redirectToInit': {
+      return {...counters, redirectToInit: counters.redirectToInit -1}
     }
-    case 'reinit': {
-      return initialCounter;
+    case 'res_redirectToInit': {
+      return {...counters, redirectToInit: initialCounters.redirectToInit}
     }
     default: {
-      return counter;
+      return counters;
     }
   }
 }

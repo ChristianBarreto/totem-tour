@@ -12,7 +12,7 @@ export default function InteractionManagement({
 
   useEffect(() => {
     appRef.current?.addEventListener("mousedown", e => {
-      dispatch({type: 'reinit'})
+      dispatch({type: 'res_redirectToInit'})
     });
   }, []);
 

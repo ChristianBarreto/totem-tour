@@ -23,7 +23,7 @@ export default function StorePage() {
 
   useEffect(() => {
     appRef.current?.addEventListener("mousedown", e => {
-      dispatch({type: 'reinit'})
+      dispatch({type: 'res_redirectToInit'})
     });
 
     getProducts().then((productsResp) => {
@@ -36,9 +36,9 @@ export default function StorePage() {
 
   useEffect(() => {
     if (cities.length) {
-      setSelectedCity(cities[0].id)
+      setSelectedCity(cities[0].id);
     }
-  }, [cities])
+  }, [cities]);
 
   const [cartOpen, setCartOpen] = useState(false)
 
