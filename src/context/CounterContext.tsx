@@ -58,6 +58,8 @@ export function CounterProvider({
           redirectToInitial();
         }
 
+        console.log(dayjs(lastPing).format('DD/MM/YYYY HH:mm'), moreThen5Minutes(lastPing))
+
         if (moreThen5Minutes(lastPing)) {
           totem?.id && setTotemPingById({
             totemId: totem?.id,
