@@ -27,6 +27,8 @@ const initialCounters: Counters = {
 
 const CounterContext = createContext({});
 
+let lastPing = 0;
+
 export function CounterProvider({
   children
 }: {
@@ -35,8 +37,7 @@ export function CounterProvider({
   const [counters, dispatch] = useReducer<Reducer<Counters, ACTIONTYPE>>(counterReducer, initialCounters);
   // @ts-expect-error: TODO: fix type of context
   const [totem] = useTotem();
-
-  let lastPing = 0;
+  
   const moreThen5Minutes = (lastPing: number): boolean => {
     if (!lastPing) {
       return true;
@@ -61,11 +62,13 @@ export function CounterProvider({
         console.log(dayjs(lastPing).format('DD/MM/YYYY HH:mm'), moreThen5Minutes(lastPing))
 
         if (moreThen5Minutes(lastPing)) {
+          lastPing = dayjs().valueOf();
+
           totem?.id && setTotemPingById({
             totemId: totem?.id,
-            lastPing: dayjs().valueOf()
+            lastPing: lastPing,
           })
-          lastPing = dayjs().valueOf();
+          
           console.log("PING", dayjs(lastPing).format('DD/MM/YYYY HH:mm'))
         }
       }
