@@ -37,7 +37,12 @@ export function CounterProvider({
   const [totem] = useTotem();
 
   let lastPing = 0;
-  const moreThen5Minutes = (lastPing: number): boolean => dayjs().diff(dayjs(lastPing), 'minute') >= timeToPing;
+  const moreThen5Minutes = (lastPing: number): boolean => {
+    if (!lastPing) {
+      return true;
+    }
+    return dayjs().diff(dayjs(lastPing), 'minute') >= timeToPing;
+  }
 
   useEffect(() => {
     lastPing = totem?.lastPing;
