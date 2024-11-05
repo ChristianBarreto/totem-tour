@@ -10,6 +10,7 @@ export function TotemProvider({
   children: ReactNode
 }) {
   const [totem, setTotem] = useState<Totem>();
+  const [updateTotem, setUpdateTotem] = useState(0);
 
   const updateCurrentTotemState = () => {
     const savedTotem = localStorage.getItem("thisTotem");
@@ -50,7 +51,7 @@ export function TotemProvider({
 
 
   return (
-    <TotemContext.Provider value={[totem, handleSetTotem]}>
+    <TotemContext.Provider value={[totem, handleSetTotem, updateTotem, setUpdateTotem]}>
       {children}
     </TotemContext.Provider>
   )

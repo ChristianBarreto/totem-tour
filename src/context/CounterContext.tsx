@@ -36,7 +36,7 @@ export function CounterProvider({
 }) {
   const [counters, dispatch] = useReducer<Reducer<Counters, ACTIONTYPE>>(counterReducer, initialCounters);
   // @ts-expect-error: TODO: fix type of context
-  const [totem] = useTotem();
+  const [totem, handleSetTotem, updateTotem, setUpdateTotem] = useTotem();
   
   const moreThen5Minutes = (lastPing: number): boolean => {
     if (!lastPing) {
@@ -46,7 +46,6 @@ export function CounterProvider({
   }
 
   useEffect(() => {
-    lastPing = totem?.lastPing;
     const timer = setInterval(() => {
 
       if (allowCountersCountDown(window.location.href)) {
@@ -59,17 +58,16 @@ export function CounterProvider({
           redirectToInitial();
         }
 
-        console.log(dayjs(lastPing).format('DD/MM/YYYY HH:mm'), moreThen5Minutes(lastPing)) // TODO: fix the bug
+        console.log(dayjs(lastPing).format('DD/MM/YYYY HH:mm'), moreThen5Minutes(lastPing))
 
         if (moreThen5Minutes(lastPing)) {
-          lastPing = dayjs().valueOf();
 
           totem?.id && setTotemPingById({
             totemId: totem?.id,
-            lastPing: lastPing,
+            lastPing: dayjs().valueOf(),
           })
-          
-          console.log("PING", dayjs(lastPing).format('DD/MM/YYYY HH:mm'))
+          lastPing = dayjs().valueOf();
+          console.log("PING", dayjs().format('DD/MM/YYYY HH:mm'))
         }
       }
     }, 1000)
@@ -79,6 +77,11 @@ export function CounterProvider({
     })
 
   }, [counters, totem])
+
+  useEffect(() => {
+    console.log("SET TOTEM LAST PING", totem?.lastPing)
+    lastPing = totem?.lastPing
+  }, [totem])
 
   useEffect(() => {
     if (isSlidesPage(window.location.href)){
