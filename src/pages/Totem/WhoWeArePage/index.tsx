@@ -18,7 +18,7 @@ export default function WhoWeArePage() {
   const appRef = useRef()as React.MutableRefObject<HTMLDivElement>;
   const navigate = useNavigate();
 
-  const videoUrl = "https://firebasestorage.googleapis.com/v0/b/totem-tour.appspot.com/o/video-totem-tour-1.mov?alt=media&token=24bd2f11-a65d-4b2c-ad0f-1e1f292084b3"
+  const videoUrl = "https://firebasestorage.googleapis.com/v0/b/totem-tour.appspot.com/o/video-totem-tour-1.mp4?alt=media&token=d29092f7-3a55-4735-8275-557db9eb7952"
 
   useEffect(() => {
     logEvents(`who_we_are`)
