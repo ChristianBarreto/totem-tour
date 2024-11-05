@@ -42,6 +42,9 @@ export const getTotemById = async (req: Request, res: Response) => {
         lastPing: null,
       });
     });
+  }).catch((err) => {
+    console.log(err)
+    res.status(404).json(err);
   });
 };
 

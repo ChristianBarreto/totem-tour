@@ -9,21 +9,25 @@ export function TotemProvider({
 }: {
   children: ReactNode
 }) {
-  const savedTotem = localStorage.getItem("thisTotem");
   const [totem, setTotem] = useState<Totem>();
 
   const updateCurrentTotemState = () => {
-    if (savedTotem !== null) {
-      getTotemById(savedTotem).then((res) => {
-        localStorage.setItem("thisTotem", res.id);
-        setTotem(res);
-      }).catch((err) => {
-        console.log("Err", err)
-      });
-    } else {
+    const savedTotem = localStorage.getItem("thisTotem");
+
+    if ((savedTotem === null) || savedTotem === 'undefined') {
       getTotemById('kYlHD8Z2n0d36AW0MEtS').then((res) => {
         localStorage.setItem("thisTotem", res.id);
         setTotem(res);
+        console.log("Totem:", res?.nickName);
+      }).catch((err) => {
+        console.log("Err", err);
+      });
+
+    } else {
+      getTotemById(savedTotem).then((res) => {
+        localStorage.setItem("thisTotem", res.id);
+        setTotem(res);
+        console.log("Totem:", res?.nickName);
       }).catch((err) => {
         console.log("Err", err)
       });
@@ -31,11 +35,11 @@ export function TotemProvider({
   }
 
   const handleSetTotem = (totemId: string) => {
+    localStorage.setItem("thisTotem", totemId);
     getTotemById(totemId).then((res) => {
-      localStorage.setItem("thisTotem", res.id);
       setTotem(res);
     }).catch((err) => {
-      console.log("Err", err)
+      console.log("ERROR:", `query param totem id not found.`)
     });
   }
 
@@ -44,7 +48,6 @@ export function TotemProvider({
   }, []);
 
 
-  console.log("Totem:", totem?.nickName);
 
   return (
     <TotemContext.Provider value={[totem, handleSetTotem]}>

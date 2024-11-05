@@ -112,7 +112,7 @@ export const getDbItem = async (dbName: string, id: string): Promise<any> => new
     if (snapshot.exists) {
       resolve({id: snapshot.id, ...snapshot.data()})
     }else {
-      reject("Item id not found");
+      reject(`Id '${id}' not found in '${dbName}' DB`);
     }
   });
 })
