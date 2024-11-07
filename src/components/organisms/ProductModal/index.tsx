@@ -59,13 +59,13 @@ export default function ProductModal({
     getAvailabilitiesByProduct(productId)
     .then((data) =>{
       setAvailabilities(data as Availabilities)
-    })
+    });
 
     getCities().then((res) => {
       if (res) {
         setCities(res)
       }
-    })
+    });
   }, []);
 
   const quantities = {

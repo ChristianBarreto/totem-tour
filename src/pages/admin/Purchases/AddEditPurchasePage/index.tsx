@@ -6,9 +6,15 @@ import { PurchaseResp } from "../../../../api/purchases/types";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import { RedGreenLight } from "../../../../components/atoms/RedGreenLight";
-import { displayPrice } from "../../../../helpers";
+import { calcPrice, displayPrice } from "../../../../helpers";
 import { getProducts } from "../../../../api/products/api";
-import { Products } from "../../../../api/products/types";
+import { Product, Products } from "../../../../api/products/types";
+import { getCities } from "../../../../api/cities/api";
+import { Cities } from "../../../../api/cities/types";
+import { getAvailabilitiesByProduct } from "../../../../api/availabilities/api";
+import { Availabilities } from "../../../../api/availabilities/types";
+import { Totem } from "../../../../api/totems/types";
+import { getTotems } from "../../../../api/totems/api";
 
 const initPurchase: PurchaseResp = {
   id: '',
@@ -64,21 +70,24 @@ const initItem: PurchaseItemResp = {
   productOperatorPhone: '',
 }
 
+type ProdAvail = Availabilities[]
+
+
 export default function AddEditPurchasePage() {
   const { id } = useParams();
   const [purchase, setPurchase] = useState<PurchaseResp>(initPurchase);
   const [purchaseItems, setPurchaseItems] = useState<PurchaseItemResp[]>([]);
   const [tab, setTab] = useState(0);
+  const [totens, setTotens] = useState<Totem[]>([]);
   const [products, setProducts] = useState<Products>([]);
-
+  const [cities, setCities] = useState<Cities>();
+  const [productAvail, setProductAvail] = useState<ProdAvail>([]);
   const purchaseRef = useRef(initPurchase);
 
   const navigate = useNavigate();
   const location = useLocation();
 
   const isEditing = (location.pathname !== '/admin/purchases/add');
-
-  console.log("IS ADDING", !isEditing)
   
   useEffect(() => {
     let ignore = false;
@@ -98,10 +107,14 @@ export default function AddEditPurchasePage() {
         console.log("Err", err)
       })
     } else {
+      getTotems().then((res) => {
+        res && setTotens(res)
+      })
       getProducts().then((res) => {
-        if (res) {
-          setProducts(res)
-        }
+        res && setProducts(res)
+      })
+      getCities().then((res) => {
+        res && setCities(res)
       })
     }
 
@@ -147,18 +160,21 @@ export default function AddEditPurchasePage() {
     setPurchaseItems([...purchaseItems, item])
   }
 
-  const handleDeleteItem = (id: string) => {
+  const handleDeleteItem = (id: string, index: number) => {
     setPurchaseItems(purchaseItems.filter((i) => i.id !== id))
+    const cloneAvails = productAvail.filter((av, idx) => idx !== index)
+    setProductAvail(cloneAvails)
   }
 
-  const handleSelectProduct = (e: ChangeEvent<HTMLSelectElement>, id: string) => {
-    console.log("Product selected:", id, e.target.value);
+  const handleSelectProduct = (e: ChangeEvent<HTMLSelectElement>, id: string, index: number) => {
     const product = products.find((p) => p.id === e.target.value)
 
     const items = purchaseItems.map((item) => {
+
       if (item.id === id) {
         return {
           ...item,
+          cityId: product?.cityId || '',
           productId: product?.id || '',
           productAddres: product?.address || '',
           productAlignMessage: product?.alignMessage  || '',
@@ -168,66 +184,248 @@ export default function AddEditPurchasePage() {
           productOperatorName: product?.operatorName  || '',
           productOperatorPhone: product?.operatorPhone || '',
           productTime: product?.time || '',
+          cityName: cities?.find((c) => c.id === product?.cityId)?.name || '',
         }
       }
       return item;
     })
     setPurchaseItems(items);
+    if (product?.id) {
+      getAvailabilitiesByProduct(product.id).then((res) => {
+        if (res) {
+          const av = [...productAvail]
+          av[index] = res
+          setProductAvail(av);
+        }
+      })
+    }
+  }
+
+  const handleSetItemDate = (date: string, index: number) => {
+    setPurchaseItems(purchaseItems.map((item, idx) => {
+      if (idx === index) {
+        return {
+          ...item,
+          date: date,
+        }
+      }
+      return item;
+    })) 
+  }
+
+  const handleChangeQty = (e: ChangeEvent<HTMLInputElement>, index: number) => {
+    const quantities = {
+      qty: purchaseItems[index].qty,
+      qtyAdult: purchaseItems[index].qtyAdult,
+      qtyHalf: purchaseItems[index].qtyHalf,
+      qtyFree: purchaseItems[index].qtyFree
+    }
+    const product = products.find((p) => p.id === purchaseItems[index]?.productId)
+
+    if (e.target.name === "adult") {
+      quantities.qty = purchaseItems[index].qtyHalf + purchaseItems[index].qtyFree + Number(e.target.value);
+      quantities.qtyAdult = Number(e.target.value) === 0 ? 0 : Number(e.target.value);
+      quantities.qtyHalf = Number(e.target.value) === 0 ? 0 : purchaseItems[index].qtyHalf;
+      quantities.qtyFree = Number(e.target.value) === 0 ? 0 : purchaseItems[index].qtyFree;
+      const { price, netPrice, partnerComm, companyComm } = calcPrice(quantities, product as Product);
+
+      setPurchaseItems(purchaseItems.map((item, idx) => {
+        if (idx === index) {
+          return {
+            ...item,
+            qtyAdult: Number(e.target.value),
+            qty: Number(e.target.value) === 0 ? 0 : item.qtyHalf + item.qtyFree + Number(e.target.value),
+            qtyHalf: Number(e.target.value) === 0 ? 0 : item.qtyHalf,
+            qtyFree: Number(e.target.value) === 0 ? 0 : item.qtyFree,
+            totalPrice: price,
+            netPrice,
+            partnerComm,
+            companyComm,
+          }
+        }
+        return item;
+      }))
+    } else if (e.target.name === "half") {
+      quantities.qtyHalf = Number(e.target.value);
+      const { price, netPrice, partnerComm, companyComm } = calcPrice(quantities, product as Product);
+
+      setPurchaseItems(purchaseItems.map((item, idx) => {
+        if (idx === index) {
+          return {
+            ...item,
+            qtyHalf: Number(e.target.value),
+            qty: item.qtyAdult + item.qtyFree + Number(e.target.value),
+            totalPrice: price,
+            netPrice,
+            partnerComm,
+            companyComm,
+          }
+        }
+        return item;
+      }))
+    } else if (e.target.name === "free") {
+      quantities.qtyFree = Number(e.target.value);
+      const { price, netPrice, partnerComm, companyComm } = calcPrice(quantities, product as Product);
+
+      setPurchaseItems(purchaseItems.map((item, idx) => {
+        if (idx === index) {
+          return {
+            ...item,
+            qtyFree: Number(e.target.value),
+            qty: item.qtyAdult + item.qtyHalf + Number(e.target.value),
+            totalPrice: price,
+            netPrice,
+            partnerComm,
+            companyComm,
+          }
+        }
+        return item;
+      }))
+    }
   }
 
   const isCancelDisabled = !purchaseChanged(purchaseRef.current, purchase)
   const isSaveDisabled = !purchaseChanged(purchaseRef.current, purchase)
 
-  console.log(purchaseItems)
+  console.log("Purchase:", purchase)
+  console.log("Itens:", purchaseItems)
+  console.log("Set of Avail.:", productAvail)
   return (
     <div>
       <p className="text-2xl pb-4"><span className="font-bold">Compra ID: </span> {purchase.id}</p>
-      <table className="">
-        <tbody>
-          <tr>
-            <td className="pr-2 font-bold">Data da compra:</td>
-            <td>{dayjs(purchase.timestamp).locale('pt-br').format('DD/MM/YYYY HH:mm')}</td>
-          </tr>
-          <tr>
-            <td className="pr-2 font-bold">Valor:</td>
-            <td>{displayPrice(purchase.paymentValue)}</td>
-          </tr>
-          <tr>
-            <td className="pr-2 font-bold">Método de pagamento:</td>
-            <td>{purchase.paymentMethod}</td>
-          </tr>
-          <tr>
-            <td className="pr-2 font-bold">ID do pagamento:</td>
-            <td>{purchase.paymentId}</td>
-          </tr>
-          <tr>
-            <td className="pr-2 font-bold">Totem da venda:</td>
-            <td>{purchase.totemNickName}</td>
-          </tr>
-          <tr>
-            <td className="pr-2 font-bold">Valor foi capturado:</td>
-            <td>{<RedGreenLight value={purchase.payementCaptured} outsideText={purchase.payementCaptured ? "SIM" : "NÃO"} />}</td>
-          </tr>
-          <tr>
-            <td className="pr-2 font-bold">Cliente foi informado:</td>
-            <td>{<RedGreenLight value={purchase.customerMsg} outsideText={purchase.customerMsg ? "SIM" : "NÃO"} />}</td>
-          </tr>
-          <tr>
-            <td className="pr-2 font-bold">Operadores informados:</td>
-            <td>{<RedGreenLight value={purchase.operatorsMsg} outsideText={purchase.operatorsMsg ? "SIM" : "NÃO"} />}</td>
-          </tr>
-          <tr>
-            <td className="pr-2 font-bold">Parceiro foi informado:</td>
-            <td>{<RedGreenLight value={purchase.partnerMsg} outsideText={purchase.partnerMsg ? "SIM" : "NÃO"} />}</td>
-          </tr>
-          <tr>
-            <td className="pr-2 font-bold">Operadores confir. a reserva:</td>
-            <td>{<RedGreenLight value={purchase.operatorsConfirmed} outsideText={purchase.operatorsConfirmed ? "SIM" : "NÃO"} />}</td>
-          </tr>
 
-        </tbody>
-      </table>
-      
+      <div className="flex gap-6">
+        <table className="mb-auto">
+          <tbody>
+            <tr>
+              <td className="pr-2 font-bold">Cliente:</td>
+              <td>{isEditing ? (
+                purchase.customerName
+              ): (
+                <input
+                  type="text"
+                  placeholder="Nome"
+                  className="input input-ghost w-full max-w-xs"
+                  value={purchase.customerName}
+                  onChange={(e) => setPurchase({...purchase, customerName: e.target.value})}
+                />
+              )}</td>
+            </tr>
+            <tr>
+              <td className="pr-2 font-bold">E-mail:</td>
+              <td>{isEditing ? (
+                purchase.customerEmail
+              ): (
+                <input
+                  type="text"
+                  placeholder="E-mail"
+                  className="input input-ghost w-full max-w-xs"
+                  value={purchase.customerEmail}
+                  onChange={(e) => setPurchase({...purchase, customerEmail: e.target.value})}
+                />
+              )}</td>
+            </tr>
+            <tr>
+              <td className="pr-2 font-bold">Telefone:</td>
+              <td>{isEditing ? (
+                purchase.customerPhone
+              ): (
+                <input
+                  type="text"
+                  placeholder="Telefone"
+                  className="input input-ghost w-full max-w-xs"
+                  value={purchase.customerPhone}
+                  onChange={(e) => setPurchase({...purchase, customerPhone: e.target.value})}
+                />
+              )}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table className="">
+          <tbody>
+            <tr>
+              <td className="pr-2 font-bold">Data da compra:</td>
+              <td>{dayjs(purchase.timestamp).locale('pt-br').format('DD/MM/YYYY HH:mm')}</td>
+            </tr>
+            <tr>
+              <td className="pr-2 font-bold">Valor:</td>
+              <td>{displayPrice(purchase.paymentValue)}</td>
+            </tr>
+            <tr>
+              <td className="pr-2 font-bold">Método de pagamento:</td>
+              <td>{isEditing ? (
+                purchase.paymentMethod
+              ): (
+                <input
+                  type="text"
+                  placeholder="Método de pag."
+                  className="input input-ghost w-full max-w-xs"
+                  value={purchase.paymentMethod}
+                  onChange={(e) => setPurchase({...purchase, paymentMethod: e.target.value})}
+                />
+              )}</td>
+            </tr>
+            <tr>
+              <td className="pr-2 font-bold">ID do pagamento:</td>
+              <td>{isEditing ? (
+                purchase.paymentId
+              ): (
+                <input
+                  type="text"
+                  placeholder="ID do pag."
+                  className="input input-ghost w-full max-w-xs"
+                  value={purchase.paymentId}
+                  onChange={(e) => setPurchase({
+                    ...purchase,
+                    paymentId: e.target.value,
+                    payementCaptured: e.target.value.length ? true : false
+                  })}
+                />
+              )}</td>
+            </tr>
+            <tr>
+              <td className="pr-2 font-bold">Ponto da venda:</td>
+              <td>{isEditing ? (
+                purchase.totemNickName
+              ): (
+                <select
+                  className="select select-ghost w-full max-w-xs"
+                  onChange={(e) => setPurchase({...purchase, totemId: e.target.value})}
+                  defaultValue={0}
+                >
+                  <option disabled value={0}>Escolha</option>
+                  {totens?.sort((a, b) => a.nickName > b.nickName ? +1 : -1).map((totem) => (
+                    <option value={totem.id} key={totem.id}>{totem.nickName}</option>
+                  ))}
+                </select>
+              )}</td>
+            </tr>
+            <tr>
+              <td className="pr-2 font-bold">Valor foi capturado:</td>
+              <td>{<RedGreenLight value={purchase.payementCaptured} outsideText={purchase.payementCaptured ? "SIM" : "NÃO"} />}</td>
+            </tr>
+            <tr>
+              <td className="pr-2 font-bold">Cliente foi informado:</td>
+              <td>{<RedGreenLight value={purchase.customerMsg} outsideText={purchase.customerMsg ? "SIM" : "NÃO"} />}</td>
+            </tr>
+            <tr>
+              <td className="pr-2 font-bold">Operadores informados:</td>
+              <td>{<RedGreenLight value={purchase.operatorsMsg} outsideText={purchase.operatorsMsg ? "SIM" : "NÃO"} />}</td>
+            </tr>
+            <tr>
+              <td className="pr-2 font-bold">Parceiro foi informado:</td>
+              <td>{<RedGreenLight value={purchase.partnerMsg} outsideText={purchase.partnerMsg ? "SIM" : "NÃO"} />}</td>
+            </tr>
+            <tr>
+              <td className="pr-2 font-bold">Operadores confir. a reserva:</td>
+              <td>{<RedGreenLight value={purchase.operatorsConfirmed} outsideText={purchase.operatorsConfirmed ? "SIM" : "NÃO"} />}</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
       <div role="tablist" className="tabs tabs-boxed mt-4">
         <p role="tab" className={`tab ${tab === 0 && "tab-active"}`} onClick={() => setTab(0)}>Itens</p>
         <p role="tab" className={`tab ${tab === 1 && "tab-active"}`} onClick={() => setTab(1)}>Cliente</p>
@@ -259,7 +457,7 @@ export default function AddEditPurchasePage() {
                   </tr>
                 </thead>
                 <tbody>
-                {purchaseItems?.map((item) => (
+                {purchaseItems?.map((item, index) => (
                   <tr key={item.id} className="hover">
                     <td key={item.id}>
                       {isEditing ? (
@@ -267,7 +465,7 @@ export default function AddEditPurchasePage() {
                       ): (
                         <select
                           className="select select-ghost w-full max-w-xs"
-                          onChange={(e) => handleSelectProduct(e, item.id)}
+                          onChange={(e) => handleSelectProduct(e, item.id, index)}
                           defaultValue={0}
                         >
                           <option disabled value={0}>Escolha o produto</option>
@@ -280,9 +478,69 @@ export default function AddEditPurchasePage() {
                       )}
                     </td>
                     <td>{item.cityName}</td>
-                    <td>{dayjs(item.date).locale('pt-br').format('DD/MM/YYYY')}</td>
+                    <td>
+                      {isEditing ? (
+                        dayjs(item.date).locale('pt-br').format('DD/MM/YYYY')
+                      ) : (
+                        <select
+                          className="select select-ghost w-full max-w-xs"
+                          onChange={(e) => handleSetItemDate(e.target.value, index)}
+                          defaultValue={0}
+                        >
+                          <option disabled value={0}>Escolha</option>
+                          {productAvail[index]?.map((avail: any) => (
+                            <option value={avail.date} key={avail.id}>{avail.date}</option>
+                          ))}
+                        </select>
+                      )}
+                    </td>
                     <td>{item.productTime}</td>
-                    <td>{item.qty} (I: {item.qtyAdult}, M:{item.qtyHalf}, G:{item.qtyFree})</td>
+                    <td>
+                      {isEditing ? (
+                        <div>{item.qty} (I: {item.qtyAdult}, M:{item.qtyHalf}, G:{item.qtyFree})</div>
+                      ): (
+                        <div>
+                          <label className="input input-sm input-bordered flex items-center gap-2 w-14">
+                            A:
+                            <input
+                              type="number"
+                              min={0}
+                              className="w-10"
+                              placeholder=""
+                              name="adult"
+                              value={purchaseItems[index].qtyAdult}
+                              onChange={(e) =>handleChangeQty(e, index)}
+                            />
+                          </label>
+                          <label className="input input-sm input-bordered flex items-center gap-2 w-14">
+                            M:
+                            <input
+                              type="number"
+                              min={0}
+                              className="w-10"
+                              placeholder=""
+                              name="half"
+                              disabled={purchaseItems[index].qtyAdult === 0}
+                              value={purchaseItems[index].qtyHalf}
+                              onChange={(e) =>handleChangeQty(e, index)}
+                            />
+                          </label>
+                          <label className="input input-sm input-bordered flex items-center gap-2 w-14">
+                            G:
+                            <input
+                              type="number"
+                              min={0}
+                              className="w-10"
+                              placeholder=""
+                              name="free"
+                              disabled={purchaseItems[index].qtyAdult === 0}
+                              value={purchaseItems[index].qtyFree}
+                              onChange={(e) =>handleChangeQty(e, index)}
+                            />
+                          </label>
+                        </div>
+                      )}
+                    </td>
                     <td>{displayPrice(item.netPrice)}</td>
                     <td>{displayPrice(item.partnerComm)}</td>
                     <td>{displayPrice(item.companyComm)}</td>
@@ -291,7 +549,7 @@ export default function AddEditPurchasePage() {
                       <td>
                         <button
                           className="btn btn-sm"
-                          onClick={() => handleDeleteItem(item.id)}>
+                          onClick={() => handleDeleteItem(item.id, index)}>
                             x
                         </button>
                       </td>
@@ -388,7 +646,7 @@ export default function AddEditPurchasePage() {
                     <br /><br />
                     <>
                       ✅ *Passeio:* {item.productName}<br />
-                      - *Qtd.:* {item.qty} pessoa(s):  (Int.: {item.qtyAdult}, Meia:{item.qtyHalf}, Grat.:{item.qtyFree})<br />
+                      - *Qtd.:* {item.qty} pessoa(s):  (Int.: {item.qtyAdult}, Meia: {item.qtyHalf}, Grat.: {item.qtyFree})<br />
                       - *Data:* {dayjs(item.date).locale('pt-br').format('DD/MM/YYYY')}<br />
                       - *Hora:* {item.productTime}<br />
                       - *Nome do resp. da reserva:* {purchase.customerName}<br />
