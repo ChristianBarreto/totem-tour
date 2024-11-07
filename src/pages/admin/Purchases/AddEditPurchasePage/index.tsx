@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react"
-import { PurchaseItemResp } from "../../../../api/purchaseitems/types";
+import { ChangeEvent, useEffect, useRef, useState } from "react"
+import { PurchaseItemResp, PurchaseItem } from "../../../../api/purchaseitems/types";
 import { editPurchaseById, getPurchaseById } from "../../../../api/purchases/api";
 import { getPurchaseItensByPurchaseId } from "../../../../api/purchaseitems/api";
 import { PurchaseResp } from "../../../../api/purchases/types";
@@ -7,6 +7,8 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import { RedGreenLight } from "../../../../components/atoms/RedGreenLight";
 import { displayPrice } from "../../../../helpers";
+import { getProducts } from "../../../../api/products/api";
+import { Products } from "../../../../api/products/types";
 
 const initPurchase: PurchaseResp = {
   id: '',
@@ -35,18 +37,48 @@ const initPurchase: PurchaseResp = {
   customerEmail: '',
 }
 
+const initItem: PurchaseItemResp = {
+  id: '',
+  productId: '',
+  qty: 0,
+  qtyAdult: 0,
+  qtyFree: 0,
+  qtyHalf: 0,
+  netPrice: 0,
+  partnerComm: 0,
+  companyComm: 0,
+  totalPrice: 0,
+  date: '',
+  cityId: '',
+  totemId: '',
+  lastUpdate: 0,
+  timestamp: 0,
+  cityName: '',
+  productName: '',
+  productTime: '',
+  productDuration: '',
+  productAlignMessage: '',
+  productAddres: '',
+  productLocation: '',
+  productOperatorName: '',
+  productOperatorPhone: '',
+}
+
 export default function AddEditPurchasePage() {
   const { id } = useParams();
   const [purchase, setPurchase] = useState<PurchaseResp>(initPurchase);
   const [purchaseItems, setPurchaseItems] = useState<PurchaseItemResp[]>([]);
   const [tab, setTab] = useState(0);
+  const [products, setProducts] = useState<Products>([]);
 
   const purchaseRef = useRef(initPurchase);
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isEditing = (location.pathname !== '/admin/purchases/add')
+  const isEditing = (location.pathname !== '/admin/purchases/add');
+
+  console.log("IS ADDING", !isEditing)
   
   useEffect(() => {
     let ignore = false;
@@ -64,6 +96,12 @@ export default function AddEditPurchasePage() {
         }
       }).catch((err) => {
         console.log("Err", err)
+      })
+    } else {
+      getProducts().then((res) => {
+        if (res) {
+          setProducts(res)
+        }
       })
     }
 
@@ -101,9 +139,46 @@ export default function AddEditPurchasePage() {
     return false
   }
 
+  const handleAddItem = () => {
+    const item = {
+      ...initItem,
+      id: String(purchaseItems.length)
+    }
+    setPurchaseItems([...purchaseItems, item])
+  }
+
+  const handleDeleteItem = (id: string) => {
+    setPurchaseItems(purchaseItems.filter((i) => i.id !== id))
+  }
+
+  const handleSelectProduct = (e: ChangeEvent<HTMLSelectElement>, id: string) => {
+    console.log("Product selected:", id, e.target.value);
+    const product = products.find((p) => p.id === e.target.value)
+
+    const items = purchaseItems.map((item) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          productId: product?.id || '',
+          productAddres: product?.address || '',
+          productAlignMessage: product?.alignMessage  || '',
+          productDuration: product?.duration  || '',
+          productLocation: product?.location || '',
+          productName: product?.name  || '',
+          productOperatorName: product?.operatorName  || '',
+          productOperatorPhone: product?.operatorPhone || '',
+          productTime: product?.time || '',
+        }
+      }
+      return item;
+    })
+    setPurchaseItems(items);
+  }
+
   const isCancelDisabled = !purchaseChanged(purchaseRef.current, purchase)
   const isSaveDisabled = !purchaseChanged(purchaseRef.current, purchase)
 
+  console.log(purchaseItems)
   return (
     <div>
       <p className="text-2xl pb-4"><span className="font-bold">Compra ID: </span> {purchase.id}</p>
@@ -186,7 +261,24 @@ export default function AddEditPurchasePage() {
                 <tbody>
                 {purchaseItems?.map((item) => (
                   <tr key={item.id} className="hover">
-                    <td>{item.productName}</td>
+                    <td key={item.id}>
+                      {isEditing ? (
+                        item.productName
+                      ): (
+                        <select
+                          className="select select-ghost w-full max-w-xs"
+                          onChange={(e) => handleSelectProduct(e, item.id)}
+                          defaultValue={0}
+                        >
+                          <option disabled value={0}>Escolha o produto</option>
+                          {products
+                            .filter((p) => (!p.isTest))
+                            .map((product) => (
+                            <option value={product.id} key={product.id}>{product.name}</option>
+                          ))}
+                        </select>
+                      )}
+                    </td>
                     <td>{item.cityName}</td>
                     <td>{dayjs(item.date).locale('pt-br').format('DD/MM/YYYY')}</td>
                     <td>{item.productTime}</td>
@@ -195,6 +287,15 @@ export default function AddEditPurchasePage() {
                     <td>{displayPrice(item.partnerComm)}</td>
                     <td>{displayPrice(item.companyComm)}</td>
                     <td>{displayPrice(item.totalPrice)}</td>
+                    {!isEditing && 
+                      <td>
+                        <button
+                          className="btn btn-sm"
+                          onClick={() => handleDeleteItem(item.id)}>
+                            x
+                        </button>
+                      </td>
+                    }
                   </tr>
                 ))}
                   <tr className="bg-gray-200">
@@ -210,6 +311,10 @@ export default function AddEditPurchasePage() {
                   </tr>
                 </tbody>
               </table>
+            </div>
+            
+            <div className="p-4 flex justify-end">
+              <button className="btn btn-primary" onClick={handleAddItem}>Novo item</button>
             </div>
           </div>
         )}

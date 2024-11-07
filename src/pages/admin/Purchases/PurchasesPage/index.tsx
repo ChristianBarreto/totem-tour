@@ -95,6 +95,10 @@ export default function PurchasesPage() {
         tableHeader={tableHeader}
         tableFetch={() => getAdminPurchases({params: {timestamp: "asc", paymentCaptured: "asc"}})}
       />
+
+      <div className="p-4 flex justify-end">
+        <button className="btn btn-primary" onClick={() => navigate('/admin/purchases/add')}>Nova venda</button>
+      </div>
     </div>
   )
 }
