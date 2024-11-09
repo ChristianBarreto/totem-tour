@@ -1,7 +1,8 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react"
 import { PurchaseItemResp, PurchaseItem } from "../../../../api/purchaseitems/types";
-import { editPurchaseById, getPurchaseById } from "../../../../api/purchases/api";
+import { editPurchaseById, getPurchaseById, setNewPurchase } from "../../../../api/purchases/api";
 import { getPurchaseItensByPurchaseId } from "../../../../api/purchaseitems/api";
+import { CartItemType } from "../../../../api/purchaseitems/types";
 import { PurchaseResp } from "../../../../api/purchases/types";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
@@ -126,6 +127,32 @@ export default function AddEditPurchasePage() {
   const handleCancel = () => {
     setPurchase(purchaseRef.current)
   }
+
+  const mapCartItems = (items: PurchaseItemResp[]): CartItemType[] => {
+    
+    return items.map((item) => {
+      const product = products.find((p) => p.id === item.productId);
+      return {
+        productId: item.productId,
+        qty: item.qty,
+        qtyAdult: item.qtyAdult,
+        qtyFree: item.qtyFree,
+        qtyHalf: item.qtyHalf,
+        netPrice: item.netPrice,
+        partnerComm: item.partnerComm,
+        companyComm: item.companyComm,
+        totalPrice: item.totalPrice,
+        date: item.date,
+        cityId: item.cityId,
+        time: product?.time ? product.time : '',
+        local: product?.address ? product.address : '',
+        location: product?.time ? product.time : '',
+        operatorName: product?.time ? product.time : '',
+        operatorPhone: product?.time ? product.time : '',
+        totemId: item.totemId,
+      }
+    })
+  }
  
   const handleSave = () => {
     if (isEditing) {
@@ -135,11 +162,28 @@ export default function AddEditPurchasePage() {
         console.log("Err", err)
       })
     } 
-    // else {
-    //   addPurchase(purchase).then((res) => {
-    //     navigate(-1)
-    //   })
-    // }
+    else {
+      setNewPurchase({
+        acceptedTerms: purchase.acceptedTerms,
+        totemId: purchase.totemId,
+        cartPrice: purchase.cartPrice,
+        totalNetPrice: purchase.totalNetPrice,
+        totalPartnerComm: purchase.totalPartnerComm,
+        totalCompanyComm: purchase.totalCompanyComm,
+        paymentValue: purchase.paymentValue,
+        payementCaptured: purchase.payementCaptured,
+        paymentId: purchase.paymentId,
+        paymentMethod: purchase.paymentMethod,
+        customerData: {
+          name: purchase.customerName,
+          phone: purchase.customerPhone,
+          email: purchase.customerEmail,
+        },
+        products: mapCartItems(purchaseItems),
+      }).then(() => {
+        navigate(-1)
+      })
+    }
 
   }
 
@@ -289,7 +333,23 @@ export default function AddEditPurchasePage() {
 
   console.log("Purchase:", purchase)
   console.log("Itens:", purchaseItems)
-  console.log("Set of Avail.:", productAvail)
+
+  useEffect(() => {
+    const totalNetPrice = purchaseItems.reduce((acc, curr) => acc + curr.netPrice, 0);
+    const totalPartnerComm = purchaseItems.reduce((acc, curr) => acc + curr.partnerComm, 0);
+    const totalCompanyComm = purchaseItems.reduce((acc, curr) => acc + curr.companyComm, 0);
+
+    setPurchase({
+      ...purchase,
+      totalNetPrice,
+      totalPartnerComm,
+      totalCompanyComm,
+      cartPrice: totalNetPrice + totalPartnerComm + totalCompanyComm,
+      paymentValue: totalNetPrice + totalPartnerComm + totalCompanyComm,
+    })
+
+  }, [purchaseItems]);
+
   return (
     <div>
       <p className="text-2xl pb-4"><span className="font-bold">Compra ID: </span> {purchase.id}</p>
@@ -486,6 +546,7 @@ export default function AddEditPurchasePage() {
                           className="select select-ghost w-full max-w-xs"
                           onChange={(e) => handleSetItemDate(e.target.value, index)}
                           defaultValue={0}
+                          disabled={purchaseItems[index].productId.length === 0}
                         >
                           <option disabled value={0}>Escolha</option>
                           {productAvail[index]?.map((avail: any) => (
@@ -510,34 +571,39 @@ export default function AddEditPurchasePage() {
                               name="adult"
                               value={purchaseItems[index].qtyAdult}
                               onChange={(e) =>handleChangeQty(e, index)}
+                              disabled={purchaseItems[index].date.length === 0}
                             />
                           </label>
-                          <label className="input input-sm input-bordered flex items-center gap-2 w-14">
-                            M:
-                            <input
-                              type="number"
-                              min={0}
-                              className="w-10"
-                              placeholder=""
-                              name="half"
-                              disabled={purchaseItems[index].qtyAdult === 0}
-                              value={purchaseItems[index].qtyHalf}
-                              onChange={(e) =>handleChangeQty(e, index)}
-                            />
-                          </label>
-                          <label className="input input-sm input-bordered flex items-center gap-2 w-14">
-                            G:
-                            <input
-                              type="number"
-                              min={0}
-                              className="w-10"
-                              placeholder=""
-                              name="free"
-                              disabled={purchaseItems[index].qtyAdult === 0}
-                              value={purchaseItems[index].qtyFree}
-                              onChange={(e) =>handleChangeQty(e, index)}
-                            />
-                          </label>
+                          {products.find((p) => p.id === purchaseItems[index].productId)?.isHalfPaxAllowed && (
+                            <label className="input input-sm input-bordered flex items-center gap-2 w-14">
+                              M:
+                              <input
+                                type="number"
+                                min={0}
+                                className="w-10"
+                                placeholder=""
+                                name="half"
+                                disabled={purchaseItems[index].qtyAdult === 0}
+                                value={purchaseItems[index].qtyHalf}
+                                onChange={(e) =>handleChangeQty(e, index)}
+                              />
+                            </label>
+                          )}
+                          {products.find((p) => p.id === purchaseItems[index].productId)?.isFreePaxAllowed && (
+                            <label className="input input-sm input-bordered flex items-center gap-2 w-14">
+                              G:
+                              <input
+                                type="number"
+                                min={0}
+                                className="w-10"
+                                placeholder=""
+                                name="free"
+                                disabled={purchaseItems[index].qtyAdult === 0}
+                                value={purchaseItems[index].qtyFree}
+                                onChange={(e) =>handleChangeQty(e, index)}
+                              />
+                            </label>
+                          )}
                         </div>
                       )}
                     </td>
