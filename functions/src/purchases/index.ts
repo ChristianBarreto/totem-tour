@@ -1,3 +1,4 @@
+import { initCustomer, initTotem } from "../helpers";
 import { editDbItem, getDbItem, getDbItems } from "../index";
 import { Request, Response } from "express";
 
@@ -6,8 +7,8 @@ export const getPurchases = async (req: Request, res: Response) => {
   const resp: any[] = [];
 
   purchases.forEach(async (purchase) => {
-    const totem = await getDbItem("totens", purchase.totemId);
-
+    const totem = purchase.totemId.length ? await getDbItem("totens", purchase.totemId) : initTotem;
+    
     await resp.push({
       ...purchase,
       totemNickName: totem.nickName,
@@ -21,9 +22,10 @@ export const getPurchases = async (req: Request, res: Response) => {
 };
 
 export const getPurchaseById = async (req: Request, res: Response) => {
+  console.log(req.params.id);
   const purchase = await getDbItem("purchases", req.params.id);
-  const totem = await getDbItem("totens", purchase.totemId);
-  const customer = await getDbItem("customers", purchase.customerId);
+  const totem = purchase.totemId.length ? await getDbItem("totens", purchase.totemId) : initTotem;
+  const customer = purchase.customerId.length ? await getDbItem("customers", purchase.customerId): initCustomer;
 
   res.json({
     ...purchase,
