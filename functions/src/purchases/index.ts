@@ -7,7 +7,7 @@ export const getPurchases = async (req: Request, res: Response) => {
   const resp: any[] = [];
 
   purchases.forEach(async (purchase) => {
-    console.log("ASD")
+    console.log("ASD");
     const totem = purchase.totemId.length ? await getDbItem("totens", purchase.totemId) : initTotem;
     await resp.push({
       ...purchase,
