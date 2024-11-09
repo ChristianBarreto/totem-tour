@@ -8,7 +8,6 @@ export const getPurchases = async (req: Request, res: Response) => {
 
   purchases.forEach(async (purchase) => {
     const totem = purchase.totemId.length ? await getDbItem("totens", purchase.totemId) : initTotem;
-    
     await resp.push({
       ...purchase,
       totemNickName: totem.nickName,
