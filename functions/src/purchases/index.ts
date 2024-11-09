@@ -7,6 +7,7 @@ export const getPurchases = async (req: Request, res: Response) => {
   const resp: any[] = [];
 
   purchases.forEach(async (purchase) => {
+    console.log("ASD")
     const totem = purchase.totemId.length ? await getDbItem("totens", purchase.totemId) : initTotem;
     await resp.push({
       ...purchase,
@@ -21,7 +22,7 @@ export const getPurchases = async (req: Request, res: Response) => {
 };
 
 export const getPurchaseById = async (req: Request, res: Response) => {
-  console.log(req.params.id);
+  console.log("PARAMS", req.params.id);
   const purchase = await getDbItem("purchases", req.params.id);
   const totem = purchase.totemId.length ? await getDbItem("totens", purchase.totemId) : initTotem;
   const customer = purchase.customerId.length ? await getDbItem("customers", purchase.customerId): initCustomer;
