@@ -24,6 +24,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const analytics = getAnalytics(app);
 
-export const logEvents = (eventName: string) => {
-  isProductionMode && logEvent(analytics, eventName)
+type eventData = {
+  totemNickName: string,
+}
+
+export const logEvents = (eventName: string, data: eventData) => {
+  isProductionMode && logEvent(analytics, eventName, data)
 }

@@ -1,5 +1,5 @@
-import { Totem } from "../../src/api/totems/types";
-import { Customer } from "../../src/api/customers/types";
+import { Totem } from "./totems/types";
+import { Customer } from "./customers/types";
 
 export const initTotem: Totem = {
   id: "",

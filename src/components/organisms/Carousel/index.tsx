@@ -3,8 +3,12 @@ import { Link } from "react-router-dom";
 import { getSlides } from "../../../api/slides/api";
 import { SlideResp, Slides } from "../../../api/slides/types";
 import { logEvents } from "../../../firebase";
+import { useTotem } from "../../../context/TotemContext";
 
-export default function HeroCarousel() {
+export default function HeroCarousel({
+
+}: {
+}) {
   const fallBackImg = "https://firebasestorage.googleapis.com/v0/b/totem-tour.appspot.com/o/slides%2F0-fallback-slide-DO-NOT-DELETE.jpg?alt=media&token=52ef0826-7158-461e-b613-9811e42716a5";
   
   const [carouselItens, setCarouselItems] = useState<Slides>([]);
@@ -12,9 +16,10 @@ export default function HeroCarousel() {
 
   const carouselRef = useRef(new Array(carouselItens.length));
   const initialized = useRef(false);
+  // @ts-expect-error: TODO: fix type of context
+  const [totem, ] = useTotem();
 
   useEffect(() => {
-    logEvents("init_slides")
     getSlides().then((res) => {
       setCarouselItems(res.filter(((slide: SlideResp) => slide.active)))
       carouselRef.current = carouselItens;
@@ -42,6 +47,9 @@ export default function HeroCarousel() {
     }
   }, [carouselItens, slideIndex]);
 
+  useEffect(() => {
+    totem?.nickName && logEvents("init_slides", {totemNickName: totem?.nickName})
+  }, [totem])
 
   return (
     <div className="h-full w-full overflow-hidden	">

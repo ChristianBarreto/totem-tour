@@ -3,13 +3,16 @@ import IconChevronDown from "../../atoms/IconChevronDown";
 import TermsModal from "../TermsModal";
 import { getTotemTour } from "../../../api/totemtour/api";
 import { logEvents } from "../../../firebase";
+import { Totem } from "../../../api/totems/types";
 
 export default function UserTermsForm({
  terms,
  setTerms,
+ totem,
 }: {
   terms: boolean,
   setTerms: (value: boolean) => void,
+  totem: Totem
 }) {
   const [status, setStatus] = useState({
     info: false,
@@ -23,13 +26,16 @@ export default function UserTermsForm({
   const [company, setCompany] = useState(null);
 
   useEffect(() => {
-    logEvents(`checkout_terms`)
     getTotemTour().then((res) => {
       setCompany(res)
     }).catch((err) => {
       console.log("Err", err)
     })
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    totem?.nickName && logEvents(`checkout_terms`, {totemNickName: totem.nickName});
+  }, [totem]);
 
   if (
     status.info

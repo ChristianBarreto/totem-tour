@@ -21,9 +21,12 @@ export default function WhoWeArePage() {
   const videoUrl = "https://firebasestorage.googleapis.com/v0/b/totem-tour.appspot.com/o/video-totem-tour-1.mp4?alt=media&token=d29092f7-3a55-4735-8275-557db9eb7952"
 
   useEffect(() => {
-    logEvents(`who_we_are`)
     setShowFooter(false);
   }, [])
+
+  useEffect(() => {
+    totem?.nickName && logEvents('who_we_are', {totemNickName: totem?.nickName})
+  }, [totem])
 
   const toggleFooter = () => {
     setShowFooter(!showFooter);

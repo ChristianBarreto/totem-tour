@@ -17,6 +17,7 @@ import ProductForm from '../../molecules/ProductForm';
 import { calcPrice, displayPrice, initProduct, qtySelectorDisabler } from '../../../helpers';
 import { logEvents } from '../../../firebase';
 import { getProductById } from '../../../api/products/api';
+import { useTotem } from '../../../context/TotemContext';
 
 export default function ProductModal({
   prefetch,
@@ -44,9 +45,10 @@ export default function ProductModal({
   const [cities, setCities] = useState<Cities>([])
   // @ts-expect-error: TODO: fix type of context
   const [, dispatch] = useCart();
+  // @ts-expect-error: TODO: fix type of context
+  const [totem, ] = useTotem();
 
   useEffect(() => {
-    logEvents(`product_modal_${product.name}`)
     getProductById(productId).then((res) => {
       setProduct(res as Product);
       setProductIsLoading(false)
@@ -67,6 +69,12 @@ export default function ProductModal({
       }
     });
   }, []);
+
+  useEffect(() => {
+    if (totem?.nickName && product) {
+      logEvents(`product_modal_${product.name}`, {totemNickName: totem?.nickName})
+    }
+  }, [totem, product])
 
   const quantities = {
     qty,
@@ -99,7 +107,7 @@ export default function ProductModal({
         totemId: '',
       }
   
-      dispatch({type: 'addToCart', product: currentProduct});
+      dispatch({type: 'addToCart', product: currentProduct, totemNickName: totem.nickName});
       setOpen(false);
       setCartOpen(true);
     }

@@ -19,7 +19,7 @@ export default function UserPaymentForm({
   const [payOption, setPayOption] = useState(0);
 
   useEffect(() => {
-    logEvents(`checkout_payment`)
+   
     cancelLastPaymentIntent({
       device_id: totem.posId,
     }).then((res) => {
@@ -28,6 +28,10 @@ export default function UserPaymentForm({
       console.log(err)
     })
   }, []);
+
+  useEffect(() => {
+    totem?.nickName &&  logEvents(`checkout_payment`, {totemNickName: totem.nickName});
+  }, [totem]);
 
   return (
     <div

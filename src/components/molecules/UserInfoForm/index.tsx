@@ -7,7 +7,8 @@ import Keyboard from "react-simple-keyboard";
 import 'react-simple-keyboard/build/css/index.css';
 import IconXCircle from "../../atoms/IconXCircle"
 import IconCheckCircle from "../../atoms/IconCheckCircle"
-import { logEvents } from "../../../firebase"
+import { logEvents } from "../../../firebase";
+import { useTotem } from "../../../context/TotemContext"
 
 type customerData = {
   name: string,
@@ -24,6 +25,8 @@ export default function UserInfoForm({
   customerData: customerData
   setCustomerData: (data: customerData) => void,
 }) {
+  // @ts-expect-error: TODO: fix type of context
+  const [totem, ] = useTotem();
 
   const [formErrors, setFormErrors] = useState({
     name: {isValid: false, isError: false, errorMessage: 'Escreva seu nome completo.'},
@@ -87,9 +90,12 @@ export default function UserInfoForm({
   }
  
   useEffect(() => {
-    logEvents(`checkout_user_info`)
     nameRef.current?.focus();
   }, [])
+
+  useEffect(() => {
+    totem?.nickName && logEvents(`checkout_user_info`, {totemNickName: totem.nickName})
+  }, [totem])
 
   return (
     <div

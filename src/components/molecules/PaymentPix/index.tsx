@@ -10,7 +10,6 @@ import PaymentLoading from "../PaymentLoading";
 import PaymentExpired from "../PaymentExpired";
 import PaymentPixQR from "../PaymentPixQR";
 import PaymentPixSuccess from "../PaymentPixSuccess";
-import { logEvent } from "firebase/analytics";
 import { logEvents } from "../../../firebase";
 
 export default function PaymentPix({
@@ -67,7 +66,6 @@ export default function PaymentPix({
   useEffect(() => {
     let ignore = false;
     setPaymentLoading(true)
-    logEvents(`checkout_payment_pix`)
 
     const purchase = {
       ...cart,
@@ -117,7 +115,7 @@ export default function PaymentPix({
   
             if(res.captured){ // set this to true to simulate payment success or to res.captured to run in prod
               clearInterval(consultTimer);
-              logEvents(`checkout_payment_pix_confirmed`)
+              logEvents(`checkout_payment_pix_confirmed`, {totemNickName: totem.nickName})
               const status = {
                 status: res.status,
                 statusDetail: res.status_detail,
@@ -180,6 +178,10 @@ export default function PaymentPix({
       });
     }
   }, [purchase])
+
+  useEffect(() => {
+    totem?.nickName &&  logEvents(`checkout_payment_pix`, {totemNickName: totem.nickName});
+  }, [totem]);
 
   return (
 

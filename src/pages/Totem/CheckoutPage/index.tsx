@@ -96,7 +96,7 @@ export default function CheckoutPage() {
         
         <div className="grow pt-28">
           {count === 1 && (<UserInfoForm customerData={customerData} setCustomerData={setCustomerData} />)}
-          {count === 2 && (<UserTermsForm terms={terms} setTerms={setTerms} />)}
+          {count === 2 && (<UserTermsForm terms={terms} setTerms={setTerms} totem={totem} />)}
           {count === 3 && (<UserPaymentForm customerData={customerData} totem={totem} />)}
         </div>
 

@@ -58,8 +58,6 @@ export function CounterProvider({
           redirectToInitial();
         }
 
-        console.log(dayjs(lastPing).format('DD/MM/YYYY HH:mm'), moreThen5Minutes(lastPing))
-
         if (moreThen5Minutes(lastPing)) {
 
           totem?.id && setTotemPingById({
@@ -67,7 +65,6 @@ export function CounterProvider({
             lastPing: dayjs().valueOf(),
           })
           lastPing = dayjs().valueOf();
-          console.log("PING", dayjs().format('DD/MM/YYYY HH:mm'))
         }
       }
     }, 1000)
@@ -79,7 +76,6 @@ export function CounterProvider({
   }, [counters, totem])
 
   useEffect(() => {
-    console.log("SET TOTEM LAST PING", totem?.lastPing)
     lastPing = totem?.lastPing
   }, [totem])
 

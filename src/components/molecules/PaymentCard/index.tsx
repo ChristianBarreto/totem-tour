@@ -15,7 +15,6 @@ import PaymentCardInvoice from "../PaymentCardInvoice";
 import PaymentExpired from "../PaymentExpired";
 import PaymentPixSuccess from "../PaymentPixSuccess";
 import PaymentCanceled from "../PaymentCanceled";
-import { logEvent } from "firebase/analytics";
 import { logEvents } from "../../../firebase";
 
 const initNewPurchase: NewPurchase = {
@@ -66,8 +65,8 @@ export default function PaymentCard({
   const redirectToInitial = () => window.location.replace(`${websiteUrl}/totem`);
 
   useEffect(() => {
-    logEvents(`checkout_payment_card`)
-  }, [])
+    totem?.nickName &&  logEvents(`checkout_payment_card`, {totemNickName: totem.nickName});
+  }, [totem])
 
   const handlePay = () => {
     setCardProcessStatus('creating_intent')
@@ -125,7 +124,7 @@ export default function PaymentCard({
               }).then((res) => {
                 console.log("PAYMENT STATUS", res)
                 if (res.captured) {
-                  logEvents(`checkout_payment_card_confirmed`)
+                  logEvents(`checkout_payment_card_confirmed`, {totemNickName: totem.nickName})
                   setPurchase({
                     ...purchase,
                     cartPrice: cart.cartPrice,

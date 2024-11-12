@@ -8,7 +8,7 @@ export default function HeroPage() {
   // @ts-expect-error: TODO: fix type of context
   const [, dispatch] = useCounter();
     // @ts-expect-error: TODO: fix type of context
-  const [, handleSetTotem] = useTotem();
+  const [totem, handleSetTotem] = useTotem();
 
   let [searchParams] = useSearchParams();
 

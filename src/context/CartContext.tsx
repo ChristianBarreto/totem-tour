@@ -2,9 +2,10 @@ import { createContext, ReactNode, Reducer, useContext, useReducer } from "react
 import { NewPurchase } from "../api/purchases/types";
 import { CartItemType } from "../api/purchaseitems/types";
 import { logEvents } from "../firebase";
+import { useTotem } from "./TotemContext";
 
 type ACTIONTYPE =
-  | { type: "addToCart"; product: CartItemType }
+  | { type: "addToCart"; product: CartItemType, totemNickName: string }
   | { type: "removeItem"; product: CartItemType, index: number }
   | { type: "deleteCart" };
 
@@ -31,6 +32,8 @@ export function CartProvider({
   children: ReactNode
 }) {
   const [cart, dispatch] = useReducer<Reducer<NewPurchase, ACTIONTYPE>>(cartReducer, initialPurchase);
+  // @ts-expect-error: TODO: fix type of context
+  const [totem, ] = useTotem();
 
   return (
     <CartContext.Provider value={[cart, dispatch]}>
@@ -46,7 +49,7 @@ export function useCart() {
 function cartReducer(cart: NewPurchase, action: ACTIONTYPE): NewPurchase {
   switch(action.type) {
     case 'addToCart': {
-      logEvents(`add_to_cart`)
+      logEvents(`add_to_cart`, {totemNickName: action.totemNickName})
       return {
         ...cart,
         cartPrice: cart.cartPrice + action.product.totalPrice,

@@ -5,6 +5,7 @@ import ProductCard from "../../molecules/ProductCard"
 import styles from './ProductList.module.css'
 import { useEffect } from "react";
 import { logEvents } from "../../../firebase";
+import { useTotem } from "../../../context/TotemContext";
 
 export default function ProductList({
   products,
@@ -16,6 +17,8 @@ export default function ProductList({
   setCartOpen: (value: boolean) => void,
 }) {
   const location = useLocation();
+  // @ts-expect-error: TODO: fix type of context
+  const [totem, ] = useTotem();
 
   let showTest = false;
   if (location.pathname === '/totem/test'){
@@ -51,8 +54,8 @@ export default function ProductList({
     .sort((a, b) => a.priority - b.priority)
 
   useEffect(() => {
-    logEvents("product_list")
-  }, [])
+    totem?.nickName && logEvents("product_list", {totemNickName: totem?.nickName})
+  }, [totem])
 
   return (
     <div className={`bg-white ${styles.container}`}>
