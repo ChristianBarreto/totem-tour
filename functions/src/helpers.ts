@@ -1,5 +1,5 @@
-import { Totem } from "./totems/types";
-import { Customer } from "./customers/types";
+import { Totem } from "./controllers/totems/types";
+import { Customer } from "./controllers/customers/types";
 
 export const initTotem: Totem = {
   id: "",

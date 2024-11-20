@@ -1,5 +1,5 @@
 // const dayjs = require('dayjs');
-import { getDbItem, getDbItems, getDbItemsByParentId } from "..";
+import { getDbItem, getDbItems, getDbItemsByParentId } from "../..";
 import { Request, Response } from "express";
 
 export const getNextPurchaseItems = async (req: Request, res: Response) => {

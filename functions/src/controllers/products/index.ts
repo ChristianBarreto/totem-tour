@@ -1,4 +1,4 @@
-import { addDbItem, editDbItem, getDbItem, getDbItems } from "..";
+import { addDbItem, editDbItem, getDbItem, getDbItems } from "../../index";
 import { Request, Response } from "express";
 
 

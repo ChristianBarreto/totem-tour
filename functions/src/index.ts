@@ -14,12 +14,13 @@ import 'dotenv/config';
 import { MercadoPagoConfig, Payment, Point } from 'mercadopago';
 import { PointGetDevicesData } from "mercadopago/dist/clients/point/getDevices/types";
 import { GetPaymentIntentListResponse } from "mercadopago/dist/clients/point/commonTypes";
-import { editPurchaseById, getPurchaseById, getPurchases } from "./purchases";
-import { getNextPurchaseItems, getPurchaseItemByPurchaseId } from "./purchaseItems";
-import { addSlide, editSlide, getSlide, getSlides } from "./slides";
-import { addProduct, editProduct, getProduct, getProducts } from "./products";
-import { getTotemPingById, setTotemPingById } from "./totemPing";
-import { getTotemById, getTotens, editTotemById, addTotemById } from "./totems";
+import { editPurchaseById, getPurchaseById, getPurchases } from "./controllers/purchases";
+import { getNextPurchaseItems, getPurchaseItemByPurchaseId } from "./controllers/purchaseItems";
+import { addSlide, editSlide, getSlide, getSlides } from "./controllers/slides";
+import { addProduct, editProduct, getProduct, getProducts } from "./controllers/products";
+import { getTotemPingById, setTotemPingById } from "./controllers/totemPing";
+import { getTotemById, getTotens, editTotemById, addTotemById } from "./controllers/totems";
+import { editCityById, getCities, getCityById } from "./controllers/cities";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -42,7 +43,6 @@ export const mpApiKey = envProduction
   : process.env.MPKEYONLINE_PROD // change to test/prod to test in development environment
 
 console.log("PRODUCTION", envProduction);
-console.log("MP-KEY", mpApiKey)
 
 app.use(function(request: Request, response: Response, next: any) {
   response.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
@@ -164,14 +164,20 @@ app.put("/slides/:id", async (req: Request, res: Response) => editSlide(req, res
 // app.delete("/slides:id", async (req: Request, res: Response) => getSlides(req, res));
 
 
-app.get("/cities", async (req: Request, res: Response) => {
-  const snapshot = await db.collection("cities").get();
-  const data: any[] = [];
-  snapshot.forEach((doc: any) => {
-    data.push({id: doc.id, ...doc.data()});
-  });
-  res.json(data);
-});
+app.post("/cities", async (req: Request, res: Response) => addCities(req, res));
+app.get("/cities", async (req: Request, res: Response) => getCities(req, res));
+app.get("/cities/:id", async (req: Request, res: Response) => getCityById(req, res));
+app.put("/cities", async (req: Request, res: Response) => editCityById(req, res));
+
+
+// app.get("/cities", async (req: Request, res: Response) => {
+//   const snapshot = await db.collection("cities").get();
+//   const data: any[] = [];
+//   snapshot.forEach((doc: any) => {
+//     data.push({id: doc.id, ...doc.data()});
+//   });
+//   res.json(data);
+// });
 
 app.get("/availabilities/:productId", async (req: Request, res: Response) => {
   const today = dayjs().format('YYYY-MM-DD')
@@ -462,4 +468,8 @@ app.get("/totem-ping/:id", async (req: Request, res: Response) => getTotemPingBy
 
 exports.totem = onRequest(app);
 
+
+function addCities(req: Request<import("express-serve-static-core").ParamsDictionary>, res: Response<any>) {
+  throw new Error("Function not implemented.");
+}
 

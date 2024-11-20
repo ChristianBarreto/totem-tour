@@ -1,4 +1,4 @@
-import { addDbItem, editDbItem, getDbItem, getDbItems } from "..";
+import { addDbItem, editDbItem, getDbItem, getDbItems } from "../..";
 import { Request, Response } from "express";
 
 export const getSlides = async (req: Request, res: Response) => {
