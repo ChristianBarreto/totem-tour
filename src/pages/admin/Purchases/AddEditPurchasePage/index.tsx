@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react"
-import { PurchaseItemResp, PurchaseItem } from "../../../../api/purchaseitems/types";
+import { PurchaseItemResp } from "../../../../api/purchaseitems/types";
 import { editPurchaseById, getPurchaseById, setNewPurchase } from "../../../../api/purchases/api";
 import { getPurchaseItensByPurchaseId } from "../../../../api/purchaseitems/api";
 import { CartItemType } from "../../../../api/purchaseitems/types";
@@ -109,13 +109,19 @@ export default function AddEditPurchasePage() {
       })
     } else {
       getTotems().then((res) => {
-        res && setTotens(res)
+        if (res) {
+          setTotens(res)
+        }
       })
       getProducts().then((res) => {
-        res && setProducts(res)
+        if (res) {
+          setProducts(res)
+        }
       })
       getCities().then((res) => {
-        res && setCities(res)
+        if(res) {
+          setCities(res)
+        } 
       })
     }
 
@@ -156,7 +162,7 @@ export default function AddEditPurchasePage() {
  
   const handleSave = () => {
     if (isEditing) {
-      editPurchaseById(purchase.id, purchase).then((res) => {
+      editPurchaseById(purchase.id, purchase).then(() => {
         navigate(-1)
       }).catch((err) => {
         console.log("Err", err)
@@ -188,7 +194,7 @@ export default function AddEditPurchasePage() {
   }
 
   const purchaseChanged = (purchase1: PurchaseResp, purchase2: PurchaseResp) => {
-    for (let i in purchase1) {
+    for (const i in purchase1) {
       if (purchase1[i as keyof PurchaseResp] !== purchase2[i as keyof PurchaseResp]) {
         return true
       }
@@ -706,7 +712,7 @@ export default function AddEditPurchasePage() {
               <p className="font-bold pb-2">Operador WhatsApp:</p>
             </div>
             {purchaseItems.map((item, index) => 
-              <div className="border p-2 bg-gray-100 mb-4">
+              <div key={index} className="border p-2 bg-gray-100 mb-4">
                 <p className="pb-2 font-bold">{index+1}- {item.productOperatorName}:</p>
                 <div className="border p-2 ml-4 bg-white ">
                   <p>

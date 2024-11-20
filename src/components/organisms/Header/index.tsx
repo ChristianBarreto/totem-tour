@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { IconCart } from "../../atoms/IconCart";
 import styles from './Header.module.css';
 import { useCart } from "../../../context/CartContext";

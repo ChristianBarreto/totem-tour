@@ -1,6 +1,6 @@
 import axios from "axios";
 import { axiosParams, baseUrl } from "../api";
-import { Slide, SlideResp } from "./types";
+import { SlideResp } from "./types";
 
 export const getSlides = async () => {
   const { data } = await axios.get(`${baseUrl}/slides/`, axiosParams);

@@ -1,4 +1,4 @@
-import { createContext, ReactNode, Reducer, useContext, useEffect, useReducer, useState } from "react";
+import { createContext, ReactNode, Reducer, useContext, useEffect, useReducer } from "react";
 import { websiteUrl } from "../api/api";
 import { allowCountersCountDown } from "../helpers";
 import dayjs from "dayjs";
@@ -36,7 +36,7 @@ export function CounterProvider({
 }) {
   const [counters, dispatch] = useReducer<Reducer<Counters, ACTIONTYPE>>(counterReducer, initialCounters);
   // @ts-expect-error: TODO: fix type of context
-  const [totem, handleSetTotem, updateTotem, setUpdateTotem] = useTotem();
+  const [totem, ] = useTotem();
   
   const moreThen5Minutes = (lastPing: number): boolean => {
     if (!lastPing) {
@@ -58,9 +58,8 @@ export function CounterProvider({
           redirectToInitial();
         }
 
-        if (moreThen5Minutes(lastPing)) {
-
-          totem?.id && setTotemPingById({
+        if (moreThen5Minutes(lastPing) && totem?.id) {
+          setTotemPingById({
             totemId: totem?.id,
             lastPing: dayjs().valueOf(),
           })

@@ -30,7 +30,9 @@ export default function UserPaymentForm({
   }, []);
 
   useEffect(() => {
-    totem?.nickName &&  logEvents(`checkout_payment`, {totemNickName: totem.nickName});
+    if (totem?.nickName) {
+      logEvents(`checkout_payment`, {totemNickName: totem.nickName});
+    }
   }, [totem]);
 
   return (

@@ -1,4 +1,3 @@
-import { Product } from "../../../api/products/types";
 import { RedGreenLight } from "../../atoms/RedGreenLight";
 
 export default function ProductConsistency({

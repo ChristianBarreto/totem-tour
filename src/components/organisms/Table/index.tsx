@@ -97,7 +97,7 @@ export default function Table({
                 })
                 .map((item, indexA) => (
                   <tr className="hover" key={`row-${item.name}`}>
-                    {tableHeader.map((header, indexB) => (
+                    {tableHeader.map((header) => (
                       <td key={`${header.value}-${indexA}`}>
                         {!header.component ? (
                           <>

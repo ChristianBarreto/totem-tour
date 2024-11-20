@@ -43,9 +43,15 @@ export default function QtySelector({
     } 
     if (qty < maxPerRound) {
       if (remaining && (qty < remaining)){
-        type === "adult" && setQtyAdult(qtyAdult + 1)
-        type === "free" && setQtyFree(qtyFree + 1)
-        type === "half" && setQtyHalf(qtyHalf + 1)
+        if (type === "adult") {
+          setQtyAdult(qtyAdult + 1)
+        }
+        if (type === "free") {
+          setQtyFree(qtyFree + 1)
+        }
+        if (type === "half") {
+          setQtyHalf(qtyHalf + 1)
+        }
         setQty(qty + 1)
       }
     }

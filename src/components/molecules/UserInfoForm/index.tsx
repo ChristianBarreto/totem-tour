@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import IconEmail from "../../atoms/IconEmail"
 import IconPhone from "../../atoms/IconPhone"
 import IconUser from "../../atoms/IconUser"
@@ -94,7 +94,10 @@ export default function UserInfoForm({
   }, [])
 
   useEffect(() => {
-    totem?.nickName && logEvents(`checkout_user_info`, {totemNickName: totem.nickName})
+    if (totem?.nickName) {
+      logEvents(`checkout_user_info`, {totemNickName: totem.nickName});
+    }
+    
   }, [totem])
 
   return (
@@ -123,7 +126,7 @@ export default function UserInfoForm({
                 required
                 name="name"
                 value={customerData.name}
-                onFocus={(e) => setSelectedInput('name')}
+                onFocus={() => setSelectedInput('name')}
                 ref={nameRef}
               />
               {formErrors.name.isError && <IconXCircle classes="text-red-600 size-6" />}  
@@ -147,7 +150,7 @@ export default function UserInfoForm({
                 required
                 name="email"
                 value={customerData.email}
-                onFocus={(e) => setSelectedInput('email')}
+                onFocus={() => setSelectedInput('email')}
               />  
               {formErrors.email.isError && <IconXCircle classes="text-red-600 size-6" />}  
               {formErrors.email.isValid && <IconCheckCircle classes="text-green-600 size-6" />}  
@@ -170,7 +173,7 @@ export default function UserInfoForm({
                 required
                 name="phone"
                 value={customerData.phone}
-                onFocus={(e) => setSelectedInput('phone')}
+                onFocus={() => setSelectedInput('phone')}
               />
               {formErrors.phone.isError && <IconXCircle classes="text-red-600 size-6" />}  
               {formErrors.phone.isValid && <IconCheckCircle classes="text-green-600 size-6" />}  

@@ -1,8 +1,6 @@
 import IconClock from "../../atoms/IconClock";
 
-export default function PaymentCardInvoice({
-}: {
-}) {
+export default function PaymentCardInvoice() {
   return (
     <div className="flex justify-center">
       <div className="card card-compact bg-white border md:w-100">

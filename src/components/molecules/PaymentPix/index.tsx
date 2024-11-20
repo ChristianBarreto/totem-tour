@@ -180,7 +180,9 @@ export default function PaymentPix({
   }, [purchase])
 
   useEffect(() => {
-    totem?.nickName &&  logEvents(`checkout_payment_pix`, {totemNickName: totem.nickName});
+    if (totem?.nickName) {
+      logEvents(`checkout_payment_pix`, {totemNickName: totem.nickName});
+    }
   }, [totem]);
 
   return (

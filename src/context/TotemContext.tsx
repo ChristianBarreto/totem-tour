@@ -40,7 +40,7 @@ export function TotemProvider({
     getTotemById(totemId).then((res) => {
       setTotem(res);
     }).catch((err) => {
-      console.log("ERROR:", `query param totem id not found.`)
+      console.log("ERROR:", `query param totem id not found: ${err}`)
     });
   }
 

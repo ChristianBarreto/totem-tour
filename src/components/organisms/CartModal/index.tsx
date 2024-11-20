@@ -19,7 +19,6 @@ export default function CartModal({
 }) {
   // @ts-expect-error: TODO: fix type of context
   const [cart, ] = useCart();
-  const navigate = useNavigate();
 
   return (
     <Dialog open={cartOpen} onClose={setCartOpen} className="relative z-10">

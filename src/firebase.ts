@@ -29,5 +29,8 @@ type eventData = {
 }
 
 export const logEvents = (eventName: string, data: eventData) => {
-  isProductionMode && logEvent(analytics, eventName, data)
+  if (isProductionMode) {
+    logEvent(analytics, eventName, data)
+  }
+  
 }

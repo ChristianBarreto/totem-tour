@@ -72,7 +72,6 @@ const Light = () => {
 
 
 export default function TotemsPage() {
-  const [reload, setReload] = useState(0);
   const navigate = useNavigate();
   
   const handleClick = (id: string) => {

@@ -49,11 +49,11 @@ export default function AddEditUserPage() {
  
   const handleSave = () => {
     if (isEditing) {
-      editTotemById(totem).then((res) => {
+      editTotemById(totem).then(() => {
         navigate('/admin/totems')
       })
     } else {
-      addTotem(totem).then((res) => {
+      addTotem(totem).then(() => {
         navigate('/admin/totems')
       })
     }
@@ -61,7 +61,7 @@ export default function AddEditUserPage() {
   }
 
   const totemChanged = (prod1: Totem, prod2: Totem) => {
-    for (let i in prod1) {
+    for (const i in prod1) {
       if (prod1[i as keyof Totem] !== prod2[i as keyof Totem]) {
         return true
       }

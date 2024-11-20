@@ -22,7 +22,7 @@ export default function AvailabilityTable({
 }) {
   const [availabilities, setAvailabilities] = useState<Availabilities>([]);
   const [products, setProducts] = useState<Product[]>([]);
-  const [cities, setCities] = useState<Cities>([]);
+  const [, setCities] = useState<Cities>([]);
   const [reloadTable, setReloadTable] = useState(0);
 
   useEffect(() => {

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCounter } from "../../../context/CounterContext";
 import IconRowBack from "../../../components/atoms/IconRowBack";
 import { websiteUrl } from "../../../api/api";
 import IconPartner from "../../../components/atoms/IconPartner";
@@ -10,8 +9,6 @@ import { useTotem } from "../../../context/TotemContext";
 
 export default function WhoWeArePage() {
   // @ts-expect-error: TODO: fix type of context
-  const [, dispatch] = useCounter();
-    // @ts-expect-error: TODO: fix type of context
   const [totem,] = useTotem();
   const [showFooter, setShowFooter] = useState(false);
   const [openTotemModal, setOpenTotemModal] = useState(false);
@@ -25,7 +22,8 @@ export default function WhoWeArePage() {
   }, [])
 
   useEffect(() => {
-    totem?.nickName && logEvents('who_we_are', {totemNickName: totem?.nickName})
+    if (totem?.nickName)
+    logEvents('who_we_are', {totemNickName: totem?.nickName})
   }, [totem])
 
   const toggleFooter = () => {

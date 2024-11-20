@@ -1,5 +1,4 @@
 import Table from "../../../../components/organisms/Table";
-import { getTotems } from "../../../../api/totems/api";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getSlides } from "../../../../api/slides/api";
@@ -67,7 +66,6 @@ const Light = () => {
 
 
 export default function SlidesPage() {
-  const [reload, setReload] = useState(0);
   const navigate = useNavigate();
   
   const handleClick = (id: string) => {

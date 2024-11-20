@@ -1,7 +1,6 @@
 // @ts-nocheck
 import React, { useState } from 'react';
 import styles from './Keyboard.module.css';
-import IconTrash from '../../atoms/IconTrash';
 
 export default function Keyboard({
   inputText,
@@ -32,14 +31,15 @@ export default function Keyboard({
     const fifthLine = ['@', '.com', '.com.br' , ' ', '@gmail.com']
 
     const handleKeyClick = (key: string) => {
-      isShift && setIsShift(!isShift);
+        if (isShift) {
+            setIsShift(!isShift);
+        }
+       
 
       if (key === 'Enter') {
           handleEnterKey();
       } 
-      else if(key === "Ctrl" || key === "Alt" || key === '<' || key === '>')
-      {
-      }else if (key === ' ') {
+      else if (key === ' ') {
           handleSpaceKey();
       } else if (key === 'Fixa') {
           handleCapsLock();
@@ -137,7 +137,7 @@ export default function Keyboard({
                 else newContent = inputText + keys[1];
             }
         } else {
-            let character = ((isShift && isCaps) || (!isShift && !isCaps)) 
+            const character = ((isShift && isCaps) || (!isShift && !isCaps)) 
             ? key.toLowerCase() : key.toUpperCase();
             newContent = inputText + character;
         }

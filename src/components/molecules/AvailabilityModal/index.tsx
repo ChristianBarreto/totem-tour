@@ -63,12 +63,12 @@ export default function AvailabilityModal({
  
   const handleSave = () => {
     if (availabilityId) {
-      editAvailabilityById(availabilityId, availability).then((res) => {
+      editAvailabilityById(availabilityId, availability).then(() => {
         setReloadTable(reloadTable+1)
         setOpen(false);
       })
     } else {
-      addAvailability(availability).then((res) => {
+      addAvailability(availability).then(() => {
         setReloadTable(reloadTable+1)
         setOpen(false);
       })
@@ -142,7 +142,7 @@ export default function AvailabilityModal({
                       type="checkbox"
                       className="toggle toggle-primary"
                       checked={availability.active}
-                      onChange={(e) => setAvailability({...availability, active: !availability.active})}
+                      onChange={() => setAvailability({...availability, active: !availability.active})}
                     />
                     <span className="label-text pl-4">Tem disponibilidade</span>
                   </label>

@@ -1,7 +1,4 @@
 import { ReactNode } from "react";
-import IconCheckCircle from "../IconCheckCircle";
-import IconXCircle from "../IconXCircle";
-
 
 export default function TouchInput({
   value,
@@ -35,7 +32,7 @@ export default function TouchInput({
           name={name}
           value={value}
           // ref={ref}
-          onFocus={(e) => setSelectedInput(name)}
+          onFocus={() => setSelectedInput(name)}
         />
       </div>
     </div>

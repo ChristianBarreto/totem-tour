@@ -6,7 +6,6 @@ import { logEvents } from "../../../firebase";
 import { Totem } from "../../../api/totems/types";
 
 export default function UserTermsForm({
- terms,
  setTerms,
  totem,
 }: {
@@ -34,7 +33,9 @@ export default function UserTermsForm({
   }, []);
 
   useEffect(() => {
-    totem?.nickName && logEvents(`checkout_terms`, {totemNickName: totem.nickName});
+    if (totem?.nickName) {
+      logEvents(`checkout_terms`, {totemNickName: totem.nickName});
+    }
   }, [totem]);
 
   if (

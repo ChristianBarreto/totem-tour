@@ -8,13 +8,15 @@ export default function HeroPage() {
   // @ts-expect-error: TODO: fix type of context
   const [, dispatch] = useCounter();
     // @ts-expect-error: TODO: fix type of context
-  const [totem, handleSetTotem] = useTotem();
+  const [, handleSetTotem] = useTotem();
 
-  let [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     dispatch({type: 'res_redirectToInit'})
-    searchParams.get('totemId') && handleSetTotem(searchParams.get('totemId'));
+    if (searchParams.get('totemId')){
+      handleSetTotem(searchParams.get('totemId'));
+    }
   }, []);
 
   return (

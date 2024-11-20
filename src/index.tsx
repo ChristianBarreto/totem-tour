@@ -2,25 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { RouterProvider } from 'react-router-dom';
+import App from './App';
 
-import { routes } from './routes/routes';
-import { CartProvider } from './context/CartContext';
-import { CounterProvider } from './context/CounterContext';
-import { TotemProvider } from './context/TotemContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 root.render(
-  <TotemProvider>
-    <CounterProvider>
-      <CartProvider>
-        <RouterProvider router={routes} />
-      </CartProvider>
-    </CounterProvider>
-  </TotemProvider>
+  <App />
 );
 
 // If you want to start measuring performance in your app, pass a function

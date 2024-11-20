@@ -53,7 +53,7 @@ export default function PaymentCard({
   totem: Totem,
 }) {
   const [purchase, setPurchase] = useState<NewPurchase>(initNewPurchase);
-  const [paymentError, setPaymentError] = useState({});
+  const [paymentError,] = useState({});
   const [payIntent, setPayIntent] = useState<any>({});
 
   const [cardProcessStatus, setCardProcessStatus] = useState<CardProcessStatus>('select_method')
@@ -65,7 +65,9 @@ export default function PaymentCard({
   const redirectToInitial = () => window.location.replace(`${websiteUrl}/totem`);
 
   useEffect(() => {
-    totem?.nickName &&  logEvents(`checkout_payment_card`, {totemNickName: totem.nickName});
+    if (totem?.nickName) {
+      logEvents(`checkout_payment_card`, {totemNickName: totem.nickName});
+    }
   }, [totem])
 
   const handlePay = () => {
@@ -102,8 +104,6 @@ export default function PaymentCard({
         paymentValue: cart.cartPrice
       })
       
-    } else if (cardProcessStatus === 'creating_intent') {
-
     } else if (cardProcessStatus === 'intent_error') {
 
       setInterval(() => {
@@ -187,7 +187,7 @@ export default function PaymentCard({
         const expireTimer = setTimeout(() => {
           cancelLastPaymentIntent({
             device_id: totem.posId,
-          }).then((res) => {
+          }).then(() => {
             clearTimeout(expireTimer);
           }).catch((err) => {
             clearTimeout(expireTimer);
@@ -205,8 +205,6 @@ export default function PaymentCard({
       setInterval(() => {
         redirectToInitial()
       }, redirectToInitialTime);
-
-    } else if (cardProcessStatus === 'awaiting_store_purchase') {
 
     } else if (cardProcessStatus === 'purchase_stored') {
       setInterval(() => {
