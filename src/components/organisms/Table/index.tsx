@@ -81,11 +81,10 @@ export default function Table({
                   }
                 })
                 .sort((a, b) => {
-
                   if (sort) {
                     if (a[sort] < b[sort]) {
                       return -1
-                    } else if (a[sort] < b[sort]){
+                    } else if (a[sort] > b[sort]){
                       return 1
                     } else {
                       return 0

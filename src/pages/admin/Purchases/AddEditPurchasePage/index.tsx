@@ -13,7 +13,7 @@ import { Product, Products } from "../../../../api/products/types";
 import { getCities } from "../../../../api/cities/api";
 import { Cities } from "../../../../api/cities/types";
 import { getAvailabilitiesByProduct } from "../../../../api/availabilities/api";
-import { Availabilities } from "../../../../api/availabilities/types";
+import { Availabilities, Availability } from "../../../../api/availabilities/types";
 import { Totem } from "../../../../api/totems/types";
 import { getTotems } from "../../../../api/totems/api";
 
@@ -555,7 +555,7 @@ export default function AddEditPurchasePage() {
                           disabled={purchaseItems[index].productId.length === 0}
                         >
                           <option disabled value={0}>Escolha</option>
-                          {productAvail[index]?.map((avail: any) => (
+                          {productAvail[index]?.map((avail: Availability) => (
                             <option value={avail.date} key={avail.id}>{avail.date}</option>
                           ))}
                         </select>
