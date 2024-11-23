@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react"
-import { PriceTypes } from "../../../api/api"
+import { PriceTypes } from "../../../api/products/types"
 import { Product } from "../../../api/products/types";
 import IsShownWhereBadge from "../../atoms/IsShownWhereBadge";
 import { displayPrice } from "../../../helpers";

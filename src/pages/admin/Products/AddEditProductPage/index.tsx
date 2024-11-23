@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { PriceTypes } from "../../../../api/api";
+import { PriceTypes } from "../../../../api/products/types";
 import { Cities } from "../../../../api/cities/types";
 import { getCities } from "../../../../api/cities/api";
 import { addProduct, editProductById } from "../../../../api/products/api";

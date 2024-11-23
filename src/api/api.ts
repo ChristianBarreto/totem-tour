@@ -1,6 +1,5 @@
 export type APIError = string;
 
-export type PriceTypes = undefined | "single-value" | "variable-value" | "defined-value"
 
 export const axiosParams = {
   headers: {

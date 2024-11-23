@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { getTotemTour, setTotemTour } from "../../../api/totemtour/api";
 import dayjs from "dayjs";
-import { objectChanged } from "../../../helpers";
-
 
 
 export default function EditCompanyPage() {
@@ -47,9 +45,10 @@ export default function EditCompanyPage() {
       }
     })
   }
+  
 
-  const isCancelDisabled = !objectChanged(company, companyRef.current)
-  const isSaveDisabled = !objectChanged(company, companyRef.current);
+  // const isCancelDisabled = !objectChanged(company, companyRef.current)
+  // const isSaveDisabled = !objectChanged(company, companyRef.current);
   
   console.log(company)
   return (
@@ -149,13 +148,13 @@ export default function EditCompanyPage() {
       <div className="flex justify-end">
         <button
           className="btn"
-          disabled={isCancelDisabled}
+          // disabled={isCancelDisabled}
           onClick={handleCancel}
         >
           Cancelar
         </button>
         <button
-          disabled={isSaveDisabled}
+          // disabled={isSaveDisabled}
           className="btn btn-primary ml-4"
           onClick={handleSave}
         >
