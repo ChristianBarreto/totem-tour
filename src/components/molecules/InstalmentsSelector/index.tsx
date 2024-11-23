@@ -9,7 +9,7 @@ export default function InstalmentsSelector({
 }: {
   disabled: boolean,
   purchase: NewPurchase,
-  setPurchase:(value: any) => void,
+  setPurchase:(value: NewPurchase) => void,
 }) {
 
   const installments = [ // Todo: fetch from MP
