@@ -1,5 +1,13 @@
-import IconClock from "../../atoms/IconClock"
-import IconXCircle from "../../atoms/IconXCircle"
+import IconClock from "../../atoms/IconClock";
+import IconXCircle from "../../atoms/IconXCircle";
+
+type Cause = {
+  code: number,
+};
+
+type PaymentErrorType = {
+  cause?: Cause[],
+};
 
 const CauseDescription = (code: number) =>{
     if (code === 8) {
@@ -17,7 +25,7 @@ const CauseDescription = (code: number) =>{
 export default function PaymentError({
   errorData
 }: {
-  errorData: any
+  errorData: PaymentErrorType
 }) {
   console.log("Error data:", errorData)
   return (
@@ -30,7 +38,7 @@ export default function PaymentError({
           </div>
           <div>
             {errorData === undefined && (<p>Motivo: Erro de conexão com o servidor.</p>)}
-            {errorData?.cause?.map((cause: any, index: string) => (
+            {errorData?.cause?.map((cause: Cause, index: number) => (
               <div key={index}>
                 {CauseDescription(cause.code)}
               </div>
