@@ -1,18 +1,19 @@
 'use client'
 
 
-import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
+import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { Company } from '../../../api/totemtour/types';
 
 
-export default function ProductModal({
+export default function TermsModal({
   open,
   setOpen,
   company,
 }: {
   open: boolean,
   setOpen: (value: boolean) => void,
-  company: any
+  company: Company
 }) {
 
   return (
