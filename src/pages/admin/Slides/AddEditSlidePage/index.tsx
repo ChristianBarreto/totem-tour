@@ -30,8 +30,10 @@ export default function AddEditSlidePage() {
     let ignore = false;
     if (isEditing) {
       getSlide(id as string).then((res) => {
-        setSlide(res)
-        slideRef.current = res
+        if(!ignore) {
+          setSlide(res);
+          slideRef.current = res;
+        }
       }).catch((err) => {
         console.log("Err", err)
       })

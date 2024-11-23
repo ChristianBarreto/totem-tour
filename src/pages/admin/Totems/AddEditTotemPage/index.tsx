@@ -31,8 +31,10 @@ export default function AddEditTotemPage() {
     let ignore = false;
     if (isEditing) {
       getTotemById(id as string).then((res) => {
-        setTotem(res)
-        totemRef.current = res
+        if (!ignore) {
+          setTotem(res);
+          totemRef.current = res;
+        }
       }).catch((err) => {
         console.log("Err", err)
       })
