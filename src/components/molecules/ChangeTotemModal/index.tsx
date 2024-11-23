@@ -42,16 +42,16 @@ export default function ChangeTotemModal({
     })
   }, [])
 
-  const onChangeAll = (inputs: any) => {
+  const onChangeAll = (inputs: User) => {
     if ((user.name !== undefined) && (user.name !== inputs.name)) {
       handleInputChange('name', inputs['name']);
     } else if ((user.pass !== undefined) && (user.pass !== inputs.pass)) {
       handleInputChange('pass', inputs['pass']);
-    }
+    };
   };
 
   const handleInputChange = (inputName: string, value: string) => {
-    setUser({...user, [inputName]: value})
+    setUser({...user, [inputName]: value});
   }
 
   const handleShift = (button: string) => {
@@ -138,7 +138,7 @@ export default function ChangeTotemModal({
                       keyboardRef={r => (keyboard.current = r)}
                       inputName={selectedInput}
                       layoutName={layoutName}
-                      onChangeAll={onChangeAll}
+                      onChangeAll={(e) => onChangeAll(e as User)}
                       onKeyPress={(button) => handleShift(button)}
                     />
                   </section>
