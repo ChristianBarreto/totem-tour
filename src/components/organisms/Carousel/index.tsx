@@ -45,7 +45,9 @@ export default function HeroCarousel() {
   }, [carouselItens, slideIndex]);
 
   useEffect(() => {
-    totem?.nickName && logEvents("init_slides", {totemNickName: totem?.nickName})
+    if (totem?.nickName) {
+      logEvents("init_slides", {totemNickName: totem?.nickName})
+    }
   }, [totem])
 
   return (
