@@ -1,4 +1,5 @@
 import IconClock from "../../atoms/IconClock";
+import pinpadimage from './maquininha.png';
 
 export default function PaymentCardInvoice() {
   return (
@@ -8,7 +9,7 @@ export default function PaymentCardInvoice() {
           <p className="text-2xl text-primary text-center">Pagamento com cartão</p>
           <div className="text-start p-4 m-2 border-t border-b">
             <p className="text-xl text-center mb-4">Faça o pagamento na maquininha conforme as instruções abaixo:</p>
-            <img src={require('./maquininha.png')} alt='maquininha' width={70} className="ml-auto mr-auto pb-2"/>
+            <img src={pinpadimage} alt='maquininha' width={70} className="ml-auto mr-auto pb-2"/>
 
             <ul className="steps steps-vertical">
               <li className="step">
