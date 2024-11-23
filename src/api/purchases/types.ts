@@ -49,3 +49,8 @@ export type NewPurchase = {
   customerData: Customer,
   products: CartItemType[],
 }
+
+export type PurchasesParams = {
+  timestamp: string,
+  paymentCaptured: string;
+}
