@@ -4,9 +4,9 @@ import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/re
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useCart } from '../../../context/CartContext'
 import { Products } from '../../../api/products/types'
-import { useNavigate } from 'react-router-dom'
 import CartItem from '../../molecules/CartItem'
 import CartTotal from '../../molecules/CartTotal'
+import { CartItemType } from '../../../api/purchaseitems/types'
 
 export default function CartModal({
   cartOpen,
@@ -56,7 +56,7 @@ export default function CartModal({
                     <div className="mt-8">
                       <div className="flow-root">
                         <ul role="list" className="-my-6 divide-y divide-gray-200">
-                          {cart.products.map((product: any, index: number) => {
+                          {cart.products.map((product: CartItemType, index: number) => {
                             const refProduct = products.find((prod) => prod.id === product.productId)
                             return (
                               <CartItem key={index} refProduct={refProduct} product={product} cartIndex={index}/>
