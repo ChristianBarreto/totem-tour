@@ -1,6 +1,6 @@
 import axios from "axios";
 import { axiosParams, baseUrl } from "../api";
-import { CancelPaymentIntent, MpPurchase, MpVerifyPayment, PaymentIntent, PaymentInterStatus, PosMode } from "./types";
+import { CancelPaymentIntent, MpPurchase, MpVerifyPayment, PaymentIntentReq, PaymentInterStatus, PosMode } from "./types";
 
 export const generatePixPayment = async (body: MpPurchase) => {
   const { data } = await axios.post(`${baseUrl}/pix-payment/`, body, axiosParams);
@@ -22,7 +22,7 @@ export const switchPosMode = async (id: string, body: PosMode) => {
   return data;
 }
 
-export const paymentIntent = async (body: PaymentIntent) => {
+export const createPaymentIntent = async (body: PaymentIntentReq) => {
   const { data } = await axios.post(`${baseUrl}/payment-intent/`, body, axiosParams);
   return data;
 }

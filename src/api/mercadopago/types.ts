@@ -39,7 +39,7 @@ export type PosMode = {
   mode: string
 }
 
-export type PaymentIntent = {
+export type PaymentIntentReq = {
   device_id: string,
   amount: number,
   description: string,
@@ -55,4 +55,8 @@ export type CancelPaymentIntent = {
 
 export type PaymentInterStatus = {
   payment_intent_id: string,
+}
+
+export type PaymentIntent = {
+  id: string,
 }
