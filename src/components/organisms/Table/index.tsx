@@ -10,6 +10,10 @@ type TableHeaderItem = {
   component?: ReactNode
 }
 
+interface MyObject {
+  [key: string]: never  
+}
+
 export default function Table({
   tableName,
   tableHeader,
@@ -20,16 +24,16 @@ export default function Table({
 }: {
   tableName: string,
   tableHeader: TableHeaderItem[],
-  tableFetch: (body?: any) => Promise<any>,
+  tableFetch: () => Promise<Array<any>>, // eslint-disable-line
   reloadTable?: number,
   filter?: Filter,
   sort?: Sort,
 }) {
   const [isLoading, setIsLoading] = useState(true);
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<Array<MyObject>>([]);
 
   useEffect(() => {
-    tableFetch().then((res: any) => {
+    tableFetch().then((res: Array<MyObject>) => {
       setItems(res);
       setIsLoading(false);
     }).catch((err) => {
@@ -40,7 +44,7 @@ export default function Table({
 
   const reload = () => {
     setIsLoading(true);
-    tableFetch().then((res: any) => {
+    tableFetch().then((res: Array<MyObject>) => {
       setItems(res);
       setIsLoading(false);
     }).catch((err) => {
@@ -71,16 +75,17 @@ export default function Table({
               <p>Loading</p>
             ): (
               <>
-                {items?.filter((item) => {
+                {items
+                ?.filter((item: Record<string, unknown>) => {
                   if (filter) {
-                    if (eval(item[filter[1]] + filter[0] + true)) {
+                    if (eval(item[(filter[1])] + filter[0] + true)) {
                       return item
                     }
                   } else {
                     return item
                   }
                 })
-                .sort((a, b) => {
+                .sort((a: Record<string, never>, b: Record<string, never>) => {
                   if (sort) {
                     if (a[sort] < b[sort]) {
                       return -1
@@ -93,7 +98,7 @@ export default function Table({
                     return 0
                   }
                 })
-                .map((item, indexA) => (
+                .map((item: Record<string, unknown>, indexA) => (
                   <tr className="hover" key={`row-${item.name}`}>
                     {tableHeader.map((header) => (
                       <td key={`${header.value}-${indexA}`}>
@@ -101,7 +106,7 @@ export default function Table({
                           <>
                             {item[header.value] === true && (<p>TRUE</p>)}
                             {item[header.value] === false && (<p>FALSE</p>)}
-                            <span id={item[header.value]}>{item[header.value]}</span>
+                            <span id={item[header.value] as string}>{item[header.value] as React.ReactElement}</span>
                           </>
 
                         ): (
