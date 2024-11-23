@@ -8,8 +8,8 @@ export default function MethodSelector({
   handlePay,
 }: {
   purchase: NewPurchase,
-  setPurchase:(value: any) => void,
-  handlePay:(value: any) => void,
+  setPurchase:(value: NewPurchase) => void,
+  handlePay:() => void,
 }) {
 
   const handleDebit = () => {
