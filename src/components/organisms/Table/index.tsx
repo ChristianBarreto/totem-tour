@@ -71,8 +71,7 @@ export default function Table({
               <p>Loading</p>
             ): (
               <>
-                {items
-                .filter((item) => {
+                {items?.filter((item) => {
                   if (filter) {
                     if (eval(item[filter[1]] + filter[0] + true)) {
                       return item
