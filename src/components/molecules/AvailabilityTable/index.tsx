@@ -22,11 +22,11 @@ export default function AvailabilityTable({
 }) {
   const [availabilities, setAvailabilities] = useState<Availabilities>([]);
   const [products, setProducts] = useState<Product[]>([]);
-  const [cities, setCities] = useState<Cities>([]);
+  const [, setCities] = useState<Cities>([]);
   const [reloadTable, setReloadTable] = useState(0);
 
   useEffect(() => {
-    getProducts().then((productsResp: any) => {
+    getProducts().then((productsResp: Products) => {
       setProducts(productsResp as Products);
     }).catch((err) => {
       console.log("Err", err)
@@ -87,8 +87,7 @@ export default function AvailabilityTable({
           </tr>
         </thead>
         <tbody>
-          {products
-            .filter((item) => {
+          {products?.filter((item) => {
               if (filter) {
                 if (eval(item[filter[1]] + filter[0] + true)) {
                   return item

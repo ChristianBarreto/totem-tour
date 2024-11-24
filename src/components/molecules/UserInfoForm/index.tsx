@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import IconEmail from "../../atoms/IconEmail"
 import IconPhone from "../../atoms/IconPhone"
 import IconUser from "../../atoms/IconUser"
@@ -10,7 +10,8 @@ import IconCheckCircle from "../../atoms/IconCheckCircle"
 import { logEvents } from "../../../firebase";
 import { useTotem } from "../../../context/TotemContext"
 
-type customerData = {
+
+type CustomerData = {
   name: string,
   email: string,
   phone: string,
@@ -22,8 +23,8 @@ export default function UserInfoForm({
   customerData,
   setCustomerData,
 }: {
-  customerData: customerData
-  setCustomerData: (data: customerData) => void,
+  customerData: CustomerData
+  setCustomerData: (data: CustomerData) => void,
 }) {
   // @ts-expect-error: TODO: fix type of context
   const [totem, ] = useTotem();
@@ -53,7 +54,7 @@ export default function UserInfoForm({
     setLayoutName('default')
   };
 
-  const onChangeAll = (inputs: any) => {
+  const onChangeAll = (inputs: CustomerData) => {
     if ((customerData.name !== undefined) && (customerData.name !== inputs.name)) {
       handleInputChange('name', inputs['name']);
 
@@ -94,7 +95,10 @@ export default function UserInfoForm({
   }, [])
 
   useEffect(() => {
-    totem?.nickName && logEvents(`checkout_user_info`, {totemNickName: totem.nickName})
+    if (totem?.nickName) {
+      logEvents(`checkout_user_info`, {totemNickName: totem.nickName});
+    }
+    
   }, [totem])
 
   return (
@@ -123,7 +127,7 @@ export default function UserInfoForm({
                 required
                 name="name"
                 value={customerData.name}
-                onFocus={(e) => setSelectedInput('name')}
+                onFocus={() => setSelectedInput('name')}
                 ref={nameRef}
               />
               {formErrors.name.isError && <IconXCircle classes="text-red-600 size-6" />}  
@@ -147,7 +151,7 @@ export default function UserInfoForm({
                 required
                 name="email"
                 value={customerData.email}
-                onFocus={(e) => setSelectedInput('email')}
+                onFocus={() => setSelectedInput('email')}
               />  
               {formErrors.email.isError && <IconXCircle classes="text-red-600 size-6" />}  
               {formErrors.email.isValid && <IconCheckCircle classes="text-green-600 size-6" />}  
@@ -170,7 +174,7 @@ export default function UserInfoForm({
                 required
                 name="phone"
                 value={customerData.phone}
-                onFocus={(e) => setSelectedInput('phone')}
+                onFocus={() => setSelectedInput('phone')}
               />
               {formErrors.phone.isError && <IconXCircle classes="text-red-600 size-6" />}  
               {formErrors.phone.isValid && <IconCheckCircle classes="text-green-600 size-6" />}  
@@ -186,7 +190,7 @@ export default function UserInfoForm({
         keyboardRef={r => (keyboard.current = r)}
         inputName={selectedInput}
         layoutName={layoutName}
-        onChangeAll={onChangeAll}
+        onChangeAll={(e) => onChangeAll(e as CustomerData)}
         onKeyPress={(button) => handleShift(button)}
       />
   

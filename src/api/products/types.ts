@@ -1,4 +1,4 @@
-import { PriceTypes } from "../api"
+export type PriceTypes = undefined | "single-value" | "variable-value" | "defined-value"
 
 export type Product = {
   id: string,

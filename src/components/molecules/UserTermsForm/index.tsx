@@ -6,7 +6,6 @@ import { logEvents } from "../../../firebase";
 import { Totem } from "../../../api/totems/types";
 
 export default function UserTermsForm({
- terms,
  setTerms,
  totem,
 }: {
@@ -23,7 +22,7 @@ export default function UserTermsForm({
   });
   
   const [openTermsModal, setOpenTermsModal] = useState(false);
-  const [company, setCompany] = useState(null);
+  const [company, setCompany] = useState();
 
   useEffect(() => {
     getTotemTour().then((res) => {
@@ -34,7 +33,9 @@ export default function UserTermsForm({
   }, []);
 
   useEffect(() => {
-    totem?.nickName && logEvents(`checkout_terms`, {totemNickName: totem.nickName});
+    if (totem?.nickName) {
+      logEvents(`checkout_terms`, {totemNickName: totem.nickName});
+    }
   }, [totem]);
 
   if (
@@ -123,7 +124,7 @@ export default function UserTermsForm({
           </div>
         </div>
       </div>
-      <TermsModal open={openTermsModal} setOpen={setOpenTermsModal} company={company}/>
+      {company && <TermsModal open={openTermsModal} setOpen={setOpenTermsModal} company={company}/>}
       <br />
     </div>
   )

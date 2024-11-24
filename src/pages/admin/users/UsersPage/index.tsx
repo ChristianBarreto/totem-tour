@@ -47,7 +47,6 @@ const ShowTests = () => {
 
 
 export default function UsersPage() {
-  const [reload, setReload] = useState(0);
   const navigate = useNavigate();
   
   const handleClick = (id: string) => {

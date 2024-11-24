@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { websiteUrl } from "../../../api/api";
 import { Customer } from "../../../api/customers/types";
 import { Totem } from "../../../api/totems/types";
-import { PaymentIntent } from "../../../api/mercadopago/types";
+import { PaymentIntent, PaymentIntentReq } from "../../../api/mercadopago/types";
 import { NewPurchase } from "../../../api/purchases/types";
-import { cancelLastPaymentIntent, getPaymentIntentStatus, paymentIntent } from "../../../api/mercadopago/api";
+import { cancelLastPaymentIntent, getPaymentIntentStatus, createPaymentIntent } from "../../../api/mercadopago/api";
 import { CartItemType } from "../../../api/purchaseitems/types";
 import { setNewPurchase } from "../../../api/purchases/api";
 import { verifyPayment } from "../../../api/mercadopago/api";
@@ -53,8 +53,8 @@ export default function PaymentCard({
   totem: Totem,
 }) {
   const [purchase, setPurchase] = useState<NewPurchase>(initNewPurchase);
-  const [paymentError, setPaymentError] = useState({});
-  const [payIntent, setPayIntent] = useState<any>({});
+  const [paymentError,] = useState({});
+  const [payIntent, setPayIntent] = useState<PaymentIntent>();
 
   const [cardProcessStatus, setCardProcessStatus] = useState<CardProcessStatus>('select_method')
 
@@ -65,25 +65,27 @@ export default function PaymentCard({
   const redirectToInitial = () => window.location.replace(`${websiteUrl}/totem`);
 
   useEffect(() => {
-    totem?.nickName &&  logEvents(`checkout_payment_card`, {totemNickName: totem.nickName});
+    if (totem?.nickName) {
+      logEvents(`checkout_payment_card`, {totemNickName: totem.nickName});
+    }
   }, [totem])
 
   const handlePay = () => {
     setCardProcessStatus('creating_intent')
 
-    const payIntent: PaymentIntent = {
+    const payInt: PaymentIntentReq = {
       device_id: totem.posId,
       amount: purchase.paymentValue,
       description: customerData.email,
       type: purchase.paymentMethod,
       print: false,
     }
-    if (payIntent.type === 'credit_card') {
-      payIntent['installments'] = purchase.installments
-      payIntent['installments_cost'] = 'buyer'
+    if (payInt.type === 'credit_card') {
+      payInt['installments'] = purchase.installments
+      payInt['installments_cost'] = 'buyer'
     };
 
-    paymentIntent(payIntent).then((res) => {
+    createPaymentIntent(payInt).then((res) => {
       setCardProcessStatus('awaiting_payment');
       setPayIntent(res);
     }).catch((err) => {
@@ -102,8 +104,6 @@ export default function PaymentCard({
         paymentValue: cart.cartPrice
       })
       
-    } else if (cardProcessStatus === 'creating_intent') {
-
     } else if (cardProcessStatus === 'intent_error') {
 
       setInterval(() => {
@@ -112,9 +112,9 @@ export default function PaymentCard({
 
     } else if (cardProcessStatus === 'awaiting_payment') {
 
-      if(payIntent.id) {
+      if(payIntent?.id) {
         const consultTimer = setInterval(() => {
-          getPaymentIntentStatus({payment_intent_id:  payIntent.id}).then((res) => {
+          getPaymentIntentStatus({payment_intent_id:  payIntent?.id}).then((res) => {
             console.log("INTENT STATUS", res)
             if (res.state === "FINISHED") {
                 clearInterval(consultTimer)              
@@ -187,7 +187,7 @@ export default function PaymentCard({
         const expireTimer = setTimeout(() => {
           cancelLastPaymentIntent({
             device_id: totem.posId,
-          }).then((res) => {
+          }).then(() => {
             clearTimeout(expireTimer);
           }).catch((err) => {
             clearTimeout(expireTimer);
@@ -205,8 +205,6 @@ export default function PaymentCard({
       setInterval(() => {
         redirectToInitial()
       }, redirectToInitialTime);
-
-    } else if (cardProcessStatus === 'awaiting_store_purchase') {
 
     } else if (cardProcessStatus === 'purchase_stored') {
       setInterval(() => {

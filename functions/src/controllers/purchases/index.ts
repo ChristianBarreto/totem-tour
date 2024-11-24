@@ -1,5 +1,5 @@
-import { initCustomer, initTotem } from "../helpers";
-import { editDbItem, getDbItem, getDbItems } from "../index";
+import { initCustomer, initTotem } from "../../helpers";
+import { editDbItem, getDbItem, getDbItems } from "../../index";
 import { Request, Response } from "express";
 
 export const getPurchases = async (req: Request, res: Response) => {

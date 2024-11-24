@@ -1,6 +1,6 @@
 import axios from "axios";
 import { axiosParams, baseUrl } from "../api";
-import { NewPurchase, Purchase } from "./types";
+import { NewPurchase, Purchase, PurchasesParams } from "./types";
 import qs from 'qs';
 
 const sanitizePurchase = (pur: Purchase): Purchase => ({
@@ -32,7 +32,7 @@ export const setNewPurchase = async (body: NewPurchase) => {
 export const getAdminPurchases = async ({
   params,
 }: {
-  params?: any
+  params?: PurchasesParams
 }) => {
   const { data } = await axios.get(`${baseUrl}/purchases?${qs.stringify(params)}`, axiosParams);
   return data;

@@ -1,17 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCounter } from "../../../context/CounterContext";
 import IconRowBack from "../../../components/atoms/IconRowBack";
 import { websiteUrl } from "../../../api/api";
 import IconPartner from "../../../components/atoms/IconPartner";
 import ChangeTotemModal from "../../../components/molecules/ChangeTotemModal";
 import { logEvents } from "../../../firebase";
 import { useTotem } from "../../../context/TotemContext";
+import logo from './logo.png';
+import wppqrcodeimg from './wpp-qr-code.jpg';
 
 export default function WhoWeArePage() {
   // @ts-expect-error: TODO: fix type of context
-  const [, dispatch] = useCounter();
-    // @ts-expect-error: TODO: fix type of context
   const [totem,] = useTotem();
   const [showFooter, setShowFooter] = useState(false);
   const [openTotemModal, setOpenTotemModal] = useState(false);
@@ -25,7 +24,8 @@ export default function WhoWeArePage() {
   }, [])
 
   useEffect(() => {
-    totem?.nickName && logEvents('who_we_are', {totemNickName: totem?.nickName})
+    if (totem?.nickName)
+    logEvents('who_we_are', {totemNickName: totem?.nickName})
   }, [totem])
 
   const toggleFooter = () => {
@@ -39,7 +39,7 @@ export default function WhoWeArePage() {
 
         <div className="bg-primary p-4 flex justify-between">
           <a href={`${websiteUrl}/totem/store`} className="flex">
-            <img src={require("./logo.png")} alt="" width={80}/>
+            <img src={logo} alt="" width={80}/>
             <p className="text-4xl mt-4 ml-2 text-white">Totem Tour</p>
           </a>
           <button className="btn mt-3" onClick={() => navigate(-1)}>
@@ -68,7 +68,7 @@ export default function WhoWeArePage() {
                 <p className="font-bold">Ainda tem dúvidas?</p>
                 <p>Entre em contato com nosso telefone ou WhatsApp:</p>
                 <p className="font-bold">22 99102-7926</p>
-                <img src={require('./wpp-qr-code.jpg')} alt="wpp-qr-code" width={120} />
+                <img src={wppqrcodeimg} alt="wpp-qr-code" width={120} />
               </div>
             </div>
           </div>

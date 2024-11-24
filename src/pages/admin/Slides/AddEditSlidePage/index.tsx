@@ -30,8 +30,10 @@ export default function AddEditSlidePage() {
     let ignore = false;
     if (isEditing) {
       getSlide(id as string).then((res) => {
-        setSlide(res)
-        slideRef.current = res
+        if(!ignore) {
+          setSlide(res);
+          slideRef.current = res;
+        }
       }).catch((err) => {
         console.log("Err", err)
       })
@@ -48,11 +50,11 @@ export default function AddEditSlidePage() {
  
   const handleSave = () => {
     if (isEditing && id) {
-      editSlide(id, slide).then((res) => {
+      editSlide(id, slide).then(() => {
         navigate('/admin/slides')
       })
     } else {
-      addSlide(slide).then((res) => {
+      addSlide(slide).then(() => {
         navigate('/admin/slides')
       })
     }
@@ -60,7 +62,7 @@ export default function AddEditSlidePage() {
   }
 
   const slideChanged = (slide1: SlideResp, slide2: SlideResp) => {
-    for (let i in slide1) {
+    for (const i in slide1) {
       if (slide1[i as keyof SlideResp] !== slide2[i as keyof SlideResp]) {
         return true
       }

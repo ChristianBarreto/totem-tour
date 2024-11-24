@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { PriceTypes } from "../../../../api/api";
+import { PriceTypes } from "../../../../api/products/types";
 import { Cities } from "../../../../api/cities/types";
 import { getCities } from "../../../../api/cities/api";
 import { addProduct, editProductById } from "../../../../api/products/api";
@@ -57,11 +57,11 @@ export default function AddEditProductPage() {
  
   const handleSave = () => {
     if (isEditing) {
-      editProductById(product.id, product).then((res) => {
+      editProductById(product.id, product).then(() => {
         navigate(-1)
       })
     } else {
-      addProduct( product).then((res) => {
+      addProduct( product).then(() => {
         navigate(-1)
       })
     }
@@ -69,7 +69,7 @@ export default function AddEditProductPage() {
   }
 
   const productChanged = (prod1: Product, prod2: Product) => {
-    for (let i in prod1) {
+    for (const i in prod1) {
       if (prod1[i as keyof Product] !== prod2[i as keyof Product]) {
         return true
       }

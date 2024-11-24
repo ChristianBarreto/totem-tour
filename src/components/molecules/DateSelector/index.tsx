@@ -22,13 +22,6 @@ export default function DateSelector({
 
   const isDisabled = (availabilities.length === 0)
 
-  const openSelect = () => {
-    if (selectRef.current) {
-      selectRef.current.focus()
-      selectRef.current.click()
-    }
-  }
-
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const avail = {...availabilities[Number(e.target.value)]}
     setAvailability(avail)

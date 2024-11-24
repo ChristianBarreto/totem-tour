@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { addDbItem, editDbItem, getDbItem, getDbItems } from "..";
+import { addDbItem, editDbItem, getDbItem, getDbItems } from "../..";
 
 export const addTotemById = async (req: Request, res: Response) => {
   const resp = await addDbItem("totens", req.body);

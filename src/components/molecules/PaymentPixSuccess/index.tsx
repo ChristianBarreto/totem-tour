@@ -1,6 +1,5 @@
 import IconCheckCircle from "../../atoms/IconCheckCircle";
 import IconClock from "../../atoms/IconClock";
-import IconLoading from "../../atoms/IconLoading";
 
 export default function PaymentPixSuccess() {
   return (

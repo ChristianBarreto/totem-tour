@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import IconCheckCircle from "../../atoms/IconCheckCircle";
 import AvailabilityModal from "../AvailabilityModal";
 import { useState } from "react";
-import { Availabilities } from "../../../api/availabilities/types";
+import { Availabilities, Availability } from "../../../api/availabilities/types";
 import { Product } from "../../../api/products/types";
 import IconXCircle from "../../atoms/IconXCircle";
 
@@ -23,7 +23,7 @@ export default function AvailabilityEdit({
   const date = dayjs().add(day, "days").format('YYYY-MM-DD');
   const today = dayjs().format('YYYY-MM-DD');
   
-  const availability: any = availabilities.find((av) => {
+  const availability: Availability | undefined = availabilities.find((av) => {
     if ((av.productId === product.id) && (av.date === date)) {
       if ((av.date === today) && product.todayUnavailable) {
         return null

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getDbItem, mergeDbItem } from "..";
+import { getDbItem, mergeDbItem } from "../..";
 
 export const getTotemPingById = async (req: Request, res: Response) => {
   const resp = await getDbItem("totemPings", req.params.id);

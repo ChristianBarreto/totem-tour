@@ -11,7 +11,7 @@ export default function InteractionManagement({
   const appRef = useRef()as React.MutableRefObject<HTMLDivElement>;
 
   useEffect(() => {
-    appRef.current?.addEventListener("mousedown", e => {
+    appRef.current?.addEventListener("mousedown", () => {
       dispatch({type: 'res_redirectToInit'})
     });
   }, []);

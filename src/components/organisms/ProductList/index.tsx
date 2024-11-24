@@ -54,7 +54,9 @@ export default function ProductList({
     .sort((a, b) => a.priority - b.priority)
 
   useEffect(() => {
-    totem?.nickName && logEvents("product_list", {totemNickName: totem?.nickName})
+    if (totem?.nickName) {
+      logEvents("product_list", {totemNickName: totem?.nickName})
+    }
   }, [totem])
 
   return (

@@ -9,21 +9,8 @@ import UserTermsForm from "../../../components/molecules/UserTermsForm";
 import UserPaymentForm from "../../../components/molecules/UserPaymentForm";
 import { websiteUrl } from "../../../api/api";
 import { Customer } from "../../../api/customers/types";
-import { Totem } from "../../../api/totems/types";
 import { useTotem } from "../../../context/TotemContext";
 import { useCounter } from "../../../context/CounterContext";
-
-const initTotem = {
-  id: '',
-  nickName: "",
-  locationDescription: '',
-  responsiblePerson: '',
-  posId: '',
-  cityOrder: '',
-  showTestProduct: false,
-  lastUpdated: '',
-  timestamp: '',
-};
 
 export default function CheckoutPage() {
   // @ts-expect-error: TODO: fix type of context
@@ -80,7 +67,7 @@ export default function CheckoutPage() {
   }
 
   useEffect(() => {
-    appRef.current?.addEventListener("mousedown", e => {
+    appRef.current?.addEventListener("mousedown", () => {
       dispatch({type: 'res_redirectToInit'})
     });
   }, [])

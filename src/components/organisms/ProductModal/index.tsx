@@ -20,7 +20,6 @@ import { getProductById } from '../../../api/products/api';
 import { useTotem } from '../../../context/TotemContext';
 
 export default function ProductModal({
-  prefetch,
   productId,
   open,
   setOpen,
@@ -83,7 +82,7 @@ export default function ProductModal({
     qtyHalf
   }
 
-  let { price, netPrice, partnerComm, companyComm } = calcPrice(quantities, product);
+  const { price, netPrice, partnerComm, companyComm } = calcPrice(quantities, product);
 
   const handleAdd = () => {
     if (availability) {
@@ -200,7 +199,7 @@ export default function ProductModal({
                                 {product.duration}
                               </p>}
                               
-                              {true && (
+                              {(
                                 <p className='mb-4'>
                                   {product.priceType === "single-value" && (
                                     <>

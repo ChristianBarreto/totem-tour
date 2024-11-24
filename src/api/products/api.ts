@@ -13,17 +13,16 @@ export const addProduct = async (body: Product): Promise<Product | void> => {
   return data;
 }
 
-export const getProducts = async (): Promise<Products | void> => {
-  const data = axios.get<Products>(`${baseUrl}/products`, axiosParams)
+export const getProducts = (): Promise<Products> => new Promise((resolve, reject) => {
+  axios.get<Products>(`${baseUrl}/products`, axiosParams)
     .then((res) => {
-      return res.data;
+      resolve(res.data);
     })
     .catch((err) => {
       console.log("API ERROR", err)
-      return [];
+      reject();
     })
-  return data;
-}
+})
 
 export const getProductById = (productId: string | undefined) =>  new Promise((resolve, reject) => {
   if (productId?.length) {

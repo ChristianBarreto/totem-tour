@@ -2,7 +2,6 @@ import { createContext, ReactNode, Reducer, useContext, useReducer } from "react
 import { NewPurchase } from "../api/purchases/types";
 import { CartItemType } from "../api/purchaseitems/types";
 import { logEvents } from "../firebase";
-import { useTotem } from "./TotemContext";
 
 type ACTIONTYPE =
   | { type: "addToCart"; product: CartItemType, totemNickName: string }
@@ -32,8 +31,6 @@ export function CartProvider({
   children: ReactNode
 }) {
   const [cart, dispatch] = useReducer<Reducer<NewPurchase, ACTIONTYPE>>(cartReducer, initialPurchase);
-  // @ts-expect-error: TODO: fix type of context
-  const [totem, ] = useTotem();
 
   return (
     <CartContext.Provider value={[cart, dispatch]}>
