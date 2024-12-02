@@ -6,15 +6,20 @@ import styles from './ProductList.module.css'
 import { useEffect } from "react";
 import { logEvents } from "../../../firebase";
 import { useTotem } from "../../../context/TotemContext";
+import ProductFetchError from "../../cells/ProductFetchError";
 
 export default function ProductList({
   products,
   selectedCity,
   setCartOpen,
+  isLoading,
+  isError,
 }: {
   products: Products,
   selectedCity: string,
   setCartOpen: (value: boolean) => void,
+  isLoading: boolean,
+  isError: boolean,
 }) {
   const location = useLocation();
   // @ts-expect-error: TODO: fix type of context
@@ -64,15 +69,15 @@ export default function ProductList({
       <div className="flex justify-center">
         
         <div className="flex flex-wrap justify-start itens-start gap-6 p-6">
-          {!products.length && (
+          {isError && <ProductFetchError />}
+          {isLoading ? (
             <>
               <CardSkeleton />
               <CardSkeleton />
               <CardSkeleton />
               <CardSkeleton />
             </>
-          )}
-          {
+          ): (
             <>
               {!!availableProducts.length && (
                 <div className="w-full p-4 rounded text-center bg-green-400">
@@ -94,7 +99,7 @@ export default function ProductList({
                   <ProductCard key={product.id} product={product} setCartOpen={setCartOpen}/>
                 ))}
             </>
-          }
+          )}
         </div>
       </div>
     </div>

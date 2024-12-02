@@ -90,7 +90,7 @@ export async function getDbItems(dbName: string, params?: any): Promise<any[]> {
   });
 
   return data;
-}
+};
 
 export async function getDbItemsByParentId(dbName: string, id: string, params?: any): Promise<any[]> {
   // console.log(qs.parse(params)) TODO: implementation of query params
