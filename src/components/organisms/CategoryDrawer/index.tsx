@@ -9,11 +9,15 @@ export function CategoryDrawer({
   cities,
   selectedCity,
   setSelectedCity,
+  isLoading,
+  isError,
 }: {
   children: ReactElement,
   cities: Cities,
   selectedCity: string,
   setSelectedCity: (id: string) => void,
+  isLoading: boolean,
+  isError: boolean,
 }) {
   return (
     <div className="drawer lg:drawer-open h-full">
@@ -31,12 +35,16 @@ export function CategoryDrawer({
             <p className="text-4xl text-neutral-500">Escolha a cidade</p>
           </div>
           <ul className="p-4">
-            {!cities.length && (
+            {isError && <></>}
+            {isLoading ? (
               <CardSkeleton width={65}/>
+            ): (
+              <>
+                {cities.map((city) => (
+                  <CategoryCard key={city.id} city={city} setSelectedCity={setSelectedCity} selectedCity={selectedCity} />
+                ))}
+              </>
             )}
-            {cities.map((city) => (
-              <CategoryCard key={city.id} city={city} setSelectedCity={setSelectedCity} selectedCity={selectedCity} />
-            ))}
           </ul>
         </ul>
       </div>

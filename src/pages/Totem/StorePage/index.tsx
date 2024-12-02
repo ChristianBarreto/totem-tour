@@ -15,6 +15,8 @@ import CitySelect from "../../../components/cells/CitySelect";
 export default function StorePage() {
   const [products, setProducts] = useState<Products>([]);
   const [cities, setCities] = useState<Cities>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
   const [selectedCity, setSelectedCity] = useState('');
 
   // @ts-expect-error: TODO: fix type of context
@@ -30,7 +32,16 @@ export default function StorePage() {
       getCities().then((citiesResp) => {
         setCities(citiesResp as Cities);
         setProducts(productsResp as Products);
+        setIsLoading(false);
+      }).catch((res) => {
+        console.log("Error getting cities", res);
+        setIsLoading(false);
+        setIsError(true);
       })
+    }).catch((res) => {
+      console.log("Error getting products", res);
+      setIsLoading(false);
+      setIsError(true);
     })
   }, []);
 
@@ -49,15 +60,19 @@ export default function StorePage() {
       <CitySelect
         cities={cities}
         selectedCity={selectedCity}
-        setSelectedCity={setSelectedCity}      
+        setSelectedCity={setSelectedCity}
       />
       <div >
         <CategoryDrawer
           cities={cities}
           selectedCity={selectedCity}
           setSelectedCity={setSelectedCity}
+          isLoading={isLoading}
+          isError={isError}
         >
           <ProductList
+            isLoading={isLoading}
+            isError={isError}
             products={products}
             selectedCity={selectedCity}
             setCartOpen={setCartOpen}
