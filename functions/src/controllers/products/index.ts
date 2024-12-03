@@ -1,9 +1,8 @@
 import { addDbItem, editDbItem, getDbItem, getDbItems } from "../../index";
 import { Request, Response } from "express";
 
-
 export const getProducts = async (req: Request, res: Response) => {
-  const resp = await getDbItems("products");
+  const resp = await getDbItems("products", req.query);
   res.json(resp);
 };
 
