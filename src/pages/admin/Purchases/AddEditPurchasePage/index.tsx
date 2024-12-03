@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react"
 import { PurchaseItemResp } from "../../../../api/purchaseitems/types";
 import { editPurchaseById, getPurchaseById, setNewPurchase } from "../../../../api/purchases/api";
-import { getPurchaseItensByPurchaseId } from "../../../../api/purchaseitems/api";
+import { getPurchaseItems } from "../../../../api/purchaseitems/api";
 import { CartItemType } from "../../../../api/purchaseitems/types";
 import { PurchaseResp } from "../../../../api/purchases/types";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -46,6 +46,7 @@ const initPurchase: PurchaseResp = {
 
 const initItem: PurchaseItemResp = {
   id: '',
+  purchaseId: '',
   productId: '',
   qty: 0,
   qtyAdult: 0,
@@ -94,11 +95,12 @@ export default function AddEditPurchasePage() {
     let ignore = false;
 
     if (isEditing && id) {
-      getPurchaseById(id).then((res) => {
+      getPurchaseById(id).then((res: PurchaseResp) => {
         if (res && !ignore) {
           setPurchase(res)
           purchaseRef.current = res;
-          getPurchaseItensByPurchaseId(res.id).then((res) => {
+          const params = {purchaseId: {eq: {str: res.id}, orderBy: "date", order: "asc"}}
+          getPurchaseItems(params).then((res) => {
             setPurchaseItems(res)
           }).catch((err) => {
             console.log("Err", err)
@@ -336,9 +338,6 @@ export default function AddEditPurchasePage() {
 
   const isCancelDisabled = !purchaseChanged(purchaseRef.current, purchase)
   const isSaveDisabled = !purchaseChanged(purchaseRef.current, purchase)
-
-  console.log("Purchase:", purchase)
-  console.log("Itens:", purchaseItems)
 
   useEffect(() => {
     const totalNetPrice = purchaseItems.reduce((acc, curr) => acc + curr.netPrice, 0);

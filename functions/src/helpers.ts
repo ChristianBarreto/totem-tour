@@ -1,6 +1,5 @@
 import { Totem } from "./controllers/totems/types";
 import { Customer } from "./controllers/customers/types";
-import qs = require("qs");
 
 export const initTotem: Totem = {
   id: "",
@@ -65,7 +64,6 @@ export const queryRef = (collectionRef: any, query: any) => {
     if (key === "orderBy") {
       collectionRef = collectionRef.orderBy(query.orderBy, query.order ? query.order : "asc");
     } else if ((key !== "orderBy") && (key !== "order")) {
-      console.log("Res: ",key, useOperator(query[key]), sanitizeQuery(query[key]));
       collectionRef = collectionRef.where(key, useOperator(query[key]), sanitizeQuery(query[key]))
     }
   }

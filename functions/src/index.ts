@@ -15,13 +15,13 @@ import { MercadoPagoConfig, Payment, Point } from 'mercadopago';
 import { PointGetDevicesData } from "mercadopago/dist/clients/point/getDevices/types";
 import { GetPaymentIntentListResponse } from "mercadopago/dist/clients/point/commonTypes";
 import { editPurchaseById, getPurchaseById, getPurchases } from "./controllers/purchases";
-import { getNextPurchaseItems, getPurchaseItemByPurchaseId } from "./controllers/purchaseItems";
 import { addSlide, editSlide, getSlide, getSlides } from "./controllers/slides";
 import { addProduct, editProduct, getProduct, getProducts } from "./controllers/products";
 import { getTotemPingById, setTotemPingById } from "./controllers/totemPing";
 import { getTotemById, getTotens, editTotemById, addTotemById } from "./controllers/totems";
 import { editCityById, getCities, getCityById } from "./controllers/cities";
 import { queryRef } from "./helpers";
+import { getPurchaseItems } from "./controllers/purchaseItems";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -95,21 +95,6 @@ export async function getDbItems(dbName: string, query?: any): Promise<any[]> {
   return data;
 };
 
-export async function getDbItemsByParentId(dbName: string, id: string, params?: any): Promise<any[]> {
-  // console.log(qs.parse(params)) TODO: implementation of query params
-  const snapshot = await db.collection("purchaseItems")
-  .where('purchaseId', '==', id)
-  .orderBy("date", 'asc')
-  .get();
-
-  const data: any[] = [];
-
-  snapshot.forEach((doc: any) => {
-    data.push({id: doc.id, ...doc.data()});
-  });
-  return (data);
-};
-
 export const getDbItem = async (dbName: string, id: string): Promise<any> => new Promise((resolve, reject) => {
   db.collection(dbName).doc(id).get().then((snapshot: any) => {
     if (snapshot.exists) {
@@ -157,8 +142,7 @@ app.get("/purchases", async (req: Request, res: Response) => getPurchases(req, r
 app.get("/purchases/:id", async (req: Request, res: Response) => getPurchaseById(req, res));
 app.put("/purchases/:id", async (req: Request, res: Response) => editPurchaseById(req, res));
 
-app.get("/next-items", async (req: Request, res: Response) => getNextPurchaseItems(req, res));
-app.get("/purchasePurchaseItens/:id", async (req: Request, res: Response) => getPurchaseItemByPurchaseId(req, res));
+app.get("/purchase-items", async (req: Request, res: Response) => getPurchaseItems(req, res));
 
 app.get("/slides", async (req: Request, res: Response) => getSlides(req, res));
 app.get("/slides/:id", async (req: Request, res: Response) => getSlide(req, res));

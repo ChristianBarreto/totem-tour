@@ -20,6 +20,7 @@ export type CartItemType = {
 
 export type PurchaseItem = { // TODO: melhorar tipo do carrinho x tipo da compra que vai p/ DB
   id: string,
+  purchaseId: string,
   productId: string,
   qty: number,
   qtyAdult: number,
