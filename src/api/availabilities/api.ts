@@ -15,7 +15,7 @@ export const getAvailabilitiesByProduct = async (productId: string): Promise<Ava
   return data;
 }
 
-export const getNextAvailabilities = async (params?: any): Promise<Availabilities | void> => {
+export const getAvailabilities = async (params?: any): Promise<Availabilities | void> => {
   const data = axios.get<Availabilities>(`${baseUrl}/availabilities/?${qs.stringify(params)}`, axiosParams)
     .then((res) => {
       return res.data;
@@ -46,3 +46,11 @@ export const deleteAvailabilityById = async (id: string): Promise<Availability |
   const { data } = await axios.delete(`${baseUrl}/availabilities/${id}`, axiosParams);
   return data;
 }
+
+export const deleteAvailabilities = async (params?: any): Promise<Availability | void> => new Promise( (resolve, reject) => {
+  axios.delete(`${baseUrl}/availabilities/?${qs.stringify(params)}`, axiosParams).then((res) => {
+    resolve(res.data);
+  }).then((err) => {
+    reject(err)
+  });
+})

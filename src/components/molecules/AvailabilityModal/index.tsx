@@ -130,9 +130,9 @@ export default function AvailabilityModal({
 
                 <p className='text-xl'>{product.name}</p>
                 {availability.id ? (
-                  <p>Disp. ID: {availability.id} <span className='btn btn-sm bg-red-400 text-white' onClick={handleDelete}>(delete)</span></p>
+                    <p>Disp. ID: {availability.id} <span className='btn btn-sm bg-red-400 text-white' onClick={handleDelete}>(delete)</span></p>
                   ) : (
-                  <p>(nova disponibilidade)</p>
+                    <p>(nova disponibilidade)</p>
                   )
                 }
 

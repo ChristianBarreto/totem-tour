@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { websiteUrl } from "../../../api/api";
 import { Availabilities } from "../../../api/availabilities/types";
-import { getNextAvailabilities } from "../../../api/availabilities/api";
+import { getAvailabilities } from "../../../api/availabilities/api";
 import { Cities } from "../../../api/cities/types";
 import { getCities } from "../../../api/cities/api";
 import { getProducts } from "../../../api/products/api";
@@ -38,13 +38,13 @@ export default function AvailabilityTable({
       console.log("Err", err)
     });
 
-    getNextAvailabilities({date: {ge: {str: dayjs().locale('pt-br').format('YYYY-MM-DD')}}, orderBy: "date", order: "asc"}).then((res) => {
+    getAvailabilities({date: {ge: {str: dayjs().locale('pt-br').format('YYYY-MM-DD')}}, orderBy: "date", order: "asc"}).then((res) => {
       setAvailabilities(res as Availabilities);
     }).catch((err) => {
       console.log("Err", err)
     });
 
-  }, [reloadTable])
+  }, [reloadTable]);
 
   return (
     <div className="overflow-x-auto mb-4">

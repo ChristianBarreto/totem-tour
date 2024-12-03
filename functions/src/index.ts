@@ -22,7 +22,7 @@ import { getTotemById, getTotens, editTotemById, addTotemById } from "./controll
 import { editCityById, getCities, getCityById } from "./controllers/cities";
 import { queryRef } from "./helpers";
 import { getPurchaseItems } from "./controllers/purchaseItems";
-import { addAvailabilityById, deleteAvailabilityById, editAvailabilityById, getAvailabilities, getAvailabilityById } from "./controllers/availabilities";
+import { addAvailabilityById, deleteAvailabilities, deleteAvailabilityById, editAvailabilityById, getAvailabilities, getAvailabilityById } from "./controllers/availabilities";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -89,7 +89,7 @@ export async function getDbItems(dbName: string, query?: any): Promise<any[]> {
   const itemsRef = await collectionRef.get();
 
   const data: any[] = [];
-  itemsRef?.forEach((doc: any, index: number, array: any) => {
+  itemsRef?.forEach((doc: any) => {
     data.push({id: doc.id, ...doc.data()})
   });
 
@@ -139,6 +139,24 @@ export async function deleteDbItem(dbName: string, id: string) {
   return {id: snapshot.id}
 };
 
+export const bulkDeleteDbItems = async (dbName: string, query?: any): Promise<void> => new Promise(async (resolve, reject) => {
+  let collectionRef = await db.collection(dbName); 
+  collectionRef = queryRef(collectionRef, query);
+  const itemsRef = await collectionRef.get();
+  let len = 0;
+  if (itemsRef.size === 0) {
+    resolve();
+  };
+  itemsRef?.forEach(async (doc: any) => {
+    await db.collection(dbName).doc(doc.id).delete();
+    
+    len++;
+    if (len+1 === itemsRef.size) {
+      resolve();
+    }
+  });
+});
+
 app.get("/products", async (req: Request, res: Response) => getProducts(req, res));
 app.get("/products/:id", async (req: Request, res: Response) => getProduct(req, res));
 app.post("/products", async (req: Request, res: Response) => addProduct(req, res));
@@ -161,12 +179,12 @@ app.get("/cities/:id", async (req: Request, res: Response) => getCityById(req, r
 app.post("/cities", async (req: Request, res: Response) => addCities(req, res));
 app.put("/cities", async (req: Request, res: Response) => editCityById(req, res));
 
-
 app.get("/availabilities", async (req: Request, res: Response) => getAvailabilities(req, res));
 app.get("/availability/:id", async (req: Request, res: Response) => getAvailabilityById(req, res));
 app.post("/availabilities", async (req: Request, res: Response) => addAvailabilityById(req, res));
 app.put("/availabilities/:id", async (req: Request, res: Response) => editAvailabilityById(req, res));
 app.delete("/availabilities/:id", async (req: Request, res: Response) => deleteAvailabilityById(req, res));
+app.delete("/availabilities/", async (req: Request, res: Response) => deleteAvailabilities(req, res));
 
 app.get("/availabilities/:productId", async (req: Request, res: Response) => {
   const today = dayjs().format('YYYY-MM-DD')
@@ -237,7 +255,6 @@ app.post("/verify-payment", async (req: Request, res: Response) => {
   
 });
 
-
 app.post("/set-purchase", async (req: Request, res: Response) => {
   const {
     acceptedTerms,
@@ -297,7 +314,6 @@ app.post("/set-purchase", async (req: Request, res: Response) => {
 
   res.send({ status: 'ok', purchaseId: purchaseDb.id })
 });
-
 
 app.get("/pos", async (req: Request, res: Response) => {
   const request = {
@@ -428,7 +444,6 @@ app.put("/totem-ping/:id", async (req: Request, res: Response) => setTotemPingBy
 app.get("/totem-ping/:id", async (req: Request, res: Response) => getTotemPingById(req, res));
 
 exports.totem = onRequest(app);
-
 
 function addCities(req: Request<import("express-serve-static-core").ParamsDictionary>, res: Response<any>) {
   throw new Error("Function not implemented.");
