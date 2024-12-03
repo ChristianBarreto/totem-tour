@@ -1,42 +1,37 @@
-import { initCustomer, initTotem } from "../../helpers";
-import { editDbItem, getDbItem, getDbItems } from "../../index";
+import { addDbItem, bulkDeleteDbItems, deleteDbItem, editDbItem, getDbItem, getDbItems } from "../../index";
 import { Request, Response } from "express";
 
 export const getAvailabilities = async (req: Request, res: Response) => {
-  const purchases = await getDbItems("purchases");
-  const resp: any[] = [];
-
-  purchases.forEach(async (purchase) => {
-    const totem = purchase.totemId.length ? await getDbItem("totens", purchase.totemId) : initTotem;
-    await resp.push({
-      ...purchase,
-      totemNickName: totem.nickName,
-      totemLocationDescription: totem.locationDescription,
-      totemResponsiblePerson: totem.responsiblePerson,
-    });
-
-    resp.length === purchases.length &&
-      res.status(200).json(resp.sort((a, b) => b.timestamp - a.timestamp));
-  });
+  const availabilities = await getDbItems("availabilities", req.query);
+  if (!availabilities.length) {
+    res.status(200).json([]);
+  } else {
+    res.status(200).json(availabilities);
+  }
 };
 
 export const getAvailabilityById = async (req: Request, res: Response) => {
-  const purchase = await getDbItem("purchases", req.params.id);
-  const totem = purchase.totemId.length ? await getDbItem("totens", purchase.totemId) : initTotem;
-  const customer = purchase.customerId.length ? await getDbItem("customers", purchase.customerId): initCustomer;
+  const resp = await getDbItem("availabilities", req.params.id);
+  return res.json(resp);
+};
 
-  res.json({
-    ...purchase,
-    totemNickName: totem.nickName,
-    totemLocationDescription: totem.locationDescription,
-    totemResponsiblePerson: totem.responsiblePerson,
-    customerName: customer.name,
-    customerPhone: customer.phone,
-    customerEmail: customer.email,
-  });
+export const addAvailabilityById = async (req: Request, res: Response) => {
+  const resp = await addDbItem("availabilities", req.body);
+  return res.json(resp);
 };
 
 export const editAvailabilityById = async (req: Request, res: Response) => {
-  const resp = await editDbItem("purchases", req.params.id, req.body);
+  const resp = await editDbItem("availabilities", req.params.id, req.body);
   return res.json(resp);
+};
+
+export const deleteAvailabilityById = async (req: Request, res: Response) => {
+  const resp = await deleteDbItem("availabilities", req.params.id);
+  return res.json(resp);
+};
+
+export const deleteAvailabilities = async (req: Request, res: Response) => {
+  bulkDeleteDbItems("availabilities", req.query).then(() => {
+    res.status(200).send();
+  })
 };

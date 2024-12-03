@@ -5,7 +5,7 @@ import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import dayjs from 'dayjs'
 import { Availability } from '../../../api/availabilities/types'
-import { addAvailability, editAvailabilityById, getAvailabilityById } from '../../../api/availabilities/api';
+import { addAvailability, deleteAvailabilityById, editAvailabilityById, getAvailabilityById } from '../../../api/availabilities/api';
 import { Product } from '../../../api/products/types'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 
@@ -73,7 +73,15 @@ export default function AvailabilityModal({
         setOpen(false);
       })
     }
+  }
 
+  const handleDelete = () => {
+    if (availabilityId) {
+      deleteAvailabilityById(availability.id).then(() => {
+        setReloadTable(reloadTable+1)
+        setOpen(false);
+      })
+    }
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -91,7 +99,6 @@ export default function AvailabilityModal({
       })
     }
   }
-
 
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
@@ -122,7 +129,12 @@ export default function AvailabilityModal({
                 </div>
 
                 <p className='text-xl'>{product.name}</p>
-                {availability.id ? <p>Disp. ID: {availability.id}</p> : <p>(nova disponibilidade)</p>}
+                {availability.id ? (
+                    <p>Disp. ID: {availability.id} <span className='btn btn-sm bg-red-400 text-white' onClick={handleDelete}>(delete)</span></p>
+                  ) : (
+                    <p>(nova disponibilidade)</p>
+                  )
+                }
 
                 <label className="form-control w-full max-w-xs pt-6">
                   <div className="label">
