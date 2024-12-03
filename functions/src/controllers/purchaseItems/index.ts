@@ -1,16 +1,14 @@
 // const dayjs = require('dayjs');
-import { getDbItem, getDbItems, getDbItemsByParentId } from "../..";
+import { getDbItem, getDbItems } from "../..";
 import { Request, Response } from "express";
 
-export const getNextPurchaseItems = async (req: Request, res: Response) => {
-  // const today = dayjs().format('YYYY-MM-DD');
-  const purchaseItems = await getDbItems("purchaseItems");
-  res.status(200).json(purchaseItems);
-};
-
-export const getPurchaseItemByPurchaseId = async (req: Request, res: Response) => {
-  const purchaseItems = await getDbItemsByParentId("purhcaseItems", req.params.id);
+export const getPurchaseItems = async (req: Request, res: Response) => {
+  const purchaseItems = await getDbItems("purchaseItems", req.query);
   const resp: any[] = [];
+
+  if (!purchaseItems.length) {
+    res.status(200).json([]);
+  }
 
   purchaseItems.forEach(async (purchaseItem) => {
     const city = await getDbItem("cities", purchaseItem.cityId);

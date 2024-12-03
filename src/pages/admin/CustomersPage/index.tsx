@@ -1,5 +1,4 @@
 import Table from "../../../components/organisms/Table";
-import { getAdminPurchaseItens } from "../../../api/purchaseitems/api";
 
 export default function CustomerPage() {
 
@@ -18,11 +17,11 @@ export default function CustomerPage() {
   return (
     <div>
       <p>Dashboard</p>
-      <Table
+      {/* <Table
         tableName="Vendas"
         tableHeader={tableHeader}
         tableFetch={getAdminPurchaseItens}
-      />
+      /> */}
     </div>
   )
 }
