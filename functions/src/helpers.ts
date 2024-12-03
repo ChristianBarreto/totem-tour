@@ -48,7 +48,7 @@ const useOperator = (query: any) => {
     return ">";
   }
   else if (operator == "lt") {
-    return "lt";
+    return "<";
   }
   else if (operator == "ge") {
     return ">=";

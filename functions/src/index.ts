@@ -22,6 +22,7 @@ import { getTotemById, getTotens, editTotemById, addTotemById } from "./controll
 import { editCityById, getCities, getCityById } from "./controllers/cities";
 import { queryRef } from "./helpers";
 import { getPurchaseItems } from "./controllers/purchaseItems";
+import { getAvailabilities } from "./controllers/availabilities";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -154,6 +155,9 @@ app.get("/cities", async (req: Request, res: Response) => getCities(req, res));
 app.get("/cities/:id", async (req: Request, res: Response) => getCityById(req, res));
 app.post("/cities", async (req: Request, res: Response) => addCities(req, res));
 app.put("/cities", async (req: Request, res: Response) => editCityById(req, res));
+
+
+app.get("/availabilities", async (req: Request, res: Response) => getAvailabilities(req, res));
 
 app.get("/availabilities/:productId", async (req: Request, res: Response) => {
   const today = dayjs().format('YYYY-MM-DD')

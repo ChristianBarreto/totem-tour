@@ -38,7 +38,7 @@ export default function AvailabilityTable({
       console.log("Err", err)
     });
 
-    getNextAvailabilities().then((res) => {
+    getNextAvailabilities({date: {ge: {str: dayjs().locale('pt-br').format('YYYY-MM-DD')}}, orderBy: "date", order: "asc"}).then((res) => {
       setAvailabilities(res as Availabilities);
     }).catch((err) => {
       console.log("Err", err)

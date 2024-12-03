@@ -1,6 +1,7 @@
 import axios from "axios";
 import { axiosParams, baseUrl } from "../api";
 import { Availability, Availabilities } from "./types";
+import qs from "qs";
 
 export const getAvailabilitiesByProduct = async (productId: string): Promise<Availabilities | void> => {
   const data = axios.get<Availabilities>(`${baseUrl}/availabilities/${productId}`, axiosParams)
@@ -14,8 +15,8 @@ export const getAvailabilitiesByProduct = async (productId: string): Promise<Ava
   return data;
 }
 
-export const getNextAvailabilities = async (): Promise<Availabilities | void> => {
-  const data = axios.get<Availabilities>(`${baseUrl}/next-availabilities/`, axiosParams)
+export const getNextAvailabilities = async (params?: any): Promise<Availabilities | void> => {
+  const data = axios.get<Availabilities>(`${baseUrl}/availabilities/?${qs.stringify(params)}`, axiosParams)
     .then((res) => {
       return res.data;
     })
