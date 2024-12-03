@@ -41,3 +41,8 @@ export const editAvailabilityById = async (id: string, body: Availability): Prom
   const { data } = await axios.put(`${baseUrl}/availabilities/${id}`, body, axiosParams);
   return data;
 }
+
+export const deleteAvailabilityById = async (id: string): Promise<Availability | void> => {
+  const { data } = await axios.delete(`${baseUrl}/availabilities/${id}`, axiosParams);
+  return data;
+}

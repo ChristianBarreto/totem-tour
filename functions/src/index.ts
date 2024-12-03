@@ -22,7 +22,7 @@ import { getTotemById, getTotens, editTotemById, addTotemById } from "./controll
 import { editCityById, getCities, getCityById } from "./controllers/cities";
 import { queryRef } from "./helpers";
 import { getPurchaseItems } from "./controllers/purchaseItems";
-import { getAvailabilities } from "./controllers/availabilities";
+import { addAvailabilityById, deleteAvailabilityById, editAvailabilityById, getAvailabilities, getAvailabilityById } from "./controllers/availabilities";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -134,6 +134,11 @@ export async function addDbItem(dbName: string, data: any) {
   return {id: snapshot.id}
 }
 
+export async function deleteDbItem(dbName: string, id: string) {
+  const snapshot = await db.collection(dbName).doc(id).delete();
+  return {id: snapshot.id}
+};
+
 app.get("/products", async (req: Request, res: Response) => getProducts(req, res));
 app.get("/products/:id", async (req: Request, res: Response) => getProduct(req, res));
 app.post("/products", async (req: Request, res: Response) => addProduct(req, res));
@@ -158,6 +163,10 @@ app.put("/cities", async (req: Request, res: Response) => editCityById(req, res)
 
 
 app.get("/availabilities", async (req: Request, res: Response) => getAvailabilities(req, res));
+app.get("/availability/:id", async (req: Request, res: Response) => getAvailabilityById(req, res));
+app.post("/availabilities", async (req: Request, res: Response) => addAvailabilityById(req, res));
+app.put("/availabilities/:id", async (req: Request, res: Response) => editAvailabilityById(req, res));
+app.delete("/availabilities/:id", async (req: Request, res: Response) => deleteAvailabilityById(req, res));
 
 app.get("/availabilities/:productId", async (req: Request, res: Response) => {
   const today = dayjs().format('YYYY-MM-DD')
@@ -176,34 +185,6 @@ app.get("/availabilities/:productId", async (req: Request, res: Response) => {
     data.push({id: doc.id, ...doc.data()});
   });
   res.json(data);
-});
-
-app.get("/next-availabilities/", async (req: Request, res: Response) => {
-  const snapshot = await db.collection("availabilities")
-    .orderBy("date")
-    .get();
-
-  const data: any[] = [];
-
-  snapshot.forEach((doc: any) => {
-    data.push({id: doc.id, ...doc.data()});
-  });
-  res.json(data);
-});
-
-app.get("/availability/:id", async (req: Request, res: Response) => {
-  const resp = await getDbItem("availabilities", req.params.id);
-  res.json(resp);
-});
-
-app.post("/availabilities", async (req: Request, res: Response) => {
-  const resp = await addDbItem("availabilities", req.body);
-  res.json(resp);
-});
-
-app.put("/availabilities/:id", async (req: Request, res: Response) => {
-  const resp = await editDbItem("availabilities", req.params.id, req.body);
-  res.json(resp);
 });
 
 const MPExpirationDate = () => dayjs().tz("America/Sao_Paulo").add(5, 'minutes').add(10, 'seconds').format("YYYY-MM-DDTHH:mm:ss.SSSZ")
