@@ -5,7 +5,7 @@ import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { CartItemType } from '../../../api/purchaseitems/types';
 import { Availability, Availabilities } from '../../../api/availabilities/types';
-import { getAvailabilitiesByProduct } from '../../../api/availabilities/api';
+import { getAvailabilities } from '../../../api/availabilities/api';
 import { Cities } from '../../../api/cities/types';
 import { getCities } from '../../../api/cities/api';
 import { Product } from '../../../api/products/types';
@@ -18,6 +18,7 @@ import { calcPrice, displayPrice, initProduct, qtySelectorDisabler } from '../..
 import { logEvents } from '../../../firebase';
 import { getProductById } from '../../../api/products/api';
 import { useTotem } from '../../../context/TotemContext';
+import dayjs from 'dayjs';
 
 export default function ProductModal({
   productId,
@@ -57,7 +58,15 @@ export default function ProductModal({
       setProductIsError(true);
     });
 
-    getAvailabilitiesByProduct(productId)
+    getAvailabilities({
+      productId: {eq: {str: productId}},
+      active: {eq: {boo: true}},
+      availability: {gt: {num: 0}},
+      remaining: {gt: {num: 0}},
+      date: {ge: {str: dayjs().format("YYYY-MM-DD")}},
+      orderBy: "date",
+      order: "asc",
+    })
     .then((data) =>{
       setAvailabilities(data as Availabilities)
     });

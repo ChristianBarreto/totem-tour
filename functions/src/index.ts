@@ -180,30 +180,11 @@ app.post("/cities", async (req: Request, res: Response) => addCities(req, res));
 app.put("/cities", async (req: Request, res: Response) => editCityById(req, res));
 
 app.get("/availabilities", async (req: Request, res: Response) => getAvailabilities(req, res));
-app.get("/availability/:id", async (req: Request, res: Response) => getAvailabilityById(req, res));
+app.get("/availabilities/:id", async (req: Request, res: Response) => getAvailabilityById(req, res));
 app.post("/availabilities", async (req: Request, res: Response) => addAvailabilityById(req, res));
 app.put("/availabilities/:id", async (req: Request, res: Response) => editAvailabilityById(req, res));
 app.delete("/availabilities/:id", async (req: Request, res: Response) => deleteAvailabilityById(req, res));
 app.delete("/availabilities/", async (req: Request, res: Response) => deleteAvailabilities(req, res));
-
-app.get("/availabilities/:productId", async (req: Request, res: Response) => {
-  const today = dayjs().format('YYYY-MM-DD')
-  const snapshot = await db.collection("availabilities")
-    .where('productId', '==', req.params.productId)
-    .where('active', '==', true)
-    .where("availability", ">", 0)
-    .where("remaining", ">", 0)
-    .where("date", ">=", today)
-    .orderBy("date", 'asc')
-    .get();
-
-  const data: any[] = [];
-
-  snapshot.forEach((doc: any) => {
-    data.push({id: doc.id, ...doc.data()});
-  });
-  res.json(data);
-});
 
 const MPExpirationDate = () => dayjs().tz("America/Sao_Paulo").add(5, 'minutes').add(10, 'seconds').format("YYYY-MM-DDTHH:mm:ss.SSSZ")
 

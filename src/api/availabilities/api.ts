@@ -13,7 +13,7 @@ export const getAvailabilitiesByProduct = async (productId: string): Promise<Ava
       return [];
     })
   return data;
-}
+};
 
 export const getAvailabilities = async (params?: any): Promise<Availabilities | void> => {
   const data = axios.get<Availabilities>(`${baseUrl}/availabilities/?${qs.stringify(params)}`, axiosParams)
@@ -25,7 +25,7 @@ export const getAvailabilities = async (params?: any): Promise<Availabilities | 
       return [];
     })
   return data;
-}
+};
 
 export const addAvailability = async (body: Availability): Promise<Availability | void> => {
   const { data } = await axios.post(`${baseUrl}/availabilities/`, body, axiosParams);
@@ -33,7 +33,7 @@ export const addAvailability = async (body: Availability): Promise<Availability 
 }
 
 export const getAvailabilityById = async (id: string): Promise<Availability | void> => {
-  const { data } = await axios.get(`${baseUrl}/availability/${id}`, axiosParams);
+  const { data } = await axios.get(`${baseUrl}/availabilities/${id}`, axiosParams);
   return data;
 }
 
