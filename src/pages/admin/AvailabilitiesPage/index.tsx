@@ -15,6 +15,7 @@ export default function AvailabilitiesPage() {
       setIsLoading(false);
     }).catch((err) => {
       console.log("Err", err)
+      setIsLoading(false);
     });
   }
 
@@ -28,7 +29,8 @@ export default function AvailabilitiesPage() {
       getOldAvailabilities();
       setIsLoading(false);
     }).catch((err) => {
-      console.log("Err", err)
+      console.log("Err", err);
+      setIsLoading(false);
     });
 
   }
