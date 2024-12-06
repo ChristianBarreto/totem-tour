@@ -283,7 +283,7 @@ export default function AddEditProductPage() {
 
             <label className="form-control label-text pb-4">Horário:
               <input
-                type="text"
+                type="time"
                 placeholder="Type here"
                 className="input input-bordered w-full"
                 value={product.time}
