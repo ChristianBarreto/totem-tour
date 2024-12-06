@@ -54,7 +54,7 @@ const Short = ({
     }
   }, []);
 
-  return <div ref={ref} className="tooltip" data-tip={value}>{value.slice(0, size)}{value && "..."}</div>
+  return <div ref={ref} className="tooltip" data-tip={value}>{value.slice(0, size)}{value.length > size && "..."}</div>
 }
 
 export default function ProductsPage() {
@@ -67,7 +67,7 @@ export default function ProductsPage() {
     {name: "Nome", value: "name"},
     {name: "Local", value: "address", component: (<Short />)},
     {name: "Localiz.", value: "location", component: (<Short />)},
-    {name: "Horário", value: "time", component: (<Short />)},
+    {name: "Horário", value: "time", component: (<Short size={5}/>)},
     {name: "Duração", value: "duration"},
     {name: "Nome op.", value: "operatorName", component: (<Short size={23} />)},
     {name: "Tel. op.", value: "operatorPhone"},
