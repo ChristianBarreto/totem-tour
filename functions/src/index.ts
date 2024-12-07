@@ -23,6 +23,7 @@ import { editCityById, getCities, getCityById } from "./controllers/cities";
 import { queryRef } from "./helpers";
 import { getPurchaseItems } from "./controllers/purchaseItems";
 import { addAvailabilityById, deleteAvailabilities, deleteAvailabilityById, editAvailabilityById, getAvailabilities, getAvailabilityById } from "./controllers/availabilities";
+import { addRegion, deleteRegionById, editRegionById, getRegionById, getRegions } from "./controllers/regions";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -185,6 +186,12 @@ app.post("/availabilities", async (req: Request, res: Response) => addAvailabili
 app.put("/availabilities/:id", async (req: Request, res: Response) => editAvailabilityById(req, res));
 app.delete("/availabilities/:id", async (req: Request, res: Response) => deleteAvailabilityById(req, res));
 app.delete("/availabilities/", async (req: Request, res: Response) => deleteAvailabilities(req, res));
+
+app.get("/regions", async (req: Request, res: Response) => getRegions(req, res));
+app.get("/regions/:id", async (req: Request, res: Response) => getRegionById(req, res));
+app.post("/regions", async (req: Request, res: Response) => addRegion(req, res));
+app.put("/regions/:id", async (req: Request, res: Response) => editRegionById(req, res));
+app.delete("/regions/:id", async (req: Request, res: Response) => deleteRegionById(req, res));
 
 const MPExpirationDate = () => dayjs().tz("America/Sao_Paulo").add(5, 'minutes').add(10, 'seconds').format("YYYY-MM-DDTHH:mm:ss.SSSZ")
 

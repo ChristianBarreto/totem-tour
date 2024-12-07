@@ -1,7 +1,7 @@
 import Table from "../../../../components/organisms/Table";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getSlides } from "../../../../api/slides/api";
+import { getRegions } from "../../../../api/regions/api";
 import { RedGreenLight } from "../../../../components/atoms/RedGreenLight";
 
 
@@ -34,7 +34,7 @@ const Thumb = () => {
     if (ref.current?.parentElement ){
       setValue(ref.current?.parentElement?.className)
     }
-  }, [])
+  }, []);
 
 
   return (
@@ -93,11 +93,11 @@ export default function RegionsPage() {
       <Table
         tableName="Slides"
         tableHeader={tableHeader}
-        tableFetch={getSlides}
+        tableFetch={getRegions}
         sort="order"
       />
       <div className="p-4 flex justify-end">
-        <button className="btn btn-primary" onClick={() => navigate('/admin/slides/add')}>Novo totem</button>
+        <button className="btn btn-primary" onClick={() => navigate('/admin/regions/add')}>Novo totem</button>
       </div>
     </div>
   )

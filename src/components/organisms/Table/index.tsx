@@ -24,7 +24,7 @@ export default function Table({
 }: {
   tableName: string,
   tableHeader: TableHeaderItem[],
-  tableFetch: () => Promise<Array<any>>, // eslint-disable-line
+  tableFetch: (params?: any) => Promise<Array<any>>, // eslint-disable-line
   reloadTable?: number,
   filter?: Filter,
   sort?: Sort,
