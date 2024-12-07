@@ -6,7 +6,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { CartItemType } from '../../../api/purchaseitems/types';
 import { Availability, Availabilities } from '../../../api/availabilities/types';
 import { getAvailabilities } from '../../../api/availabilities/api';
-import { Cities } from '../../../api/cities/types';
+import { CitiesResp, CityResp } from '../../../api/cities/types';
 import { getCities } from '../../../api/cities/api';
 import { Product } from '../../../api/products/types';
 import { IconCart } from '../../atoms/IconCart';
@@ -42,7 +42,7 @@ export default function ProductModal({
   const [qtyFree, setQtyFree] = useState(0);
   const [qtyHalf, setQtyHalf] = useState(0);
   const [maxRound, setMaxRound] = useState(false);
-  const [cities, setCities] = useState<Cities>([])
+  const [cities, setCities] = useState<CitiesResp>([])
   // @ts-expect-error: TODO: fix type of context
   const [, dispatch] = useCart();
   // @ts-expect-error: TODO: fix type of context
@@ -190,7 +190,7 @@ export default function ProductModal({
                               <div className='mb-4'>
                                 <p className='text-xl'>
                                   <span className='font-bold'>Local: </span>
-                                  {cities.find((city) => city.id === product.cityId)?.name}
+                                  {cities.find((city: CityResp) => city.id === product.cityId)?.name}
                                 </p>
                                 <p className='text-neutral-400'>(você receberá a localização exata por WhatsApp/Email)</p>
                               </div>

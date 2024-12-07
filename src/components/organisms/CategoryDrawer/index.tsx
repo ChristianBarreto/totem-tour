@@ -1,6 +1,6 @@
 import { ReactElement } from "react"
 import CategoryCard from "../../molecules/CategoryCard"
-import { Cities } from "../../../api/cities/types";
+import { CitiesResp } from "../../../api/cities/types";
 import styles from './CategoryDrawer.module.css';
 import CardSkeleton from "../../atoms/CardSkeleton";
 
@@ -13,7 +13,7 @@ export function CategoryDrawer({
   isError,
 }: {
   children: ReactElement,
-  cities: Cities,
+  cities: CitiesResp,
   selectedCity: string,
   setSelectedCity: (id: string) => void,
   isLoading: boolean,

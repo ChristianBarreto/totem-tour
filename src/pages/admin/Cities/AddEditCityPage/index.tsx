@@ -1,42 +1,50 @@
 import { useEffect, useRef, useState } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
-import { SlideResp } from "../../../../api/slides/types";
-import { addSlide, editSlide, getSlide } from "../../../../api/slides/api";
+import { CityResp } from "../../../../api/cities/types";
+import { addCity, editCityById, getCityById } from "../../../../api/cities/api";
+import { RegionsResp } from "../../../../api/regions/types";
+import { getRegions } from "../../../../api/regions/api";
 
-const initSlide: SlideResp = {
+const initCity: CityResp = {
   id: '',
-  img: '',
-  description: '',
+  imgUrl: '',
+  name: '',
   active: false,
-  order: 0,
-  duration: 0,
+  regionId: '',
+  regionName: '',
   lastUpdated: 0,
   timestamp: 0,
 };
 
 export default function AddEditCityPage() {
   const { id } = useParams();
-  const [slide, setSlide] = useState<SlideResp>(initSlide);
+  const [city, setCity] = useState<CityResp>(initCity);
+  const [regions, setRegions] = useState<RegionsResp>([]);
 
-  const slideRef = useRef(initSlide);
+  const cityRef = useRef(initCity);
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isEditing = (location.pathname !== '/admin/slides/add')
+  const isEditing = (location.pathname !== '/admin/cities/add')
   
   useEffect(() => {
     let ignore = false;
     if (isEditing) {
-      getSlide(id as string).then((res) => {
+      getCityById(id as string).then((res) => {
         if(!ignore) {
-          setSlide(res);
-          slideRef.current = res;
+          setCity(res as CityResp);
+          cityRef.current = res;
         }
       }).catch((err) => {
         console.log("Err", err)
       })
+      getRegions().then((res) => {
+        setRegions(res);
+      }).catch((err) => {
+        console.log("Err", err)
+      });
     }
 
     return (() => {
@@ -45,38 +53,38 @@ export default function AddEditCityPage() {
   }, []);
 
   const handleCancel = () => {
-    setSlide(slideRef.current)
+    setCity(cityRef.current)
   }
  
   const handleSave = () => {
     if (isEditing && id) {
-      editSlide(id, slide).then(() => {
-        navigate('/admin/slides')
+      editCityById(id, city).then(() => {
+        navigate('/admin/cities')
       })
     } else {
-      addSlide(slide).then(() => {
+      addCity(city).then(() => {
         navigate('/admin/slides')
       })
     }
 
   }
 
-  const slideChanged = (slide1: SlideResp, slide2: SlideResp) => {
-    for (const i in slide1) {
-      if (slide1[i as keyof SlideResp] !== slide2[i as keyof SlideResp]) {
+  const cityChanged = (a: CityResp, b: CityResp) => {
+    for (const i in a) {
+      if (a[i as keyof CityResp] !== b[i as keyof CityResp]) {
         return true
       }
     }
     return false
   }
 
-  const isCancelDisabled = !slideChanged(slide, slideRef.current)
-  const isSaveDisabled = !slideChanged(slide, slideRef.current);
+  const isCancelDisabled = !cityChanged(city, cityRef.current)
+  const isSaveDisabled = !cityChanged(city, cityRef.current);
   
   return (
     <div>
-      <p className="text-2xl"><span className="font-bold">Adicionar ou editar slide #:</span> {slide.description}</p>
-      <p>ID: {slide.id}</p>
+      <p className="text-2xl"><span className="font-bold">Adicionar ou editar cidade #:</span> {city.name}</p>
+      <p>ID: {city.id}</p>
 
       <div className="flex flex-col pt-6">
 
@@ -84,7 +92,7 @@ export default function AddEditCityPage() {
         <div className="avatar">
           <div className="mask rounded h-80 w-80">
             <img
-              src={slide.img}
+              src={city.imgUrl}
               alt="Avatar Tailwind CSS Component" />
           </div>
         </div>
@@ -95,40 +103,20 @@ export default function AddEditCityPage() {
             <input
               type="checkbox"
               className={`toggle toggle-primary`}
-              checked={slide.active}
-              onChange={() => setSlide({...slide, active: !slide.active})}
+              checked={city.active}
+              onChange={() => setCity({...city, active: !city.active})}
             />
             <span className={`label-text pl-4 mr-2`}> Slide ativo</span>
           </label>
         </div>
 
-        <label className="form-control label-text pb-4">Ordem:
-          <input
-            type="number"
-            placeholder="Type here"
-            className="input input-bordered w-40"
-            value={slide.order}
-            onChange={(e) => setSlide({...slide, order: Number(e.target.value)})}
-          />
-        </label>
-
-        <label className="form-control label-text pb-4">Duração (s):
-          <input
-            type="number"
-            placeholder="Type here"
-            className="input input-bordered w-40"
-            value={slide.duration}
-            onChange={(e) => setSlide({...slide, duration: Number(e.target.value)})}
-          />
-        </label>
-
-        <label className="form-control label-text pb-4">Descrição:
+        <label className="form-control label-text pb-4">Nome:
           <input
             type="text"
             placeholder="Type here"
             className="input input-bordered w-full"
-            value={slide.description}
-            onChange={(e) => setSlide({...slide, description: e.target.value})}
+            value={city.name}
+            onChange={(e) => setCity({...city, name: e.target.value})}
           />
         </label>
 
@@ -137,14 +125,29 @@ export default function AddEditCityPage() {
             type="text"
             placeholder="Type here"
             className="input input-bordered w-full"
-            value={slide.img}
-            onChange={(e) => setSlide({...slide, img: e.target.value})}
+            value={city.imgUrl}
+            onChange={(e) => setCity({...city, imgUrl: e.target.value})}
           />
         </label>
 
+        <label className="form-control w-full pb-4">
+          <span className="label-text">Região:</span>
+          <select
+            className="select select-bordered w-full"
+            onChange={(e) => setCity({...city, regionId: e.target.value})}
+            value={city.regionId}
+            defaultValue=""
+          >
+            <option value="" disabled>Escolha a região que esta cidade faz parte</option>
+            {regions.map((region) => (
+              <option key={region.id} value={region.id}>{region.name}</option>
+            ))}
+          </select>
+        </label>
+
         <hr />
-        {/* <p>Created on: {dayjs(product.timestamp).format('DD/MM/YYYY - HH:mm:ss')}</p> */}
-        <p>Last updated: {dayjs(slide.lastUpdated).format('DD/MM/YYYY - HH:mm:ss')}</p>
+        <p>Created on: {dayjs(city.timestamp).format('DD/MM/YYYY - HH:mm:ss')}</p>
+        <p>Last updated: {dayjs(city.lastUpdated).format('DD/MM/YYYY - HH:mm:ss')}</p>
       </div>
 
       <div className="flex justify-end">

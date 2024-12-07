@@ -1,11 +1,11 @@
-import { Cities } from "../../../api/cities/types"
+import { CitiesResp } from "../../../api/cities/types"
 
 export default function CitySelect({
   cities,
   selectedCity,
   setSelectedCity,
 }: {
-  cities: Cities
+  cities: CitiesResp
   selectedCity: string,
   setSelectedCity: (value: string) => void,
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CartItemType } from "../../../api/purchaseitems/types";
-import { Cities } from "../../../api/cities/types";
+import { CitiesResp } from "../../../api/cities/types";
 import { getCities } from "../../../api/cities/api";
 import { Product } from "../../../api/products/types";
 import { useCart } from "../../../context/CartContext";
@@ -18,7 +18,7 @@ export default function CartItem({
 }) {
   // @ts-expect-error: TODO: fix type of context
   const [, dispatch] = useCart();
-  const [cities, setCities] = useState<Cities>([])
+  const [cities, setCities] = useState<CitiesResp>([])
 
   useEffect(() => {
     getCities().then((res) => {

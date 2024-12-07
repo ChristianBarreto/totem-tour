@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { CategoryDrawer } from "../../../components/organisms/CategoryDrawer";
 import ProductList from "../../../components/organisms/ProductList";
 import styles from './StorePage.module.css';
-import { Cities } from "../../../api/cities/types";
+import { CitiesResp } from "../../../api/cities/types";
 import { getCities } from "../../../api/cities/api";
 import { getProducts } from "../../../api/products/api";
 import { Products } from "../../../api/products/types";
@@ -14,7 +14,7 @@ import CitySelect from "../../../components/cells/CitySelect";
 
 export default function StorePage() {
   const [products, setProducts] = useState<Products>([]);
-  const [cities, setCities] = useState<Cities>([]);
+  const [cities, setCities] = useState<CitiesResp>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [selectedCity, setSelectedCity] = useState('');
@@ -30,7 +30,7 @@ export default function StorePage() {
 
     getProducts().then((productsResp) => {
       getCities().then((citiesResp) => {
-        setCities(citiesResp as Cities);
+        setCities(citiesResp as CitiesResp);
         setProducts(productsResp as Products);
         setIsLoading(false);
       }).catch((res) => {

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { websiteUrl } from "../../../api/api";
 import { Availabilities } from "../../../api/availabilities/types";
 import { getAvailabilities } from "../../../api/availabilities/api";
-import { Cities } from "../../../api/cities/types";
+import { CitiesResp } from "../../../api/cities/types";
 import { getCities } from "../../../api/cities/api";
 import { getProducts } from "../../../api/products/api";
 import { Product, Products } from "../../../api/products/types";
@@ -22,7 +22,7 @@ export default function AvailabilityTable({
 }) {
   const [availabilities, setAvailabilities] = useState<Availabilities>([]);
   const [products, setProducts] = useState<Product[]>([]);
-  const [, setCities] = useState<Cities>([]);
+  const [, setCities] = useState<CitiesResp>([]);
   const [reloadTable, setReloadTable] = useState(0);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function AvailabilityTable({
     });
 
     getCities().then((citiesResp) => {
-      setCities(citiesResp as Cities);
+      setCities(citiesResp as CitiesResp);
     }).catch((err) => {
       console.log("Err", err)
     });

@@ -11,7 +11,7 @@ import { calcPrice, displayPrice } from "../../../../helpers";
 import { getProducts } from "../../../../api/products/api";
 import { Product, Products } from "../../../../api/products/types";
 import { getCities } from "../../../../api/cities/api";
-import { Cities } from "../../../../api/cities/types";
+import { CitiesResp, CityResp } from "../../../../api/cities/types";
 import { getAvailabilitiesByProduct } from "../../../../api/availabilities/api";
 import { Availabilities, Availability } from "../../../../api/availabilities/types";
 import { Totem } from "../../../../api/totems/types";
@@ -82,7 +82,7 @@ export default function AddEditPurchasePage() {
   const [tab, setTab] = useState(0);
   const [totens, setTotens] = useState<Totem[]>([]);
   const [products, setProducts] = useState<Products>([]);
-  const [cities, setCities] = useState<Cities>();
+  const [cities, setCities] = useState<CitiesResp>();
   const [productAvail, setProductAvail] = useState<ProdAvail>([]);
   const purchaseRef = useRef(initPurchase);
 
@@ -236,7 +236,7 @@ export default function AddEditPurchasePage() {
           productOperatorName: product?.operatorName  || '',
           productOperatorPhone: product?.operatorPhone || '',
           productTime: product?.time || '',
-          cityName: cities?.find((c) => c.id === product?.cityId)?.name || '',
+          cityName: cities?.find((c: CityResp) => c.id === product?.cityId)?.name || '',
         }
       }
       return item;

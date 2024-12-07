@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { PriceTypes } from "../../../../api/products/types";
-import { Cities } from "../../../../api/cities/types";
+import { CitiesResp } from "../../../../api/cities/types";
 import { getCities } from "../../../../api/cities/api";
 import { addProduct, editProductById } from "../../../../api/products/api";
 import { getProductById } from "../../../../api/products/api";
@@ -15,7 +15,7 @@ import IsShownWhereBadge from "../../../../components/atoms/IsShownWhereBadge";
 export default function AddEditProductPage() {
   const { id } = useParams();
   const [product, setProduct] = useState<Product>(initProduct);
-  const [cities, setCities] = useState<Cities>([]);
+  const [cities, setCities] = useState<CitiesResp>([]);
   const [tab, setTab] = useState(0);
 
   const productRef = useRef(initProduct);

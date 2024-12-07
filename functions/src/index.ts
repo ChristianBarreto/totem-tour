@@ -19,11 +19,11 @@ import { addSlide, editSlide, getSlide, getSlides } from "./controllers/slides";
 import { addProduct, editProduct, getProduct, getProducts } from "./controllers/products";
 import { getTotemPingById, setTotemPingById } from "./controllers/totemPing";
 import { getTotemById, getTotens, editTotemById, addTotemById } from "./controllers/totems";
-import { editCityById, getCities, getCityById } from "./controllers/cities";
 import { queryRef } from "./helpers";
 import { getPurchaseItems } from "./controllers/purchaseItems";
 import { addAvailabilityById, deleteAvailabilities, deleteAvailabilityById, editAvailabilityById, getAvailabilities, getAvailabilityById } from "./controllers/availabilities";
 import { addRegion, deleteRegionById, editRegionById, getRegionById, getRegions } from "./controllers/regions";
+import { getCities, getCityById, addCity, editCityById, deleteCityById } from "./controllers/cities";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -175,11 +175,6 @@ app.post("/slides/", async (req: Request, res: Response) => addSlide(req, res));
 app.put("/slides/:id", async (req: Request, res: Response) => editSlide(req, res));
 // app.delete("/slides:id", async (req: Request, res: Response) => getSlides(req, res));
 
-app.get("/cities", async (req: Request, res: Response) => getCities(req, res));
-app.get("/cities/:id", async (req: Request, res: Response) => getCityById(req, res));
-app.post("/cities", async (req: Request, res: Response) => addCities(req, res));
-app.put("/cities", async (req: Request, res: Response) => editCityById(req, res));
-
 app.get("/availabilities", async (req: Request, res: Response) => getAvailabilities(req, res));
 app.get("/availabilities/:id", async (req: Request, res: Response) => getAvailabilityById(req, res));
 app.post("/availabilities", async (req: Request, res: Response) => addAvailabilityById(req, res));
@@ -192,6 +187,12 @@ app.get("/regions/:id", async (req: Request, res: Response) => getRegionById(req
 app.post("/regions", async (req: Request, res: Response) => addRegion(req, res));
 app.put("/regions/:id", async (req: Request, res: Response) => editRegionById(req, res));
 app.delete("/regions/:id", async (req: Request, res: Response) => deleteRegionById(req, res));
+
+app.get("/cities", async (req: Request, res: Response) => getCities(req, res));
+app.get("/cities/:id", async (req: Request, res: Response) => getCityById(req, res));
+app.post("/cities", async (req: Request, res: Response) => addCity(req, res));
+app.put("/cities/:id", async (req: Request, res: Response) => editCityById(req, res));
+app.delete("/cities/:id", async (req: Request, res: Response) => deleteCityById(req, res));
 
 const MPExpirationDate = () => dayjs().tz("America/Sao_Paulo").add(5, 'minutes').add(10, 'seconds').format("YYYY-MM-DDTHH:mm:ss.SSSZ")
 
@@ -432,8 +433,3 @@ app.put("/totem-ping/:id", async (req: Request, res: Response) => setTotemPingBy
 app.get("/totem-ping/:id", async (req: Request, res: Response) => getTotemPingById(req, res));
 
 exports.totem = onRequest(app);
-
-function addCities(req: Request<import("express-serve-static-core").ParamsDictionary>, res: Response<any>) {
-  throw new Error("Function not implemented.");
-}
-

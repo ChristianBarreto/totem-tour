@@ -1,8 +1,8 @@
 import Table from "../../../../components/organisms/Table";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getSlides } from "../../../../api/slides/api";
 import { RedGreenLight } from "../../../../components/atoms/RedGreenLight";
+import { getCities } from "../../../../api/cities/api";
 
 
 const TableEditButton = ({
@@ -69,14 +69,13 @@ export default function CitiesPage() {
   const navigate = useNavigate();
   
   const handleClick = (id: string) => {
-    navigate(`/admin/slides/${id}`)
+    navigate(`/admin/cities/${id}`)
   }
 
   const tableHeader = [
-    {name: "Imagem", value: "img", component: <Thumb />},
-    {name: "Descrição", value: "description"},
-    {name: "Ordem", value: "order"},
-    {name: "Duração (s)",value: 'duration'},
+    {name: "Imagem", value: "imgUrl", component: <Thumb />},
+    {name: "Nome", value: "name"},
+    {name: "Região", value: "regionName"},
     {name: "Ativo",value: 'active', component: <Light />},
     {
       name: "Ações",
@@ -93,7 +92,7 @@ export default function CitiesPage() {
       <Table
         tableName="Slides"
         tableHeader={tableHeader}
-        tableFetch={getSlides}
+        tableFetch={getCities}
         sort="order"
       />
       <div className="p-4 flex justify-end">
