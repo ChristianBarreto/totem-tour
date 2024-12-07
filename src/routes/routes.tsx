@@ -9,7 +9,6 @@ import AdminTemplate from "../pages/templates/AdminTemplate";
 import DashboardPage from "../pages/admin/DashboardPage";
 import ProductsPage from "../pages/admin/Products/ProductsPage";
 import PurchasesPage from "../pages/admin/Purchases/PurchasesPage";
-import CitiesPage from "../pages/admin/CitiesPage";
 import AddEditProductPage from "../pages/admin/Products/AddEditProductPage";
 import PosPage from "../pages/admin/PosPage";
 import EditCompanyPage from "../pages/admin/EditCompanyPage";
@@ -22,6 +21,10 @@ import AddEditUserPage from "../pages/admin/users/AddEditUserPage";
 import SlidesPage from "../pages/admin/Slides/SlidesPage";
 import AddEditSlidePage from "../pages/admin/Slides/AddEditSlidePage";
 import WhoWeArePage from "../pages/Totem/WhoWeArePage";
+import RegionsPage from "../pages/admin/Regions/RegionsPage";
+import CitiesPage from "../pages/admin/Cities/CitiesPage";
+import AddEditRegionPage from "../pages/admin/Regions/AddEditRegionPage";
+import AddEditCityPage from "../pages/admin/Cities/AddEditCityPage";
 
 
 export const rawRoutes = [
@@ -102,10 +105,6 @@ export const rawRoutes = [
         element: <AddEditPurchasePage />,
       },
       {
-        path: '/admin/cities',
-        element: <CitiesPage />,
-      },
-      {
         path: '/admin/pos',
         element: <PosPage />,
       },
@@ -140,6 +139,22 @@ export const rawRoutes = [
       {
         path: '/admin/totem-tour',
         element: <EditCompanyPage />,
+      },
+      {
+        path: '/admin/regions',
+        element: <RegionsPage />,
+      },
+      {
+        path: '/admin/regions:id',
+        element: <AddEditRegionPage />,
+      },
+      {
+        path: '/admin/cities/',
+        element: <CitiesPage />,
+      },
+      {
+        path: '/admin/cities/:id',
+        element: <AddEditCityPage />,
       },
     ],
   },

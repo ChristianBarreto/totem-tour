@@ -30,6 +30,8 @@ export default function AdminDrawer({
           <li><Link to="/admin/pos">POS</Link></li>
           <li><Link to="/admin/slides">Slides</Link></li>
           <li><Link to="/admin/totems">Totens</Link></li>
+          <li><Link to="/admin/regions">Regiões</Link></li>
+          <li><Link to="/admin/cities">Cidades</Link></li>
           {/* <li><Link to="/admin/users">Usuários</Link></li> */}
           <li><Link to="/admin/totem-tour">Totem Tour</Link></li>
           <hr className="mt-4 mb-4"/>
