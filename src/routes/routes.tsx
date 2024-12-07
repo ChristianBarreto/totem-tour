@@ -145,12 +145,20 @@ export const rawRoutes = [
         element: <RegionsPage />,
       },
       {
-        path: '/admin/regions:id',
+        path: '/admin/regions/add',
+        element: <AddEditRegionPage />,
+      },
+      {
+        path: '/admin/regions/:id',
         element: <AddEditRegionPage />,
       },
       {
         path: '/admin/cities/',
         element: <CitiesPage />,
+      },
+      {
+        path: '/admin/cities/add',
+        element: <AddEditCityPage />,
       },
       {
         path: '/admin/cities/:id',

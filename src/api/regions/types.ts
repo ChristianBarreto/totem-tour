@@ -1,6 +1,15 @@
 export type Region = {
   name: string,
-  id: string,
-}
+};
 
-export type Regions = Region[];
+export type RegionSideData = {
+  id: string,
+  lastUpdated: number,
+  timestamp: number,
+};
+
+export type RegionResp = Region & RegionSideData;
+
+export type RegionsResp = RegionResp[];
+
+

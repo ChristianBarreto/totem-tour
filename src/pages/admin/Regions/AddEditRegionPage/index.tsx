@@ -1,38 +1,36 @@
 import { useEffect, useRef, useState } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
-import { SlideResp } from "../../../../api/slides/types";
-import { addSlide, editSlide, getSlide } from "../../../../api/slides/api";
 
-const initSlide: SlideResp = {
+import { RegionResp } from "../../../../api/regions/types";
+import { addRegionById, editRegionById, getRegionById } from "../../../../api/regions/api";
+
+const initRegion: RegionResp = {
   id: '',
-  img: '',
-  description: '',
-  active: false,
-  order: 0,
-  duration: 0,
+  name: '',
   lastUpdated: 0,
   timestamp: 0,
 };
 
 export default function AddEditRegionPage() {
   const { id } = useParams();
-  const [slide, setSlide] = useState<SlideResp>(initSlide);
+  const [region, setRegion] = useState<RegionResp>(initRegion);
 
-  const slideRef = useRef(initSlide);
+  const regionRef = useRef(initRegion);
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isEditing = (location.pathname !== '/admin/slides/add')
+  const isEditing = (location.pathname !== '/admin/regions/add')
   
   useEffect(() => {
     let ignore = false;
+    console.log("isEditing", isEditing)
     if (isEditing) {
-      getSlide(id as string).then((res) => {
+      getRegionById(id as string).then((res) => {
         if(!ignore) {
-          setSlide(res);
-          slideRef.current = res;
+          setRegion(res as RegionResp);
+          regionRef.current = res as RegionResp;
         }
       }).catch((err) => {
         console.log("Err", err)
@@ -45,106 +43,54 @@ export default function AddEditRegionPage() {
   }, []);
 
   const handleCancel = () => {
-    setSlide(slideRef.current)
+    setRegion(regionRef.current)
   }
  
   const handleSave = () => {
     if (isEditing && id) {
-      editSlide(id, slide).then(() => {
-        navigate('/admin/slides')
+      editRegionById(id, region).then(() => {
+        navigate('/admin/regions')
       })
     } else {
-      addSlide(slide).then(() => {
-        navigate('/admin/slides')
+      addRegionById(region).then(() => {
+        navigate('/admin/regions')
       })
     }
 
   }
 
-  const slideChanged = (slide1: SlideResp, slide2: SlideResp) => {
-    for (const i in slide1) {
-      if (slide1[i as keyof SlideResp] !== slide2[i as keyof SlideResp]) {
+  const regionChanged = (a: RegionResp, b: RegionResp) => {
+    for (const i in a) {
+      if (a[i as keyof RegionResp] !== b[i as keyof RegionResp]) {
         return true
       }
     }
     return false
   }
 
-  const isCancelDisabled = !slideChanged(slide, slideRef.current)
-  const isSaveDisabled = !slideChanged(slide, slideRef.current);
+  const isCancelDisabled = !regionChanged(region, regionRef.current)
+  const isSaveDisabled = !regionChanged(region, regionRef.current);
   
   return (
     <div>
-      <p className="text-2xl"><span className="font-bold">Adicionar ou editar slide #:</span> {slide.description}</p>
-      <p>ID: {slide.id}</p>
+      <p className="text-2xl"><span className="font-bold">Adicionar ou editar Região #:</span> {region.name}</p>
+      <p>ID: {region.id}</p>
 
       <div className="flex flex-col pt-6">
 
-      <div className="flex items-center gap-3 mr-auto ml-auto">
-        <div className="avatar">
-          <div className="mask rounded h-80 w-80">
-            <img
-              src={slide.img}
-              alt="Avatar Tailwind CSS Component" />
-          </div>
-        </div>
-      </div>
-
-        <div className="form-control pb-4">
-          <label className="label cursor-pointer justify-start w-1/3">
-            <input
-              type="checkbox"
-              className={`toggle toggle-primary`}
-              checked={slide.active}
-              onChange={() => setSlide({...slide, active: !slide.active})}
-            />
-            <span className={`label-text pl-4 mr-2`}> Slide ativo</span>
-          </label>
-        </div>
-
-        <label className="form-control label-text pb-4">Ordem:
-          <input
-            type="number"
-            placeholder="Type here"
-            className="input input-bordered w-40"
-            value={slide.order}
-            onChange={(e) => setSlide({...slide, order: Number(e.target.value)})}
-          />
-        </label>
-
-        <label className="form-control label-text pb-4">Duração (s):
-          <input
-            type="number"
-            placeholder="Type here"
-            className="input input-bordered w-40"
-            value={slide.duration}
-            onChange={(e) => setSlide({...slide, duration: Number(e.target.value)})}
-          />
-        </label>
-
-        <label className="form-control label-text pb-4">Descrição:
+        <label className="form-control label-text pb-4">Nome da região:
           <input
             type="text"
             placeholder="Type here"
             className="input input-bordered w-full"
-            value={slide.description}
-            onChange={(e) => setSlide({...slide, description: e.target.value})}
-          />
-        </label>
-
-        <label className="form-control label-text pb-4">URL da imagem:
-          <input
-            type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full"
-            value={slide.img}
-            onChange={(e) => setSlide({...slide, img: e.target.value})}
+            value={region.name}
+            onChange={(e) => setRegion({...region, name: e.target.value})}
           />
         </label>
 
         <hr />
-        {/* <p>Created on: {dayjs(product.timestamp).format('DD/MM/YYYY - HH:mm:ss')}</p> */}
-        <p>Last updated: {dayjs(slide.lastUpdated).format('DD/MM/YYYY - HH:mm:ss')}</p>
+        <p>Created on: {dayjs(region.timestamp).format('DD/MM/YYYY - HH:mm:ss')}</p>
+        <p>Last updated: {dayjs(region.lastUpdated).format('DD/MM/YYYY - HH:mm:ss')}</p>
       </div>
 
       <div className="flex justify-end">
