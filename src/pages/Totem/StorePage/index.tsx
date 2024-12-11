@@ -29,7 +29,11 @@ export default function StorePage() {
     });
 
     getProducts().then((productsResp) => {
-      getCities({regionId: {eq: {str: "hdIlwLu3qW09GrLSOIty"}}, orderBy: {asc: "name"}}).then((citiesResp) => {
+      getCities({
+        regionId: {eq: {str: "hdIlwLu3qW09GrLSOIty"}},
+        active: {eq: {boo: true}},
+        orderBy: {asc: "name"}
+      }).then((citiesResp) => {
         setCities(citiesResp as CitiesResp);
         setProducts(productsResp as Products);
         setIsLoading(false);

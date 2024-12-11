@@ -44,7 +44,7 @@ export default function TotemsPage() {
       <Table
         tableName="Totems"
         tableHeader={tableHeader}
-        tableFetch={() => getTotems({params: {orderBy: {name: "asc"}}})}
+        tableFetch={() => getTotems({orderBy: {asc: "name"}})}
         sort="nickName"
       />
       <div className="p-4 flex justify-end">

@@ -1,4 +1,4 @@
-import { initCustomer, initTotem } from "../../helpers";
+import { initCustomer, initTotem, sortGetData } from "../../helpers";
 import { editDbItem, getDbItem, getDbItems } from "../../index";
 import { Request, Response } from "express";
 
@@ -15,8 +15,10 @@ export const getPurchases = async (req: Request, res: Response) => {
       totemResponsiblePerson: totem.responsiblePerson,
     });
 
-    resp.length === purchases.length &&
-      res.status(200).json(resp.sort((a, b) => b.timestamp - a.timestamp));
+    if (resp.length === purchases.length) {
+      res.status(200).json(resp.sort((a, b) => sortGetData(a, b, req.query)));
+    }
+      
   });
 };
 

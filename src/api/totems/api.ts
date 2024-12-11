@@ -1,9 +1,11 @@
 import axios from "axios";
 import { axiosParams, baseUrl } from "../api";
 import { Totem } from "./types";
+import qs from "qs";
 
 export const getTotems = async (params: any) => {
-  const { data } = await axios.get(`${baseUrl}/totens${params ? "?" + params : ''}`, axiosParams);
+  console.log(`${baseUrl}/totens/${params ? '?' + qs.stringify(params) : ''}`)
+  const { data } = await axios.get(`${baseUrl}/totens/${params ? '?' + qs.stringify(params) : ''}`, axiosParams);
   return data;
 }
 
