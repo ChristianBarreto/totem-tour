@@ -76,7 +76,7 @@ export default function AddEditCityPage() {
       }
     }
     return false
-  }
+  };
 
   const isCancelDisabled = !cityChanged(city, cityRef.current)
   const isSaveDisabled = !cityChanged(city, cityRef.current);

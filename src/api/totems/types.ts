@@ -6,6 +6,7 @@ export type Totem = {
   posId: string,
   cityOrder: string,
   showTestProduct: boolean,
+  regionId: string,
   lastPing?: number | null,
   lastUpdated: string,
   timestamp: string,

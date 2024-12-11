@@ -11,6 +11,7 @@ const initTotem = {
   responsiblePerson: '',
   posId: '',
   cityOrder: '',
+  regionId: '', 
   showTestProduct: false,
   lastUpdated: '',
   timestamp: '',

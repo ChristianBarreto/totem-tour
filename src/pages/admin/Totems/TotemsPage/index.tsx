@@ -16,6 +16,7 @@ export default function TotemsPage() {
     {name: "Totem", value: "nickName"},
     {name: "Estabelecimento", value: "locationDescription"},
     {name: "Responsável", value: "responsiblePerson"},
+    {name: "Região", value: "regionName"},
     {
       name: "Ping",
       value: 'lastPing',

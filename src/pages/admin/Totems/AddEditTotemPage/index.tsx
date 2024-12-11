@@ -3,6 +3,10 @@ import { Totem } from "../../../../api/totems/types";
 import { addTotem, editTotemById, getTotemById } from "../../../../api/totems/api";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
+import { RegionsResp } from "../../../../api/regions/types";
+import { getRegions } from "../../../../api/regions/api";
+import { CitiesResp } from "../../../../api/cities/types";
+import { getCities } from "../../../../api/cities/api";
 
 const initTotem = {
   id: '',
@@ -11,6 +15,8 @@ const initTotem = {
   responsiblePerson: '',
   posId: '',
   cityOrder: '',
+  regionId: '',
+  cityId: '',
   showTestProduct: false,
   lastUpdated: '',
   timestamp: '',
@@ -19,13 +25,15 @@ const initTotem = {
 export default function AddEditTotemPage() {
   const { id } = useParams();
   const [totem, setTotem] = useState<Totem>(initTotem);
+  const [regions, setRegions] = useState<RegionsResp>([]);
+  const [cities, setCities] = useState<CitiesResp>([])
 
   const totemRef = useRef(initTotem);
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isEditing = (location.pathname !== '/admin/totems/add')
+  const isEditing = (location.pathname !== '/admin/totems/add');
   
   useEffect(() => {
     let ignore = false;
@@ -34,6 +42,11 @@ export default function AddEditTotemPage() {
         if (!ignore) {
           setTotem(res);
           totemRef.current = res;
+          getRegions().then((res) => {
+            setRegions(res);
+          }).catch((err) => {
+            console.log("Err", err);
+          })
         }
       }).catch((err) => {
         console.log("Err", err)
@@ -46,8 +59,8 @@ export default function AddEditTotemPage() {
   }, []);
 
   const handleCancel = () => {
-    setTotem(totemRef.current)
-  }
+    setTotem(totemRef.current);
+  };
  
   const handleSave = () => {
     if (isEditing) {
@@ -59,8 +72,20 @@ export default function AddEditTotemPage() {
         navigate('/admin/totems')
       })
     }
+  };
 
-  }
+  useEffect(() => {
+    getCities().then((res) => {
+      setCities(res);
+    }).catch((err) => {
+      console.log("Err", err)
+    })
+  }, [totem.regionId]);
+
+  const handleChooseRegion = (regionId: string) => {
+    setTotem({...totem, regionId: regionId});
+  };
+
 
   const totemChanged = (prod1: Totem, prod2: Totem) => {
     for (const i in prod1) {
@@ -92,8 +117,6 @@ export default function AddEditTotemPage() {
             <span className={`label-text pl-4 ${totem.showTestProduct && "text-red-500 font-bold"}`}>Mostra produtos de teste</span>
           </label>
         </div>
-
-
 
         <label className="form-control label-text pb-4">Estabelecimento:
           <input
@@ -134,6 +157,37 @@ export default function AddEditTotemPage() {
             value={totem.nickName}
             onChange={(e) => setTotem({...totem, nickName: e.target.value})}
           />
+        </label>
+
+        <label className="form-control w-full pb-4">
+          <span className="label-text">Região do Totem:</span>
+          <select
+            className="select select-bordered w-full"
+            onChange={(e) => handleChooseRegion(e.target.value)}
+            value={totem.regionId}
+            defaultValue=""
+          >
+            <option value="" disabled>Escolha a região deste totem</option>
+            {regions.map((region) => (
+              <option key={region.id} value={region.id}>{region.name}</option>
+            ))}
+          </select>
+        </label>
+
+        <label className="form-control w-full pb-4">
+          <span className="label-text">Cidade do totem:</span>
+          <select
+            className="select select-bordered w-full"
+            onChange={(e) => handleChooseRegion(e.target.value)}
+            value={totem.regionId}
+            defaultValue=""
+            disabled={!cities.length}
+          >
+            <option value="" disabled>Escolha a cidade deste totem</option>
+            {cities.map((city) => (
+              <option key={city.id} value={city.id}>{city.name}</option>
+            ))}
+          </select>
         </label>
 
         <label className="form-control label-text pb-4">Ordem das cidades mostradas:

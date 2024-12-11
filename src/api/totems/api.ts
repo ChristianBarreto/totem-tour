@@ -1,13 +1,9 @@
 import axios from "axios";
 import { axiosParams, baseUrl } from "../api";
-import { Totem, TotemParams } from "./types";
+import { Totem } from "./types";
 
-export const getTotems = async ({
-  params,
-}: {
-  params: TotemParams
-}) => {
-  const { data } = await axios.get(`${baseUrl}/totens${params && "?" + params}`, axiosParams);
+export const getTotems = async (params: any) => {
+  const { data } = await axios.get(`${baseUrl}/totens${params ? "?" + params : ''}`, axiosParams);
   return data;
 }
 

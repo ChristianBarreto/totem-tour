@@ -21,7 +21,7 @@ export default function Table({
   
 
   useEffect(() => {
-    tableFetch({params: {...order}}).then((res: Array<AnyObject>) => {
+    tableFetch().then((res: Array<AnyObject>) => {
       setItems(res);
       setIsLoading(false);
     }).catch((err) => {
