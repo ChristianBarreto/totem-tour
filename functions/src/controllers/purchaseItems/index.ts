@@ -1,6 +1,7 @@
 // const dayjs = require('dayjs');
 import { getDbItem, getDbItems } from "../..";
 import { Request, Response } from "express";
+import { sortGetData } from "../../helpers";
 
 export const getPurchaseItems = async (req: Request, res: Response) => {
   const purchaseItems = await getDbItems("purchaseItems", req.query);
@@ -26,9 +27,10 @@ export const getPurchaseItems = async (req: Request, res: Response) => {
       productOperatorName: product.operatorName,
       productOperatorPhone: product.operatorPhone,
     });
-    resp.length === purchaseItems.length &&
+    if (resp.length === purchaseItems.length) {
       res.status(200).json(
-        resp.sort((a, b) => (a.date < b.date ? -1 : 0))
+        resp.sort((a, b) => sortGetData(a, b, req.query))
       );
+    }
   });
 };

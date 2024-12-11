@@ -1,12 +1,13 @@
+import { sortGetData } from "../../helpers";
 import { addDbItem, deleteDbItem, editDbItem, getDbItem, getDbItems } from "../../index";
 import { Request, Response } from "express";
 
 export const getRegions = async (req: Request, res: Response) => {
-  const availabilities = await getDbItems("regions", req.query);
-  if (!availabilities.length) {
+  const regions = await getDbItems("regions", req.query);
+  if (!regions.length) {
     res.status(200).json([]);
   } else {
-    res.status(200).json(availabilities);
+    res.status(200).json(regions.sort((a, b) => sortGetData(a, b, req.query)));
   }
 };
 

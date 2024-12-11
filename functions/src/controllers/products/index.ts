@@ -1,9 +1,10 @@
+import { sortGetData } from "../../helpers";
 import { addDbItem, editDbItem, getDbItem, getDbItems } from "../../index";
 import { Request, Response } from "express";
 
 export const getProducts = async (req: Request, res: Response) => {
   const resp = await getDbItems("products", req.query);
-  res.json(resp);
+  res.json(resp.sort((a, b) => sortGetData(a, b, req.query)));
 };
 
 export const getProduct = async (req: Request, res: Response) => {

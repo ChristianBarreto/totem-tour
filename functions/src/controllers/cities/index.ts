@@ -1,3 +1,4 @@
+import { sortGetData } from "../../helpers";
 import { addDbItem, deleteDbItem, editDbItem, getDbItem, getDbItems } from "../../index";
 import { Request, Response } from "express";
 
@@ -16,7 +17,7 @@ export const getCities = async (req: Request, res: Response) => {
         regionName: region.name,
       });
       if (resp.length === cities.length) {
-        res.status(200).json(resp);
+        res.status(200).json(resp.sort((a, b) => sortGetData(a, b, req.query)));
       }
     });
   }

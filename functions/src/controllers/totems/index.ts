@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { addDbItem, editDbItem, getDbItem, getDbItems } from "../..";
+import { sortGetData } from "../../helpers";
 
 export const addTotemById = async (req: Request, res: Response) => {
   const resp = await addDbItem("totens", req.body);
@@ -24,8 +25,9 @@ export const getTotens = async (req: Request, res: Response) => {
         });
       });
 
-    resp.length === totens.length &&
-      res.status(200).json(resp.sort((a, b) => a.nickName - b.nickName));
+    if (resp.length === totens.length) {
+      res.status(200).json(resp.sort((a, b) => sortGetData(a, b, req.query)));
+    }
   });
 };
 

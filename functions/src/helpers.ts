@@ -86,8 +86,9 @@ export const queryRef = (collectionRef: any, query: any) => {
 }
 
 export const sortGetData = (a: any, b: any, query: any): number => {
-  const dir: number = Object.keys(query.orderBy)[0] === "desc" ? -1 : 1;
-  const field: string = Object.values(query.orderBy)[0] as string;
+  const order = query.orderBy ? query.orderBy : "asc";
+  const dir: number = order === "desc" ? -1 : 1;
+  const field: string = query.orderBy ? Object.values(query.orderBy)[0] as string : "timestamp";
   // console.log(dir, field, "a", a[field], "b", b[field]);
   if (a[field] > b[field]) {
     return 1 * dir;

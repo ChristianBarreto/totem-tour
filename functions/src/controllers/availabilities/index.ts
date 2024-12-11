@@ -1,3 +1,4 @@
+import { sortGetData } from "../../helpers";
 import { addDbItem, bulkDeleteDbItems, deleteDbItem, editDbItem, getDbItem, getDbItems } from "../../index";
 import { Request, Response } from "express";
 
@@ -6,7 +7,7 @@ export const getAvailabilities = async (req: Request, res: Response) => {
   if (!availabilities.length) {
     res.status(200).json([]);
   } else {
-    res.status(200).json(availabilities);
+    res.status(200).json(availabilities.sort((a, b) => sortGetData(a, b, req.query)));
   }
 };
 
