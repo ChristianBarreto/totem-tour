@@ -10,3 +10,10 @@ export type Totem = {
   lastUpdated: string,
   timestamp: string,
 }
+
+export type TotemParams = {
+  orderBy: {
+    timestamp?: string,
+    name?: string;  
+  }
+}

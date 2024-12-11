@@ -1,61 +1,9 @@
 import Table from "../../../../components/organisms/Table";
 import { getProducts } from "../../../../api/products/api";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
-import { RedGreenLight } from "../../../../components/atoms/RedGreenLight";
-
-const TableButton = ({
-  onClickEvent,
-}: {
-  onClickEvent?: (value: string) => void,
-}) => {
-
-  const buttonRef = useRef<HTMLButtonElement>(null)
-
-  const handleClick = () => {
-    if (buttonRef.current?.parentElement && onClickEvent){
-      onClickEvent(buttonRef.current?.parentElement?.className)
-    }
-  }
-
-  return (
-    <button className="btn btn-sm" onClick={handleClick} ref={buttonRef}>
-      Edit
-    </button>
-  )
-}
-
-const Light = () => {
-  const [value, setValue] = useState("");
-  const ref = useRef<HTMLDivElement>(null)
-  
-
-  useEffect(() => {
-    if (ref.current?.parentElement){
-      setValue(ref.current?.parentElement?.className);
-    }
-  }, []);
-
-  return <RedGreenLight value={value === "true" ? true : false} ref={ref} />
-}
-
-const Short = ({
-  size = 20,
-}: {
-  size?: number
-}) => {
-  const [value, setValue] = useState("");
-  const ref = useRef<HTMLDivElement>(null)
-  
-
-  useEffect(() => {
-    if (ref.current?.parentElement){
-      setValue(ref.current?.parentElement?.className);
-    }
-  }, []);
-
-  return <div ref={ref} className="tooltip" data-tip={value}>{value.slice(0, size)}{value.length > size && "..."}</div>
-}
+import { TableShortText } from "../../../../components/organisms/Table/TableShortText";
+import { TableBeacon } from "../../../../components/organisms/Table/TableBeacon";
+import { TableButton } from "../../../../components/organisms/Table/TableButton";
 
 export default function ProductsPage() {
   const navigate = useNavigate()
@@ -65,15 +13,15 @@ export default function ProductsPage() {
 
   const tableHeader = [
     {name: "Nome", value: "name"},
-    {name: "Local", value: "address", component: (<Short />)},
-    {name: "Localiz.", value: "location", component: (<Short />)},
-    {name: "Horário", value: "time", component: (<Short size={5}/>)},
+    {name: "Local", value: "address", component: (<TableShortText />)},
+    {name: "Localiz.", value: "location", component: (<TableShortText />)},
+    {name: "Horário", value: "time", component: (<TableShortText size={5}/>)},
     {name: "Duração", value: "duration"},
-    {name: "Nome op.", value: "operatorName", component: (<Short size={23} />)},
+    {name: "Nome op.", value: "operatorName", component: (<TableShortText size={23} />)},
     {name: "Tel. op.", value: "operatorPhone"},
-    {name: "Show", value: "showDisplay", component: (<Light />)},
-    {name: "Disp.", value: "isAvailable", component: (<Light />)},
-    {name: "Opções", value: 'id', component: (<TableButton onClickEvent={(id) => handleClick(id)} />)}
+    {name: "Show", value: "showDisplay", component: (<TableBeacon />)},
+    {name: "Disp.", value: "isAvailable", component: (<TableBeacon />)},
+    {name: "Opções", value: 'id', component: (<TableButton label="Editar" onClickEvent={(id) => handleClick(id)} />)}
   ]
 
   return (
@@ -83,7 +31,6 @@ export default function ProductsPage() {
         tableName="Produtos"
         tableHeader={tableHeader}
         tableFetch={getProducts}
-        filter={['!==', 'isTest']}
         sort="cityId"
       />
 
@@ -91,7 +38,6 @@ export default function ProductsPage() {
         tableName="⚠️Produtos teste"
         tableHeader={tableHeader}
         tableFetch={getProducts}
-        filter={['===', 'isTest']}
         sort="cityId"
       />
 

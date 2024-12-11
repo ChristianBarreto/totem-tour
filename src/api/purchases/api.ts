@@ -34,7 +34,7 @@ export const getAdminPurchases = async ({
 }: {
   params?: PurchasesParams
 }) => {
-  const { data } = await axios.get(`${baseUrl}/purchases?${qs.stringify(params)}`, axiosParams);
+  const { data } = await axios.get(`${baseUrl}/purchases?${params && qs.stringify(params)}`, axiosParams);
   return data;
 }
 

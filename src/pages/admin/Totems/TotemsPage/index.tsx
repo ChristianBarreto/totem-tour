@@ -1,75 +1,9 @@
 import Table from "../../../../components/organisms/Table";
 import { getTotems } from "../../../../api/totems/api";
-import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { RedGreenLight } from "../../../../components/atoms/RedGreenLight";
-import dayjs from "dayjs";
-
-const TableEditButton = ({
-  onClickEvent,
-}: {
-  onClickEvent?: (value: string) => void,
-}) => {
-
-  const buttonRef = useRef<HTMLButtonElement>(null)
-
-  const handleClick = () => {
-    if (buttonRef.current?.parentElement && onClickEvent){
-      onClickEvent(buttonRef.current?.parentElement?.className)
-    }
-  }
-
-  return (
-    <button className="btn btn-sm" onClick={handleClick} ref={buttonRef}>
-      Edit
-    </button>
-  )
-}
-
-const ShowTests = () => {
-  const [value, setValue] = useState('');
-  const ref = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    if (ref.current?.parentElement ){
-      setValue(ref.current?.parentElement?.className)
-    }
-  }, [])
-
-
-  return (
-    <span ref={ref}>{value === "true" ? (
-      <p className="font-bold text-red-500">MOSTRAR!</p>
-    ): (
-      <p className="">Não mostrar</p>
-    )}</span>
-  )
-}
-
-const Light = () => {
-  const [value, setValue] = useState("");
-  const ref = useRef<HTMLDivElement>(null)
-  
-
-  useEffect(() => {
-    if (ref.current?.parentElement){
-      setValue(ref.current?.parentElement?.className);
-    }
-  }, []);
-
-  const lessThen5Minutes = dayjs().diff(dayjs(Number(value)), 'minute') < 7;
-
-  return (
-    <div ref={ref}>
-      {value ? (
-        <RedGreenLight value={lessThen5Minutes} outsideText={dayjs(Number(value)).format('DD/MM HH:mm')} />
-      ): (
-        <p>(sem dados)</p>
-      )}
-    </div>
-  )
-}
-
+import { TableButton } from "../../../../components/organisms/Table/TableButton";
+import { TableTotemPing } from "../../../../components/organisms/Table/TableTotemPing";
+import { TableBooleanToText } from "../../../../components/organisms/Table/TableBooleanToText";
 
 export default function TotemsPage() {
   const navigate = useNavigate();
@@ -85,20 +19,20 @@ export default function TotemsPage() {
     {
       name: "Ping",
       value: 'lastPing',
-      component: <Light />
+      component: <TableTotemPing />
     },
     {
       name: "Mostrar testes",
       value: 'showTestProduct',
       component: (<>
-        <ShowTests />
+        <TableBooleanToText textTrue="MOSTRAR!" textFalse="Não mostrar"/>
       </>)
     },
     {
       name: "Ações",
       value: 'id',
       component: (<>
-        <TableEditButton onClickEvent={(id) => handleClick(id)} />
+        <TableButton label="Editar" onClickEvent={(id) => handleClick(id)} />
       </>)
     },
   ]
@@ -109,7 +43,7 @@ export default function TotemsPage() {
       <Table
         tableName="Totems"
         tableHeader={tableHeader}
-        tableFetch={getTotems}
+        tableFetch={() => getTotems({params: {orderBy: {name: "asc"}}})}
         sort="nickName"
       />
       <div className="p-4 flex justify-end">

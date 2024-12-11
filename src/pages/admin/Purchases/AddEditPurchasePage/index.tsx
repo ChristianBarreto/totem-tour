@@ -110,7 +110,7 @@ export default function AddEditPurchasePage() {
         console.log("Err", err)
       })
     } else {
-      getTotems().then((res) => {
+      getTotems({params: {orderBy: {name: "asc"}}}).then((res) => {
         if (res) {
           setTotens(res)
         }

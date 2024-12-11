@@ -51,6 +51,6 @@ export type NewPurchase = {
 }
 
 export type PurchasesParams = {
-  timestamp: string,
-  paymentCaptured: string;
+  timestamp?: string,
+  paymentCaptured?: string;
 }

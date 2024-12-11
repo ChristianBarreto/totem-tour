@@ -35,7 +35,7 @@ export default function ChangeTotemModal({
   const [layoutName, setLayoutName] = useState("default");
   
   useEffect(() => {
-    getTotems().then((res) => {
+    getTotems({params: {orderBy: {name: "asc"}}}).then((res) => {
       setTotems(res);
     }).catch((err) => {
       console.log("Err", err)

@@ -1,35 +1,12 @@
 import Table from "../../../components/organisms/Table";
 import { getPoss, switchPosMode } from "../../../api/mercadopago/api";
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { TableButton } from "../../../components/organisms/Table/TableButton";
 
 const getPossDevices = async () => {
   const data = await getPoss();
   return data.devices
 }
-
-const ChangeOpMode = ({
-  name,
-  onClickEvent,
-}: {
-  name: string,
-  onClickEvent?: (value: string) => void,
-}) => {
-
-  const buttonRef = useRef<HTMLButtonElement>(null)
-
-  const handleClick = () => {
-    if (buttonRef.current?.parentElement && onClickEvent){
-      onClickEvent(buttonRef.current?.parentElement?.className)
-    }
-  }
-
-  return (
-    <button className="btn btn-sm ml-1" onClick={handleClick} ref={buttonRef}>
-      {name}
-    </button>
-  )
-}
-
 
 export default function PosPage() {
   const [reload, setReload] = useState(0);
@@ -58,8 +35,8 @@ export default function PosPage() {
       name: "Mudar modo op",
       value: 'id',
       component: (<>
-        <ChangeOpMode name="PDV" onClickEvent={(id) => changeToPdv(id)} />
-        <ChangeOpMode name="SDT" onClickEvent={(id) => changeToStd(id)} />
+        <TableButton label="PDV" onClickEvent={(id) => changeToPdv(id)} />
+        <TableButton label="SDT" onClickEvent={(id) => changeToStd(id)} />
       </>)
     },
   ]

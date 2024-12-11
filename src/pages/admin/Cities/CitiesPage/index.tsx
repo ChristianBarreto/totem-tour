@@ -1,69 +1,9 @@
 import Table from "../../../../components/organisms/Table";
-import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { RedGreenLight } from "../../../../components/atoms/RedGreenLight";
 import { getCities } from "../../../../api/cities/api";
-
-
-const TableEditButton = ({
-  onClickEvent,
-}: {
-  onClickEvent?: (value: string) => void,
-}) => {
-
-  const buttonRef = useRef<HTMLButtonElement>(null)
-
-  const handleClick = () => {
-    if (buttonRef.current?.parentElement && onClickEvent){
-      onClickEvent(buttonRef.current?.parentElement?.className)
-    }
-  }
-
-  return (
-    <button className="btn btn-sm" onClick={handleClick} ref={buttonRef}>
-      Editar
-    </button>
-  )
-}
-
-const Thumb = () => {
-  const [value, setValue] = useState('');
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (ref.current?.parentElement ){
-      setValue(ref.current?.parentElement?.className)
-    }
-  }, [])
-
-
-  return (
-    <div className="flex items-center gap-3" ref={ref}>
-      <div className="avatar">
-        <div className="mask rounded h-20 w-20">
-          <img
-            src={value}
-            alt="Avatar Tailwind CSS Component" />
-        </div>
-      </div>
-    </div>
-  )
-}
-
-const Light = () => {
-  const [value, setValue] = useState("");
-  const ref = useRef<HTMLDivElement>(null)
-  
-
-  useEffect(() => {
-    if (ref.current?.parentElement){
-      setValue(ref.current?.parentElement?.className);
-    }
-  }, []);
-
-  return <RedGreenLight value={value === "true" ? true : false} ref={ref} />
-}
-
+import { TableButton } from "../../../../components/organisms/Table/TableButton";
+import { TableBeacon } from "../../../../components/organisms/Table/TableBeacon";
+import { TableThumb } from "../../../../components/organisms/Table/TableThumb";
 
 export default function CitiesPage() {
   const navigate = useNavigate();
@@ -73,15 +13,15 @@ export default function CitiesPage() {
   }
 
   const tableHeader = [
-    {name: "Imagem", value: "imgUrl", component: <Thumb />},
+    {name: "Imagem", value: "imgUrl", component: <TableThumb />},
     {name: "Nome", value: "name"},
     {name: "Região", value: "regionName"},
-    {name: "Ativo",value: 'active', component: <Light />},
+    {name: "Ativo",value: 'active', component: <TableBeacon />},
     {
       name: "Ações",
       value: 'id',
       component: (<>
-        <TableEditButton onClickEvent={(id) => handleClick(id)} />
+        <TableButton label="Editar" onClickEvent={(id) => handleClick(id)} />
       </>)
     },
   ]
