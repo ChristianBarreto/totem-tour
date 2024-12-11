@@ -66,8 +66,10 @@ export const queryRef = (collectionRef: any, query: any) => {
       const obj = query[key];
       const orderBy = Object.values(obj)[0];
       const order = Object.keys(obj)[0];
-      collectionRef = collectionRef.orderBy(orderBy, order);
+      console.log(orderBy, order)
+      collectionRef = collectionRef.orderBy(orderBy);
     } else if ((key !== "orderBy") && (key !== "order")) {
+      console.log(key, useOperator(query[key]), sanitizeQuery(query[key]))
       collectionRef = collectionRef.where(key, useOperator(query[key]), sanitizeQuery(query[key]))
     }
   }

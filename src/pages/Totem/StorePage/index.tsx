@@ -29,7 +29,7 @@ export default function StorePage() {
     });
 
     getProducts().then((productsResp) => {
-      getCities().then((citiesResp) => {
+      getCities({orderBy: {asc: "name"}}).then((citiesResp) => {
         setCities(citiesResp as CitiesResp);
         setProducts(productsResp as Products);
         setIsLoading(false);
