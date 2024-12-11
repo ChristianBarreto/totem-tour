@@ -50,7 +50,14 @@ export type NewPurchase = {
   products: CartItemType[],
 }
 
+type Asc = {
+  asc: string
+}
+
+type Desc = {
+  desc: string
+}
+
 export type PurchasesParams = {
-  timestamp?: string,
-  paymentCaptured?: string;
+  orderBy?: Asc | Desc
 }

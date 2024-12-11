@@ -3,7 +3,7 @@ import { editDbItem, getDbItem, getDbItems } from "../../index";
 import { Request, Response } from "express";
 
 export const getPurchases = async (req: Request, res: Response) => {
-  const purchases = await getDbItems("purchases");
+  const purchases = await getDbItems("purchases", req.query);
   const resp: any[] = [];
 
   purchases.forEach(async (purchase) => {
