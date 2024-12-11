@@ -42,6 +42,7 @@ export default function AddEditTotemPage() {
         if (!ignore) {
           setTotem(res);
           totemRef.current = res;
+          console.log("getRegions")
           getRegions().then((res) => {
             setRegions(res);
           }).catch((err) => {
@@ -51,6 +52,12 @@ export default function AddEditTotemPage() {
       }).catch((err) => {
         console.log("Err", err)
       })
+    } else {
+      getRegions().then((res) => {
+        setRegions(res);
+      }).catch((err) => {
+        console.log("Err", err);
+      });
     }
 
     return (() => {

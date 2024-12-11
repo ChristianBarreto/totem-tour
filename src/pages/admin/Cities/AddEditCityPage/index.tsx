@@ -45,6 +45,12 @@ export default function AddEditCityPage() {
       }).catch((err) => {
         console.log("Err", err)
       });
+    } else {
+      getRegions().then((res) => {
+        setRegions(res);
+      }).catch((err) => {
+        console.log("Err", err)
+      });
     }
 
     return (() => {
@@ -63,7 +69,7 @@ export default function AddEditCityPage() {
       })
     } else {
       addCity(city).then(() => {
-        navigate('/admin/slides')
+        navigate('/admin/cities')
       })
     }
 
@@ -106,7 +112,7 @@ export default function AddEditCityPage() {
               checked={city.active}
               onChange={() => setCity({...city, active: !city.active})}
             />
-            <span className={`label-text pl-4 mr-2`}> Slide ativo</span>
+            <span className={`label-text pl-4 mr-2`}> Cidade ativa</span>
           </label>
         </div>
 

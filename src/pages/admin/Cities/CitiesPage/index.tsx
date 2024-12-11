@@ -36,7 +36,7 @@ export default function CitiesPage() {
         sort="order"
       />
       <div className="p-4 flex justify-end">
-        <button className="btn btn-primary" onClick={() => navigate('/admin/slides/add')}>Nova cidade</button>
+        <button className="btn btn-primary" onClick={() => navigate('/admin/cities/add')}>Nova cidade</button>
       </div>
     </div>
   )
