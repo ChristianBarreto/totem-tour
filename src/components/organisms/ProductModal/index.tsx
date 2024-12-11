@@ -64,8 +64,7 @@ export default function ProductModal({
       availability: {gt: {num: 0}},
       remaining: {gt: {num: 0}},
       date: {ge: {str: dayjs().format("YYYY-MM-DD")}},
-      orderBy: "date",
-      order: "asc",
+      orderBy: {asc: "date"},
     })
     .then((data) =>{
       setAvailabilities(data as Availabilities)
