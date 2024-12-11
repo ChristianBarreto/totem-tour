@@ -10,7 +10,7 @@ export default function AvailabilitiesPage() {
 
   const getOldAvailabilities = () => {
     setIsLoading(true);
-    getAvailabilities({date: {lt: {str: dayjs().locale('pt-br').format('YYYY-MM-DD')}}, orderBy: "date", order: "asc"}).then((res) => {
+    getAvailabilities({date: {lt: {str: dayjs().locale('pt-br').format('YYYY-MM-DD')}}, orderBy: {asc: "date"}}).then((res) => {
       setOldAvailabilities(res as Availabilities);
       setIsLoading(false);
     }).catch((err) => {
@@ -25,7 +25,7 @@ export default function AvailabilitiesPage() {
 
   const handleDeleteOld = () => {
     setIsLoading(true);
-    deleteAvailabilities({date: {lt: {str: dayjs().locale('pt-br').format('YYYY-MM-DD')}}, orderBy: "date", order: "asc"}).then(() => {
+    deleteAvailabilities({date: {lt: {str: dayjs().locale('pt-br').format('YYYY-MM-DD')}}, orderBy: {asc: "date"}}).then(() => {
       getOldAvailabilities();
       setIsLoading(false);
     }).catch((err) => {

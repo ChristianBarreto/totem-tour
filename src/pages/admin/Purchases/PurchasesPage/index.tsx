@@ -30,7 +30,7 @@ export default function PurchasesPage() {
       <Table
         tableName="Vendas"
         tableHeader={tableHeader}
-        tableFetch={() => getAdminPurchases({params: {orderBy: {desc: "timestamp"}}})}
+        tableFetch={getAdminPurchases}
       />
       <div className="p-4 flex justify-end">
         <button className="btn btn-primary" onClick={() => navigate('/admin/purchases/add')}>Nova venda</button>

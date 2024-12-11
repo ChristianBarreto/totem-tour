@@ -16,7 +16,7 @@ export const getAvailabilitiesByProduct = async (id: string): Promise<Availabili
 };
 
 export const getAvailabilities = async (params?: any): Promise<Availabilities | void> => {
-  const data = axios.get<Availabilities>(`${baseUrl}/availabilities/${params ? '?' + qs.stringify(params): ''}`, axiosParams)
+  const data = axios.get<Availabilities>(`${baseUrl}/availabilities/${params ? '?' + qs.stringify(params) : ''}`, axiosParams)
     .then((res) => {
       return res.data;
     })

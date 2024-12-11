@@ -60,6 +60,7 @@ const useOperator = (query: any) => {
 }
 
 export const queryRef = (collectionRef: any, query: any) => {
+  console.log(query)
   for (const key in query) {
     if (key === "orderBy") {
       const obj = query[key];
@@ -68,7 +69,6 @@ export const queryRef = (collectionRef: any, query: any) => {
       collectionRef = collectionRef.orderBy(orderBy, order);
     } else if ((key !== "orderBy") && (key !== "order")) {
       collectionRef = collectionRef.where(key, useOperator(query[key]), sanitizeQuery(query[key]))
-      console.log(key, useOperator(query[key]), sanitizeQuery(query[key]))
     }
   }
   return collectionRef;

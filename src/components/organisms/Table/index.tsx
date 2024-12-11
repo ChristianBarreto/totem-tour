@@ -7,8 +7,6 @@ export default function Table({
   tableHeader,
   tableFetch,
   reloadTable = 0,
-  sort,
-  filter
 }: {
   tableName: string,
   tableHeader: TableHeaderItem[],
@@ -19,9 +17,11 @@ export default function Table({
 }) {
   const [isLoading, setIsLoading] = useState(true);
   const [items, setItems] = useState<Array<AnyObject>>([]);
+  const [order, setOrder] = useState<any>({orderBy: {desc: "timestamp"}});
+  
 
   useEffect(() => {
-    tableFetch().then((res: Array<AnyObject>) => {
+    tableFetch({params: {...order}}).then((res: Array<AnyObject>) => {
       setItems(res);
       setIsLoading(false);
     }).catch((err) => {
@@ -41,6 +41,11 @@ export default function Table({
     });
   }
 
+  const handleOrder = (name: string) => {
+    setOrder({orderBy: {asc: name}});
+    reload();
+  }
+
   return (
     <div className="border p-2 mb-4">
       <div className="flex justify-between p-4">
@@ -54,7 +59,7 @@ export default function Table({
           <thead>
             <tr>
               {tableHeader.map((header) => (
-                <th key={header.name}>{header.name}</th>
+                <th key={header.name} onClick={() => handleOrder(header.value)}>{header.name}</th>
               ))}
             </tr>
           </thead>
