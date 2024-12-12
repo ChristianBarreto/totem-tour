@@ -12,37 +12,26 @@ export const getTotens = async (req: Request, res: Response) => {
   const resp: any[] = [];
 
   totens.forEach(async (totem) => {
-    try {
-      const ping = await getDbItem("totemPings", totem.id);
-      const region = await getDbItem("regions", totem.regionId);
-  
-      resp.push({
-        ...totem,
-        lastPing: ping.lastPing,
-        regionName: region.name,
+    const ping = await getDbItem("totemPings", totem.id)
+      .catch((err) => {
+        console.log("Err", err)
       });
-    } catch(err) {
-      resp.push({
-        ...totem,
-        lastPing: "not found",
-        regionName: "not found",
+    const region = await getDbItem("regions", totem.regionId)
+      .catch((err) => {
+        console.log("Err", err)
       });
-      console.log("Err", err)
-    }
-    
+    const city = await getDbItem("cities", totem.cityId)
+      .catch((err) => {
+        console.log("Err", err)
+      });
 
-    // await getDbItem("totemPings", totem.id)
-    //   .then((ping) => {
-    //     resp.push({
-    //       ...totem,
-    //       lastPing: ping.lastPing,
-    //     });
-    //   }).catch(() => {
-    //     resp.push({
-    //       ...totem,
-    //       lastPing: null,
-    //     });
-    //   });
+      resp.push({
+        ...totem,
+        lastPing: ping?.lastPing,
+        regionName: region?.name,
+        cityName: city?.name,
+
+      });
 
     if (resp.length === totens.length) {
       res.status(200).json(resp.sort((a, b) => sortGetData(a, b, req.query)));

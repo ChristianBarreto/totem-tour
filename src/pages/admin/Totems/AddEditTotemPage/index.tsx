@@ -8,7 +8,7 @@ import { getRegions } from "../../../../api/regions/api";
 import { CitiesResp } from "../../../../api/cities/types";
 import { getCities } from "../../../../api/cities/api";
 
-const initTotem = {
+const initTotem: Totem = {
   id: '',
   nickName: "",
   locationDescription: '',
@@ -82,7 +82,7 @@ export default function AddEditTotemPage() {
   };
 
   useEffect(() => {
-    getCities().then((res) => {
+    getCities({regionId: {eq: {str: totem.regionId}}}).then((res) => {
       setCities(res);
     }).catch((err) => {
       console.log("Err", err)
@@ -185,8 +185,8 @@ export default function AddEditTotemPage() {
           <span className="label-text">Cidade do totem:</span>
           <select
             className="select select-bordered w-full"
-            onChange={(e) => handleChooseRegion(e.target.value)}
-            value={totem.regionId}
+            onChange={(e) => setTotem({...totem, cityId: e.target.value})}
+            value={totem.cityId}
             defaultValue=""
             disabled={!cities.length}
           >
