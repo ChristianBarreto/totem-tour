@@ -31,7 +31,7 @@ dayjs.extend(timezone);
 export const app = express();
 
 const firebaseConfig = {
-  apiKey: "AIzaSyABCz5FMFYj5HHfxsb0QArGtSMTsYUEorQ",
+  apiKey: process.env.FIREBASE_KEY,
   authDomain: "totem-tour.firebaseapp.com",
   projectId: "totem-tour",
   storageBucket: "totem-tour.appspot.com",
