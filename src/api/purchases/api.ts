@@ -29,7 +29,7 @@ export const setNewPurchase = async (body: NewPurchase) => {
   return data;
 }
 
-export const getAdminPurchases = async (params: any) => {
+export const getAdminPurchases = async (params?: any) => {
   const { data } = await axios.get(`${baseUrl}/purchases${params ? "?" + qs.stringify(params) : ''}`, axiosParams);
   return data;
 }

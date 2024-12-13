@@ -1,4 +1,9 @@
 # Totem Tour App
+The web based software for smart payment kiosks.
+
+[![Watch the video](./pic.jpg)](https://www.youtube.com/shorts/ytf-OczBt5k)
+(click on the picture above to what the movie)
+
 
 ## 1. Installing tools
 `npm install -g firebase-tools`

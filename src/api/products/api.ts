@@ -1,6 +1,7 @@
 import axios from "axios";
 import { baseUrl, axiosParams } from "../api";
 import { Product, Products } from "./types";
+import qs from "qs";
 
 export const addProduct = async (body: Product): Promise<Product | void> => {
   const data = axios.post<Product>(`${baseUrl}/products/`, body, axiosParams)
@@ -13,8 +14,8 @@ export const addProduct = async (body: Product): Promise<Product | void> => {
   return data;
 }
 
-export const getProducts = (): Promise<Products> => new Promise((resolve, reject) => {
-  axios.get<Products>(`${baseUrl}/products`, axiosParams)
+export const getProducts = (params?: any): Promise<Products> => new Promise((resolve, reject) => {
+  axios.get<Products>(`${baseUrl}/products${params ? "?" + qs.stringify(params) : ''}`, axiosParams)
     .then((res) => {
       resolve(res.data);
     })

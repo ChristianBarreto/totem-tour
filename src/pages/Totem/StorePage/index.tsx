@@ -10,6 +10,7 @@ import CartModal from "../../../components/organisms/CartModal";
 import Header from "../../../components/organisms/Header";
 import Footer from "../../../components/organisms/Footer";
 import { useCounter } from "../../../context/CounterContext";
+import { useTotem } from "../../../context/TotemContext";
 import CitySelect from "../../../components/cells/CitySelect";
 
 export default function StorePage() {
@@ -21,16 +22,22 @@ export default function StorePage() {
 
   // @ts-expect-error: TODO: fix type of context
   const [, dispatch] = useCounter();
+  // @ts-expect-error: TODO: fix type of context
+  const [totem, ] = useTotem();
   const appRef = useRef()as React.MutableRefObject<HTMLDivElement>;
 
   useEffect(() => {
     appRef.current?.addEventListener("mousedown", () => {
       dispatch({type: 'res_redirectToInit'})
     });
+    setIsLoading(true);
 
-    getProducts().then((productsResp) => {
+    getProducts({
+      regionId: {eq: {str: totem?.regionId}},
+      orderBy: {asc: "priority"},
+    }).then((productsResp) => {
       getCities({
-        regionId: {eq: {str: "hdIlwLu3qW09GrLSOIty"}},
+        regionId: {eq: {str: totem?.regionId}},
         active: {eq: {boo: true}},
         orderBy: {asc: "name"}
       }).then((citiesResp) => {
@@ -47,7 +54,7 @@ export default function StorePage() {
       setIsLoading(false);
       setIsError(true);
     })
-  }, []);
+  }, [totem]);
 
   useEffect(() => {
     if (cities.length) {
