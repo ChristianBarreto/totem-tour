@@ -2,7 +2,8 @@
 The web based software for smart payment kiosks.
 
 [![Watch the video](./pic.jpg)](https://www.youtube.com/shorts/ytf-OczBt5k)
-(click on the picture above to what the movie)
+
+(click on the picture above to watch the movie)
 
 
 ## 1. Installing tools
