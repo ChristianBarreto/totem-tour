@@ -12,7 +12,7 @@ import { getProducts } from "../../../../api/products/api";
 import { Product, Products } from "../../../../api/products/types";
 import { getCities } from "../../../../api/cities/api";
 import { CitiesResp, CityResp } from "../../../../api/cities/types";
-import { getAvailabilitiesByProduct } from "../../../../api/availabilities/api";
+import { getAvailabilities } from "../../../../api/availabilities/api";
 import { Availabilities, Availability } from "../../../../api/availabilities/types";
 import { Totem } from "../../../../api/totems/types";
 import { getTotems } from "../../../../api/totems/api";
@@ -243,13 +243,22 @@ export default function AddEditPurchasePage() {
     })
     setPurchaseItems(items);
     if (product?.id) {
-      getAvailabilitiesByProduct(product.id).then((res) => {
-        if (res) {
+      getAvailabilities({
+        productId: {eq: {str: product.id}},
+        active: {eq: {boo: true}},
+        availability: {gt: {num: 0}},
+        remaining: {gt: {num: 0}},
+        date: {ge: {str: dayjs().format("YYYY-MM-DD")}},
+        orderBy: {asc: "date"},
+      })
+      .then((data: Availabilities | void) =>{
+        if (data) {
           const av = [...productAvail]
-          av[index] = res
+          av[index] = data;
+          console.log(av)
           setProductAvail(av);
         }
-      })
+      });
     }
   }
 
@@ -666,7 +675,13 @@ export default function AddEditPurchasePage() {
                   <br /><br />
                   Seguem abaixo suas reservas:
                   <br /><br />
-                  {purchaseItems.map((item) => 
+                  {purchaseItems.sort((a, b) => {
+                    if (a.date > b.date) {
+                      return 1;
+                    } else {
+                      return -1;
+                    }
+                  }).map((item) => 
                     <>
                       ✅ *Passeio:* {item.productName}<br />
                       - 😎 *Qtd.:* {item.qty} pessoa(s)<br />
