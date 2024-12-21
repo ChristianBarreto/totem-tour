@@ -11,11 +11,14 @@ import { initProduct, priceTypes, productCanBeAvailable, productCanBeDisplayed }
 import PriceForm from "../../../../components/cells/PriceForm";
 import ProductConsistency from "../../../../components/cells/ProductConsistency";
 import IsShownWhereBadge from "../../../../components/atoms/IsShownWhereBadge";
+import { getRegions } from "../../../../api/regions/api";
+import { RegionsResp } from "../../../../api/regions/types";
 
 export default function AddEditProductPage() {
   const { id } = useParams();
   const [product, setProduct] = useState<Product>(initProduct);
   const [cities, setCities] = useState<CitiesResp>([]);
+  const [regions, setRegions] = useState<RegionsResp>([]);
   const [tab, setTab] = useState(0);
 
   const productRef = useRef(initProduct);
@@ -36,20 +39,29 @@ export default function AddEditProductPage() {
         if (res && !ignore) {
           setProduct(res as Product)
           productRef.current = res as Product;
+          getRegions().then((res) => {
+            if (res) {
+              setRegions(res)
+            }
+          })
         }
       })
     }
-
-    getCities().then((res) => {
-      if (res) {
-        setCities(res)
-      }
-    })
 
     return (() => {
       ignore = true;
     })
   }, []);
+
+  useEffect(() => {
+    if(product.regionId) {
+      getCities({regionId: {str: product.regionId}}).then((res) => {
+        if (res) {
+          setCities(res)
+        }
+      })
+    }
+  }, [product]);
 
   const handleCancel = () => {
     setProduct(productRef.current)
@@ -240,6 +252,22 @@ export default function AddEditProductPage() {
             <div className="w-full">
               <p className="font-bold pb-2">Local e horário:</p>
             </div>
+
+            <label className="form-control w-full pb-4">
+              <span className="label-text">Região:</span>
+              <select
+                className="select select-bordered w-full"
+                onChange={(e) => setProduct({...product, regionId: e.target.value})}
+                value={product.regionId}
+                defaultValue=""
+              >
+                <option value="" disabled>Escolha a região</option>
+                {regions.map((region) => (
+                  <option key={region.id} value={region.id}>{region.name}</option>
+                ))}
+              </select>
+              <IsShownWhereBadge isShownDisplay isShownPurchase />
+            </label>
 
             <label className="form-control w-full pb-4">
               <span className="label-text">Cidade:</span>

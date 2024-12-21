@@ -3,6 +3,7 @@ export type PriceTypes = undefined | "single-value" | "variable-value" | "define
 export type Product = {
   id: string,
   cityId: string,
+  regionId: string,
   name: string,
   description: string,
   address: string,

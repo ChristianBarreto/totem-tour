@@ -23,7 +23,9 @@ export const initCustomer: Customer = {
 const sanitizeQuery = (query: any) => {
   const factor = Object.keys(query)[0];
   const type = String(Object.keys(query[factor])[0]);
-  const value = Object.values(query[factor])[0];
+  const value = Object.values(query[factor]).join('');
+
+  console.log("VALUE", value)
 
   if (type === "boo") {
     return Boolean(value);
@@ -77,7 +79,7 @@ export const queryRef = (collectionRef: any, query: any) => {
       collectionRef = collectionRef.limit(Number(limit));
 
     } else if (key !== "orderBy") {
-      // console.log("QUERY WHERE", key, useOperator(query[key]), sanitizeQuery(query[key]))
+      console.log("QUERY WHERE", key, useOperator(query[key]), sanitizeQuery(query[key]))
       collectionRef = collectionRef.where(key, useOperator(query[key]), sanitizeQuery(query[key]))
 
     }
