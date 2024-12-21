@@ -4,8 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { TableShortText } from "../../../../components/organisms/Table/TableShortText";
 import { TableBeacon } from "../../../../components/organisms/Table/TableBeacon";
 import { TableButton } from "../../../../components/organisms/Table/TableButton";
+import FilterOptions from "../../../../components/organisms/TableFilter/FilterOptions";
+import TableFilter from "../../../../components/organisms/TableFilter";
+import { useState } from "react";
 
 export default function ProductsPage() {
+  const [query, setQuery] = useState({orderBy: {asc: 'cityId'}})
   const navigate = useNavigate()
   const handleClick = (productId: string) => {
     navigate(`/admin/products/${productId}`)
@@ -24,20 +28,32 @@ export default function ProductsPage() {
     {name: "Opções", value: 'id', component: (<TableButton label="Editar" onClickEvent={(id) => handleClick(id)} />)}
   ]
 
+  const filters = [
+    {
+      field: 'isTest',
+      type: 'boo',
+      component: 
+        <FilterOptions
+          name="Produto de teste"
+          options={[{name: 'É teste', value: true}, {name: 'Não é teste', value: false}]}
+          setQuery={setQuery}
+          query={query}
+          field="isTest"
+          type="boo"
+        />
+    }
+  ]
+
+  console.log("Q", query)
+
   return (
     <div>
       <p>Produtos</p>
+      <TableFilter filters={filters}/>
       <Table
         tableName="Produtos"
         tableHeader={tableHeader}
-        tableFetch={getProducts}
-        sort="cityId"
-      />
-
-      <Table
-        tableName="⚠️Produtos teste"
-        tableHeader={tableHeader}
-        tableFetch={getProducts}
+        tableFetch={() => getProducts(query)}
         sort="cityId"
       />
 
