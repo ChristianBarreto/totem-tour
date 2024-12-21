@@ -29,19 +29,33 @@ export default function ProductsPage() {
   ]
 
   const filters = [
-    {
-      field: 'isTest',
-      type: 'boo',
-      component: 
-        <FilterOptions
-          name="Produto de teste"
-          options={[{name: 'É teste', value: true}, {name: 'Não é teste', value: false}]}
-          setQuery={setQuery}
-          query={query}
-          field="isTest"
-          type="boo"
-        />
-    }
+    <FilterOptions
+      key='0'
+      name="É teste"
+      options={[{name: 'É teste', value: true}, {name: 'Não é teste', value: false}]}
+      setQuery={setQuery}
+      query={query}
+      field="isTest"
+      type="boo"
+    />,
+      <FilterOptions
+        key='1'
+        name="Show display"
+        options={[{name: 'Mostrar', value: true}, {name: 'Não mostrar', value: false}]}
+        setQuery={setQuery}
+        query={query}
+        field="showDisplay"
+        type="boo"
+      />,
+      <FilterOptions
+        key='2'
+        name="Cidade"
+        options={[{name: 'Arraial do Cabo', value: 'OiCHcy7zKcp2uU3zlMPU'}, {name: 'Cabo Frio', value: 'XVlT0cMHLGoCcyVkoHTO'}, {name: 'Búzios', value: 'VO33TX8ZiYJLGszVRb7I'}]}
+        setQuery={setQuery}
+        query={query}
+        field="cityId"
+        type="str"
+      />
   ]
 
   console.log("Q", query)

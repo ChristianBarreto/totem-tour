@@ -23,7 +23,7 @@ export default function FilterOptions({
       <span className="label-text">{name}</span>
       <select
         className="select select-bordered"
-        onChange={(e) => setQuery({...query, [field]: {[type]: e.target.value}})}
+        onChange={(e) => setQuery({...query, [field]: {eq: {[type]: e.target.value}}})}
         // value={product.regionId}
         defaultValue=""
       >

@@ -25,10 +25,10 @@ const sanitizeQuery = (query: any) => {
   const type = String(Object.keys(query[factor])[0]);
   const value = Object.values(query[factor]).join('');
 
-  console.log("VALUE", value)
+  console.log("FACTOR", factor, "TYPE", type, "VALUE", value)
 
   if (type === "boo") {
-    return Boolean(value);
+    return value === "true" ? true : false;
   } else if (type === "str") {
     return String(value);
   } else if (type === "num") {
