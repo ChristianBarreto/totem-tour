@@ -67,7 +67,7 @@ export const queryRef = (collectionRef: any, query: any) => {
       const orderBy = Object.values(obj)[0];
       const order = Object.keys(obj)[0];
 
-      console.log("QUERY ORDER", orderBy, order)
+      // console.log("QUERY ORDER", orderBy, order)
       collectionRef = collectionRef.orderBy(orderBy, order);
 
     } else if (key === "limit"){
@@ -86,14 +86,18 @@ export const queryRef = (collectionRef: any, query: any) => {
 }
 
 export const sortGetData = (a: any, b: any, query: any): number => {
-  const order = query.orderBy ? query.orderBy : "asc";
+  const order: string = query.orderBy ? Object.keys(query.orderBy)[0] : "asc";
   const dir: number = order === "desc" ? -1 : 1;
   const field: string = query.orderBy ? Object.values(query.orderBy)[0] as string : "timestamp";
-  // console.log(dir, field, "a", a[field], "b", b[field]);
+  
+  // console.log("ORDER", order);
+  // console.log("FIELD", field);
+  // console.log("DIR (+ -):", "(",dir, ",", (dir * -1), ")")
+
   if (a[field] > b[field]) {
-    return 1 * dir;
+    return dir;
   } else if (a[field] < b[field]) {
-    return -1 * dir;
+    return (dir * -1);
   } else {
     return 0;
   }
