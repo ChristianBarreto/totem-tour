@@ -38,7 +38,7 @@ const sanitizeQuery = (query: any) => {
   };
 }
 
-const useOperator = (query: any) => {
+export const useOperator = (query: any) => {
   const operator = Object.keys(query)[0];
   if (operator == "eq") { // eq, ne, gt, lt, ge e le
     return "==";
@@ -62,7 +62,7 @@ const useOperator = (query: any) => {
 }
 
 export const queryRef = (collectionRef: any, query: any) => {
-  // console.log(query)
+  console.log("Query", query)
   for (const key in query) {
     if (key === "orderBy") {
       const obj = query[key];
@@ -79,6 +79,8 @@ export const queryRef = (collectionRef: any, query: any) => {
       collectionRef = collectionRef.limit(Number(limit));
 
     } else if (key !== "orderBy") {
+      console.log("Query key", query[key])
+
       console.log("QUERY WHERE", key, useOperator(query[key]), sanitizeQuery(query[key]))
       collectionRef = collectionRef.where(key, useOperator(query[key]), sanitizeQuery(query[key]))
 

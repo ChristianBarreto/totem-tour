@@ -9,11 +9,11 @@ import TableFilter from "../../../../components/organisms/TableFilter";
 import { useState } from "react";
 
 export default function ProductsPage() {
-  const [query, setQuery] = useState({orderBy: {asc: 'cityId'}})
-  const navigate = useNavigate()
+  const [query, setQuery] = useState({orderBy: {asc: 'cityId'}, isTest: {eq: {boo: "false"}}, showDisplay: {eq: {boo: "true"}}});
+  const navigate = useNavigate();
   const handleClick = (productId: string) => {
-    navigate(`/admin/products/${productId}`)
-  }
+    navigate(`/admin/products/${productId}`);
+  };
 
   const tableHeader = [
     {name: "Nome", value: "name"},
@@ -32,33 +32,44 @@ export default function ProductsPage() {
     <FilterOptions
       key='0'
       name="É teste"
-      options={[{name: 'É teste', value: true}, {name: 'Não é teste', value: false}]}
+      options={[
+        {name: 'É teste', value: true},
+        {name: 'Não é teste', value: false}
+      ]}
       setQuery={setQuery}
       query={query}
       field="isTest"
       type="boo"
+      defaultValue="false"
     />,
-      <FilterOptions
-        key='1'
-        name="Show display"
-        options={[{name: 'Mostrar', value: true}, {name: 'Não mostrar', value: false}]}
-        setQuery={setQuery}
-        query={query}
-        field="showDisplay"
-        type="boo"
-      />,
-      <FilterOptions
-        key='2'
-        name="Cidade"
-        options={[{name: 'Arraial do Cabo', value: 'OiCHcy7zKcp2uU3zlMPU'}, {name: 'Cabo Frio', value: 'XVlT0cMHLGoCcyVkoHTO'}, {name: 'Búzios', value: 'VO33TX8ZiYJLGszVRb7I'}]}
-        setQuery={setQuery}
-        query={query}
-        field="cityId"
-        type="str"
-      />
+    <FilterOptions
+      key='1'
+      name="Show display"
+      options={[
+        {name: 'Mostrar', value: true},
+        {name: 'Não mostrar', value: false}
+      ]}
+      setQuery={setQuery}
+      query={query}
+      field="showDisplay"
+      type="boo"
+      defaultValue="true"
+    />,
+    <FilterOptions
+      key='2'
+      name="Cidade"
+      options={[
+        {name: 'Arraial do Cabo', value: 'OiCHcy7zKcp2uU3zlMPU'},
+        {name: 'Cabo Frio', value: 'XVlT0cMHLGoCcyVkoHTO'},
+        {name: 'Búzios', value: 'VO33TX8ZiYJLGszVRb7I'},
+        {name: 'Vitória', value: 'IkGcVCdzOfEiUZ6nWYfZ'}
+      ]}
+      setQuery={setQuery}
+      query={query}
+      field="cityId"
+      type="str"
+    />
   ]
-
-  console.log("Q", query)
 
   return (
     <div>

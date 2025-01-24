@@ -10,6 +10,7 @@ export default function FilterOptions({
   query,
   field,
   type,
+  defaultValue,
 }: {
   name: string,
   options: FilterOptionsParams[],
@@ -17,17 +18,28 @@ export default function FilterOptions({
   query: any,
   field: string
   type: string,
+  defaultValue?: string
 }) {
+  const handleOptionChange = (value: string | number) => {
+    if (value !== "all") {
+      setQuery({...query, [field]: {eq: {[type]: value}}})
+    } else {
+      const newQuery = {...query};
+      delete newQuery[field];
+      setQuery(newQuery)
+    }
+  }
+
   return (
     <label className="form-control pb-4">
       <span className="label-text">{name}</span>
       <select
         className="select select-bordered"
-        onChange={(e) => setQuery({...query, [field]: {eq: {[type]: e.target.value}}})}
+        onChange={(e) => handleOptionChange(e.target.value)}
         // value={product.regionId}
-        defaultValue=""
+        defaultValue={defaultValue}
       >
-        <option value="" disabled>Selecione</option>
+        <option value="all">Todos</option>
         {options.map((option) => (
           <option key={option.value} value={option.value}>{option.name}</option>
         ))}
