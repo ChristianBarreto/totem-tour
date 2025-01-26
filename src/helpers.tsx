@@ -4,6 +4,7 @@ import { Product } from "./api/products/types";
 
 export const initProduct: Product = {
   cityId: '',
+  regionId: '',
   description: '',
   details: '',
   id: '',

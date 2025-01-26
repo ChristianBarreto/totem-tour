@@ -1,5 +1,6 @@
 import { Totem } from "./controllers/totems/types";
 import { Customer } from "./controllers/customers/types";
+import { ParsedQs } from "qs";
 
 export const initTotem: Totem = {
   id: "",
@@ -20,13 +21,26 @@ export const initCustomer: Customer = {
   phone: "",
 };
 
+export type QueryKey = {
+  [key: string]: {
+   [key: string]: string | number
+ };
+};
+
+export type Query = {
+  [key: string]: QueryKey
+};
+
+
 const sanitizeQuery = (query: any) => {
   const factor = Object.keys(query)[0];
   const type = String(Object.keys(query[factor])[0]);
-  const value = Object.values(query[factor])[0];
+  const value = Object.values(query[factor]).join('');
+
+  // console.log("FACTOR", factor, "TYPE", type, "VALUE", value)
 
   if (type === "boo") {
-    return Boolean(value);
+    return value === "true" ? true : false;
   } else if (type === "str") {
     return String(value);
   } else if (type === "num") {
@@ -36,8 +50,16 @@ const sanitizeQuery = (query: any) => {
   };
 }
 
-const useOperator = (query: any) => {
-  const operator = Object.keys(query)[0];
+export const getKey = (queryKey: ParsedQs): string => Object.keys(queryKey)[0];
+
+export const getValue = (queryKey: QueryKey): { [key: string]: string | number; } => Object.values(queryKey)[0];
+
+export const useOperator = (queryKey: QueryKey) => {
+  const operator = Object.keys(queryKey)[0];
+  const type = Object.keys(Object.values(queryKey)[0])[0];
+  if ((type === 'boo') && ((operator !== "eq") && (operator !== 'ne'))){
+    return '==';
+  }
   if (operator == "eq") { // eq, ne, gt, lt, ge e le
     return "==";
   }
@@ -59,15 +81,15 @@ const useOperator = (query: any) => {
   return "==";
 }
 
-export const queryRef = (collectionRef: any, query: any) => {
-  // console.log(query)
+export const queryRef = (collectionRef: any, query: ParsedQs) => {
+  // console.log("Query", query)
   for (const key in query) {
-    if (key === "orderBy") {
+    if ((key === "orderBy")) {
       const obj = query[key];
-      const orderBy = Object.values(obj)[0];
-      const order = Object.keys(obj)[0];
+      const orderBy = Object.values(obj as object)[0];
+      const order = Object.keys(obj as object)[0];
 
-      console.log("QUERY ORDER", orderBy, order)
+      // console.log("QUERY ORDER", orderBy, order)
       collectionRef = collectionRef.orderBy(orderBy, order);
 
     } else if (key === "limit"){
@@ -77,24 +99,26 @@ export const queryRef = (collectionRef: any, query: any) => {
       collectionRef = collectionRef.limit(Number(limit));
 
     } else if (key !== "orderBy") {
-      // console.log("QUERY WHERE", key, useOperator(query[key]), sanitizeQuery(query[key]))
-      collectionRef = collectionRef.where(key, useOperator(query[key]), sanitizeQuery(query[key]))
+      // console.log("Query key", query[key])
+
+      // console.log("QUERY WHERE", key, useOperator(query[key] as QueryKey), sanitizeQuery(query[key]))
+      collectionRef = collectionRef.where(key, useOperator(query[key] as QueryKey), sanitizeQuery(query[key]))
 
     }
   }
   return collectionRef;
 }
 
-export const sortGetData = (a: any, b: any, query: any): number => {
-  const order = query.orderBy ? query.orderBy : "asc";
+export const sortGetData = (a: any, b: any, query: ParsedQs): number => {
+  const order: string = query.orderBy ? Object.keys(query.orderBy)[0] : "desc";
   const dir: number = order === "desc" ? -1 : 1;
   const field: string = query.orderBy ? Object.values(query.orderBy)[0] as string : "timestamp";
-  // console.log(dir, field, "a", a[field], "b", b[field]);
+  
   if (a[field] > b[field]) {
-    return 1 * dir;
+    return dir;
   } else if (a[field] < b[field]) {
-    return -1 * dir;
+    return (dir * -1);
   } else {
     return 0;
-  }
+  };
 }

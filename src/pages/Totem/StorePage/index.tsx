@@ -32,28 +32,32 @@ export default function StorePage() {
     });
     setIsLoading(true);
 
-    getProducts({
-      regionId: {eq: {str: totem?.regionId}},
-      orderBy: {asc: "priority"},
-    }).then((productsResp) => {
-      getCities({
+    if (totem) {
+      getProducts({
         regionId: {eq: {str: totem?.regionId}},
-        active: {eq: {boo: true}},
-        orderBy: {asc: "name"}
-      }).then((citiesResp) => {
-        setCities(citiesResp as CitiesResp);
+        orderBy: {asc: "priority"},
+      }).then((productsResp) => {
+        console.log("resp", productsResp)
         setProducts(productsResp as Products);
-        setIsLoading(false);
+        getCities({
+          regionId: {eq: {str: totem?.regionId}},
+          active: {eq: {boo: true}},
+          orderBy: {asc: "name"}
+        }).then((citiesResp) => {
+          setCities(citiesResp as CitiesResp);
+          setIsLoading(false);
+        }).catch((res) => {
+          console.log("Error getting cities", res);
+          setIsLoading(false);
+          setIsError(true);
+        })
       }).catch((res) => {
-        console.log("Error getting cities", res);
+        console.log("Error getting products", res);
         setIsLoading(false);
         setIsError(true);
       })
-    }).catch((res) => {
-      console.log("Error getting products", res);
-      setIsLoading(false);
-      setIsError(true);
-    })
+    }
+    
   }, [totem]);
 
   useEffect(() => {
@@ -62,7 +66,8 @@ export default function StorePage() {
     }
   }, [cities]);
 
-  const [cartOpen, setCartOpen] = useState(false)
+  const [cartOpen, setCartOpen] = useState(false);
+
 
   return (
     <div className={styles.container} ref={appRef}>
