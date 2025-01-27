@@ -1,4 +1,4 @@
-import { getKey, getValue, Query, queryRef, sortGetData, useOperator } from '../helpers';
+import { getKey, getValue, sanitizeQuery, sortGetData, useOperator } from '../helpers';
 import { ParsedQs } from "qs";
 
 const mockedQuery: ParsedQs = {
@@ -65,6 +65,49 @@ describe("useOperator() testing", () => {
     expect(useOperator({ ge: {  boo: "true" } })).toBe('==');
     expect(useOperator({ le: {  boo: "true" } })).toBe('==');
   });
+});
+
+describe("sanitizeQuery()", () => {
+  test("sanitizeQuery() should return true if query 'boo' && 'true'.", () => {
+    const res = sanitizeQuery({isTest: {boo: "true"}});
+    expect(res).toBe(true);
+  });
+
+  test("sanitizeQuery() should return false if query 'boo' && 'false'.", () => {
+    const res = sanitizeQuery({isTest: {boo: "false"}});
+    expect(res).toBe(false);
+  });
+
+  test("sanitizeQuery() should NOT return string or number if query 'boo'.", () => {
+    const res = sanitizeQuery({isTest: {boo: "false"}});
+    expect(typeof res).not.toBe('string');
+    expect(typeof res).not.toBe('number');
+  });
+
+  test("sanitizeQuery() should return the number if query 'eq', 'num' '1'.", () => {
+    const res = sanitizeQuery({ eq: { num: '1' } });
+    expect(res).toBe(1);
+  });
+
+  test("sanitizeQuery() should return the string if query 'eq' && 'str' even if is a text like boolean.", () => {
+    const res = sanitizeQuery({eq: {str: "false"}});
+    expect(res).toBe("false"); // string "false"
+  });
+
+  test("sanitizeQuery() should return the string if query 'eq' && 'str' even if the text like number.", () => {
+    const res = sanitizeQuery({eq: {str: "1"}});
+    expect(res).toBe("1"); // string "1"
+  });
+
+  test("sanitizeQuery() should return the number if query 'num' && '1'.", () => {
+    const res = sanitizeQuery({eq: {num: "1"}});
+    expect(res).toBe(1);
+  });
+
+  test.skip("sanitizeQuery() should return error if...", () => {
+    // create test conditions that this function will return error
+  });
+
 });
 
 describe('sortQueryData()', () => {

@@ -27,15 +27,10 @@ export type QueryKey = {
  };
 };
 
-export type Query = {
-  [key: string]: QueryKey
-};
-
-
-const sanitizeQuery = (query: any) => {
+export const sanitizeQuery = (query: ParsedQs): boolean | string | number => {
   const factor = Object.keys(query)[0];
-  const type = String(Object.keys(query[factor])[0]);
-  const value = Object.values(query[factor]).join('');
+  const type = String(Object.keys(query[factor] as QueryKey)[0]);
+  const value = Object.values(query[factor] as QueryKey).join('');
 
   // console.log("FACTOR", factor, "TYPE", type, "VALUE", value)
 
@@ -86,8 +81,8 @@ export const queryRef = (collectionRef: any, query: ParsedQs) => {
   for (const key in query) {
     if ((key === "orderBy")) {
       const obj = query[key];
-      const orderBy = Object.values(obj as object)[0];
-      const order = Object.keys(obj as object)[0];
+      const orderBy = getValue(obj as QueryKey);
+      const order = getKey(obj as ParsedQs);
 
       // console.log("QUERY ORDER", orderBy, order)
       collectionRef = collectionRef.orderBy(orderBy, order);
@@ -102,7 +97,7 @@ export const queryRef = (collectionRef: any, query: ParsedQs) => {
       // console.log("Query key", query[key])
 
       // console.log("QUERY WHERE", key, useOperator(query[key] as QueryKey), sanitizeQuery(query[key]))
-      collectionRef = collectionRef.where(key, useOperator(query[key] as QueryKey), sanitizeQuery(query[key]))
+      collectionRef = collectionRef.where(key, useOperator(query[key] as QueryKey), sanitizeQuery(query[key] as ParsedQs))
 
     }
   }
@@ -110,7 +105,7 @@ export const queryRef = (collectionRef: any, query: ParsedQs) => {
 }
 
 export const sortGetData = (a: any, b: any, query: ParsedQs): number => {
-  const order: string = query.orderBy ? Object.keys(query.orderBy)[0] : "desc";
+  const order: string = query.orderBy ? getKey(query.orderBy as ParsedQs) : "desc";
   const dir: number = order === "desc" ? -1 : 1;
   const field: string = query.orderBy ? Object.values(query.orderBy)[0] as string : "timestamp";
   
