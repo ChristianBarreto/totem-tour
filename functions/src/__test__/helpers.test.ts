@@ -105,7 +105,7 @@ describe("sanitizeQuery()", () => {
   });
 
   test.skip("sanitizeQuery() should return error if...", () => {
-    // create test conditions that this function will return error
+    // TODO: create test conditions that this function will return error
   });
 
 });
