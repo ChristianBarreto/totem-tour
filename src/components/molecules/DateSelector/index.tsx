@@ -37,6 +37,7 @@ export default function DateSelector({
         disabled={isDisabled}
         onChange={(e) => handleSelect(e)}
         defaultValue={0}
+        data-cy="date-selector"
       >
         {isDisabled ? (
           <option disabled value={0}>Sem datas disponíveis</option>

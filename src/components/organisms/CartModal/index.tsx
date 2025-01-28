@@ -38,8 +38,8 @@ export default function CartModal({
 
                 <div>
                   <div className="flex-1 overflow-y-auto py-6 sm:px-6">
-                    <div className="flex items-start justify-between">
-                      <DialogTitle className="text-lg font-medium text-gray-900">Carrinho de compras</DialogTitle>
+                    <div className="flex items-start justify-between" data-cy="cart">
+                      <DialogTitle className="text-lg font-medium text-gray-900" data-cy="cart-title">Carrinho de compras</DialogTitle>
                       <div className="ml-3 flex h-7 items-center">
                         <button
                           type="button"

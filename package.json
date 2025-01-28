@@ -29,10 +29,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "npx eslint src",
-    "lint:fix": "npx eslint src --fix"
+    "lint:fix": "npx eslint src --fix",
+    "test": "react-scripts test",
+    "test:cypress": "cypress run",
+    "dev:cypress": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -56,6 +58,7 @@
     "@eslint/js": "^9.15.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "cypress": "^14.0.0",
     "daisyui": "^4.12.10",
     "eslint": "^8.57.1",
     "eslint-plugin-react": "^7.37.2",
