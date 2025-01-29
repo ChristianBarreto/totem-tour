@@ -121,7 +121,47 @@ describe("Store page tests", () => {
       .click();
 
     cy.log("🚩 User should be able to choose the available payment methods")
-    cy.log("🚩 Should be possible to pay and see the success status")
+    cy.get('[data-cy="checkout-next-button"]').should('be.disabled')
+    cy.get('[data-cy="term-1"]').check()
+    cy.get('[data-cy="checkout-next-button"]').should('be.disabled')
+    cy.get('[data-cy="term-2"]').check()
+    cy.get('[data-cy="checkout-next-button"]').should('be.disabled')
+    cy.get('[data-cy="term-3"]').check()
+    cy.get('[data-cy="checkout-next-button"]').should('be.disabled')
+    cy.get('[data-cy="term-4"]').check()
+    cy.get('[data-cy="checkout-next-button"]').should('be.disabled')
+    cy.get('[data-cy="term-5"]').check()
+    cy.get('[data-cy="checkout-next-button"]').should('be.enabled')
+    cy.get('[data-cy="terms-of-use-link"]').click()
+    cy.get('[data-cy="terms-of-use-modal"]').should('be.visible')
+    cy.get('[data-cy="terms-of-use-modal-close"]').click()
+    cy.get('[data-cy="term-5"]').check()
+    cy.get('[data-cy="checkout-next-button"]').should('be.enabled')
+    cy.get('[data-cy="checkout-next-button"]').click()
+
+    // cy.log("🚩 Should be possible to pay by PIX")
+    // cy.get('[data-cy="method-pix-button"').click();
+    // cy.get('[data-cy="pix-payment-section"]').should('be.visible')
+    // cy.get('[data-cy="pix-payment-qrcode"]').should('be.visible')
+    // cy.get('[data-cy="pix-payment-price"]').should('contain.text', '135,00')
+    // cy.get('[data-cy="payment-method-back"]').click();
+
+    cy.log("🚩 Should be possible to choose the available card methos")
+    cy.get('[data-cy="method-card-button"]').click();
+    cy.get('[data-cy="debit-card-selection"]').should('be.enabled')
+    cy.get('[data-cy="credit-card-selection"]').should('be.enabled')
+
+    cy.log("🚩 Should be possible to pay by Debit Card and see the success status")
+    cy.get('[data-cy="debit-card-selection"]').check();
+    cy.get('[data-cy="card-method-pay"]').click();
+    cy.get('[data-cy="card-instructions"]').should('be.visible');
+    cy.get('[data-cy="payment-method-back"]').click();
+
+    // cy.log("🚩 Should be possible to pay by Credit Card and see the success status")
+    // cy.get('[data-cy="method-card-button"]').click();
+    // cy.get('[data-cy="credit-card-selection"]').click();
+    // cy.get('[data-cy="card-method-pay"]').click();
+    // cy.get('[data-cy="card-instructions"]').should('be.visible');
 
   });
 })

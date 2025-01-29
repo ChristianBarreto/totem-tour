@@ -30,6 +30,7 @@ export default function MethodSelector({
             className="radio radio-lg checked:bg-blue-500"
             checked={purchase.paymentMethod === 'debit_card'}
             onChange={handleDebit}
+            data-cy="debit-card-selection"
           />
           <span className="label-text text-2xl m-2">Cartão de Débito</span>
         </label>
@@ -42,6 +43,7 @@ export default function MethodSelector({
             className="radio radio-lg checked:bg-blue-500"
             checked={purchase.paymentMethod === 'credit_card'}
             onChange={handleCredit}
+            data-cy="credit-card-selection"
           />
           <span className="label-text text-2xl m-2">Cartão de Crédito</span>
         </label>
@@ -56,6 +58,7 @@ export default function MethodSelector({
       <button
           className="btn btn-lg btn-primary mt-8 w-full"
           onClick={handlePay}
+          data-cy="card-method-pay"
         >
         Pagar
       </button>

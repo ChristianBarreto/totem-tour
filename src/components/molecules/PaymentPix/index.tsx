@@ -177,7 +177,7 @@ export default function PaymentPix({
         console.log("Purchase ERROR", err)
       });
     }
-  }, [purchase])
+  }, [purchase]);
 
   useEffect(() => {
     if (totem?.nickName) {
