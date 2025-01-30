@@ -24,8 +24,6 @@ describe('Slides page tests', () => {
 
   it('When click anywhere it should go to store page', () => {
     cy.get('div').click();
-    cy.on("url:changed", (newUrl) => {
-      expect(newUrl).to.contain("/totem/store")
-    })
+    cy.url().should('include', '/totem/store')
   })
 })

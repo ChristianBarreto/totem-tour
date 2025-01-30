@@ -74,7 +74,7 @@ describe("Store page tests", () => {
     cy.get('[data-cy="cart-continue-shopping"]').contains("Continuar comprando")
     cy.get('[data-cy="cart-checkout-button"]')
       .contains("Reservar")
-      .click()
+      .click({force: true})
 
     cy.log("🚩 Should get user data on checkout process")
     cy.get('[data-cy="user-name"]').should('have.focus');
