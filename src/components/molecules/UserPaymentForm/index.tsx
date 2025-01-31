@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react"
 import { Customer } from "../../../api/customers/types";
 import { Totem } from "../../../api/totems/types";
-import { cancelLastPaymentIntent } from "../../../api/mercadopago/api";
 import PaymentPix from "../PaymentPix"
 import { useCart } from "../../../context/CartContext";
 import PaymentCard from "../PaymentCard";
 import { logEvents } from "../../../firebase";
-import { Button } from "../../atoms/Button";
 
 export default function UserPaymentForm({
   customerData,
@@ -18,17 +16,6 @@ export default function UserPaymentForm({
   // @ts-expect-error: TODO: fix type of context
   const [cart, ] = useCart();
   const [payOption, setPayOption] = useState(0);
-
-  useEffect(() => {
-   
-    cancelLastPaymentIntent({
-      device_id: totem.posId,
-    }).then((res) => {
-      console.log(res)
-    }).catch((err) => {
-      console.log(err)
-    })
-  }, []);
 
   useEffect(() => {
     if (totem?.nickName) {
@@ -82,13 +69,15 @@ export default function UserPaymentForm({
           )}
         </>
       )}
-      <button
-        className="btn btn-lg"
-        onClick={() => setPayOption(0)}
-        data-cy="payment-method-back"
-      >
-        Escolher outra forma de pagamento
-      </button>
+      {(payOption !== 0) && (
+        <button
+          className="btn btn-lg"
+          onClick={() => setPayOption(0)}
+          data-cy="payment-method-back"
+        >
+          Escolher outra forma de pagamento
+        </button>
+      )}
       <br />
     </div>
   )

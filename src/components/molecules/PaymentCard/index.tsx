@@ -63,6 +63,17 @@ export default function PaymentCard({
   const redirectToInitialTime = 30000 // 30000 for 30 seconds;
 
   const redirectToInitial = () => window.location.replace(`${websiteUrl}/totem`);
+  
+  useEffect(() => {
+   
+    cancelLastPaymentIntent({
+      device_id: totem.posId,
+    }).then((res) => {
+      console.log(res)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }, []);
 
   useEffect(() => {
     if (totem?.nickName) {
