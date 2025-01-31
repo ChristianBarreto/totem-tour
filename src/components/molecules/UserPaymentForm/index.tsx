@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { Customer } from "../../../api/customers/types";
 import { Totem } from "../../../api/totems/types";
-import { cancelLastPaymentIntent } from "../../../api/mercadopago/api";
 import PaymentPix from "../PaymentPix"
 import { useCart } from "../../../context/CartContext";
 import PaymentCard from "../PaymentCard";
@@ -19,17 +18,6 @@ export default function UserPaymentForm({
   const [payOption, setPayOption] = useState(0);
 
   useEffect(() => {
-   
-    cancelLastPaymentIntent({
-      device_id: totem.posId,
-    }).then((res) => {
-      console.log(res)
-    }).catch((err) => {
-      console.log(err)
-    })
-  }, []);
-
-  useEffect(() => {
     if (totem?.nickName) {
       logEvents(`checkout_payment`, {totemNickName: totem.nickName});
     }
@@ -45,23 +33,44 @@ export default function UserPaymentForm({
       {(payOption === 0) ? (
         <div className="flex justify-center">
           <div className="flex flex-col gap-4 w-3/4">
-            <button className="btn btn-lg" onClick={() => setPayOption(1)}>Pagar com PIX</button>
-            <button className="btn btn-lg" onClick={() => setPayOption(2)}>Pagar com cartão (débito ou crédito)</button>
+            <button
+              className="btn btn-lg btn-primary"
+              onClick={() => setPayOption(1)}
+              data-cy="method-pix-button"
+            >
+              Pagar com PIX
+            </button>
+            <button
+              className="btn btn-lg btn-primary"
+              onClick={() => setPayOption(2)}
+              data-cy="method-card-button"
+            >
+              Pagar com cartão (débito ou crédito)
+            </button>
           </div>
           
         </div>
       ): (
         <>
           {payOption === 1 && (
-            <PaymentPix cart={cart} customerData={customerData} totem={totem}/>
+            <PaymentPix
+              cart={cart}
+              customerData={customerData}
+              totem={totem}
+              setPayOption={setPayOption}
+            />
           )}
 
           {payOption === 2 && (
-            <PaymentCard cart={cart} customerData={customerData} totem={totem}/>
+            <PaymentCard
+              cart={cart}
+              customerData={customerData}
+              totem={totem}
+              setPayOption={setPayOption}
+            />
           )}
         </>
       )}
-  
       <br />
     </div>
   )

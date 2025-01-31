@@ -28,5 +28,8 @@ ui-debug.log
 functions/ui-debug.log
 functions/firebase-debug.log
 
+# Jest
+functions/coverage
+
 # UI env
 /src/.env

@@ -41,18 +41,20 @@ export default function CartItem({
       <div className="ml-4 flex flex-1 flex-col">
         <div>
           <div className="flex justify-between text-base font-medium text-gray-900">
-            <h3>
+            <h3 data-cy="cart-item-name">
               {refProduct?.name}
             </h3>
-            <p className="ml-4">{displayPrice(product.totalPrice)}</p>
+            <p className="ml-4" data-cy="cart-item-price">{displayPrice(product.totalPrice)}</p>
           </div>
-          <p className="mt-1 text-sm text-gray-500">
-            <span className='font-bold'>Cidade:</span>
+          <p className="mt-1 text-sm text-gray-500" data-cy="cart-item-city">
+            <span className='font-bold'>Cidade: </span>
             {cities.find((city) => city.id === product.cityId)?.name}
           </p>
         </div>
         <div className="flex flex-1 items-end justify-between text-sm">
-          <p className="text-gray-500"><span className='font-bold'>Quant. pessoas:</span> {product.qty}</p>
+          <p className="text-gray-500" data-cy="cart-item-qty">
+            <span className='font-bold'>Quant. pessoas:</span> {product.qty}
+          </p>
 
           <div className="flex">
             <button
@@ -63,6 +65,7 @@ export default function CartItem({
                 product: product,
                 index: cartIndex
               })}
+              data-cy="cart-item-remove"
             >
               <IconTrash size={4}/>
               <p>Remover</p>

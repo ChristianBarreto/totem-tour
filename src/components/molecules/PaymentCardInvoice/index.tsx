@@ -11,7 +11,7 @@ export default function PaymentCardInvoice() {
             <p className="text-xl text-center mb-4">Faça o pagamento na maquininha conforme as instruções abaixo:</p>
             <img src={pinpadimage} alt='maquininha' width={70} className="ml-auto mr-auto pb-2"/>
 
-            <ul className="steps steps-vertical">
+            <ul className="steps steps-vertical" data-cy="card-instructions">
               <li className="step">
                   <p className="text-xl">
                     Aperte o botão <span className="font-bold bg-green-500 text-white p-1 rounded">VERDE</span> da maquininha.

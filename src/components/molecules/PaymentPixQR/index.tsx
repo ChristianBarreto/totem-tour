@@ -1,3 +1,4 @@
+import { displayPrice } from "../../../helpers";
 import IconClock from "../../atoms/IconClock";
 
 export default function PaymentPixQR({
@@ -8,13 +9,18 @@ export default function PaymentPixQR({
   qrCode: string,
 }) {
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center" data-cy="pix-payment-section">
       <div className="card card-compact bg-white border md:w-100">
         <div className="card-body text-center">
           <p className="text-2xl text-primary text-center">Pague com PIX QR Code</p>
-          <img src={`data:image/jpeg;base64,${qrCode}`} alt="QR Code" width={400}/>
+          <img
+            src={`data:image/jpeg;base64,${qrCode}`}
+            alt="QR Code"
+            width={400}
+            data-cy="pix-payment-qrcode"
+          />
           <p className="text-xl pb-4">Aguardando pagamento...</p>
-          <p className="text-xl pb-2"><span className="font-bold">Valor:</span> R$ {total?.toFixed(2)}</p>
+          <p className="text-xl pb-2" data-cy="pix-payment-price"><span className="font-bold">Valor: </span>{displayPrice(total * 100)}</p>
           <p className="text-sm pb-4 font-bold">Digital Storm Serviços de Tecnologia LTDA. <br /> CNPJ: 46.547.192/0001-51</p>
           <p className="text-xl pb-4">Assim que for pago, sua reserva será efetivada.</p>
           

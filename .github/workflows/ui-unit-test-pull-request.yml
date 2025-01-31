@@ -1,4 +1,4 @@
-name: Functions unit tests
+name: UI unit tests
 on: pull_request
 permissions:
   checks: write
@@ -20,15 +20,9 @@ jobs:
           node-version: '16' # Adjust this to the Node.js version you need
 
       # Step 3: Install dependencies
-      - name: Go to functions
-        run: cd functions
-
-      # Step 3: Install dependencies
       - name: Install dependencies
-        working-directory: ./functions
         run: npm install
 
       # Step 4: Run Jest tests for the "functions/" folder
       - name: Run Jest tests
-        working-directory: ./functions
         run: npm run test:unit
