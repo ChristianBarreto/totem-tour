@@ -8,6 +8,7 @@ describe("Store page tests", () => {
   it.only("Should do all store and checkout process.", () => {
     cy.intercept('GET', `**/cities/*`).as('getCities')
     cy.intercept('GET', `**/availabilities/**`).as('getAvailabilities')
+    cy.intercept('POST', '**/cancel-last-payment-intent/**').as('cancelLastIntents')
 
     cy.visit('/totem/store');
 
@@ -156,8 +157,10 @@ describe("Store page tests", () => {
     cy.get('[data-cy="card-method-pay"]').click();
     cy.get('[data-cy="card-instructions"]').should('be.visible');
     cy.get('[data-cy="payment-method-back"]').click();
+    cy.wait('@cancelLastIntents')
 
     cy.log("🚩 Should be possible to pay by Credit Card and see the success status")
+    cy.wait(1000);
     cy.get('[data-cy="method-card-button"]').click();
     cy.get('[data-cy="credit-card-selection"]').click();
     cy.get('[data-cy="card-method-pay"]').click();
