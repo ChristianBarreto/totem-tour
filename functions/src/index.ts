@@ -364,6 +364,7 @@ const getOpenPaymentIntentId = (intents: any) => {
   if (intents.length) {
     intents.forEach((intent: any) => {
       if ((intent.status === "OPEN") || (intent.status === "ON_TERMINAL")) {
+        console.log("Intent: ", intent)
         openIntentId =  intent.payment_intent_id
       }
     })
@@ -372,6 +373,7 @@ const getOpenPaymentIntentId = (intents: any) => {
 }
 
 app.post("/cancel-last-payment-intent", async (req: Request, res: Response) => {
+  
   const data = {
     body: {
       options: {
@@ -383,8 +385,8 @@ app.post("/cancel-last-payment-intent", async (req: Request, res: Response) => {
   
   point.getPaymentIntentList(data).then((resp: GetPaymentIntentListResponse) => {
     const openIntentId = getOpenPaymentIntentId(resp.events);
-
     if (openIntentId) {
+      console.log("Cancel intent", openIntentId)
       point.cancelPaymentIntent({
         device_id: req.body.device_id,
         payment_intent_id: openIntentId,

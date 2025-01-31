@@ -1,11 +1,10 @@
 const fallbackSlideURL = 'https://firebasestorage.googleapis.com/v0/b/totem-tour.appspot.com/o/slides%2F0-fallback-slide-DO-NOT-DELETE.jpg**'
-const baseURL = 'http://127.0.0.1:5001/totem-tour/us-central1/totem';
 
 describe('Slides page tests', () => {
 
   beforeEach(() => {
     cy.intercept('GET', fallbackSlideURL).as('fbSlide');
-    cy.intercept('GET', `${baseURL}/slides/`).as('slides');
+    cy.intercept('GET', `**/slides/`).as('slides');
 
     cy.visit('/totem');
   });

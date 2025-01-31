@@ -7,7 +7,6 @@ export const getAvailabilities = async (req: Request, res: Response) => {
   if (!availabilities.length) {
     res.status(200).json([]);
   } else {
-    console.log(availabilities.sort((a, b) => sortGetData(a, b, req.query)));
     res.status(200).json(availabilities.sort((a, b) => sortGetData(a, b, req.query)));
   }
 };
