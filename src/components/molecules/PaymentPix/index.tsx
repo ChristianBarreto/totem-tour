@@ -16,10 +16,12 @@ export default function PaymentPix({
   cart,
   customerData,
   totem,
+  setPayOption,
 }: {
   cart: NewPurchase,
   customerData: Customer,
   totem: Totem,
+  setPayOption: (value: number) => void
 }) {
   const [paymentLoading, setPaymentLoading] = useState(true);
   const [isPayError, setIsPayError] = useState(false);
@@ -210,6 +212,13 @@ export default function PaymentPix({
 
        </>
       )}
+        <button
+          className="btn btn-lg"
+          onClick={() => setPayOption(0)}
+          data-cy="payment-method-back"
+        >
+          Escolher outra forma de pagamento
+        </button>
     </>
   )
 }

@@ -57,6 +57,7 @@ export default function UserPaymentForm({
               cart={cart}
               customerData={customerData}
               totem={totem}
+              setPayOption={setPayOption}
             />
           )}
 
@@ -65,18 +66,10 @@ export default function UserPaymentForm({
               cart={cart}
               customerData={customerData}
               totem={totem}
+              setPayOption={setPayOption}
             />
           )}
         </>
-      )}
-      {(payOption !== 0) && (
-        <button
-          className="btn btn-lg"
-          onClick={() => setPayOption(0)}
-          data-cy="payment-method-back"
-        >
-          Escolher outra forma de pagamento
-        </button>
       )}
       <br />
     </div>
