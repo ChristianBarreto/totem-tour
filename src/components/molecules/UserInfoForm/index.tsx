@@ -129,6 +129,7 @@ export default function UserInfoForm({
                 value={customerData.name}
                 onFocus={() => setSelectedInput('name')}
                 ref={nameRef}
+                data-cy="user-name"
               />
               {formErrors.name.isError && <IconXCircle classes="text-red-600 size-6" />}  
               {formErrors.name.isValid && <IconCheckCircle classes="text-green-600 size-6" />}  
@@ -152,6 +153,7 @@ export default function UserInfoForm({
                 name="email"
                 value={customerData.email}
                 onFocus={() => setSelectedInput('email')}
+                data-cy="user-email"
               />  
               {formErrors.email.isError && <IconXCircle classes="text-red-600 size-6" />}  
               {formErrors.email.isValid && <IconCheckCircle classes="text-green-600 size-6" />}  
@@ -175,6 +177,7 @@ export default function UserInfoForm({
                 name="phone"
                 value={customerData.phone}
                 onFocus={() => setSelectedInput('phone')}
+                data-cy="user-phone"
               />
               {formErrors.phone.isError && <IconXCircle classes="text-red-600 size-6" />}  
               {formErrors.phone.isValid && <IconCheckCircle classes="text-green-600 size-6" />}  

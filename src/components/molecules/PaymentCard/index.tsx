@@ -47,10 +47,12 @@ export default function PaymentCard({
   cart,
   customerData,
   totem,
+  setPayOption,
 }: {
   cart: NewPurchase,
   customerData: Customer,
   totem: Totem,
+  setPayOption: (value: number) => void
 }) {
   const [purchase, setPurchase] = useState<NewPurchase>(initNewPurchase);
   const [paymentError,] = useState({});
@@ -63,6 +65,17 @@ export default function PaymentCard({
   const redirectToInitialTime = 30000 // 30000 for 30 seconds;
 
   const redirectToInitial = () => window.location.replace(`${websiteUrl}/totem`);
+  
+  useEffect(() => {
+   
+    cancelLastPaymentIntent({
+      device_id: totem.posId,
+    }).then((res) => {
+      console.log(res)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }, []);
 
   useEffect(() => {
     if (totem?.nickName) {
@@ -215,30 +228,37 @@ export default function PaymentCard({
 
   }, [cardProcessStatus])
 
-    return (
+  return (
 
-    <div className="flex justify-center">
+    <div className="flex flex-col gap-4">
+      <div className="flex justify-center">
+        <div className="flex flex-col gap-4">
 
-      <div className="flex flex-col gap-4">
+          {cardProcessStatus === 'select_method' && <MethodSelector purchase={purchase} setPurchase={setPurchase} handlePay={handlePay} />}
 
-        {cardProcessStatus === 'select_method' && <MethodSelector purchase={purchase} setPurchase={setPurchase} handlePay={handlePay} />}
+          {cardProcessStatus === 'creating_intent' && <PaymentLoading />}
 
-        {cardProcessStatus === 'creating_intent' && <PaymentLoading />}
+          {cardProcessStatus === 'intent_error' && <PaymentError errorData={paymentError}/>}
 
-        {cardProcessStatus === 'intent_error' && <PaymentError errorData={paymentError}/>}
+          {cardProcessStatus === 'awaiting_payment' && <p><PaymentCardInvoice /></p>}
 
-        {cardProcessStatus === 'awaiting_payment' && <p><PaymentCardInvoice /></p>}
+          {cardProcessStatus === 'payment_rejected' && <PaymentCanceled />}
 
-        {cardProcessStatus === 'payment_rejected' && <PaymentCanceled />}
+          {cardProcessStatus === 'payment_expired' && <PaymentExpired />}
 
-        {cardProcessStatus === 'payment_expired' && <PaymentExpired />}
+          {cardProcessStatus === 'awaiting_store_purchase' && <PaymentLoading />}
 
-        {cardProcessStatus === 'awaiting_store_purchase' && <PaymentLoading />}
-
-        {cardProcessStatus === 'purchase_stored' && <PaymentPixSuccess />}
+          {cardProcessStatus === 'purchase_stored' && <PaymentPixSuccess />}
+        </div>
 
       </div>
-
+      <button
+          className="btn btn-lg"
+          onClick={() => setPayOption(0)}
+          data-cy="payment-method-back"
+      >
+        Escolher outra forma de pagamento
+      </button>
     </div>
   )
 }

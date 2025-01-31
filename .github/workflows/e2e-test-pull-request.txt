@@ -1,0 +1,44 @@
+name: E2E tests
+on: pull_request
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22' # Adjust this to the Node.js version you need
+
+      # Step 3: Install ./functions dependencies
+      - name: Install dependencies
+        working-directory: ./functions
+        run: npm install & npm install -g firebase-tools
+      
+      # Step 4: Run Server (./functions)
+      - name: Run server
+        working-directory: ./functions
+        run: npm run serve
+
+      # Step 5: Install dependencies on root
+      - name: Install dependencies
+        run: npm install
+
+      # Step 6: Run UI (root)
+      - name: Run UI
+        run: npm start
+
+      # Step 7: Run Cypress tests for the "functions/" folder
+      - name: Run Cypress tests
+        # uses: cypress-io/github-action@v5
+        run: npm run test:cypress --baseUrl https://totem-tour.web.app/
+        

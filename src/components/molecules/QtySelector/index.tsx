@@ -84,7 +84,7 @@ export default function QtySelector({
       <div className='flex mb-2'>
         <p className='align-middle ml-auto mr-2 font-bold pt-4'>Passageiros:</p>
 
-        <div className="join">
+        <div className="join" data-cy="adults-qty-selector">
           <button
             className="join-item btn btn-lg bg-indigo-600 hover:bg-indigo-400 text-base-100 disabled:bg-indigo-200"
             onClick={() => handleMinus("adult")}
@@ -112,7 +112,7 @@ export default function QtySelector({
       {isFreePaxAllowed && (<div className='flex mb-2'>
         <p className='align-middle ml-auto mr-2 pt-4 text-right'><span className='font-bold'>{freePaxRuleMsg}:</span> <br />(não pagam)</p>
 
-        <div className="join">
+        <div className="join" data-cy="free-qty-selector">
           <button
             className="join-item btn btn-lg bg-indigo-600 hover:bg-indigo-400 text-base-100 disabled:bg-indigo-200"
             onClick={() => handleMinus("free")}
@@ -140,7 +140,7 @@ export default function QtySelector({
       {isHalfPaxAllowed && (<div className='flex mb-2'>
         <p className='align-middle ml-auto mr-2 pt-4 text-right'><span className='font-bold'>{halfPaxRuleMsg}:</span> <br />(meia)</p>
 
-        <div className="join">
+        <div className="join" data-cy="half-qty-selector">
           <button
             className="join-item btn btn-lg bg-indigo-600 hover:bg-indigo-400 text-base-100 disabled:bg-indigo-200"
             onClick={() => handleMinus("half")}

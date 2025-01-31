@@ -23,7 +23,7 @@ export default function TermsModal({
         className="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in md:block"
       />
 
-      <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+      <div className="fixed inset-0 z-10 w-screen overflow-y-auto" data-cy="terms-of-use-modal">
         <div className="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
           <DialogPanel
             transition
@@ -34,6 +34,7 @@ export default function TermsModal({
                 type="button"
                 onClick={() => setOpen(false)}
                 className="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8"
+                data-cy="terms-of-use-modal-close"
               >
                 <span className="sr-only">Close</span>
                 <XMarkIcon aria-hidden="true" className="h-6 w-6" />

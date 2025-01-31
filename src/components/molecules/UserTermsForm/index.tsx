@@ -64,13 +64,15 @@ export default function UserTermsForm({
           <div className="form-control">
             <label className="label cursor-pointer">
               <span className="label-text text-2xl pr-4">
-                <span className="font-bold text-primary">1.</span> Assim que confirmado o pagamento, enviaremos todas as informações sobre os seus passeios.
+                <span className="font-bold text-primary">1. </span>
+                Assim que confirmado o pagamento, enviaremos todas as informações sobre os seus passeios.
               </span>
               <input
                 type="checkbox"
                 className="checkbox checkbox-primary checkbox-lg"
                 checked={status.info}
                 onChange={() => setStatus({...status, info: !status.info})}
+                data-cy="term-1"
               />
             </label>
             <label className="label cursor-pointer">
@@ -82,6 +84,7 @@ export default function UserTermsForm({
                 className="checkbox checkbox-primary checkbox-lg"
                 checked={status.local}
                 onChange={() => setStatus({...status, local: !status.local})}
+                data-cy="term-2"
               />
             </label>
             <label className="label cursor-pointer">
@@ -94,6 +97,7 @@ export default function UserTermsForm({
                 className="checkbox checkbox-primary checkbox-lg"
                 checked={status.cancel}
                 onChange={() => setStatus({...status, cancel: !status.cancel})}
+                data-cy="term-3"
               />
             </label>
             <label className="label cursor-pointer">
@@ -107,18 +111,24 @@ export default function UserTermsForm({
                 className="checkbox checkbox-primary checkbox-lg"
                 checked={status.taxes}
                 onChange={() => setStatus({...status, taxes: !status.taxes})}
+                data-cy="term-4"
               />
             </label>
             <label className="label cursor-pointer">
               <span className="label-text text-2xl pr-4">
               <span className="font-bold text-primary">5.</span> Ao realizar a compra, você concorda com nossos 
-              <span className="font-bold underline text-blue-700" onClick={() => setOpenTermsModal(true)}> termos de uso</span>.
+              <span
+                className="font-bold underline text-blue-700"
+                onClick={() => setOpenTermsModal(true)}
+                data-cy="terms-of-use-link"
+              > termos de uso</span>.
               </span>
               <input
                 type="checkbox"
                 className="checkbox checkbox-primary checkbox-lg"
                 checked={status.terms}
                 onChange={() => setStatus({...status, terms: !status.terms})}
+                data-cy="term-5"
               />
             </label>
           </div>

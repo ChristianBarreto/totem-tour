@@ -38,6 +38,7 @@ export default function InstalmentsSelector({
         <option
           key={installment.value}
           value={installment.value}
+          data-cy="credit-card-installment"
         >
           {installment.name}
         </option>

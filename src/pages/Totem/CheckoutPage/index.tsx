@@ -106,6 +106,7 @@ export default function CheckoutPage() {
                 onClick={handleNext}
                 type='submit'
                 disabled={nextDisabled}
+                data-cy="checkout-next-button"
               >
                 <p className="text-3xl">Próximo</p>
                 <IconArrowRight />
