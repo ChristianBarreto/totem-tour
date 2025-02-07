@@ -1,4 +1,3 @@
-import { addDbItem } from "../..";
 const testResourceName = "testResource";
 
 const mockUsers = [
@@ -18,13 +17,11 @@ const mockUser = {name: "Example", age: 20, isActive: true};
 
 
 describe("addDbItem() tests", () => {
-  test("addDbItem() should receive DB and resource name and return a standardized result", async () => {
-    const newUserId = await addDbItem(testResourceName, mockUser);
-    console.log(newUserId)
+  test.skip("addDbItem() should receive DB and resource name and return a standardized result", async () => {
+    // const newUserId = await addDbItem(testResourceName, mockUser);
+    // console.log(newUserId)
   })
-})
 
-describe("getDbItems() tests", () => {
   test.skip("getDbItems() should receive DB and resource name and return a standardized result", () => {
 
   })

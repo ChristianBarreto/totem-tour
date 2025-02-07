@@ -4,7 +4,7 @@ describe('Slides page tests', () => {
 
   beforeEach(() => {
     cy.intercept('GET', fallbackSlideURL).as('fbSlide');
-    cy.intercept('GET', `**/slides/`).as('slides');
+    cy.intercept('GET', `**/slides*`).as('slides');
 
     cy.visit('/totem');
   });
@@ -15,7 +15,7 @@ describe('Slides page tests', () => {
     });
   });
 
-  it.only('Should receive slides', () => {
+  it('Should receive slides', () => {
     cy.wait("@slides").then((slidesResp) => {
       expect(slidesResp?.response.statusCode).to.be.oneOf([200, 304]);
     });

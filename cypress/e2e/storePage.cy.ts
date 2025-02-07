@@ -6,7 +6,7 @@ describe("Store page tests", () => {
   });
 
   it.only("Should do all store and checkout process.", () => {
-    cy.intercept('GET', `**/cities/*`).as('getCities')
+    cy.intercept('GET', `**/cities*`).as('getCities')
     cy.intercept('GET', `**/availabilities/**`).as('getAvailabilities')
     cy.intercept('POST', '**/cancel-last-payment-intent/**').as('cancelLastIntents')
 
