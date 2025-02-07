@@ -5,17 +5,36 @@ import { TableButton } from "../../../../components/organisms/Table/TableButton"
 import { TableBeacon } from "../../../../components/organisms/Table/TableBeacon";
 import { TablePrice } from "../../../../components/organisms/Table/TablePrice";
 import { TableDateTime } from "../../../../components/organisms/Table/TableDateTime";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FilterOptions from "../../../../components/organisms/TableFilter/FilterOptions";
 import TableFilter from "../../../../components/organisms/TableFilter";
 import TablePagination from "../../../../components/organisms/TablePagination";
+import { AnyObject } from "../../../../components/organisms/Table/types";
 
 export default function PurchasesPage() {
+  const [data, setData] = useState<Array<AnyObject>>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [query, setQuery] = useState({orderBy: {desc: 'timestamp'}, limit: 10});
   const navigate = useNavigate();
   const handleClick = (purchaseId: string) => {
     navigate(`/admin/purchases/${purchaseId}`)
   }
+
+  useEffect(() => {
+    getData()
+  }, [query]);
+
+  const getData = () => {
+    setIsLoading(true);
+    getAdminPurchases(query).then((res: Array<AnyObject>) => {
+      setData(res);
+      setIsLoading(false);
+    }).catch((err) => {
+      console.log("Table error", err)
+      setIsLoading(false);
+    });
+  }
+
 
   const tableHeader = [
     {name: "Data da compra", value: "timestamp", component: <TableDateTime /> },
@@ -50,18 +69,26 @@ export default function PurchasesPage() {
   return (
     <div>
       <p>Vendas</p>
-      <TableFilter filters={filters}/>
+      <TableFilter
+        filters={filters}
+      />
       <Table
-        tableName="Vendas"
         tableHeader={tableHeader}
-        tableFetch={() => getAdminPurchases(query)}
+        data={data}
+        isLoading={isLoading}
       />
       <TablePagination
         setQuery={setQuery}
         query={query}
+        count={1}
       />
       <div className="p-4 flex justify-end">
-        <button className="btn btn-primary" onClick={() => navigate('/admin/purchases/add')}>Nova venda</button>
+        <button
+          className="btn btn-primary"
+          onClick={() => navigate('/admin/purchases/add')}
+        >
+          Nova venda
+        </button>
       </div>
     </div>
   )

@@ -4,12 +4,34 @@ import { getSlides } from "../../../../api/slides/api";
 import { TableButton } from "../../../../components/organisms/Table/TableButton";
 import { TableBeacon } from "../../../../components/organisms/Table/TableBeacon";
 import { TableThumb } from "../../../../components/organisms/Table/TableThumb";
+import { useEffect, useState } from "react";
+import { AnyObject } from "../../../../components/organisms/Table/types";
+import TableFilter from "../../../../components/organisms/TableFilter";
+import TablePagination from "../../../../components/organisms/TablePagination";
 
 export default function SlidesPage() {
+  const [data, setData] = useState<Array<AnyObject>>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [query, setQuery] = useState({orderBy: {desc: 'timestamp'}, limit: 10});
+  
   const navigate = useNavigate();
   
   const handleClick = (id: string) => {
     navigate(`/admin/slides/${id}`)
+  }
+  useEffect(() => {
+    getData()
+  }, [query]);
+
+  const getData = () => {
+    setIsLoading(true);
+    getSlides(query).then((res: Array<AnyObject>) => {
+      setData(res);
+      setIsLoading(false);
+    }).catch((err) => {
+      console.log("Table error", err)
+      setIsLoading(false);
+    });
   }
 
   const tableHeader = [
@@ -30,12 +52,20 @@ export default function SlidesPage() {
   return (
     <div className="">
       <p>Slides</p>
-      <Table
-        tableName="Slides"
-        tableHeader={tableHeader}
-        tableFetch={getSlides}
-        sort="order"
+      <TableFilter
+        filters={[]}
       />
+      <Table
+        tableHeader={tableHeader}
+        data={data}
+        isLoading={isLoading}
+      />
+      <TablePagination
+        setQuery={setQuery}
+        query={query}
+        count={1}
+      />
+      
       <div className="p-4 flex justify-end">
         <button className="btn btn-primary" onClick={() => navigate('/admin/slides/add')}>Novo totem</button>
       </div>

@@ -14,16 +14,21 @@ export const addProduct = async (body: Product): Promise<Product | void> => {
   return data;
 }
 
-export const getProducts = (params?: any): Promise<Products> => new Promise((resolve, reject) => {
-  axios.get<Products>(`${baseUrl}/products${params ? "?" + qs.stringify(params) : ''}`, axiosParams)
-    .then((res) => {
-      resolve(res.data);
-    })
-    .catch((err) => {
-      console.log("API ERROR", err)
-      reject();
-    })
-})
+export const getProducts = async (params?: any) => {
+  const { data } = await axios.get(`${baseUrl}/products${params ? "?" + qs.stringify(params) : ''}`, axiosParams);
+  return data;
+}
+
+// export const getProducts = (params?: any): Promise<Products> => new Promise((resolve, reject) => {
+//   axios.get<Products>(`${baseUrl}/products${params ? "?" + qs.stringify(params) : ''}`, axiosParams)
+//     .then((res) => {
+//       resolve(res.data);
+//     })
+//     .catch((err) => {
+//       console.log("API ERROR", err)
+//       reject();
+//     })
+// })
 
 export const getProductById = (productId: string | undefined) =>  new Promise((resolve, reject) => {
   if (productId?.length) {

@@ -1,11 +1,17 @@
 import axios from "axios";
 import { axiosParams, baseUrl } from "../api";
 import { SlideResp } from "./types";
+import qs from "qs";
 
-export const getSlides = async () => {
-  const { data } = await axios.get(`${baseUrl}/slides/`, axiosParams);
+export const getSlides = async (params?: any) => {
+  const { data } = await axios.get(`${baseUrl}/slides${params ? "?" + qs.stringify(params) : ''}`, axiosParams);
   return data;
 }
+
+// export const getSlides = async () => {
+//   const { data } = await axios.get(`${baseUrl}/slides/`, axiosParams);
+//   return data;
+// }
 
 export const getSlide = async (id: string) => {
   const { data } = await axios.get(`${baseUrl}/slides/${id}`, axiosParams);

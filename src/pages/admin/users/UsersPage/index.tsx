@@ -27,12 +27,12 @@ export default function UsersPage() {
   return (
     <div className="">
       <p>Usuários</p>
-      <Table
+      {/* <Table
         tableName="Usuários"
         tableHeader={tableHeader}
         tableFetch={getTotems}
         sort="number"
-      />
+      /> */}
       <div className="p-4 flex justify-end">
         <button className="btn btn-primary" onClick={() => navigate('/admin/users/add')}>Novo usuário</button>
       </div>

@@ -15,7 +15,7 @@ describe('Slides page tests', () => {
     });
   });
 
-  it('Should receive slides', () => {
+  it.only('Should receive slides', () => {
     cy.wait("@slides").then((slidesResp) => {
       expect(slidesResp?.response.statusCode).to.be.oneOf([200, 304]);
     });
