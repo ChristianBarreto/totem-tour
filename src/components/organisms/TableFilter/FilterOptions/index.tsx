@@ -33,16 +33,16 @@ export default function FilterOptions({
   return (
     <label className="form-control pb-4">
       <span className="label-text">{name}</span>
-      <select
-        className="select select-bordered"
-        onChange={(e) => handleOptionChange(e.target.value)}
-        // value={product.regionId}
-        defaultValue={defaultValue}
-      >
-        <option value="all">Todos</option>
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>{option.name}</option>
-        ))}
+        <select
+          className="select select-bordered select-sm max-w-sm"
+          onChange={(e) => handleOptionChange(e.target.value)}
+          // value={product.regionId}
+          defaultValue={defaultValue}
+        >
+          <option value="all">Todos</option>
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>{option.name}</option>
+          ))}
       </select>
     </label>
   )

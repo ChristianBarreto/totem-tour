@@ -5,11 +5,14 @@ export default function TableFilter({
   filters?: React.ReactNode[]
 }) {
   return (
-    <div className="m-1">
+    <div className="border p-2">
       <p>Filters:</p>
-      {filters?.map((component) => (
-        component
-      ))}
+      <div className="m-1 flex gap-2">
+        {filters?.map((component) => (
+          component
+        ))}
+      </div>
     </div>
+
   )
 }
