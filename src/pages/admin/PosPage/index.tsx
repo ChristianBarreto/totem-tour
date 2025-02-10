@@ -1,7 +1,8 @@
 import Table from "../../../components/organisms/Table";
 import { getPoss, switchPosMode } from "../../../api/mercadopago/api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TableButton } from "../../../components/organisms/Table/TableButton";
+import { AnyObject } from "../../../components/organisms/Table/types";
 
 const getPossDevices = async () => {
   const data = await getPoss();
@@ -9,6 +10,8 @@ const getPossDevices = async () => {
 }
 
 export default function PosPage() {
+  const [data, setData] = useState<Array<AnyObject>>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [reload, setReload] = useState(0);
 
   const changeToPdv = (pos_id: string) => {
@@ -24,6 +27,16 @@ export default function PosPage() {
       setReload(reload + 1);
     }
   }
+
+  useEffect(() => {
+    getPossDevices().then((res: Array<AnyObject>) => {
+      setData(res);
+      setIsLoading(false);
+    }).catch((err) => {
+      console.log("Table error", err)
+      setIsLoading(false);
+    });
+  }, []);
 
   const tableHeader = [
     {name: "Serial", value: "id"},
@@ -45,9 +58,9 @@ export default function PosPage() {
     <div className="">
       <p>Pontos de venda (POS)</p>
       <Table
-        tableName="POS"
         tableHeader={tableHeader}
-        tableFetch={getPossDevices}
+        data={data}
+        isLoading={isLoading}
       />
     </div>
   )

@@ -4,7 +4,7 @@ describe('Slides page tests', () => {
 
   beforeEach(() => {
     cy.intercept('GET', fallbackSlideURL).as('fbSlide');
-    cy.intercept('GET', `**/slides/`).as('slides');
+    cy.intercept('GET', `**/slides*`).as('slides');
 
     cy.visit('/totem');
   });

@@ -1,55 +1,19 @@
-import { useEffect, useState } from "react"
-import { AnyObject, Filter, Sort, TableHeaderItem } from "./types";
+import { AnyObject, TableHeaderItem } from "./types";
 import { TableContent } from "./TableContent";
 
-
-
 export default function Table({
-  tableName,
   tableHeader,
-  tableFetch,
-  reloadTable = 0,
+  data,
+  isLoading
 }: {
-  tableName: string,
   tableHeader: TableHeaderItem[],
-  tableFetch: (params?: any) => Promise<Array<any>>, // eslint-disable-line
-  reloadTable?: number,
-  filter?: Filter,
-  sort?: Sort,
+  data: Array<AnyObject>,
+  isLoading: boolean
 }) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [items, setItems] = useState<Array<AnyObject>>([]);
-  
-  useEffect(() => {
-    tableFetch().then((res: Array<AnyObject>) => {
-      setItems(res);
-      setIsLoading(false);
-    }).catch((err) => {
-      console.log("Table error", err)
-      setIsLoading(false);
-    });
-  }, [reloadTable]);
-
-  const reload = () => {
-    setIsLoading(true);
-    tableFetch().then((res: Array<AnyObject>) => {
-      setItems(res);
-      setIsLoading(false);
-    }).catch((err) => {
-      setIsLoading(false);
-      console.log("Table error", err)
-    });
-  }
-  
   return (
-    <div className="border p-2 mb-4">
-      <div className="flex justify-between p-4">
-        <p className="text-md pb-2">{tableName}</p>
-        <button className="btn btn-sm" onClick={reload}>Atualizar</button>
-      </div>
-
+    <div className="border border-t-0 border-b-0 p-2">
       <div className="overflow-x-auto border">
-        <table className="table table-xs table-pin-rows table-pin-cols">
+        <table className="table table-xs">
           <thead>
             <tr>
               {tableHeader.map((header) => (
@@ -62,7 +26,7 @@ export default function Table({
               <tr><td><p>Loading...</p></td></tr>
             ): (
               <>
-                {items.map((item: Record<string, string>, indexA) => (
+                {data.map((item: Record<string, string>, indexA) => (
                   <tr className="hover" key={`row-${indexA}`}>
                       {tableHeader.map((header, indexB) => (
                         <TableContent
@@ -79,7 +43,6 @@ export default function Table({
           </tbody>
         </table>
       </div>
-
     </div>
   )
 }

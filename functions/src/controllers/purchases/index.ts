@@ -1,7 +1,6 @@
 import { initCustomer, initTotem, sortGetData } from "../../helpers";
 import { editDbItem, getDbItem, getDbItems } from "../../index";
 import { Request, Response } from "express";
-const dayjs = require('dayjs');
 
 export const getPurchases = async (req: Request, res: Response) => {
   const purchases = await getDbItems("purchases", req.query);

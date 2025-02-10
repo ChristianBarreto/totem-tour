@@ -30,7 +30,7 @@ dayjs.extend(timezone);
 
 export const app = express();
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: process.env.FIREBASEKEY,
   authDomain: "totem-tour.firebaseapp.com",
   projectId: "totem-tour",
@@ -81,7 +81,6 @@ const onlinePayment = new Payment(OnlineClient);
 const point = new Point(OnlineClient);
 
 initializeApp(firebaseConfig);
-// getAnalytics(app);
 const db = getFirestore();
 
 export async function getDbItems(dbName: string, query?: any): Promise<any[]> {

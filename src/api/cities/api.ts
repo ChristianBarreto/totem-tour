@@ -1,19 +1,12 @@
 import axios from "axios";
 import { axiosParams, baseUrl } from "../api";
-import { CitiesResp, CityResp } from "./types";
+import { CityResp } from "./types";
 import qs from "qs";
 
-export const getCities = async (params?: any): Promise<CitiesResp> => {
-  const data = axios.get<CitiesResp>(`${baseUrl}/cities/${params ? '?' + qs.stringify(params): ''}`, axiosParams)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      console.log("API ERROR", err)
-      return [];
-    })
+export const getCities = async (params?: any) => {
+  const { data } = await axios.get(`${baseUrl}/cities${params ? "?" + qs.stringify(params) : ''}`, axiosParams);
   return data;
-};
+}
 
 export const getCityById = async (id: string): Promise<CityResp> => {
   const { data } = await axios.get(`${baseUrl}/cities/${id}`, axiosParams);

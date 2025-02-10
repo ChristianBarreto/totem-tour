@@ -6,14 +6,34 @@ import { TableBeacon } from "../../../../components/organisms/Table/TableBeacon"
 import { TableButton } from "../../../../components/organisms/Table/TableButton";
 import FilterOptions from "../../../../components/organisms/TableFilter/FilterOptions";
 import TableFilter from "../../../../components/organisms/TableFilter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { AnyObject } from "../../../../components/organisms/Table/types";
+import TablePagination from "../../../../components/organisms/TablePagination";
 
 export default function ProductsPage() {
-  const [query, setQuery] = useState({orderBy: {asc: 'cityId'}, isTest: {eq: {boo: "false"}}, showDisplay: {eq: {boo: "true"}}});
+  const [data, setData] = useState<Array<AnyObject>>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  const [query, setQuery] = useState({orderBy: {asc: 'cityId'}, isTest: {eq: {boo: "false"}}, showDisplay: {eq: {boo: "true"}}, limit: "10"});
   const navigate = useNavigate();
   const handleClick = (productId: string) => {
     navigate(`/admin/products/${productId}`);
   };
+
+  useEffect(() => {
+    getData()
+  }, [query]);
+
+  const getData = () => {
+    setIsLoading(true);
+    getProducts(query).then((res: Array<AnyObject>) => {
+      setData(res);
+      setIsLoading(false);
+    }).catch((err) => {
+      console.log("Table error", err)
+      setIsLoading(false);
+    });
+  }
 
   const tableHeader = [
     {name: "Nome", value: "name"},
@@ -74,12 +94,19 @@ export default function ProductsPage() {
   return (
     <div>
       <p>Produtos</p>
-      <TableFilter filters={filters}/>
+      <TableFilter
+        filters={filters}
+        getData={getData}
+      />
       <Table
-        tableName="Produtos"
         tableHeader={tableHeader}
-        tableFetch={() => getProducts(query)}
-        sort="cityId"
+        data={data}
+        isLoading={isLoading}
+      />
+      <TablePagination
+        setQuery={setQuery}
+        query={query}
+        count={1}
       />
 
       <div className="p-4 flex justify-end">
