@@ -96,6 +96,7 @@ export default function ProductsPage() {
       <p>Produtos</p>
       <TableFilter
         filters={filters}
+        getData={getData}
       />
       <Table
         tableHeader={tableHeader}

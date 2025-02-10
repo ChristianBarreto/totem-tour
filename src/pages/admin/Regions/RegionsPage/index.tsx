@@ -47,6 +47,7 @@ export default function RegionsPage() {
       <p>Regiões</p>
       <TableFilter
         filters={[]}
+        getData={getData}
       />
       <Table
         tableHeader={tableHeader}

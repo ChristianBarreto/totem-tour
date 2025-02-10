@@ -1,3 +1,5 @@
+import { AnyObject } from "../Table/types"
+
 export default function FilterOptions({
   setQuery,
   query,
@@ -7,11 +9,14 @@ export default function FilterOptions({
   setQuery: (v: any) => void,
   query: any,
   defaultPage?: number
-  count: number,
+  count?: number,
 }) {
   const handleChange = (value: string | number) => {
     setQuery({...query, limit: value})
   }
+
+  const total = 35;
+  const page = 1;
 
   return (
     <div className="flex gap-4 border p-2" data-testid="table-pagination">

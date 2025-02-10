@@ -71,6 +71,7 @@ export default function PurchasesPage() {
       <p>Vendas</p>
       <TableFilter
         filters={filters}
+        getData={getData}
       />
       <Table
         tableHeader={tableHeader}

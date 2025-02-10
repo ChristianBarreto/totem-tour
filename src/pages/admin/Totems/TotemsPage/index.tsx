@@ -66,6 +66,7 @@ export default function TotemsPage() {
       <p>Totems</p>
       <TableFilter
         filters={[]}
+        getData={getData}
       />
       <Table
         tableHeader={tableHeader}

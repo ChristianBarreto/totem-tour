@@ -54,6 +54,7 @@ export default function SlidesPage() {
       <p>Slides</p>
       <TableFilter
         filters={[]}
+        getData={getData}
       />
       <Table
         tableHeader={tableHeader}

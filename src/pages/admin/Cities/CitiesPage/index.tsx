@@ -52,6 +52,7 @@ export default function CitiesPage() {
       <p>Cidades</p>
       <TableFilter
         filters={[]}
+        getData={getData}
       />
       <Table
         tableHeader={tableHeader}
