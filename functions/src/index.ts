@@ -19,7 +19,7 @@ import { addSlide, editSlide, getSlide, getSlides } from "./controllers/slides";
 import { addProduct, editProduct, getProduct, getProducts } from "./controllers/products";
 import { getTotemPingById, setTotemPingById } from "./controllers/totemPing";
 import { getTotemById, getTotens, editTotemById, addTotemById } from "./controllers/totems";
-import { queryRef } from "./helpers";
+import { filterRef, orderRef, limitRef } from "./helpers";
 import { getPurchaseItems } from "./controllers/purchaseItems";
 import { addAvailabilityById, deleteAvailabilities, deleteAvailabilityById, editAvailabilityById, getAvailabilities, getAvailabilityById } from "./controllers/availabilities";
 import { addRegion, deleteRegionById, editRegionById, getRegionById, getRegions } from "./controllers/regions";
@@ -83,17 +83,35 @@ const point = new Point(OnlineClient);
 initializeApp(firebaseConfig);
 const db = getFirestore();
 
-export async function getDbItems(dbName: string, query?: any): Promise<any[]> {
-  let collectionRef = await db.collection(dbName); 
-  collectionRef = queryRef(collectionRef, query);
-  const itemsRef = await collectionRef.get();
+export async function getDbItems(dbName: string, query?: any): Promise<any> {
+  let filteredSortedRef = await db.collection(dbName);
+  
+  filteredSortedRef = filterRef(filteredSortedRef, query);
+  filteredSortedRef = orderRef(filteredSortedRef, query);
+  const countItemsRef = await filteredSortedRef.count().get();
+  console.log("ITEMS", countItemsRef.data().count)
+  filteredSortedRef = limitRef(filteredSortedRef, query);
+
+  const itemsRef = await filteredSortedRef.get();
+  
+
+  // const aggregateQuery = collectionRef.aggregate({
+  //   countOfDocs: AggregateField.count(),
+  //   totalPopulation: AggregateField.sum('population'),
+  //   averagePopulation: AggregateField.average('population')
+  // });
 
   const data: any[] = [];
   itemsRef?.forEach((doc: any) => {
     data.push({id: doc.id, ...doc.data()})
   });
 
-  return data;
+  return {
+    data,
+    page: {
+      count: countItemsRef.data().count
+    }
+  };
 };
 
 export const getDbItem = async (dbName: string, id: string): Promise<any> => new Promise((resolve, reject) => {
@@ -141,7 +159,7 @@ export async function deleteDbItem(dbName: string, id: string) {
 
 export const bulkDeleteDbItems = async (dbName: string, query?: any): Promise<void> => new Promise(async (resolve, reject) => {
   let collectionRef = await db.collection(dbName); 
-  collectionRef = queryRef(collectionRef, query);
+  collectionRef = filterRef(collectionRef, query);
   const itemsRef = await collectionRef.get();
   let len = 0;
   if (itemsRef.size === 0) {

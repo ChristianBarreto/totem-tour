@@ -22,11 +22,11 @@ export default function FilterOptions({
 }) {
   const handleOptionChange = (value: string | number) => {
     if (value !== "all") {
-      setQuery({...query, [field]: {eq: {[type]: value}}})
+      setQuery({...query, filterBy: {...query.filterBy, [field]: {eq: {[type]: value}}}})
     } else {
-      const newQuery = {...query};
-      delete newQuery[field];
-      setQuery(newQuery)
+      const newFilterBy = {...query.filterBy};
+      delete newFilterBy[field];
+      setQuery({...query, filterBy: newFilterBy})
     }
   }
 

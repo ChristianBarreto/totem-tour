@@ -10,11 +10,24 @@ import { useEffect, useState } from "react";
 import { AnyObject } from "../../../../components/organisms/Table/types";
 import TablePagination from "../../../../components/organisms/TablePagination";
 
+const initQuery = {
+  orderBy: {cityId: 'asc'},
+  filterBy: {
+    isTest: {
+      eq: {boo: "false"}
+    },
+    showDisplay: {
+      eq: {boo: "true"}
+    }
+  },
+  limit: "10"
+}
+
 export default function ProductsPage() {
   const [data, setData] = useState<Array<AnyObject>>([]);
   const [isLoading, setIsLoading] = useState(true);
   
-  const [query, setQuery] = useState({orderBy: {asc: 'cityId'}, isTest: {eq: {boo: "false"}}, showDisplay: {eq: {boo: "true"}}, limit: "10"});
+  const [query, setQuery] = useState(initQuery);
   const navigate = useNavigate();
   const handleClick = (productId: string) => {
     navigate(`/admin/products/${productId}`);

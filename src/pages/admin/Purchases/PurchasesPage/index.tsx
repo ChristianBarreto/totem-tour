@@ -11,10 +11,18 @@ import TableFilter from "../../../../components/organisms/TableFilter";
 import TablePagination from "../../../../components/organisms/TablePagination";
 import { AnyObject } from "../../../../components/organisms/Table/types";
 
+const initQuery = {
+  orderBy: {timestamp: 'desc'},
+  count: "true",
+  sum: "paymentValue",
+  limit: 10,
+  offset: 0,
+}
+
 export default function PurchasesPage() {
   const [data, setData] = useState<Array<AnyObject>>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [query, setQuery] = useState({orderBy: {desc: 'timestamp'}, limit: 10});
+  const [query, setQuery] = useState(initQuery);
   const navigate = useNavigate();
   const handleClick = (purchaseId: string) => {
     navigate(`/admin/purchases/${purchaseId}`)
@@ -34,7 +42,6 @@ export default function PurchasesPage() {
       setIsLoading(false);
     });
   }
-
 
   const tableHeader = [
     {name: "Data da compra", value: "timestamp", component: <TableDateTime /> },
@@ -62,6 +69,23 @@ export default function PurchasesPage() {
       query={query}
       field="payementCaptured"
       type="boo"
+      defaultValue="all"
+    />,
+    <FilterOptions
+      key='1'
+      name="Totem"
+      options={[
+        {name: '00 - Padrão - Totem', value: 'kYlHD8Z2n0d36AW0MEtS'},
+        {name: '01 - Christian - Manual', value: 'JoQXupKkB4DrHZX9h9Xs'},
+        {name: '02 - Allan - Totem', value: '1LoQvuu4KzHC1ux7qfOR'},
+        {name: '03 - Allan - Manual', value: 'zT9Nsl8CTSy3c1PZcS4g'},
+        {name: '04 - Rep. Vict - Totem', value: 'nsdxT95YRo4J7KaWoYek'},
+        {name: '05 - Resp. - Totem', value: 'sLZe3sq93SXfK7g6Yjaj'}
+      ]}
+      setQuery={setQuery}
+      query={query}
+      field="totemId"
+      type="string"
       defaultValue="all"
     />,
   ];

@@ -6,7 +6,9 @@ export const getPurchases = async (req: Request, res: Response) => {
   const purchases = await getDbItems("purchases", req.query);
   const resp: any[] = [];
 
-  purchases.forEach(async (purchase) => {
+  // TODO: the data is received in purchased, but modified on resp.
+
+  purchases.data.forEach(async (purchase) => {
     const totem = purchase.totemId.length ? await getDbItem("totens", purchase.totemId) : initTotem;
     await resp.push({
       ...purchase,
@@ -16,9 +18,8 @@ export const getPurchases = async (req: Request, res: Response) => {
     });
 
     if (resp.length === purchases.length) {
-      res.status(200).json(resp.sort((a, b) => sortGetData(a, b, req.query)));
+      res.status(200).json(resp); // TODO: instead of send resp, send purchases modified with FK
     }
-      
   });
 };
 

@@ -76,38 +76,43 @@ export const useOperator = (queryKey: QueryKey) => {
   return "==";
 }
 
-export const queryRef = (collectionRef: any, query: ParsedQs) => {
-  // console.log("Query", query)
-  for (const key in query) {
-    if ((key === "orderBy")) {
-      const obj = query[key];
-      const orderBy = getValue(obj as QueryKey);
-      const order = getKey(obj as ParsedQs);
-
-      // console.log("QUERY ORDER", orderBy, order)
+export const orderRef = (collectionRef: any, query: any) => { 
+  if (query.orderBy) {
+    for (const orderBy in query.orderBy) {
+      const order = query.orderBy[orderBy];
       collectionRef = collectionRef.orderBy(orderBy, order);
-
-    } else if (key === "limit"){
-      const limit = query[key];
-
-      // console.log("QUERY LIMIT", limit);
-      collectionRef = collectionRef.limit(Number(limit));
-
-    } else if (key !== "orderBy") {
-      // console.log("Query key", query[key])
-
-      // console.log("QUERY WHERE", key, useOperator(query[key] as QueryKey), sanitizeQuery(query[key]))
-      collectionRef = collectionRef.where(key, useOperator(query[key] as QueryKey), sanitizeQuery(query[key] as ParsedQs))
-
     }
   }
   return collectionRef;
 }
 
-export const sortGetData = (a: any, b: any, query: ParsedQs): number => {
-  const order: string = query.orderBy ? getKey(query.orderBy as ParsedQs) : "desc";
+export const filterRef = (collectionRef: any, query: any) => {
+  if (query.filterBy) {
+    for (const key in query.filterBy as any) {
+      collectionRef = collectionRef.where(key, useOperator(query.filterBy[key] as QueryKey), sanitizeQuery(query.filterBy[key] as ParsedQs))
+    }
+  }
+  return collectionRef;
+}
+
+export const limitRef = (collectionRef: any, query: ParsedQs) => {
+  for (const key in query) {
+    if (key === "limit") {
+      const limit = query[key];
+      collectionRef = collectionRef.limit(Number(limit));
+    } else if (key === "offset"){
+      const offset = query[key];
+      collectionRef = collectionRef.offset(Number(offset));
+    }
+  }
+  return collectionRef;
+}
+
+export const sortGetData = (a: any, b: any, query: any): number => {
+  // TODO: it only sort the first sort query, need to implement multiple queries
+  const order: string = query.orderBy ? Object.values(query.orderBy)[0] as string : "desc";
   const dir: number = order === "desc" ? -1 : 1;
-  const field: string = query.orderBy ? Object.values(query.orderBy)[0] as string : "timestamp";
+  const field: string = query.orderBy ? Object.keys(query.orderBy)[0] as string : "timestamp";
   
   if (a[field] > b[field]) {
     return dir;
