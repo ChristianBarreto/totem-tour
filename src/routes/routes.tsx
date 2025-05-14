@@ -77,11 +77,11 @@ export const rawRoutes = [
     children: [
       {
         index: true,
-        element: <PurchasesPage />,
+        element: <DashboardPage />,
       },
       {
-        path: '/admin/dashboard',
-        element: <DashboardPage />,
+        path: '/admin/purchases',
+        element: <PurchasesPage />,
       },
       {
         path: '/admin/availabilities',
